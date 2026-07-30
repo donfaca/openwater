@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+  </style>
+
+<style>
+  html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  table{display:block;overflow-x:auto;white-space:nowrap;max-width:100%;-webkit-overflow-scrolling:touch;}
+  summary.ow-ham{list-style:none;}
+  summary.ow-ham::-webkit-details-marker{display:none;}
+  @media(max-width:820px){
+    [style*="max-width: 1100px"],[style*="max-width: 1040px"],[style*="max-width: 1000px"],[style*="max-width: 820px"],[style*="max-width: 760px"],[style*="max-width: 720px"],[style*="max-width: 700px"],[style*="max-width: 680px"],[style*="max-width: 640px"],[style*="max-width: 600px"]{padding-left: 16px !important;padding-right: 16px !important;}
+    [style*="padding: 70px 40px"]{padding: 44px 18px 16px !important;}
+    [style*="grid-template-columns: 180px 1fr"]{grid-template-columns: 1fr !important;gap: 14px !important;text-align: center !important;}
+    h1[style*="font-size: 58px"],[style*="font-size: 64px"]{font-size: 44px !important;}
+  }
+</style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop() || 'index.html';
+    var desk = file.replace(/-movil\.html$/, '.html');
+    var a = document.createElement('a');
+    a.href = desk; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+</helmet>
+
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;">OPEN WATER</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:#fff;opacity:.9;">PATAGONES · VIEDMA</span>
+    </a>
+    <details class="ow-ham" style="position:relative;">
+      <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
+      <div style="position:absolute;right:0;top:54px;width:min(78vw,300px);background:#08202f;border:1px solid #16455f;border-radius:10px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:1001;"><a href="proximo-evento-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Próximos Eventos</a><a href="pasados-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Eventos Pasados</a><a href="actividades-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Actividades</a><a href="sponsors-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Sponsors</a><a href="contacto-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Contacto</a><a href="socios-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Asociate a OW</a><a href="record-guinness-movil.html" style="display:block;padding:14px 18px;color:#c9a24d;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">★ Récord Guinness</a><a href="index.html" style="display:block;padding:13px 18px;color:#8bb0c4;font-size:13px;text-decoration:none;">🖥 Versión de escritorio</a></div>
+    </details>
+  </nav>
+  <div style="max-width:1100px;margin:0 auto;padding:18px 40px 0;"><a href="pasados-movil.html" style="display:inline-flex;align-items:center;gap:8px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;text-decoration:none;">← Volver a Eventos Pasados</a></div>
+
+  <div style="padding:60px 40px 10px;text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:5px;color:#c9a24d;">SUMMER OPEN WATER 2026</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:50px;color:#fff;margin:10px 0 8px;">GENERAL — CLASIFICACIÓN POR TIEMPO</h1>
+    <p style="max-width:680px;margin:0 auto;font-size:15px;color:#a9c6d6;">Clasificación general por tiempo de nado. Enero 2026,<br>SUMMER OPEN WATER — Patagones-Viedma<br>Río Negro — Argentina</p>
+  </div>
+
+  <div style="max-width:1000px;margin:0 auto;padding:30px 40px 60px;">
+    <div style="margin-bottom:38px;">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;">
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;margin:0;letter-spacing:1px;">5 KM</h2>
+        <span style="font-size:13px;color:#a9c6d6;">31 nadadores</span>
+      </div>
+      <div style="overflow-x:auto;border:1px solid #1a5678;border-radius:10px;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:720px;">
+          <thead>
+              <tr style="background:#0f3350;">
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Pos</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">N°</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Nombre</th>
+                <th style="padding:10px 12px;text-align:center;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Sexo</th>
+                <th style="padding:10px 12px;text-align:center;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Cat.</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Equipo</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Ciudad</th>
+                <th style="padding:10px 12px;text-align:center;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Tiempo</th>
+              </tr>
+            </thead>
+          <tbody>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">1</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">48</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Axel Rivera</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Club Olimpo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Bahia Blanca</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:11:10</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">2</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">14</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Condo Franco</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VILLA CONGRESO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:11:25</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">3</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">56</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Agustín Gutiérrez</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VILLA CONGRESO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:14:22</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">4</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">51</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Dario Posklinski</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Villa Congreso</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:16:26</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">5</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">9</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">nahuelcheo alfredo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">sol de mayo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:18:33</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">6</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">43</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Boland Maria</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VILLA CONGRESO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:18:44</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">7</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">71</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Sarmiento Emanuel</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VILLA CONGRESO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:20:11</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">8</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">61</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Anduaga Silvio</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Club pescador SanPedro</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">San Pedro</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:20:55</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">9</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">37</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">FRANCO CAMILA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">ESCUELA DE TRIATLETAS</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Puerto Madryn</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:21:00</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">10</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">23</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Douin Pablo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:22:34</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">11</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">45</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Romero Luis</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VALCHETA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:23:12</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">12</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">60</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Constanza Ginestet</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VIEDMA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:23:22</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">13</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">38</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Damián Pittao</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VASCO TEAM</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:23:29</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">14</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">57</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Fazzi Pierina</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VILLA CONGRESO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:24:23</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">15</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">34</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Koren Agustina</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Villa Congreso</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:25:33</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">16</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">8</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Guayquimir Luca Joaquín</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Playa Antonio</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:26:45</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">32</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Ferreyra Cristian</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">el río te llama</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:29:22</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">18</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">72</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Mariñanco Mabel</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">EL RIO TE LLAMA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:29:33</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">19</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">5</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Pezzali alejandro</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">PLAYITA ANTONIO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:29:45</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">20</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">73</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Corina Yanel Chimelaro</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Patagon</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:31:22</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">21</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">65</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Uccello Morant Luisana</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Equipo Aguas Abiertas Adaptada</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:32:24</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">22</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">68</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Ruminahuel Yamila</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">NATATORIO MUNICIPAL TRELEW</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:34:23</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">23</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">67</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Gomez Vivanco Candela</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">NATATORIO MUNICIPAL TRELEW</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:38:45</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">24</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">66</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Uccello Morant Allegra</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Natatorio Municipal Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:39:01</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">25</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">16</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Martinez Sabrina</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VIEDMA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:40:22</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">26</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">3</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Vernhes laura</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Sol de mayo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:41:24</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">27</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">22</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Gauna Andres</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">NAF SATTOR</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:41:45</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">28</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">42</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Cutrin Gerardo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:42:04</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">55</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Mancino Andrés</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Vasco team</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:47:09</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">30</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">62</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Lana Ricardo Domingo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">60-MAS</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:56:04</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">31</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">70</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Soto Juan Carlos</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">NATATORIO MUNICIPAL TRELEW</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:57:22</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    <div style="margin-bottom:38px;">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px;">
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;margin:0;letter-spacing:1px;">10 KM</h2>
+        <span style="font-size:13px;color:#a9c6d6;">32 nadadores</span>
+      </div>
+      <div style="overflow-x:auto;border:1px solid #1a5678;border-radius:10px;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:720px;">
+          <thead>
+              <tr style="background:#0f3350;">
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Pos</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">N°</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Nombre</th>
+                <th style="padding:10px 12px;text-align:center;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Sexo</th>
+                <th style="padding:10px 12px;text-align:center;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Cat.</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Equipo</th>
+                <th style="padding:10px 12px;text-align:left;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Ciudad</th>
+                <th style="padding:10px 12px;text-align:center;color:#c9a24d;font-weight:700;border-bottom:1px solid #1a5678;">Tiempo</th>
+              </tr>
+            </thead>
+          <tbody>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">1</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Bautista Muñoz Mamer</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">UBC</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Bahía Blanca</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">01:58:55</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">2</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">41</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Juan manuel salgado</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Club nautico VC</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Villa constitución</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:08:13</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">3</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">58</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Mora Cejas</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">UNO BAHIA CLUB</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Bahia Blanca</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:08:45</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">4</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">18</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Currumil Jeremías</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:09:29</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">5</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">31</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Esteban Aliani</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:10:01</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">6</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">46</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Rodríguez Morena Lilen</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:10:23</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">7</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">19</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Guarinoni Maximiliano</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">H2O</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Bahía blanca</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:10:45</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">8</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">13</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">ARIAS IARA LORENA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">IARA ARIAS NATACIÓN</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VIEDMA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:11:33</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">9</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">36</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">MARGUET ALAN</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">CEYDDET</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">TRELEW</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:12:22</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">10</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">2</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Laura Florez</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Sin equipo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">San Antonio Oeste</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:17:23</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">11</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">33</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Foschi Marco</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VILLA CONGRESO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:17:45</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">12</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">52</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Agustin carrizo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Gaurdavidas</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:18:02</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">13</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">15</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Payeras Gastón</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">EL RIO TE LLAMA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:20:05</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">14</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">11</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Ortiz Raúl Alfredo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Playa Antonio</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Patagones</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:22:33</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">15</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">47</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Margiotta Enrico</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Villa Congreso</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:22:55</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">16</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">25</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Idiarte Gonzalo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">NAF SATTOR</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:23:05</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">64</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Jaramillo Luis Alberto</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">EL RIO TE LLAMA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:26:33</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">18</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Battro Santiago</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">AGUAS ABIERTAS PAT.</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Trelew</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:27:22</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">19</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">63</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Llanca David</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Sol de mayo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:28:02</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">20</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">21</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Ruiz Favio Carlos</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">60-MAS</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">VASCO TEAM</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:29:30</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">21</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">35</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">CRUZ, Olivia</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">00-17</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:31:09</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">22</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">40</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Irina López Dumrauf</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Carmen de Patagones</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:31:15</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">23</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">26</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Poblete Maximiliano</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">NAF SATTOR</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Carmen de patagones</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:31:33</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">24</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">20</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Poblete Juan</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">NAF SATTOR</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:31:39</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">25</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">12</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Zambrana Camila Micol</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">18-29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">SOL DE MAYO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:31:57</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">26</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">44</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Herrero Angel Darío</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">El RIO TE LLAMA</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:35:01</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">27</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">1</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Flores Claudia</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">JUVENTUD DE BERNAL</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Quilmes</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:35:03</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">28</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">28</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Mene, Rodrigo Ezequiel</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">BARLOVENTO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Bahía Blanca</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:37:22</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Javier Daniel Frydman</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">50-59</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">FN</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Capital Federal</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:40:33</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">30</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">29</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Gallardo Belén</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">30-39</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Villa Congreso</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:44:33</td>
+                </tr>
+                <tr style="background:#0f3350;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">31</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">30</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Polis marcos</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">M</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Sin equipo</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Viedma</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:44:45</td>
+                </tr>
+                <tr style="background:#0c2c47;">
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#fff;font-weight:700;">32</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">6</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#eaf3f8;">Soubercases Claudelina</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">F</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#a9c6d6;">40-49</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">BARLOVENTO</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;color:#a9c6d6;">Bahia Blanca</td>
+                  <td style="padding:9px 12px;border-bottom:1px solid #123a52;text-align:center;color:#fff;font-weight:600;">02:47:03</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:44px 40px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;">OPEN WATER PATAGONES-VIEDMA</div>
+        <div style="font-size:14px;color:#a9c6d6;margin-top:8px;">openwaterrionegro@gmail.com</div>
+        <div style="font-size:14px;color:#a9c6d6;">+54 9 2920 650486<br>+54 9 2920 352579</div>
+      </div>
+      <div style="font-size:14px;color:#a9c6d6;">
+        <div>@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>

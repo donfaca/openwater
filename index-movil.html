@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; -webkit-text-size-adjust:100%; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+    *{ box-sizing:border-box; }
+  </style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop() || 'index.html';
+    var desk = file.replace(/-movil\.html$/, '.html');
+    var a = document.createElement('a');
+    a.href = desk; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+</helmet>
+
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;max-width:520px;margin:0 auto;position:relative;overflow-x:hidden;">
+
+  <!-- NAV -->
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;">OPEN WATER</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:#c9a24d;">PATAGONES · VIEDMA</span>
+    </a>
+    <button onClick="{{ toggleMenu }}" aria-label="Menú" style="background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;padding:0;">
+      <span style="{{ bar1Style }}"></span>
+      <span style="{{ bar2Style }}"></span>
+      <span style="{{ bar3Style }}"></span>
+    </button>
+  </nav>
+
+  <!-- MENU DROPDOWN -->
+  <div style="{{ menuStyle }}">
+    <a href="proximo-evento-movil.html" style="display:block;padding:15px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;">Próximos Eventos</a>
+    <a href="pasados-movil.html" style="display:block;padding:15px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;">Eventos Pasados</a>
+    <a href="actividades-movil.html" style="display:block;padding:15px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;">Actividades</a>
+    <a href="sponsors-movil.html" style="display:block;padding:15px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;">Sponsors</a>
+    <a href="contacto-movil.html" style="display:block;padding:15px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;">Contacto</a>
+    <a href="socios-movil.html" style="display:block;padding:15px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;">Asociate a OW</a>
+    <a href="record-guinness-movil.html" style="display:block;padding:15px 18px;color:#c9a24d;font-weight:800;">★ Récord Guinness</a>
+  </div>
+
+  <!-- HERO -->
+  <div style="position:relative;min-height:420px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:url(&quot;./fondo_ow2026-opt.jpg&quot;) center / cover no-repeat;">
+    <div style="position:relative;z-index:2;padding:44px 22px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;color:#322201;margin-bottom:10px;font-weight:600;">VIEDMA · CARMEN DE PATAGONES</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:0.95;margin:0 0 14px;color:#fff;">OPEN WATER<br>PATAGONES-VIEDMA</h1>
+      <p style="font-size:18px;line-height:1.5;color:#EEEFF2;margin:0 auto;font-weight:800;font-family:'Bebas Neue',sans-serif;">En la vida hay experiencias que no se olvidan. Y esta es una de ellas.</p>
+    </div>
+  </div>
+
+  <!-- PROXIMOS EVENTOS -->
+  <div style="padding:44px 18px 6px;">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:#c9a24d;">no te los pierdas</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;margin:4px 0 0;">PRÓXIMOS EVENTOS</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <div style="background:#0f3350;border-radius:14px;border:1px solid #1a5678;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:20px 20px 0;display:flex;align-items:center;gap:14px;background:linear-gradient(270deg,#D08231,#1BCCCE);">
+          <div style="width:60px;height:60px;flex:0 0 60px;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="logo-summer-ow-2027" shape="circle" placeholder="Logo" hint-size="60px,60px" style="background:url(&quot;./ow_transparente-opt.jpg&quot;) center / contain no-repeat;"></x-import>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#EBA022;">23-24 ENERO 2027</div>
+            <a href="summer-open-water-2027-movil.html" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1.1;">2ª SUMMER OW</a>
+          </div>
+        </div>
+        <div style="padding:14px 20px 20px;font-size:14px;color:#a9c6d6;line-height:1.6;flex:1;">Segunda edición del clásico de verano en Viedma — <b>10K y 5K</b> (Campeonato) sobre el Río Negro. Evento de carácter nacional/internacional.</div>
+        <div style="padding:0 20px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <span style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:#EBA022;">FALTAn</span>
+          <div style="display:flex;gap:12px;">
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ sdRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">DÍAS</div></div>
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ shRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">HS</div></div>
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ smRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">MIN</div></div>
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ ssRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">SEG</div></div>
+          </div>
+        </div>
+        <div style="padding:0 20px 20px;">
+          <a href="summer-open-water-2027-movil.html" style="background:#1f8fd6;color:#fff;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:block;text-align:center;">Ver evento e inscripción →</a>
+        </div>
+      </div>
+
+      <div style="background:#0f3350;border-radius:14px;border:1px solid #1a5678;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:20px 20px 0;display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,#050500,#F2D51D);">
+          <div style="width:60px;height:60px;flex:0 0 60px;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="logo-eclipse-2027" shape="circle" placeholder="Logo" hint-size="60px,60px"></x-import>
+          </div>
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#c9a24d;">6 FEBRERO 2027</div>
+            <a href="oweclipse-2027-movil.html" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1.1;">OPEN WATER ECLIPSE</a>
+          </div>
+        </div>
+        <div style="padding:14px 20px 20px;font-size:14px;color:#a9c6d6;line-height:1.6;flex:1;">Edición especial en Las Grutas (Río Negro): <b>2.5K</b> de nado en el mar mientras ocurre un eclipse solar anular. Una experiencia exclusiva, llena de emociones sin igual.</div>
+        <div style="padding:0 20px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <span style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:#c9a24d;">FALTAn</span>
+          <div style="display:flex;gap:12px;">
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ edRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">DÍAS</div></div>
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ ehRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">HS</div></div>
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ emRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">MIN</div></div>
+            <div style="text-align:center;min-width:32px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1;" ref="{{ esRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">SEG</div></div>
+          </div>
+        </div>
+        <div style="padding:0 20px 20px;display:flex;flex-direction:column;gap:10px;">
+          <a href="oweclipse-2027-movil.html" style="background:#1f8fd6;color:#fff;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:block;text-align:center;">Ver evento e inscripción →</a>
+          <a href="record-guinness-movil.html" style="background:#F4A11B;color:#0B0507;padding:12px 22px;border-radius:6px;font-weight:700;font-size:15px;display:block;text-align:center;">★ Posible Récord Guinness</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RACE STRIP -->
+  <div style="padding:36px 18px;">
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:#c9a24d;">desde 2026: una en verano, otra en invierno, y más</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;margin:6px 0 0;">OPEN WATER PATAGONES-VIEDMA</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="border-radius:10px;padding:20px;border:1px solid #F1F3F4;background-color:#871601;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#F4F7F8;">10K REAL</div>
+        <div style="font-size:14px;color:#F6F9FA;margin-top:6px;">La prueba que te llevará al límite de tu rendimiento.<br>Temperatura del agua: 23 a 26 °C</div>
+      </div>
+      <div style="border-radius:10px;padding:20px;background-color:#E0CE36;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#060606;">5K REAL</div>
+        <div style="font-size:14px;color:#020202;margin-top:6px;">Donde la velocidad, resistencia y estrategia harán la diferencia.<br>Temperatura del agua: 23 a 26 °C</div>
+      </div>
+      <div style="border-radius:10px;padding:20px;background-color:#8DC0E9;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#060606;">2K AGUAS FRIAS</div>
+        <div style="font-size:14px;color:#020202;margin-top:6px;">Tu cuerpo llegará al límite de la resistencia física y mental.<br>Temperatura del agua: 5 a 9 °C</div>
+      </div>
+      <div style="background:#0f3350;border-radius:10px;padding:20px;border:1px solid #1a5678;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#EEF1F3;">1K AGUAS FRIAS</div>
+        <div style="font-size:14px;color:#F6F8F9;margin-top:6px;">Tu velocidad, adrenalina y táctica harán la diferencia.<br>Temperatura del agua: 5 a 9 °C</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;margin-top:22px;font-family:'Bebas Neue',sans-serif;font-size:20px;font-weight:700;letter-spacing:1px;text-align:center;">
+      <span style="color:#FEFCFA;">Clásicos de Summer OW · 10K y 5K</span>
+      <span style="color:#8DC0E9;">Clásicos de Winter OW · 2K y 1K</span>
+    </div>
+  </div>
+
+  <!-- PASADOS TEASER -->
+  <div style="background:#08202f;padding:40px 18px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;margin:0 0 18px;">EVENTOS PASADOS</h2>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="background:#0f3350;border-radius:10px;overflow:hidden;border:1px solid #1a5678;">
+        <div style="height:130px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#D6671F,#4FD4ED);">
+          <span style="font-family:'Bebas Neue',sans-serif;color:#fff;font-size:24px;"><a href="https://drive.google.com/drive/folders/1U0xRYoWpBoxtTzV4GHfcF5mXD3Nlkzzf" style="color:#FFFFFF;">OW SUMMER 2026</a></span>
+        </div>
+        <div style="padding:16px;font-size:14px;color:#a9c6d6;">23 y 24 Enero - Verano 2026 - Galería próximamente</div>
+      </div>
+      <div style="background:#0f3350;border-radius:10px;overflow:hidden;border:1px solid #1a5678;">
+        <div style="height:130px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#2A9CC1,#1A1C28);">
+          <span style="font-family:'Bebas Neue',sans-serif;color:#fff;font-size:24px;">WINTER OPEN WATER 2026</span>
+        </div>
+        <div style="padding:16px;font-size:14px;color:#a9c6d6;">13 y 14 de Junio - Invierno 2026<br><a href="resultados-general-wow-2026-movil.html" style="color:#4db8e8;font-weight:700;">Ver general →</a> · <a href="resultados-clasificaciones-wow-2026-movil.html" style="color:#4db8e8;font-weight:700;">Ver clasificaciones →</a></div>
+      </div>
+    </div>
+    <div style="margin-top:18px;"><a href="pasados-movil.html" style="color:#4db8e8;font-weight:700;">Ver todos los eventos pasados →</a></div>
+  </div>
+
+  <!-- VIAJES TEASER -->
+  <div style="padding:40px 18px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;margin:0 0 18px;">PRÓXIMOS VIAJES Y ACTIVIDADES</h2>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div style="border-radius:10px;padding:20px;border:1px solid #1a5678;background:linear-gradient(270deg,#5ACBE0,#EDC264);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#D43B25;letter-spacing:2px;">23-24 ENERO 2027</div><a href="summer-open-water-2027-movil.html" style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;display:block;">2ª Summer Open Water<br>Patagones - Viedma (RN)<br>Evento Nacional / Internacional</a>
+      </div>
+      <div style="background:linear-gradient(270deg,#EF7129,#000000);border-radius:10px;padding:20px;border:1px solid #1a5678;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#E00A0A;letter-spacing:2px;">6 FEBRERO 2027</div><a href="oweclipse-2027-movil.html" style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;display:block;">Open Water Eclipse<br>Las Grutas (RN)<br>Evento exclusivo</a>
+      </div>
+      <div style="border-radius:10px;padding:20px;border:1px solid #1a5678;background:linear-gradient(270deg,#D7DDE2,#31467C);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:17px;color:#020201;letter-spacing:2px;">18-19 de JULIO 2027</div>
+        <div style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;">2ª Winter Open Water<br>Patagones - Viedma (RN)<br>Fecha NAF - Nacional</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:34px 18px;">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;">OPEN WATER PATAGONES-VIEDMA</div>
+        <div style="font-size:14px;color:#a9c6d6;margin-top:8px;">openwaterrionegro@gmail.com</div>
+        <div style="font-size:14px;color:#a9c6d6;">+54 9 2920 650486<br>+54 9 2920 352579</div>
+      </div>
+      <div style="font-size:14px;color:#a9c6d6;">
+        <div style="color:#F1F3F4;">@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete<br><br>ASOCIACIÓN CIVIL Y DEPORTIVA OPEN WATER<br>CUIT 33719416859<br>Viedma, Río Negro, Argentina</div>
+      </div>
+    </div>
+    <div style="margin-top:18px;padding-top:16px;border-top:1px solid #16455f;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#c9a24d;">VISITAS AL SITIO: <span style="color:#fff;">{{ visits }}</span></div>
+    <div style="margin-top:14px;font-size:13px;"><a href="index.html" style="color:#8bb0c4;">Ver versión de escritorio →</a></div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { visits: '—', menuOpen: false };
+  componentDidMount(){
+    var k='ow_pv_index', n=1;
+    try{ n=parseInt(localStorage.getItem(k)||'0',10)+1; localStorage.setItem(k,String(n)); }catch(e){}
+    this.setState({ visits: n.toLocaleString('es-AR') });
+    var sT = new Date('2027-01-23T09:00:00-03:00').getTime();
+    var eT = new Date('2027-02-06T10:31:40-03:00').getTime();
+    var parts = function(target){
+      var diff = Math.max(0, target - Date.now());
+      var d=Math.floor(diff/864e5); diff-=d*864e5;
+      var h=Math.floor(diff/36e5); diff-=h*36e5;
+      var m=Math.floor(diff/6e4); diff-=m*6e4;
+      var s=Math.floor(diff/1e3);
+      return { d:d, h:String(h).padStart(2,'0'), m:String(m).padStart(2,'0'), s:String(s).padStart(2,'0') };
+    };
+    var set = function(ref,val){ if(ref && ref.current) ref.current.textContent=val; };
+    var tick = () => {
+      var a=parts(sT), b=parts(eT);
+      set(this.sd,a.d); set(this.sh,a.h); set(this.sm,a.m); set(this.ss,a.s);
+      set(this.ed,b.d); set(this.eh,b.h); set(this.em,b.m); set(this.es,b.s);
+    };
+    tick();
+    this._t = setInterval(tick, 1000);
+  }
+  componentWillUnmount(){ clearInterval(this._t); }
+  renderVals(){
+    var R = function(){ return React.createRef(); };
+    this.sd=this.sd||R(); this.sh=this.sh||R(); this.sm=this.sm||R(); this.ss=this.ss||R();
+    this.ed=this.ed||R(); this.eh=this.eh||R(); this.em=this.em||R(); this.es=this.es||R();
+    var open = this.state.menuOpen;
+    var bar = { display:'block', width:'22px', height:'2px', background:'#eaf3f8', transition:'transform .2s, opacity .2s' };
+    return {
+      visits:this.state.visits,
+      toggleMenu: () => this.setState(s=>({ menuOpen: !s.menuOpen })),
+      menuStyle: { position:'sticky', top:'73px', zIndex:999, background:'#08202f', borderBottom:'1px solid #16455f', overflow:'hidden', transition:'max-height .28s ease', maxHeight: open?'420px':'0px' },
+      bar1Style: Object.assign({}, bar, open?{ transform:'translateY(7px) rotate(45deg)' }:{}),
+      bar2Style: Object.assign({}, bar, open?{ opacity:0 }:{}),
+      bar3Style: Object.assign({}, bar, open?{ transform:'translateY(-7px) rotate(-45deg)' }:{}),
+      sdRef:this.sd, shRef:this.sh, smRef:this.sm, ssRef:this.ss,
+      edRef:this.ed, ehRef:this.eh, emRef:this.em, esRef:this.es
+    };
+  }
+}
+</script>
+</body>
+</html>
