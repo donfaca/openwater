@@ -89,8 +89,12 @@
             <div style="text-align:center;min-width:34px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;" ref="{{ ssRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">SEG</div></div>
           </div>
         </div>
-        <div style="padding:0 26px 26px;">
+        <div style="padding:0 26px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
           <a href="summer-open-water-2027.html" style="background:#1f8fd6;color:#fff;padding:12px 26px;border-radius:6px;font-weight:700;font-size:15px;display:inline-block;">Ver evento e inscripción →</a>
+          <a href="inscriptos.html" style="display:inline-flex;align-items:center;gap:9px;background:#0c2c40;border:1px solid #1a5678;padding:8px 15px;border-radius:8px;text-decoration:none;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#4db8e8;line-height:1;" ref="{{ siRef }}">—</span>
+            <span style="font-size:11px;letter-spacing:1px;color:#a9c6d6;text-transform:uppercase;font-weight:700;line-height:1.25;">Inscriptos<br>ver lista →</span>
+          </a>
         </div>
       </div>
 
@@ -216,11 +220,13 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS58TDkGTm3CBPVQB4ME8TBo9fH8-IQ5EXfyxrWktagrNq8kCvr3_lhV_yNWaOCfKf8TeEZWrvlqvis/pub?output=csv";
   state = { visits: '—' };
   componentDidMount(){
     var k='ow_pv_index', n=1;
     try{ n=parseInt(localStorage.getItem(k)||'0',10)+1; localStorage.setItem(k,String(n)); }catch(e){}
     this.setState({ visits: n.toLocaleString('es-AR') });
+    this.loadInscriptos();
     var sT = new Date('2027-01-23T09:00:00-03:00').getTime();
     var eT = new Date('2027-02-06T10:31:40-03:00').getTime();
     var parts = function(target){
@@ -241,11 +247,31 @@ class Component extends DCLogic {
     this._t = setInterval(tick, 1000);
   }
   componentWillUnmount(){ clearInterval(this._t); }
+  loadInscriptos(){
+    var self=this, url=Component.CSV_URL;
+    if(!url) return;
+    fetch(url,{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(t){ self.setInsc(self.countCsvRows(t)); })
+      .catch(function(){});
+  }
+  countCsvRows(text){
+    text=String(text).replace(/\r/g,'');
+    var rows=0, inQ=false;
+    for(var i=0;i<text.length;i++){ var c=text[i];
+      if(c==='"'){ if(inQ && text[i+1]==='"'){ i++; } else inQ=!inQ; }
+      else if(c==='\n' && !inQ) rows++;
+    }
+    if(text.length && text[text.length-1]!=='\n') rows++;
+    return Math.max(0, rows-1);
+  }
+  setInsc(n){ if(this.si && this.si.current) this.si.current.textContent = String(Math.max(0,n|0)); }
   renderVals(){
     var R = function(){ return React.createRef(); };
     this.sd=this.sd||R(); this.sh=this.sh||R(); this.sm=this.sm||R(); this.ss=this.ss||R();
     this.ed=this.ed||R(); this.eh=this.eh||R(); this.em=this.em||R(); this.es=this.es||R();
-    return { visits:this.state.visits,
+    this.si=this.si||R();
+    return { visits:this.state.visits, siRef:this.si,
       sdRef:this.sd, shRef:this.sh, smRef:this.sm, ssRef:this.ss,
       edRef:this.ed, ehRef:this.eh, emRef:this.em, esRef:this.es };
   }

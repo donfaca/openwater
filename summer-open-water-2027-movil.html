@@ -237,8 +237,15 @@ footer b{color:var(--aqua)}
       <div><span class="n">2K</span><span class="l">Travel Night Fest</span></div>
       <div><span class="n">Río Negro</span><span class="l">Comarca Patagones–Viedma</span></div>
     </div>
-    <div style="margin-top:1.6rem;">
-      <a class="btn" href="https://docs.google.com/forms/d/1xrdSUntS4BFmlCZwjHVq4Ip6clwpoqyFT1ya8YSIDFo/edit">Quiero inscribirme</a>
+    <div style="margin-top:1.6rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
+      <a class="btn" href="https://docs.google.com/forms/d/1xrdSUntS4BFmlCZwjHVq4Ip6clwpoqyFT1ya8YSIDFo/viewform">Quiero inscribirme</a>
+      <a href="inscriptos-movil.html" style="display:flex;align-items:center;gap:.95rem;background:rgba(5,36,54,.5);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);padding:.6rem 1.25rem;border-radius:14px;text-decoration:none;cursor:pointer;">
+        <span ref="{{ countRef }}" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:2.6rem;line-height:.9;color:#fff;">—</span>
+        <span style="display:flex;flex-direction:column;line-height:1.15;">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:.85rem;color:var(--aqua);">Inscriptos</span>
+          <span style="font-size:.72rem;color:rgba(255,255,255,.85);">Ver lista →</span>
+        </span>
+      </a>
     </div>
   </div>
 </header>
@@ -447,7 +454,7 @@ footer b{color:var(--aqua)}
   <div class="wrap">
     <h2>Sumate a la travesía</h2>
     <p>Elegí tu distancia y viví el Open Water sobre el Río Negro. Cupos limitados.</p>
-    <a class="btn" href="https://docs.google.com/forms/d/1xrdSUntS4BFmlCZwjHVq4Ip6clwpoqyFT1ya8YSIDFo/edit">Quiero inscribirme</a>
+    <a class="btn" href="https://docs.google.com/forms/d/1xrdSUntS4BFmlCZwjHVq4Ip6clwpoqyFT1ya8YSIDFo/viewform">Quiero inscribirme</a>
     <div class="contact">
       <span>✉ <a href="mailto:openwaterrionegro@gmail.com">openwaterrionegro@gmail.com</a></span>
       <span>✆ +54 9 2920 650486 / 352579</span>
@@ -465,7 +472,14 @@ footer b{color:var(--aqua)}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  /* ===== CONTADOR DE INSCRIPTOS =====
+     EN VIVO: en la planilla de respuestas del formulario hacé
+       Archivo → Compartir → Publicar en la web → (hoja) CSV
+     y pegá esa URL entre las comillas de csvUrl.
+     A MANO: dejá csvUrl:"" y escribí el total actual en base. */
+  static INSCR = { csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS58TDkGTm3CBPVQB4ME8TBo9fH8-IQ5EXfyxrWktagrNq8kCvr3_lhV_yNWaOCfKf8TeEZWrvlqvis/pub?output=csv", base: 0 };
   componentDidMount(){
+    this.loadInscriptos();
     const target = new Date('2027-01-23T09:00:00-03:00').getTime();
     const tick = () => {
       let diff = Math.max(0, target - Date.now());
@@ -481,11 +495,48 @@ class Component extends DCLogic {
     tick();
     this._t = setInterval(tick, 1000);
   }
+  loadInscriptos(){
+    var self=this, cfg=Component.INSCR||{csvUrl:"",base:0};
+    if(!cfg.csvUrl){ this.showCount(cfg.base||0); return; }
+    fetch(cfg.csvUrl,{cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw 0; return r.text(); })
+      .then(function(t){ self.showCount(self.countCsvRows(t)); })
+      .catch(function(){ self.showCount(cfg.base||0); });
+  }
+  countCsvRows(text){
+    text=String(text).replace(/\r/g,'');
+    var rows=0, inQ=false;
+    for(var i=0;i<text.length;i++){
+      var c=text[i];
+      if(c==='"'){ if(inQ && text[i+1]==='"'){ i++; } else { inQ=!inQ; } }
+      else if(c==='\n' && !inQ){ rows++; }
+    }
+    if(text.length && text[text.length-1]!=='\n') rows++;
+    return Math.max(0, rows-1);
+  }
+  showCount(n){
+    n=Math.max(0,n|0);
+    var box=(this.c && this.c.current) ? this.c.current.parentNode : null;
+    if(box) box.style.display = 'flex';
+    this.animateCount(n);
+  }
+  animateCount(target){
+    var el=this.c && this.c.current; if(!el) return;
+    target=Math.max(0, target|0);
+    var dur=900, t0=performance.now(), done=false;
+    function step(t){
+      var p=Math.min(1,(t-t0)/dur);
+      el.textContent=Math.round(target*(1-Math.pow(1-p,3))).toLocaleString('es-AR');
+      if(p<1) requestAnimationFrame(step); else done=true;
+    }
+    requestAnimationFrame(step);
+    setTimeout(function(){ if(!done) el.textContent=target.toLocaleString('es-AR'); }, dur+400);
+  }
   componentWillUnmount(){ clearInterval(this._t); }
   renderVals(){
     var R = function(){ return React.createRef(); };
-    this.d=this.d||R(); this.h=this.h||R(); this.m=this.m||R(); this.s=this.s||R();
-    return { dRef:this.d, hRef:this.h, mRef:this.m, sRef:this.s };
+    this.d=this.d||R(); this.h=this.h||R(); this.m=this.m||R(); this.s=this.s||R(); this.c=this.c||R();
+    return { dRef:this.d, hRef:this.h, mRef:this.m, sRef:this.s, countRef:this.c };
   }
 }
 </script>
