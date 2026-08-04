@@ -26,6 +26,7 @@
   location.replace(file.replace(/\.html$/, '-movil.html'));
 }catch(e){}})();
   </script>
+  <script src="./ow-stats.js"></script>
 </helmet>
 
 <div style="background: #0a2438; color: #eaf3f8; min-height: 100vh; position: relative">
@@ -204,6 +205,18 @@
     <div style="margin-top:20px;"></div>
   </div>
 
+  <!-- AUSPICIANTES -->
+  <section style="background:#0b2942;border-top:1px solid #16455f;padding:36px 40px;">
+    <div style="max-width:1100px;margin:0 auto;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:18px;color:#c9a24d;margin-bottom:20px;">AUSPICIANTES</div>
+      <div style="display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;">
+        <a href="sponsors.html" style="display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;padding:14px 20px;width:150px;height:96px;text-decoration:none;">
+          <img src="assets/sponsor-aquon.webp" alt="AQUON Open Water" style="max-width:100%;max-height:100%;object-fit:contain;display:block;" />
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer style="background:#08202f;border-top:1px solid #16455f;padding:44px 40px;">
     <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
@@ -216,7 +229,13 @@
         <div style="color: #F1F3F4; font-size: 14px">@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete<br><br>ASOCIACIÓN CIVIL Y DEPORTIVA OPEN WATER<br>CUIT&nbsp;33719416859<br>Viedma, Río Negro, Argentina<br></div>
       </div>
     </div>
-    <div style="max-width:1100px;margin:20px auto 0;padding-top:16px;border-top:1px solid #16455f;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#c9a24d;">VISITAS AL SITIO: <span style="color:#fff;">{{ visits }}</span></div>
+    <div style="max-width:1100px;margin:20px auto 0;padding-top:16px;border-top:1px solid #16455f;display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#c9a24d;">
+      <span>VISITAS AL SITIO: <span ref="{{ visitsRef }}" style="color:#fff;">—</span></span>
+      <button onClick="{{ openStats }}" title="Ver estadísticas del sitio" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#c9a24d;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;border:1px solid #c9a24d;border-radius:8px;padding:7px 14px;cursor:pointer;" style-hover="background:#c9a24d;color:#0a2438;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><rect x="7" y="12" width="3" height="5"></rect><rect x="12" y="8" width="3" height="9"></rect><rect x="17" y="14" width="3" height="3"></rect></svg>
+        VER ESTADÍSTICAS
+      </button>
+    </div>
   </footer>
 
 
@@ -226,11 +245,9 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS58TDkGTm3CBPVQB4ME8TBo9fH8-IQ5EXfyxrWktagrNq8kCvr3_lhV_yNWaOCfKf8TeEZWrvlqvis/pub?output=csv";
-  state = { visits: '—' };
+  state = {};
   componentDidMount(){
-    var k='ow_pv_index', n=1;
-    try{ n=parseInt(localStorage.getItem(k)||'0',10)+1; localStorage.setItem(k,String(n)); }catch(e){}
-    this.setState({ visits: n.toLocaleString('es-AR') });
+    this.fillVisits();
     this.loadInscriptos();
     var sT = new Date('2027-01-23T09:00:00-03:00').getTime();
     var eT = new Date('2027-02-06T10:31:40-03:00').getTime();
@@ -251,7 +268,12 @@ class Component extends DCLogic {
     tick();
     this._t = setInterval(tick, 1000);
   }
-  componentWillUnmount(){ clearInterval(this._t); }
+  componentWillUnmount(){ clearInterval(this._t); clearInterval(this._ow); clearTimeout(this._owStop); }
+  fillVisits(){
+    var self=this;
+    this._ow=setInterval(function(){ if(window.OWStats){ clearInterval(self._ow); if(self.vr&&self.vr.current) window.OWStats.fillTotal(self.vr.current); } },80);
+    this._owStop=setTimeout(function(){ clearInterval(self._ow); },6000);
+  }
   loadInscriptos(){
     var self=this, url=Component.CSV_URL;
     if(!url) return;
@@ -275,8 +297,8 @@ class Component extends DCLogic {
     var R = function(){ return React.createRef(); };
     this.sd=this.sd||R(); this.sh=this.sh||R(); this.sm=this.sm||R(); this.ss=this.ss||R();
     this.ed=this.ed||R(); this.eh=this.eh||R(); this.em=this.em||R(); this.es=this.es||R();
-    this.si=this.si||R();
-    return { visits:this.state.visits, siRef:this.si,
+    this.si=this.si||R(); this.vr=this.vr||R();
+    return { visitsRef:this.vr, siRef:this.si, openStats:function(){ if(window.OWStats) window.OWStats.openPanel(); },
       sdRef:this.sd, shRef:this.sh, smRef:this.sm, ssRef:this.ss,
       edRef:this.ed, ehRef:this.eh, emRef:this.em, esRef:this.es };
   }
