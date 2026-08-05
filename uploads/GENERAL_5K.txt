@@ -1,0 +1,33 @@
+ID	NOMBRE			DIST	TIEMPO_NADO	SEXO		CATEG	EQUIPO			CIUDAD		PUESTO_GRAL
+-----------------------------------------------------------------------------------------------------------------------------------
+48	Axel Rivera		5K	01:11:10	MASCULINO	00-17	Club Olimpo		Bahia Blanca	1
+14	Condo Franco		5K	01:11:25	MASCULINO	00-17	VILLA CONGRESO		Viedma		2
+56	Agustín Gutiérrez 	5K	01:14:22	MASCULINO	30-39	VILLA CONGRESO 		Viedma 		3
+51	Dario Posklinski	5K	01:16:26	MASCULINO	50-59	Villa Congreso		Viedma		4
+9	nahuelcheo alfredo	5K	01:18:33	MASCULINO	40-49	sol de mayo		viedma		5
+43	Boland Maria 		5K	01:18:44	FEMENINO	50-59	VILLA CONGRESO 		Viedma 		6
+71	Sarmiento Emanuel 	5K	01:20:11	MASCULINO	40-49	VILLA CONGRESO 		Viedma 		7
+61	Anduaga Silvio		5K	01:20:55	MASCULINO	50-59	Club pescador SanPedro 	San Pedro 	8
+37	FRANCO CAMILA		5K	01:21:00	FEMENINO	18-29	ESCUELA DE TRIATLETAS	Puerto Madryn	9
+23	Douin Pablo		5K	01:22:34	MASCULINO	40-49	SOL DE MAYO		Viedma 		10
+45	Romero Luis		5K	01:23:12	MASCULINO	40-49	SOL DE MAYO 		VALCHETA	11
+60	Constanza Ginestet	5K	01:23:22	FEMENINO	40-49	SOL DE MAYO			VIEDMA	12
+38	Damián Pittao 		5K	01:23:29	MASCULINO	30-39	VASCO TEAM			Viedma	13
+57	Fazzi Pierina		5K	01:24:23	FEMENINO	40-49	VILLA CONGRESO			Viedma	14
+34	Koren Agustina		5K	01:25:33	FEMENINO	40-49	Villa Congreso			Viedma	15
+8	Guayquimir Luca Joaquín 5K	01:26:45	MASCULINO	18-29	Playa Antonio 			Viedma	16
+32	Ferreyra Cristian 	5K	01:29:22	MASCULINO	40-49	el río te llama			Viedma	17
+72	Mariñanco Mabel 	5K	01:29:33	FEMENINO	40-49	EL RIO TE LLAMA			Viedma 	18
+5	Pezzali alejandro	5K	01:29:45	MASCULINO	50-59	PLAYITA ANTONIO			Viedma	19
+73	Corina Yanel Chimelaro 	5K	01:31:22	FEMENINO	30-39	SOL DE MAYO 			Patagon 20
+65	Uccello Morant Luisana	5K	01:32:24	FEMENINO	00-17	Equipo Aguas Abiertas Adaptada	Trelew	21
+68	Ruminahuel Yamila 	5K	01:34:23	FEMENINO	18-29	NATATORIO MUNICIPAL TRELEW	Trelew	22
+67	Gomez Vivanco Candela	5K	01:38:45	FEMENINO	18-29	NATATORIO MUNICIPAL TRELEW	Trelew	23
+66	Uccello Morant Allegra	5K	01:39:01	FEMENINO	00-17	Natatorio Municipal Trelew	Trelew	24
+16	Martinez Sabrina	5K	01:40:22	FEMENINO	40-49	SOL DE MAYO			VIEDMA	25
+3	Vernhes laura		5K	01:41:24	FEMENINO	50-59	Sol de mayo 			Viedma	26
+22	Gauna Andres		5K	01:41:45	MASCULINO	40-49	NAF SATTOR			Viedma	27
+42	Cutrin Gerardo		5K	01:42:04	MASCULINO	50-59	SOL DE MAYO			Viedma	28
+55	Mancino Andrés 		5K	01:47:09	MASCULINO	50-59	Vasco team 			Viedma	29
+62	Lana Ricardo Domingo 	5K	01:56:04	MASCULINO	60-MAS	SOL DE MAYO			Viedma	30
+70	Soto Juan Carlos	5K	01:57:22	MASCULINO	40-49	NATATORIO MUNICIPAL TRELEW	Trelew	31

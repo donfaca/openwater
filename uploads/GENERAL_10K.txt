@@ -1,0 +1,34 @@
+ID	NOMBRE			DIST	TIEMPO_NADO	SEXO		CATEG	EQUIPO			CIUDAD			PUESTO_GRAL
+-------------------------------------------------------------------------------------------------------------------------------------------
+59	Bautista Muñoz Mamer	10K	01:58:55	MASCULINO	00-17	UBC			Bahía Blanca 		1
+41	Juan manuel salgado 	10K	02:08:13	MASCULINO	50-59	Club nautico VC 	Villa constitución 	2
+58	Mora Cejas		10K	02:08:45	FEMENINO	18-29	UNO BAHIA CLUB		Bahia Blanca		3
+18	Currumil Jeremías 	10K	02:09:29	MASCULINO	18-29	SOL DE MAYO		Trelew			4
+31	Esteban Aliani		10K	02:10:01	MASCULINO	40-49	SOL DE MAYO		Viedma			5
+46	Rodríguez Morena Lilen 	10K	02:10:23	FEMENINO	00-17	SOL DE MAYO		Viedma			6
+19	Guarinoni Maximiliano 	10K	02:10:45	MASCULINO	40-49	H2O			Bahía blanca 		7
+13	ARIAS IARA LORENA 	10K	02:11:33	FEMENINO	18-29	IARA ARIAS NATACIÓN 	VIEDMA			8
+36	MARGUET ALAN		10K	02:12:22	MASCULINO	30-39	CEYDDET 		TRELEW 			9
+2	Laura Florez		10K	02:17:23	FEMENINO	30-39	Sin equipo		San Antonio Oeste	10
+33	Foschi Marco		10K	02:17:45	MASCULINO	40-49	VILLA CONGRESO 		Viedma 			11
+52	Agustin carrizo		10K	02:18:02	MASCULINO	18-29	Gaurdavidas 		Viedma			12
+15	Payeras Gastón		10K	02:20:05	MASCULINO	30-39	EL RIO TE LLAMA		Viedma			13
+11	Ortiz Raúl Alfredo 	10K	02:22:33	MASCULINO	50-59	Playa Antonio 		Patagones 		14
+47	Margiotta Enrico 	10K	02:22:55	MASCULINO	40-49	Villa Congreso 		Viedma 			15
+25	Idiarte Gonzalo 	10K	02:23:05	MASCULINO	30-39	NAF SATTOR		Viedma 			16
+64	Jaramillo Luis Alberto	10K	02:26:33	MASCULINO	50-59	EL RIO TE LLAMA		Viedma			17
+17	Battro Santiago 	10K	02:27:22	MASCULINO	00-17	AGUAS ABIERTAS PAT.	Trelew 			18
+63	Llanca David 		10K	02:28:02	MASCULINO	30-39	Sol de mayo 		Viedma 			19
+21	Ruiz Favio Carlos	10K	02:29:30	MASCULINO	60-MAS	VASCO TEAM		Viedma			20
+35	CRUZ, Olivia		10K	02:31:09	FEMENINO	00-17	SOL DE MAYO		Viedma			21
+40	Irina López Dumrauf 	10K	02:31:15	FEMENINO	30-39	SOL DE MAYO		Carmen de Patagones	22
+26	Poblete Maximiliano  	10K	02:31:33	MASCULINO	30-39	NAF SATTOR		Carmen de patagones	23
+20	Poblete Juan 		10K	02:31:39	MASCULINO	40-49	NAF SATTOR		Viedma 			24
+12	Zambrana Camila Micol 	10K	02:31:57	FEMENINO	18-29	SOL DE MAYO		Viedma			25
+44	Herrero Angel Darío 	10K	02:35:01	MASCULINO	50-59	El RIO TE LLAMA		Viedma 			26
+1	Flores Claudia		10K	02:35:03	FEMENINO	50-59	JUVENTUD DE BERNAL 	Quilmes			27
+28	Mene, Rodrigo Ezequiel	10K	02:37:22	MASCULINO	30-39	BARLOVENTO		Bahía Blanca		28
+39	Javier Daniel Frydman	10K	02:40:33	MASCULINO	50-59	FN			Capital Federal		29
+29	Gallardo Belén		10K	02:44:33	FEMENINO	30-39	Villa Congreso		Viedma			30
+30	Polis marcos		10K	02:44:45	MASCULINO	40-49	Sin equipo		Viedma			31
+6	Soubercases Claudelina 	10K	02:47:03	FEMENINO	40-49	BARLOVENTO		Bahia Blanca 		32

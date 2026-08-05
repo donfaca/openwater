@@ -1,0 +1,13 @@
+2026	Summer OW
+Bautista Muñoz Mamer    10K     01:58:55        MASCULINO      Uno Bahia Club          	Bahía Blanca (Buenos Aires)
+Mora Cejas              10K     02:08:45        FEMENINO       UNO BAHIA CLUB          	Bahia Blanca (Buenos Aires)
+Alex Rivera             5K      01:11:10        MASCULINO      Club Olimpo             	Bahia Blanca (Buenos Aires)
+Maria Boland            5K      01:18:44        FEMENINO       VILLA CONGRESO          	Viedma (Rio Negro)
+
+2026 	Winter OW
+Alarcon Daher Axel	2K	00:19:50	MASCULINO      EMEFA (ESCUELA MUNICIPAL DE ESQUEL)	Esquel (Chubut)
+Arias Iara              2K      00:20:39        FEMENINO       SIGUE-NADANDO IARA ARIAS Viedma	(Rio Negro)
+Esteban Federico	1K	00:10:24	MASCULINO      Naf sattor		Viedma	(Rio Negro)
+Arias Iara 		1K	00:10:44	FEMENINO       SIGUE-NADANDO IARA ARIAS Viedma	(Rio Negro)
+
+
