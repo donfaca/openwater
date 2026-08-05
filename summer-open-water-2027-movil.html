@@ -156,8 +156,8 @@ section.block{padding:2.3rem 0}
 .cta{background:var(--river-deep);color:#fff;text-align:center;padding:2.3rem 0}
 .cta h2{font-size:clamp(2rem,6vw,3.6rem);color:#fff;margin-bottom:.6rem}
 .cta p{color:rgba(255,255,255,.72);max-width:46ch;margin:0 auto 2rem}
-.btn{display:inline-block;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:1rem;padding:1rem 2.6rem;border-radius:999px;background:linear-gradient(120deg,var(--aqua),var(--teal));color:#042;text-decoration:none;box-shadow:0 12px 30px rgba(14,140,140,.4);transition:transform .2s,box-shadow .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(14,140,140,.55)}
+.btn{display:inline-block;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:1rem;padding:1rem 2.6rem;border-radius:999px;background:linear-gradient(120deg,#a8e6a1,#5bc98a);color:#0c4a2e;text-decoration:none;border:2px solid #ffffff;box-shadow:0 12px 30px rgba(91,201,138,.4),0 0 0 2px rgba(91,201,138,.35);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(91,201,138,.55),0 0 0 2px rgba(91,201,138,.5)}
 .contact{margin-top:2.4rem;display:flex;flex-wrap:wrap;gap:1rem 2.5rem;justify-content:center;font-size:.95rem;color:rgba(255,255,255,.8)}
 .contact a{color:var(--aqua);text-decoration:none}
 
@@ -203,12 +203,14 @@ footer b{color:var(--aqua)}
   });
 }catch(e){}})();
   </script>
+
+  <script src="./ow-stats.js"></script>
 </helmet>
 
 <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
     <a href="index-movil.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
       <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;">OPEN WATER</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:#fff;opacity:.9;">PATAGONES · VIEDMA</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:#fff;opacity:.9;">RÍO NEGRO</span>
     </a>
     <details class="ow-ham" style="position:relative;">
       <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
@@ -457,6 +459,77 @@ footer b{color:var(--aqua)}
       </div>
       <a href="mailto:openwaterrionegro@gmail.com" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.95rem;padding:.85rem 1.8rem;border-radius:999px;background:var(--teal);color:#fff;text-decoration:none;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
+        Escribinos por email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COSTO INSCRIPCIÓN ============ -->
+<section class="block lead" id="costos">
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:none;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem 1.4rem;">
+      <div style="max-width:56ch;">
+        <span class="eyebrow">Inscripción</span>
+        <h2>Costo de la inscripción</h2>
+        <p>Valores vigentes hasta el 10 de septiembre. Podés abonar en cuotas mensuales desde el mes de inscripción.</p>
+      </div>
+      <a class="btn" href="https://docs.google.com/forms/d/1xrdSUntS4BFmlCZwjHVq4Ip6clwpoqyFT1ya8YSIDFo/viewform" style="flex:0 0 auto;">Quiero inscribirme</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;align-items:stretch;">
+
+      <div class="reveal" style="border:1px solid var(--river);border-radius:16px;padding:1.6rem 1.5rem;background:var(--river-deep);color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.55rem;">
+        <div style="position:absolute;top:.9rem;right:1rem;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.68rem;font-weight:700;color:var(--river-deep);background:var(--sand);padding:.2rem .6rem;border-radius:999px;">Recomendado</div>
+        <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;color:var(--aqua);font-weight:700;">🏊‍♂️ Campeonato 5K + 10K · Copa Challenger</div>
+        <div style="font-size:.86rem;color:rgba(255,255,255,.75);">Sábado 5K + Domingo 10K</div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:2.4rem;line-height:1;color:#fff;margin-top:.2rem;">$200.000</div>
+        <div style="font-size:.9rem;color:rgba(255,255,255,.82);">Valor hasta el 10 de septiembre.</div>
+        <div style="font-size:.92rem;color:#fff;">4 cuotas mensuales de $50.000 desde el mes de inscripción.</div>
+        <div style="margin-top:auto;padding-top:.6rem;font-size:.86rem;color:var(--sand);font-weight:600;border-top:1px solid rgba(255,255,255,.18);">Incluye kit full. Competís en el campeonato y el 2K Nocturno te sale gratis (100% off).</div>
+      </div>
+
+      <div class="reveal" style="border:1px solid var(--line);border-radius:16px;padding:1.6rem 1.5rem;background:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.55rem;">
+        <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;color:var(--teal);font-weight:700;">🏊‍♂️ Solo 5K</div>
+        <div style="font-size:.86rem;color:var(--ink-soft);">Sábado 23 de enero 2027</div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:2.4rem;line-height:1;color:var(--river);margin-top:.2rem;">$140.000</div>
+        <div style="font-size:.9rem;color:var(--ink-soft);">Valor hasta el 10 de septiembre.</div>
+        <div style="margin-top:auto;font-size:.92rem;color:var(--ink);">Posibilidad de 3 cuotas: la primera de $60.000 y dos de $40.000.</div>
+      </div>
+
+      <div class="reveal" style="border:1px solid var(--line);border-radius:16px;padding:1.6rem 1.5rem;background:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.55rem;">
+        <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;color:var(--teal);font-weight:700;">🏊‍♂️ Solo 10K</div>
+        <div style="font-size:.86rem;color:var(--ink-soft);">Domingo 24 de enero 2027</div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:2.4rem;line-height:1;color:var(--river);margin-top:.2rem;">$160.000</div>
+        <div style="font-size:.9rem;color:var(--ink-soft);">Valor hasta el 10 de septiembre.</div>
+        <div style="margin-top:auto;font-size:.92rem;color:var(--ink);">Posibilidad de cuotas de $50.000 y la última de $60.000.</div>
+      </div>
+
+      <div class="reveal" style="border:1px solid var(--line);border-radius:16px;padding:1.6rem 1.5rem;background:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.55rem;">
+        <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;color:var(--teal);font-weight:700;">🏊‍♂️ Solo 2K Nocturno</div>
+        <div style="font-size:.86rem;color:var(--ink-soft);">Sábado 23 de enero · 21:00 hs · + Swimming Fest + Pizza libre</div>
+        <div style="font-family:'Barlow Condensed';font-weight:700;font-size:2.4rem;line-height:1;color:var(--river);margin-top:.2rem;">$60.000</div>
+        <div style="font-size:.9rem;color:var(--ink-soft);">Valor hasta el 10 de septiembre.</div>
+        <div style="margin-top:auto;font-size:.92rem;color:var(--ink);">No incluye poncho (podés comprarlo aparte).</div>
+      </div>
+
+    </div>
+
+    <div class="reveal" style="margin-top:1.1rem;border-radius:16px;padding:1.6rem 1.7rem;background:linear-gradient(120deg,#d94b1f,#c0271a);color:#fff;box-shadow:0 14px 34px rgba(192,39,26,.28);">
+      <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:1rem;font-weight:700;color:#ffe0b3;margin-bottom:1rem;">Descuentos especiales</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+        <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:1.1rem 1.2rem;">
+          <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.08em;font-size:.92rem;font-weight:700;color:#fff;margin-bottom:.35rem;">🏊‍♂️ Nadar sin kit</div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:1.8rem;line-height:1;color:#ffe0b3;margin-bottom:.35rem;">− $30.000</div>
+          <div style="font-size:.94rem;color:rgba(255,255,255,.9);">Si no querés tu kit del nadador, descontamos $30.000 del valor de tu inscripción.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:1.1rem 1.2rem;">
+          <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.08em;font-size:.92rem;font-weight:700;color:#fff;margin-bottom:.35rem;">👥 Inscripción grupal</div>
+          <div style="font-family:'Barlow Condensed';font-weight:700;font-size:1.8rem;line-height:1;color:#ffe0b3;margin-bottom:.35rem;">− 15%</div>
+          <div style="font-size:.94rem;color:rgba(255,255,255,.9);">Grupos de 5 o más nadadores: 15% de descuento sobre el monto total del grupo.</div>
+        </div>
+      </div>
+      <a href="mailto:openwaterrionegro@gmail.com" style="margin-top:1.2rem;display:inline-flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.95rem;padding:.85rem 1.8rem;border-radius:999px;background:#fff;color:#c0271a;text-decoration:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c0271a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
         Escribinos por email
       </a>
     </div>
