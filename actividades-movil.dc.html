@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+  </style>
+
+<style>
+  html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  table{display:block;overflow-x:auto;white-space:nowrap;max-width:100%;-webkit-overflow-scrolling:touch;}
+  summary.ow-ham{list-style:none;}
+  summary.ow-ham::-webkit-details-marker{display:none;}
+  @media(max-width:820px){
+    [style*="max-width: 1100px"],[style*="max-width: 1040px"],[style*="max-width: 1000px"],[style*="max-width: 820px"],[style*="max-width: 760px"],[style*="max-width: 720px"],[style*="max-width: 700px"],[style*="max-width: 680px"],[style*="max-width: 640px"],[style*="max-width: 600px"]{padding-left: 16px !important;padding-right: 16px !important;}
+    [style*="padding: 70px 40px"]{padding: 44px 18px 16px !important;}
+    [style*="grid-template-columns: 180px 1fr"]{grid-template-columns: 1fr !important;gap: 14px !important;text-align: center !important;}
+    h1[style*="font-size: 58px"],[style*="font-size: 64px"]{font-size: 44px !important;}
+  }
+</style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop();
+    var desk = file.replace(/-movil\.dc\.html$/, '.dc.html');
+    var a = document.createElement('a');
+    a.href = desk; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+
+  <script src="./ow-stats.js"></script>
+</helmet>
+
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.dc.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;">OPEN WATER</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:#fff;opacity:.9;">RÍO NEGRO</span>
+    </a>
+    <details class="ow-ham" style="position:relative;">
+      <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
+      <div style="position:absolute;right:0;top:54px;width:min(78vw,300px);background:#08202f;border:1px solid #16455f;border-radius:10px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:1001;"><a href="proximo-evento-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Próximos Eventos</a><a href="pasados-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Eventos Pasados</a><a href="actividades-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Actividades</a><a href="sponsors-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Sponsors</a><a href="contacto-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Contacto</a><a href="socios-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Asociate a OW</a><a href="record-guinness-movil.dc.html" style="display:block;padding:14px 18px;color:#c9a24d;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">★ Récord Guinness</a><a href="index.dc.html" style="display:block;padding:13px 18px;color:#8bb0c4;font-size:13px;text-decoration:none;">🖥 Versión de escritorio</a></div>
+    </details>
+  </nav>
+  <div style="max-width:1100px;margin:0 auto;padding:18px 40px 0;"><a href="index-movil.dc.html" style="display:inline-flex;align-items:center;gap:8px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;text-decoration:none;">← Volver al inicio</a></div>
+
+  <div style="padding:70px 40px 20px;text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">NADAR TODO EL AÑO</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:58px;color:#fff;margin:10px 0 12px;">ACTIVIDADES</h1>
+    <p style="max-width:720px;margin:0 auto;font-size:16px;line-height:1.7;color:#cfe4ee;">Más allá de las competencias, la comunidad Open Water se mueve todo el año: entrenamientos en el río, clínicas abiertas, encuentros sociales y preparación para cada desafío.</p>
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
+
+    <div style="background:#0f3350;border-radius:12px;overflow:hidden;border:1px solid #1a5678;display:flex;flex-direction:column;">
+      <div style="width:100%;height:200px;">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-rio" shape="rect" placeholder="Foto de salidas a nadar en el río" hint-size="100%,200px"></x-import>
+      </div>
+      <div style="padding:22px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;">SALIDAS A NADAR EN EL RÍO</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;margin-top:8px;">Entrenamientos grupales en aguas abiertas sobre el Río Negro, para tomar contacto con la corriente, la temperatura y la técnica de nado en río.</div>
+      </div>
+    </div>
+
+    <div style="background:#0f3350;border-radius:12px;overflow:hidden;border:1px solid #1a5678;display:flex;flex-direction:column;">
+      <div style="width:100%;height:200px;">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-clinica" shape="rect" placeholder="Foto de clínicas de nado" hint-size="100%,200px"></x-import>
+      </div>
+      <div style="padding:22px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;">CLÍNICAS ABIERTAS Y PÚBLICAS</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;margin-top:8px;">Clínicas de nado abiertas a toda la comunidad, para mejorar técnica, respiración y seguridad en aguas abiertas, sin importar el nivel.</div>
+      </div>
+    </div>
+
+    <div style="background:#0f3350;border-radius:12px;overflow:hidden;border:1px solid #1a5678;display:flex;flex-direction:column;">
+      <div style="width:100%;height:200px;">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-social" shape="rect" placeholder="Foto de juntadas sociales al aire libre" hint-size="100%,200px"></x-import>
+      </div>
+      <div style="padding:22px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;">JUNTADAS SOCIALES AL AIRE LIBRE</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;margin-top:8px;">Encuentros a la orilla del río para compartir mate, charla y buena onda entre nadadores y familias de la comunidad.</div>
+      </div>
+    </div>
+
+    <div style="background:#0f3350;border-radius:12px;overflow:hidden;border:1px solid #1a5678;display:flex;flex-direction:column;">
+      <div style="width:100%;height:200px;">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-elongacion" shape="rect" placeholder="Foto de elongación y estiramiento" hint-size="100%,200px"></x-import>
+      </div>
+      <div style="padding:22px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;">ELONGACIÓN Y ESTIRAMIENTO</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;margin-top:8px;">Sesiones de movilidad, elongación y estiramiento para prevenir lesiones y llegar en forma a cada salida y competencia.</div>
+      </div>
+    </div>
+
+    <div style="background:#0f3350;border-radius:12px;overflow:hidden;border:1px solid #1a5678;display:flex;flex-direction:column;">
+      <div style="width:100%;height:200px;">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-planes" shape="rect" placeholder="Foto de planes de competencia" hint-size="100%,200px"></x-import>
+      </div>
+      <div style="padding:22px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;">PLANES DE COMPETENCIA</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;margin-top:8px;">Planificación y acompañamiento para preparar el circuito Summer y Winter Open Water, con objetivos por distancia y nivel.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="max-width:1100px;margin:0 auto;padding:20px 40px 70px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;text-align:center;margin:0 0 8px;">PRÓXIMAS ACTIVIDADES</h2>
+    <p style="text-align:center;font-size:15px;color:#a9c6d6;max-width:640px;margin:0 auto 26px;">Galería de las próximas salidas y encuentros no competitivos. Arrastrá una foto sobre cada recuadro para completarla.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;">
+      <div style="width:100%;height:200px;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-foto-1" shape="rounded" radius="12" placeholder="Foto próxima actividad" hint-size="100%,200px"></x-import></div>
+      <div style="width:100%;height:200px;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-foto-2" shape="rounded" radius="12" placeholder="Foto próxima actividad" hint-size="100%,200px"></x-import></div>
+      <div style="width:100%;height:200px;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-foto-3" shape="rounded" radius="12" placeholder="Foto próxima actividad" hint-size="100%,200px"></x-import></div>
+      <div style="width:100%;height:200px;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="act-foto-4" shape="rounded" radius="12" placeholder="Foto próxima actividad" hint-size="100%,200px"></x-import></div>
+    </div>
+  </div>
+
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:44px 40px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;">OPEN WATER PATAGONES-VIEDMA</div>
+        <div style="font-size:14px;color:#a9c6d6;margin-top:8px;">openwaterrionegro@gmail.com</div>
+        <div style="font-size:14px;color:#a9c6d6;">+54 9 2920 650486<br>+54 9 2920 352579</div>
+      </div>
+      <div style="font-size:14px;color:#a9c6d6;">
+        <div>@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>
