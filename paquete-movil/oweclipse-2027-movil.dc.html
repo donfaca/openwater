@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo:wght@400;500;600;700;800&amp;family=Archivo+Narrow:wght@500;600;700&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#FFF8F5; font-family:'Archivo',system-ui,sans-serif; color:#1A0B08; }
+    a { color:#C0271A; text-decoration:none; }
+    a:hover { color:#F4A11B; }
+    @keyframes owe-breathe { 0%,100%{ transform:translate(-50%,-50%) scale(1); opacity:.9; } 50%{ transform:translate(-50%,-50%) scale(1.06); opacity:1; } }
+    @keyframes owe-drop { 0%{opacity:0;transform:scaleY(.3)} 40%{opacity:1} 100%{opacity:0;transform:scaleY(1) translateY(10px)} }
+  </style>
+
+<style>
+  html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  table{display:block;overflow-x:auto;white-space:nowrap;max-width:100%;-webkit-overflow-scrolling:touch;}
+  summary.ow-ham{list-style:none;}
+  summary.ow-ham::-webkit-details-marker{display:none;}
+  @media(max-width:820px){
+    [style*="max-width: 1100px"],[style*="max-width: 1040px"],[style*="max-width: 1000px"],[style*="max-width: 820px"],[style*="max-width: 760px"],[style*="max-width: 720px"],[style*="max-width: 700px"],[style*="max-width: 680px"],[style*="max-width: 640px"],[style*="max-width: 600px"]{padding-left: 16px !important;padding-right: 16px !important;}
+    [style*="padding: 70px 40px"]{padding: 44px 18px 16px !important;}
+    [style*="grid-template-columns: 180px 1fr"]{grid-template-columns: 1fr !important;gap: 14px !important;text-align: center !important;}
+    h1[style*="font-size: 58px"],[style*="font-size: 64px"]{font-size: 44px !important;}
+  }
+</style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop();
+    var desk = file.replace(/-movil\.dc\.html$/, '.dc.html');
+    var a = document.createElement('a');
+    a.href = desk; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+</helmet>
+
+<div style="font-family:'Archivo',system-ui,sans-serif;color:#1A0B08;background:#FFF8F5;line-height:1.55;overflow-x:hidden;">
+
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.dc.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;">OPEN WATER</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:2px;color:#fff;opacity:.9;">PATAGONES · VIEDMA</span>
+    </a>
+    <details class="ow-ham" style="position:relative;">
+      <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
+      <div style="position:absolute;right:0;top:54px;width:min(78vw,300px);background:#08202f;border:1px solid #16455f;border-radius:10px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:1001;"><a href="proximo-evento-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Próximos Eventos</a><a href="pasados-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Eventos Pasados</a><a href="actividades-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Actividades</a><a href="sponsors-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Sponsors</a><a href="contacto-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Contacto</a><a href="socios-movil.dc.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Asociate a OW</a><a href="record-guinness-movil.dc.html" style="display:block;padding:14px 18px;color:#c9a24d;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">★ Récord Guinness</a><a href="index.dc.html" style="display:block;padding:13px 18px;color:#8bb0c4;font-size:13px;text-decoration:none;">🖥 Versión de escritorio</a></div>
+    </details>
+  </nav>
+
+  <!-- HERO -->
+  <header style="position:relative;min-height:auto;display:grid;place-items:center;text-align:center;padding:2.6rem 0 2.6rem;background:radial-gradient(120% 90% at 50% 8%, rgba(244,161,27,.16), transparent 42%), radial-gradient(130% 120% at 50% 120%, #7A1610 0%, #0B0507 70%);color:#FFF8F5;">
+    <div style="position:absolute;top:44%;left:50%;width:min(78vw,760px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle, transparent 38%, rgba(244,161,27,.22) 41%, rgba(192,39,26,.14) 52%, transparent 66%);filter:blur(2px);animation:owe-breathe 7s ease-in-out infinite;z-index:0;"></div>
+    <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.4rem;width:min(1160px,92vw);margin-inline:auto;">
+      <a href="index-movil.dc.html" aria-label="Volver" style="align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;color:#FFE7B0;background:rgba(11,5,7,.5);border:1px solid rgba(244,161,27,.5);padding:.5rem 1.1rem .5rem .85rem;border-radius:999px;text-decoration:none;backdrop-filter:blur(4px);">← Volver</a>
+      <span style="font-family:'Archivo Narrow';font-weight:600;letter-spacing:.3em;text-transform:uppercase;font-size:clamp(.8rem,2.4vw,1.05rem);color:#FFD9A0;">Open Water · Edición Especial · Las Grutas 2027</span>
+      <div style="display:flex;align-items:stretch;justify-content:center;gap:1.6rem;flex-wrap:nowrap;">
+        <div style="flex:none;display:flex;align-items:center;">
+          <img src="OWE_logo-opt.webp" alt="OW Eclipse" style="height:100%;width:auto;max-height:220px;display:block;filter:drop-shadow(0 10px 30px rgba(0,0,0,.5));" />
+        </div>
+        <h1 style="font-family:'Anton',Impact,sans-serif;text-transform:uppercase;line-height:.98;font-size:clamp(2.4rem,7vw,5.6rem);background:linear-gradient(180deg,#fff 0%,#FFE7B0 55%,#F4A11B 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0;text-align:left;">Nadando bajo<br>el eclipse</h1>
+      </div>
+      <div style="margin-top:.6rem;border:1px solid rgba(244,161,27,.5);background:rgba(192,39,26,.28);padding:.55rem 1.4rem;border-radius:999px;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:clamp(.72rem,2vw,.9rem);color:#FFE7B0;">★ Hito Histórico Mundial · Primera competencia de aguas abiertas bajo un eclipse solar anular</div>
+      <div style="margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:1.6rem 2.4rem;justify-content:center;font-family:'Archivo Narrow';font-weight:600;">
+        <div style="display:flex;flex-direction:column;gap:.15rem;"><span style="font-family:'Anton';font-size:clamp(1.5rem,4.5vw,2.3rem);color:#fff;line-height:1;">06·02·27</span><span style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#F4A11B;">Fecha</span></div>
+        <div style="display:flex;flex-direction:column;gap:.15rem;"><span style="font-family:'Anton';font-size:clamp(1.5rem,4.5vw,2.3rem);color:#fff;line-height:1;">10:31:40</span><span style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#F4A11B;">Largada exacta</span></div>
+        <div style="display:flex;flex-direction:column;gap:.15rem;"><span style="font-family:'Anton';font-size:clamp(1.5rem,4.5vw,2.3rem);color:#fff;line-height:1;">2.500 m</span><span style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#F4A11B;">Travesía en mar</span></div>
+        <div style="display:flex;flex-direction:column;gap:.15rem;"><span style="font-family:'Anton';font-size:clamp(1.5rem,4.5vw,2.3rem);color:#fff;line-height:1;">Las Grutas</span><span style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#F4A11B;">Río Negro · Patagonia</span></div>
+      </div>
+      <div style="margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+        <a href="mailto:openwaterrionegro@gmail.com" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:linear-gradient(120deg,#F4A11B,#C0271A);color:#fff;box-shadow:0 12px 30px rgba(192,39,26,.4);text-decoration:none;">Quiero inscribirme</a>
+        <a href="record-guinness-movil.dc.html" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:transparent;border:1.5px solid #F4A11B;color:#FFE7B0;text-decoration:none;">★ Posible Récord Guinness</a>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <!-- COUNTDOWN -->
+  <div style="background:#0B0507;color:#FFF8F5;padding:1.1rem 0;border-block:1px solid rgba(244,161,27,.25);">
+    <div style="width:min(1160px,92vw);margin-inline:auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:center;text-align:center;">
+      <span style="font-family:'Archivo Narrow';letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:#F4A11B;">Falta para la largada</span>
+      <div style="display:flex;gap:1.2rem;">
+        <div style="display:flex;flex-direction:column;"><span style="font-family:'Anton';font-size:1.9rem;line-height:1;" ref="{{ dRef }}">—</span><span style="font-family:'Archivo Narrow';font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);">Días</span></div>
+        <div style="display:flex;flex-direction:column;"><span style="font-family:'Anton';font-size:1.9rem;line-height:1;" ref="{{ hRef }}">—</span><span style="font-family:'Archivo Narrow';font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);">Horas</span></div>
+        <div style="display:flex;flex-direction:column;"><span style="font-family:'Anton';font-size:1.9rem;line-height:1;" ref="{{ mRef }}">—</span><span style="font-family:'Archivo Narrow';font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);">Min</span></div>
+        <div style="display:flex;flex-direction:column;"><span style="font-family:'Anton';font-size:1.9rem;line-height:1;" ref="{{ sRef }}">—</span><span style="font-family:'Archivo Narrow';font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);">Seg</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRODUCCIÓN -->
+  <section style="padding:2.3rem 0;background:#FBE0DC;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;">
+      <div style="max-width:52ch;margin-bottom:1.1rem;">
+        <span style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:.78rem;color:#C0271A;">El evento</span>
+        <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,5.5vw,3.4rem);margin:.6rem 0 .4rem;color:#7A1610;">Una travesía irrepetible</h2>
+        <p style="color:#4A2C26;font-size:1.06rem;max-width:56ch;">OWeclipse es una competencia internacional de aguas abiertas de 2.500 metros en el mar de Las Grutas, sincronizada con el inicio exacto del eclipse solar anular del 6 de febrero de 2027. Nadadores de todo el mundo cruzarán las aguas patagónicas mientras el cielo se oscurece.</p>
+      </div>
+      <div style="margin-top:2rem;border-left:5px solid #C0271A;background:#fff;border-radius:0 14px 14px 0;padding:1.5rem 1.7rem;box-shadow:0 12px 30px rgba(122,22,16,.08);font-size:1.12rem;">
+        Por primera vez en el mundo, una competencia de aguas abiertas registrada internacionalmente se disputará <strong style="color:#C0271A;">bajo un eclipse solar anular</strong>. La largada coincide con el instante en que la Luna comienza a cubrir el Sol: <strong style="color:#C0271A;">10:31:40 hs.</strong> Una oportunidad única en la vida.
+      </div>
+    </div>
+  </section>
+
+  <!-- INFO CLAVE -->
+  <section style="padding:2.3rem 0;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;">
+      <div style="max-width:52ch;margin-bottom:1.1rem;">
+        <span style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:.78rem;color:#C0271A;">Información clave</span>
+        <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,5.5vw,3.4rem);margin:.6rem 0 .4rem;color:#7A1610;">Todo lo que necesitás saber</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.1rem;">
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:16px;padding:1.4rem 1.5rem;background:#fff;border-left:4px solid #C0271A;"><div style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.2em;font-size:.7rem;color:#C0271A;">Fecha</div><div style="font-family:'Anton';font-size:1.7rem;color:#1A0B08;margin-top:.35rem;">6 FEB 2027</div><div style="font-size:.86rem;color:#4A2C26;margin-top:.3rem;">Sábado · verano patagónico</div></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:16px;padding:1.4rem 1.5rem;background:#fff;border-left:4px solid #C0271A;"><div style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.2em;font-size:.7rem;color:#C0271A;">Largada</div><div style="font-family:'Anton';font-size:1.7rem;color:#1A0B08;margin-top:.35rem;">10:31:40 hs</div><div style="font-size:.86rem;color:#4A2C26;margin-top:.3rem;">Inicio exacto del eclipse</div></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:16px;padding:1.4rem 1.5rem;background:#fff;border-left:4px solid #C0271A;"><div style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.2em;font-size:.7rem;color:#C0271A;">Cierre de carrera</div><div style="font-family:'Anton';font-size:1.7rem;color:#1A0B08;margin-top:.35rem;">Antes de 11:30</div><div style="font-size:.86rem;color:#4A2C26;margin-top:.3rem;">Previo al máximo del eclipse</div></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:16px;padding:1.4rem 1.5rem;background:#fff;border-left:4px solid #C0271A;"><div style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.2em;font-size:.7rem;color:#C0271A;">Distancia</div><div style="font-family:'Anton';font-size:1.7rem;color:#1A0B08;margin-top:.35rem;">2.500 m</div><div style="font-size:.86rem;color:#4A2C26;margin-top:.3rem;">Aguas abiertas · mar</div></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:16px;padding:1.4rem 1.5rem;background:#fff;border-left:4px solid #C0271A;"><div style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.2em;font-size:.7rem;color:#C0271A;">Sede</div><div style="font-family:'Anton';font-size:1.7rem;color:#1A0B08;margin-top:.35rem;">Las Grutas</div><div style="font-size:.86rem;color:#4A2C26;margin-top:.3rem;">Río Negro · Patagonia AR</div></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:16px;padding:1.4rem 1.5rem;background:#fff;border-left:4px solid #C0271A;"><div style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.2em;font-size:.7rem;color:#C0271A;">Máximo del eclipse</div><div style="font-family:'Anton';font-size:1.7rem;color:#1A0B08;margin-top:.35rem;">12:10 hs</div><div style="font-size:.86rem;color:#4A2C26;margin-top:.3rem;">Coincide con la pleamar</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLOGAN -->
+  <div style="background:linear-gradient(120deg,#C0271A 0%,#7A1610 100%);color:#fff;text-align:center;padding:2.2rem 0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(60vw,520px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,transparent 44%,rgba(244,161,27,.35) 47%,transparent 60%);"></div>
+    <p style="position:relative;font-family:'Anton';text-transform:uppercase;font-size:clamp(2.2rem,7vw,4.6rem);line-height:1;text-shadow:0 4px 24px rgba(0,0,0,.35);margin:0;">Nadando bajo el eclipse</p>
+    <span style="position:relative;display:block;font-family:'Archivo Narrow';font-weight:600;letter-spacing:.28em;text-transform:uppercase;margin-top:1rem;font-size:.9rem;color:#FFD9A0;">Un cielo. Un mar. Un momento en la historia.</span>
+  </div>
+
+  <!-- TRAVESÍA -->
+  <section style="padding:2.3rem 0;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;">
+      <div style="max-width:52ch;margin-bottom:1.1rem;">
+        <span style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:.78rem;color:#C0271A;">La travesía</span>
+        <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,5.5vw,3.4rem);margin:.6rem 0 .4rem;color:#7A1610;">2.500 metros de mar abierto</h2>
+        <p style="color:#4A2C26;font-size:1.06rem;max-width:56ch;">Un recorrido costero diseñado para aprovechar las condiciones del mar de Las Grutas, con la marea y la luz del eclipse como escenario.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2.4rem;align-items:center;">
+        <div style="aspect-ratio:4/3;border-radius:20px;background:radial-gradient(120% 120% at 30% 20%, #1a3a5c, #071a2e);position:relative;overflow:hidden;display:grid;place-items:center;box-shadow:inset 0 0 60px rgba(0,0,0,.4);">
+          <div style="width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 50% 50%, #000 44%, #F4A11B 47%, #ffcf7a 54%, transparent 70%);box-shadow:0 0 60px rgba(244,161,27,.5);"></div>
+          <div style="position:absolute;bottom:1rem;left:1rem;font-family:'Archivo Narrow';font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.8);">Recorrido bajo el anillo de fuego</div>
+        </div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:1rem;margin:0;padding:0;">
+          <li style="display:flex;gap:1rem;align-items:flex-start;"><b style="font-family:'Anton';font-size:1.4rem;color:#C0271A;min-width:2.6ch;line-height:1;">1</b><div><b>Largada sincronizada</b><br><span style="color:#4A2C26;">A las 10:31:40 hs., cuando comienza el eclipse.</span></div></li>
+          <li style="display:flex;gap:1rem;align-items:flex-start;"><b style="font-family:'Anton';font-size:1.4rem;color:#C0271A;min-width:2.6ch;line-height:1;">2</b><div><b>Recorrido costero</b><br><span style="color:#4A2C26;">2.500 m señalizados con boyas y kayaks de apoyo.</span></div></li>
+          <li style="display:flex;gap:1rem;align-items:flex-start;"><b style="font-family:'Anton';font-size:1.4rem;color:#C0271A;min-width:2.6ch;line-height:1;">3</b><div><b>Cierre antes de las 11:30</b><br><span style="color:#4A2C26;">Todos los nadadores finalizan antes del máximo.</span></div></li>
+          <li style="display:flex;gap:1rem;align-items:flex-start;"><b style="font-family:'Anton';font-size:1.4rem;color:#C0271A;min-width:2.6ch;line-height:1;">4</b><div><b>Marea a favor</b><br><span style="color:#4A2C26;">La pleamar de las 12:10 hs. acompaña la jornada.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECLIPSE TIMELINE -->
+  <section style="padding:2.3rem 0;background:#0B0507;color:#FFF8F5;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;">
+      <div style="max-width:52ch;margin-bottom:1.1rem;">
+        <span style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:.78rem;color:#F4A11B;">El eclipse</span>
+        <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,5.5vw,3.4rem);margin:.6rem 0 .4rem;color:#fff;">El anillo de fuego sobre la Patagonia</h2>
+        <p style="color:rgba(255,255,255,.72);font-size:1.06rem;max-width:56ch;">El eclipse solar anular del 6 de febrero de 2027 cruzará el cielo del sur. En Las Grutas define, minuto a minuto, el pulso de la competencia.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;">
+        <div style="padding:.9rem 0 .9rem 1rem;border-bottom:1px solid rgba(255,255,255,.08);border-left:3px solid #C0271A;"><div style="font-family:'Anton';font-size:1.5rem;color:#F4A11B;">10:31:40</div><div style="font-family:'Archivo Narrow';font-weight:600;color:#fff;font-size:1.02rem;">Inicio del eclipse · Largada</div><div style="font-size:.88rem;color:rgba(255,255,255,.65);margin-top:.15rem;">La Luna toca el disco solar y suena la bocina de partida.</div></div>
+        <div style="padding:.9rem 0 .9rem 1rem;border-bottom:1px solid rgba(255,255,255,.08);border-left:3px solid #F4A11B;"><div style="font-family:'Anton';font-size:1.5rem;color:#F4A11B;">~11:30</div><div style="font-family:'Archivo Narrow';font-weight:600;color:#fff;font-size:1.02rem;">Cierre de carrera</div><div style="font-size:.88rem;color:rgba(255,255,255,.65);margin-top:.15rem;">Los nadadores completan los 2.500 m antes del punto máximo.</div></div>
+        <div style="padding:.9rem 0 .9rem 1rem;border-left:3px solid #F4A11B;"><div style="font-family:'Anton';font-size:1.5rem;color:#F4A11B;">12:10</div><div style="font-family:'Archivo Narrow';font-weight:600;color:#fff;font-size:1.02rem;">Máximo del eclipse · Pleamar</div><div style="font-size:.88rem;color:rgba(255,255,255,.65);margin-top:.15rem;">El anillo de fuego alcanza su plenitud sobre el mar en marea alta.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRONOGRAMA -->
+  <section style="padding:2.3rem 0;background:#FBE0DC;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;">
+      <div style="max-width:52ch;margin-bottom:1.1rem;">
+        <span style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:.78rem;color:#C0271A;">Cronograma</span>
+        <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,5.5vw,3.4rem);margin:.6rem 0 .4rem;color:#7A1610;">Jornada del 6 de febrero</h2>
+        <p style="color:#4A2C26;font-size:1.06rem;max-width:56ch;">Horarios de referencia. La largada a las 10:31:40 hs. es exacta e inamovible.</p>
+      </div>
+      <div style="display:grid;gap:.7rem;">
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:baseline;background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:12px;padding:1rem 1.3rem;"><div style="font-family:'Anton';color:#C0271A;font-size:1.25rem;">08:00</div><div><b style="display:block;">Acreditaciones y entrega de kit</b><span style="font-size:.9rem;color:#4A2C26;">Retiro del kit del nadador (remera, lentes de eclipse, y mas).</span></div></div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:baseline;background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:12px;padding:1rem 1.3rem;"><div style="font-family:'Anton';color:#C0271A;font-size:1.25rem;">09:30</div><div><b style="display:block;">Charla técnica y de seguridad</b><span style="font-size:.9rem;color:#4A2C26;">Recorrido, boyas, señales y protocolo.</span></div></div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:baseline;background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:12px;padding:1rem 1.3rem;"><div style="font-family:'Anton';color:#C0271A;font-size:1.25rem;">10:15</div><div><b style="display:block;">Ingreso al agua y ubicación</b><span style="font-size:.9rem;color:#4A2C26;">Nadadores en la zona de largada.</span></div></div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:baseline;background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:12px;padding:1rem 1.3rem;"><div style="font-family:'Anton';color:#C0271A;font-size:1.25rem;">10:31:40</div><div><b style="display:block;">Largada · Inicio del eclipse</b><span style="font-size:.9rem;color:#4A2C26;">Comienza «Nadando bajo el eclipse».</span></div></div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:baseline;background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:12px;padding:1rem 1.3rem;"><div style="font-family:'Anton';color:#C0271A;font-size:1.25rem;">~12:00</div><div><b style="display:block;">Cierre de carrera (El máximo del eclipse 12:20 hs)</b><span style="font-size:.9rem;color:#4A2C26;">Arribo del último nadador.</span></div></div>
+        <div style="display:grid;grid-template-columns:120px 1fr;gap:1.2rem;align-items:baseline;background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:12px;padding:1rem 1.3rem;"><div style="font-family:'Anton';color:#C0271A;font-size:1.25rem;">13:30</div><div><b style="display:block;">Premiación bajo el eclipse</b><span style="font-size:.9rem;color:#4A2C26;">Reconocimientos por categoría.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGURIDAD + KIT -->
+  <section style="padding:2.3rem 0;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2.4rem;">
+      <div style="background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:18px;padding:2rem;">
+        <h3 style="font-family:'Anton';text-transform:uppercase;font-size:1.5rem;color:#7A1610;margin:0 0 1rem;">Seguridad</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.7rem;margin:0;padding:0;">
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Kayaks y motos de agua de apoyo a lo largo de todo el recorrido.</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Equipo de guardavidas profesionales y servicio médico en costa.</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Boyas de señalización y control de marea permanente.</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Protección visual homologada para observar el eclipse en costa.</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Chip de seguimiento por nadador y conteo en agua.</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border:1px solid rgba(122,22,16,.16);border-radius:18px;padding:2rem;">
+        <h3 style="font-family:'Anton';text-transform:uppercase;font-size:1.5rem;color:#7A1610;margin:0 0 1rem;">Kit del nadador</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.7rem;margin:0;padding:0;">
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Gorra oficial OWeclipse edición 2027.</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Chip de cronometraje y número de competidor.</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Medalla conmemorativa «Nadando bajo el eclipse».</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Certificado de participación en el hito histórico mundial.</li>
+          <li style="display:flex;gap:.7rem;font-size:.98rem;">Lentes de observación solar para el eclipse.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <section style="padding:2.3rem 0;text-align:center;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;">
+      <div style="max-width:52ch;margin:0 auto 2.6rem;text-align:center;">
+        <span style="font-family:'Archivo Narrow';text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:.78rem;color:#C0271A;">Apoyo institucional</span>
+        <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,5.5vw,3.4rem);margin:.6rem 0 .4rem;color:#7A1610;">Quienes hacen posible el evento</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-top:2rem;">
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:14px;padding:1.6rem 1rem;background:#fff;display:grid;place-items:center;min-height:96px;"><span style="font-family:'Archivo Narrow';font-weight:700;color:#4A2C26;font-size:.95rem;line-height:1.2;">Municipalidad de<br>Las Grutas</span></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:14px;padding:1.6rem 1rem;background:#fff;display:grid;place-items:center;min-height:96px;"><span style="font-family:'Archivo Narrow';font-weight:700;color:#4A2C26;font-size:.95rem;line-height:1.2;">Deportes<br>Río Negro</span></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:14px;padding:1.6rem 1rem;background:#fff;display:grid;place-items:center;min-height:96px;"><span style="font-family:'Archivo Narrow';font-weight:700;color:#4A2C26;font-size:.95rem;line-height:1.2;">Lotería de la Provincia<br>de Río Negro</span></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:14px;padding:1.6rem 1rem;background:#fff;display:grid;place-items:center;min-height:96px;"><span style="font-family:'Archivo Narrow';font-weight:700;color:#4A2C26;font-size:.95rem;line-height:1.2;">Andesmar</span></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:14px;padding:1.6rem 1rem;background:#fff;display:grid;place-items:center;min-height:96px;"><span style="font-family:'Archivo Narrow';font-weight:700;color:#4A2C26;font-size:.95rem;line-height:1.2;">4ta bajada - Las grutas</span></div>
+        <div style="border:1px solid rgba(122,22,16,.16);border-radius:14px;padding:1.6rem 1rem;background:#fff;display:grid;place-items:center;min-height:96px;"><span style="font-family:'Archivo Narrow';font-weight:700;color:#4A2C26;font-size:.95rem;line-height:1.2;">Casino del Río<br>Las Grutas</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:#0B0507;color:#fff;text-align:center;padding:5rem 0;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;">
+      <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,6vw,3.6rem);color:#fff;margin:0 0 .6rem;">Sé parte de la historia</h2>
+      <p style="color:rgba(255,255,255,.7);max-width:44ch;margin:0 auto 2rem;">Los cupos son limitados. Asegurá tu lugar en la primera competencia de aguas abiertas bajo un eclipse solar anular.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+        <a href="mailto:openwaterrionegro@gmail.com" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:linear-gradient(120deg,#F4A11B,#C0271A);color:#fff;box-shadow:0 12px 30px rgba(192,39,26,.4);">Quiero inscribirme</a>
+        <a href="record-guinness-movil.dc.html" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:transparent;border:1.5px solid #F4A11B;color:#FFE7B0;">★ Posible Récord Guinness</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#120608;color:rgba(255,255,255,.55);padding:2.4rem 0;font-family:'Archivo Narrow';font-size:.82rem;">
+    <div style="width:min(1160px,92vw);margin-inline:auto;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;">
+      <div><b style="color:#F4A11B;">OWeclipse 2027</b> · Nadando bajo el eclipse · Las Grutas, Río Negro, Patagonia Argentina</div>
+      <div>6 de febrero de 2027 · Largada 10:31:40 hs.</div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const target = new Date('2027-02-06T10:31:40-03:00').getTime();
+    const tick = () => {
+      let diff = Math.max(0, target - Date.now());
+      const d = Math.floor(diff / 864e5); diff -= d * 864e5;
+      const h = Math.floor(diff / 36e5); diff -= h * 36e5;
+      const m = Math.floor(diff / 6e4); diff -= m * 6e4;
+      const s = Math.floor(diff / 1e3);
+      if(this.d && this.d.current) this.d.current.textContent = d;
+      if(this.h && this.h.current) this.h.current.textContent = String(h).padStart(2, '0');
+      if(this.m && this.m.current) this.m.current.textContent = String(m).padStart(2, '0');
+      if(this.s && this.s.current) this.s.current.textContent = String(s).padStart(2, '0');
+    };
+    tick();
+    this._timer = setInterval(tick, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._timer);
+  }
+
+  renderVals() {
+    var R = function(){ return React.createRef(); };
+    this.d=this.d||R(); this.h=this.h||R(); this.m=this.m||R(); this.s=this.s||R();
+    return { dRef:this.d, hRef:this.h, mRef:this.m, sRef:this.s };
+  }
+}
+</script>
+</body>
+</html>
