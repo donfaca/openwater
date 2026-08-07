@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script id="ow-autoswitch">(function(){try{var q=location.search,seg=location.pathname.split("/"),inM=seg.indexOf("m")!==-1,f=seg[seg.length-1]||"index.html";var mob=/Android|iPhone|iPod|Windows Phone|BlackBerry|Opera Mini|IEMobile/i.test(navigator.userAgent)||window.matchMedia("(max-width:768px)").matches;if(!inM&&mob&&!/[?&]full/.test(q))location.replace("m/"+f+q+location.hash);else if(inM&&!mob&&!/[?&]movil/.test(q))location.replace("../"+f+q+location.hash);}catch(e){}})();</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -15,17 +16,6 @@
     a { color:#4db8e8; text-decoration:none; }
     a:hover { color:#8fd4f5; }
   </style>
-  <script>
-(function(){try{
-  if(window.self!==window.top) return;
-  if(sessionStorage.getItem('ow-force-desktop')==='1') return;
-  var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
-  if(!ismobile) return;
-  var file = location.pathname.split('/').pop() || 'index.html';
-  if(/-movil\.html$/.test(file)) return;
-  location.replace(file.replace(/\.html$/, '-movil.html'));
-}catch(e){}})();
-  </script>
   <script src="./ow-stats.js"></script>
 </helmet>
 
@@ -198,7 +188,7 @@
         
       </div>
       <div style="border-radius: 10px; padding: 22px; border: 1px solid #1a5678; background: linear-gradient(270deg, #D7DDE2, #31467C)">
-        <div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; color: #020201; letter-spacing: 2px">18-19 de JULIO 2027</div>
+        <div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; color: #020201; letter-spacing: 2px">18-20 de JUNIO 2027</div>
         <div style="font-size: 18px; font-weight: 700; color: #fff; margin-top: 6px">2ª Winter Open Water <br>Patagones - Viedma (RN)<br>Fecha NAF - Nacional</div>
       </div>
     </div>
