@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deslinde de Responsabilidad · Summer Open Water Patagones – Viedma 2027</title>
+<meta name="description" content="Deslinde de responsabilidad y aceptación del reglamento oficial de la Summer Open Water Patagones – Viedma 2027. Documento de carácter legal, obligatorio firmarlo en la acreditación.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --river:#0A3D5C; --river-deep:#052436; --teal:#0E8C8C; --aqua:#3FC5C5;
+  --sand:#E8B45A; --sand-soft:#F6D9A0; --tint:#E4F3F5;
+  --ink:#08222E; --ink-soft:#3B5B67; --paper:#F7FCFD; --line:rgba(10,61,92,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;line-height:1.02;text-transform:uppercase;letter-spacing:.01em}
+a{color:var(--teal);text-decoration:none}
+a:hover{color:var(--river)}
+.wrap{width:min(940px,92vw);margin-inline:auto}
+.eyebrow{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.28em;font-weight:700;font-size:.82rem;color:var(--aqua);display:inline-flex;align-items:center;gap:.7em}
+.eyebrow::before{content:"";width:34px;height:2px;background:var(--aqua)}
+
+nav.top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:16px 40px;background:#08202f;border-bottom:1px solid #16455f;position:sticky;top:0;z-index:1000}
+nav.top .brand{display:flex;align-items:baseline;gap:10px}
+nav.top .brand b{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:#fff;font-weight:400}
+nav.top .brand s{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:#c9a24d;text-decoration:none}
+nav.top .back{font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.85rem;color:#eaf3f8;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:.5rem 1.1rem;border-radius:999px}
+nav.top .back:hover{background:rgba(255,255,255,.18);color:#fff}
+
+.doc-hero{position:relative;color:#fff;padding:3rem 0 2.6rem;background:linear-gradient(150deg,var(--river) 0%,var(--river-deep) 100%);overflow:hidden;isolation:isolate}
+.doc-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(70% 120% at 12% -10%,rgba(63,197,197,.22),transparent 60%),radial-gradient(60% 120% at 100% 0,rgba(232,180,90,.16),transparent 55%)}
+.doc-hero h1{font-size:clamp(2.2rem,6vw,4rem);margin:.5rem 0 .3rem;color:#fff}
+.doc-hero h1 span{color:var(--sand);display:block;font-size:.62em}
+.doc-hero .sub{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(1rem,3vw,1.4rem);color:#fff}
+.doc-hero .actions{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.9rem}
+.pbtn{display:inline-flex;align-items:center;gap:.55rem;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.9rem;padding:.8rem 1.6rem;border-radius:999px;cursor:pointer;border:none;text-decoration:none}
+.pbtn.print{background:linear-gradient(120deg,var(--aqua),var(--teal));color:#042;box-shadow:0 10px 26px rgba(14,140,140,.4)}
+.pbtn.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.45);color:#fff}
+.pbtn:hover{transform:translateY(-2px)}
+
+.alert{margin:2rem auto 0;background:#fbe9e9;border:1px solid #e3b7b7;border-left:5px solid #b23a3a;border-radius:0 14px 14px 0;padding:1.2rem 1.5rem;color:#5c1616}
+.alert b{color:#8a1a1a;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.08em;font-size:1.05rem;display:block;margin-bottom:.4rem}
+
+.doc{padding:2.4rem 0 1rem}
+.doc article{padding:1.4rem 0 1.8rem;border-bottom:1px solid var(--line)}
+.doc article:last-child{border-bottom:none}
+.doc h2{display:flex;align-items:center;gap:1rem;font-size:clamp(1.4rem,3.6vw,2rem);color:var(--river);margin-bottom:1rem}
+.doc h2 .num{flex:none;display:inline-flex;align-items:center;justify-content:center;width:2.3rem;height:2.3rem;border-radius:11px;background:linear-gradient(150deg,var(--teal),var(--river));color:#fff;font-weight:800;font-size:1.2rem}
+.doc h3{font-size:1.14rem;color:var(--teal);letter-spacing:.02em;margin:1.3rem 0 .4rem}
+.doc p{color:var(--ink);margin:.6rem 0;text-align:justify}
+.doc p.muted{color:var(--ink-soft);font-size:.95rem;text-align:left}
+
+.field{margin:.5rem 0}
+.field label{display:block;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.07em;font-size:.76rem;color:var(--teal);font-weight:700;margin-bottom:.15rem}
+.field .line{border-bottom:1.5px solid var(--ink-soft);height:1.7rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.3rem 1.6rem}
+.checks{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin:.7rem 0 .2rem}
+.check{display:inline-flex;align-items:center;gap:.5rem;font-size:.97rem}
+.box{width:16px;height:16px;border:1.6px solid var(--ink-soft);border-radius:3px;flex:none;display:inline-block}
+.sigrow{display:grid;grid-template-columns:1fr 1fr;gap:2rem 3rem;margin-top:2.2rem}
+.sigcell{display:flex;flex-direction:column}
+.sigcell .space{height:2.4rem}
+.sigline{border-top:1.6px solid var(--ink);padding-top:.35rem;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.05em;font-size:.78rem;color:var(--ink-soft)}
+.tbl{width:100%;border-collapse:collapse;margin:1rem 0 .4rem;border-radius:12px;overflow:hidden;box-shadow:0 8px 22px rgba(10,61,92,.08)}
+.tbl th{background:var(--river);color:#fff;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.08em;font-size:.88rem;text-align:left;padding:.7rem 1.1rem}
+.tbl td{padding:.7rem 1.1rem;border-bottom:1px solid var(--line);background:#fff;font-size:.95rem}
+.tbl tr:nth-child(even) td{background:var(--tint)}
+.tbl .est{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}
+
+.cta{background:var(--river-deep);color:#fff;text-align:center;padding:2.4rem 0;margin-top:1rem}
+.cta h2{font-size:clamp(1.6rem,4.5vw,2.4rem);color:#fff;margin-bottom:.5rem}
+.cta p{color:rgba(255,255,255,.72);max-width:52ch;margin:0 auto 1.5rem}
+.btn{display:inline-block;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:1rem;padding:1rem 2.6rem;border-radius:999px;background:linear-gradient(120deg,var(--aqua),var(--teal));color:#042;box-shadow:0 12px 30px rgba(14,140,140,.4)}
+.btn:hover{transform:translateY(-2px);color:#042}
+
+footer{background:#041a26;color:rgba(255,255,255,.55);padding:2rem 0;font-size:.82rem;text-align:center}
+footer b{color:var(--aqua)}
+
+@media(max-width:820px){
+  nav.top{padding:14px 18px}
+  .grid2,.sigrow{grid-template-columns:1fr}
+}
+@media print{
+  nav.top,.doc-hero .actions,.cta,footer,.no-print{display:none!important}
+  body{background:#fff;color:#000;font-size:12px;line-height:1.45}
+  .doc-hero{background:#fff!important;color:#000;padding:.2rem 0 .6rem}
+  .doc-hero::after{display:none}
+  .doc-hero h1,.doc-hero .sub{color:#000}
+  .doc-hero h1 span{color:#000}
+  .doc h2{color:#000}
+  .doc h2 .num{background:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .doc h3{color:#000}
+  .doc p{margin:.35rem 0}
+  .doc article{break-inside:avoid;padding:.5rem 0;border-bottom:1px solid #ccc}
+  .alert{background:#fff;border-color:#000;color:#000}
+  .alert b{color:#000}
+  .tbl th{background:#333;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  a{color:#000}
+}
+</style>
+
+  <script src="./ow-stats.js"></script>
+<script id="ow-autoswitch">(function(){try{var q=location.search,seg=location.pathname.split("/"),inM=seg.indexOf("m")!==-1,f=seg[seg.length-1]||"index.html";var mob=/Android|iPhone|iPod|Windows Phone|BlackBerry|Opera Mini|IEMobile/i.test(navigator.userAgent)||window.matchMedia("(max-width:768px)").matches;if(!inM&&mob&&!/[?&]full/.test(q))location.replace("m/"+f+q+location.hash);else if(inM&&!mob&&!/[?&]movil/.test(q))location.replace("../"+f+q+location.hash);}catch(e){}})();</script>
+</head>
+<body>
+
+<nav class="top">
+  <a class="brand" href="index.html"><b>OPEN WATER</b><s>RÍO NEGRO</s></a>
+  <a class="back" href="summer-open-water-2027.html">← Volver a Summer OW 2027</a>
+</nav>
+
+<header class="doc-hero">
+  <div class="wrap">
+    <span class="eyebrow">Documento de carácter legal</span>
+    <h1>Deslinde de Responsabilidad<span>y Aceptación de Reglamento Oficial</span></h1>
+    <div class="sub">WOW – Summer Open Water · Patagones-Viedma 2027</div>
+    <div class="actions no-print">
+      <a class="pbtn print" href="deslinde-responsabilidad-2027.pdf" download="Deslinde-Responsabilidad-SOW-2027.pdf" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"></path></svg>
+        Descargar PDF
+      </a>
+      <a class="pbtn ghost" href="reglamento-2027.html">Ver reglamento oficial</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="alert">
+    <b>Importante: documento de carácter legal</b>
+    La firma del presente instrumento implica la lectura íntegra, la comprensión cabal y la aceptación plena e irrevocable de todos los términos aquí establecidos. Constituye un acuerdo jurídicamente vinculante conforme a la legislación argentina vigente. Es obligatorio para nadadores/as competidores/as, participantes del Bautismo 500m, acompañantes y espectadores que ingresen al área del evento. <b style="display:inline;font-size:1em;letter-spacing:0;">Es obligatorio firmarlo en la acreditación.</b>
+  </div>
+</div>
+
+<main class="doc wrap">
+
+  <article>
+    <h2><span class="num">1</span> Datos personales del participante</h2>
+    <div class="grid2">
+      <div class="field"><label>Apellido y Nombre</label><div class="line"></div></div>
+      <div class="field"><label>DNI / Pasaporte N°</label><div class="line"></div></div>
+      <div class="field"><label>Fecha de Nacimiento</label><div class="line"></div></div>
+      <div class="field"><label>Nacionalidad</label><div class="line"></div></div>
+      <div class="field"><label>Domicilio</label><div class="line"></div></div>
+      <div class="field"><label>Ciudad / Provincia</label><div class="line"></div></div>
+      <div class="field"><label>Correo Electrónico</label><div class="line"></div></div>
+      <div class="field"><label>Teléfono</label><div class="line"></div></div>
+      <div class="field"><label>Club / Equipo</label><div class="line"></div></div>
+      <div class="field"><label>Contacto de Emergencia</label><div class="line"></div></div>
+      <div class="field"><label>Teléfono de Emergencia</label><div class="line"></div></div>
+    </div>
+    <p class="muted" style="margin-top:1rem;">Tipo de participación (marcar lo que corresponda):</p>
+    <div class="checks">
+      <span class="check"><span class="box"></span> Nadador/a competidor/a</span>
+      <span class="check"><span class="box"></span> Acompañante / Espectador/a</span>
+      <span class="check"><span class="box"></span> Menor de edad (con tutor/a)</span>
+      <span class="check"><span class="box"></span> Voluntario/a oficial</span>
+    </div>
+  </article>
+
+  <article>
+    <h2><span class="num">2</span> Declaración jurada y acuerdo de partes</h2>
+    <p>Yo, el/la infrascripto/a, en pleno uso de mis facultades, mayor de edad o representante legal del menor, identificado/a con el DNI consignado en el punto 1, <b>DECLARO BAJO JURAMENTO</b> y acepto en forma irrevocable los términos y condiciones para participar en el evento WOW – SUMMER Open Water Patagones-Viedma 2027, a celebrarse los días 13 y 14 de junio de 2027 en el Río Negro, jurisdicción de Viedma y Carmen de Patagones, Río Negro, Argentina:</p>
+
+    <h3>A) Aptitud física, psicológica y entrenamiento</h3>
+    <p>El/la firmante declara bajo juramento hallarse en plenas condiciones físicas y psíquicas para la práctica de natación en aguas abiertas en condiciones invernales, habiendo alcanzado el nivel de entrenamiento suficiente para la distancia en que se inscribe. Declara no padecer ni haber padecido en los últimos doce (12) meses enfermedades cardiovasculares, respiratorias, neurológicas, musculoesqueléticas u otras afecciones —adquiridas o congénitas— que pudieran implicar riesgo para su vida o integridad física. Declara haber consultado a un profesional médico habilitado y contar con el Certificado de Aptitud Física requerido. La falsedad en cualquier punto de esta declaración constituye causal de descalificación y traslada al declarante la plena responsabilidad por los daños que pudieren ocasionarse.</p>
+
+    <h3>B) Asunción voluntaria, expresa e irrevocable de riesgos</h3>
+    <p>El/la firmante reconoce que la natación en aguas abiertas en condiciones invernales es una actividad de alto riesgo que puede ocasionar lesiones físicas graves, hipotermia severa, calambres, trastornos cardíacos, pérdida de consciencia, invalidez permanente o la muerte. Conociendo cabalmente estas circunstancias, asume de manera libre, voluntaria, expresa e irrevocable la totalidad de los riesgos inherentes, incluyendo, sin carácter taxativo: (i) condiciones ambientales, climáticas e hidrológicas del Río Negro; (ii) temperatura del agua en período invernal; (iii) corrientes, vientos y oleaje; (iv) contacto con otros participantes; (v) eventual fallo del equipamiento propio; (vi) demoras en el rescate o en la asistencia médica. Esta asunción también alcanza a los acompañantes y espectadores que ingresen al área delimitada del evento.</p>
+
+    <h3>C) Aceptación íntegra del reglamento oficial</h3>
+    <p>El/la firmante declara haber leído, comprendido y aceptado en su totalidad el Reglamento Oficial de la presente edición, incluyendo las disposiciones sobre categorías, equipamiento obligatorio, protocolo de seguridad, reglas de competición, causales de descalificación y penalidades. Acepta expresamente que la Organización podrá: (i) suspender, reprogramar o modificar el evento, el circuito o las condiciones de largada por razones de seguridad, climáticas o de fuerza mayor, sin obligación de resarcimiento alguno; (ii) descalificar a participantes que incumplan el Reglamento o instrucciones del personal de seguridad; (iii) reubicar o restringir el acceso de acompañantes y espectadores según necesidades operativas.</p>
+
+    <h3>D) Liberación amplia de responsabilidad civil y penal</h3>
+    <p>El/la firmante, en forma libre, plena e irrevocable, <b>EXIME, LIBERA Y RELEVA</b> de toda responsabilidad civil, penal, laboral y de cualquier otra naturaleza —ya sea por acción, omisión, negligencia o caso fortuito— a: la Asociación Civil y Deportiva Open Water (CUIT 33-71941685-9); sus directivos, organizadores, colaboradores y voluntarios; los Municipios de Viedma y Carmen de Patagones y sus funcionarios; patrocinadores y sponsors; prestadores de servicios médicos y de seguridad contratados; y toda persona física o jurídica vinculada a la organización. Esta liberación comprende cualquier daño, lesión, muerte, robo, hurto, extravío o deterioro de bienes personales que pudiera producirse antes, durante o después del evento. El/la firmante renuncia expresa e irrevocablemente a interponer cualquier acción judicial o extrajudicial, reclamo administrativo o demanda indemnizatoria contra las personas mencionadas.</p>
+
+    <h3>E) Disposiciones específicas para acompañantes y espectadores</h3>
+    <p>Toda persona que concurra al evento en calidad de acompañante o espectador y acceda al área delimitada asume idénticos términos de liberación de responsabilidad previstos en la Cláusula D. El ingreso al área del evento implica la aceptación tácita e irrevocable de las presentes condiciones. El/la firmante garantiza haber comunicado este instrumento a todos sus acompañantes en forma previa al evento y asume responsabilidad personal por el incumplimiento de dicha obligación.</p>
+
+    <h3>F) Autorización para atención médica de urgencia</h3>
+    <p>El/la firmante autoriza al personal médico y paramédico acreditado por la Organización a brindarle la atención de urgencia que fuere necesaria, incluyendo el traslado a un centro asistencial. Toda erogación derivada estará a cargo exclusivo del participante y/o sus familiares responsables. La Organización no asume costo alguno por prestaciones médicas de ninguna naturaleza.</p>
+
+    <h3>G) Derecho de imagen y tratamiento de datos personales</h3>
+    <p>El/la firmante autoriza a la Organización y a sus sponsors a capturar, reproducir, publicar y difundir su imagen, nombre, voz, resultados y cualquier registro audiovisual o fotográfico obtenido en el marco del evento, en toda plataforma y soporte —incluyendo medios digitales, redes sociales y publicaciones institucionales—, con o sin fines comerciales, sin derecho a contraprestación económica alguna. Asimismo, consiente en el tratamiento de sus datos personales con los alcances del artículo 5 de la Ley N° 25.326 de Protección de Datos Personales, exclusivamente para la organización y gestión del evento.</p>
+
+    <h3>H) Jurisdicción y ley aplicable</h3>
+    <p>El presente instrumento se rige por las leyes de la República Argentina. Para toda controversia, diferencia o reclamación que se derive de este documento o de la participación en el evento, las partes se someten irrevocablemente a la jurisdicción exclusiva de los Tribunales Ordinarios con asiento en la ciudad de Viedma, provincia de Río Negro, con renuncia expresa a cualquier otro fuero que pudiere corresponderles.</p>
+  </article>
+
+  <article>
+    <h2><span class="num">3</span> Firma y conformidad — Participante mayor de edad</h2>
+    <p>Yo, el/la firmante, <b>DECLARO BAJO JURAMENTO</b> haber leído en su totalidad, comprendido cabalmente y aceptado de plena y libre conformidad el contenido y alcance jurídico del presente instrumento, sin que mediare coacción, error, dolo ni vicio del consentimiento alguno.</p>
+    <div class="sigrow">
+      <div class="sigcell"><div class="space"></div><div class="sigline">Firma del Participante</div></div>
+      <div class="sigcell"><div class="space"></div><div class="sigline">Aclaración</div></div>
+    </div>
+    <div class="field" style="max-width:260px;margin-top:1.4rem;"><label>Fecha</label><div class="line">_____ / _____ / 2027</div></div>
+  </article>
+
+  <article>
+    <h2><span class="num">4</span> Autorización para menores de 18 años</h2>
+    <p>En mi carácter de padre / madre / tutor/a legal del menor inscripto, con plena capacidad jurídica y en ejercicio de la patria potestad o tutela, acepto en nombre del menor la totalidad de los términos precedentes y autorizo expresamente su participación bajo mi exclusiva responsabilidad, asumiendo los riesgos con la misma extensión y alcance aplicables a los participantes mayores de edad.</p>
+    <div class="grid2" style="margin-top:.6rem;">
+      <div class="field"><label>Nombre y Apellido del Adulto Responsable</label><div class="line"></div></div>
+      <div class="field"><label>DNI del Adulto Responsable</label><div class="line"></div></div>
+      <div class="field"><label>Vínculo con el menor</label><div class="line"></div></div>
+      <div class="field"><label>Teléfono de contacto</label><div class="line"></div></div>
+    </div>
+    <div class="sigrow">
+      <div class="sigcell"><div class="space"></div><div class="sigline">Firma del Adulto Responsable</div></div>
+      <div class="sigcell"><div class="space"></div><div class="sigline">Aclaración</div></div>
+    </div>
+    <div class="field" style="max-width:260px;margin-top:1.4rem;"><label>Fecha</label><div class="line">_____ / _____ / 2027</div></div>
+  </article>
+
+  <article>
+    <h2><span class="num">5</span> Uso exclusivo de la Organización — Control de documentación</h2>
+    <table class="tbl">
+      <thead><tr><th>Documento requerido</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>Certificado de Aptitud Física / Ficha Médica</td><td><div class="est"><span class="check"><span class="box"></span> Presentado</span><span class="check"><span class="box"></span> No presentado</span></div></td></tr>
+        <tr><td>DNI / Documento de identidad</td><td><div class="est"><span class="check"><span class="box"></span> Presentado</span><span class="check"><span class="box"></span> No presentado</span></div></td></tr>
+        <tr><td>Comprobante de pago de inscripción</td><td><div class="est"><span class="check"><span class="box"></span> Presentado</span><span class="check"><span class="box"></span> No presentado</span></div></td></tr>
+        <tr><td>Autorización de menor (si aplica)</td><td><div class="est"><span class="check"><span class="box"></span> Presentado</span><span class="check"><span class="box"></span> No presentado</span></div></td></tr>
+        <tr><td>Este Deslinde de Responsabilidad firmado</td><td><div class="est"><span class="check"><span class="box"></span> Presentado</span><span class="check"><span class="box"></span> No presentado</span></div></td></tr>
+      </tbody>
+    </table>
+    <div class="grid2" style="margin-top:1rem;">
+      <div class="field"><label>Número de dorsal asignado</label><div class="line"></div></div>
+      <div class="field"><label>Acreditado por (nombre del oficial)</label><div class="line"></div></div>
+    </div>
+    <div class="sigrow">
+      <div class="sigcell"><div class="space"></div><div class="sigline">Firma del Oficial de Acreditación</div></div>
+      <div class="sigcell"><div class="space"></div><div class="sigline">Sello de la Organización</div></div>
+    </div>
+    <div class="field" style="max-width:260px;margin-top:1.4rem;"><label>Fecha de acreditación</label><div class="line">_____ / _____ / 2027</div></div>
+  </article>
+
+</main>
+
+<section class="cta no-print">
+  <div class="wrap">
+    <h2>Recordá</h2>
+    <p>Este deslinde es obligatorio y se firma personalmente en la acreditación. Imprimilo y llevalo completo para agilizar el trámite.</p>
+    <a class="btn" href="deslinde-responsabilidad-2027.pdf" download="Deslinde-Responsabilidad-SOW-2027.pdf" target="_blank" rel="noopener">Descargar PDF</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><b>Asociación Civil y Deportiva Open Water</b> · CUIT 33-71941685-9 · WOW – Summer Open Water Patagones-Viedma 2027</div>
+</footer>
+
+</body>
+</html>
