@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+    html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+    *{box-sizing:border-box;}
+    img{max-width:100%;}
+    summary.ow-ham{list-style:none;}
+    summary.ow-ham::-webkit-details-marker{display:none;}
+    .ow-card{transition:transform .18s ease, box-shadow .18s ease;}
+  </style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop();
+    var deskf = file.replace(/-movil\.html$/, '.html');
+    var a = document.createElement('a');
+    a.href = deskf; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+</helmet>
+
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;"><img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:42px;width:42px;object-fit:cover;border-radius:50%;display:block;"><span style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:10px;letter-spacing:.04em;color:#8bb0c4;margin-top:2px;">(home page)</span></span>
+    </a>
+    <details class="ow-ham" style="position:relative;">
+      <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
+      <div style="position:absolute;right:0;top:54px;width:min(78vw,300px);background:#08202f;border:1px solid #16455f;border-radius:10px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:1001;"><a href="proximo-evento-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Próximos Eventos</a><a href="pasados-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Ediciones anteriores</a><a href="actividades-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Actividades</a><a href="sponsors-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Sponsors</a><a href="contacto-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Contacto</a><a href="socios-movil.html" style="display:block;padding:14px 18px;color:#c9a24d;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Asociate a OW</a><a href="entrenamiento-movil.html" style="display:block;padding:14px 18px;color:#1BCCCE;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Entrenamiento en OW</a><a href="record-guinness-movil.html" style="display:block;padding:14px 18px;color:#c9a24d;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">★ Récord Guinness</a><a href="index.html" style="display:block;padding:13px 18px;color:#8bb0c4;font-size:13px;text-decoration:none;">🖥 Versión de escritorio</a></div>
+    </details>
+  </nav>
+
+  <div style="padding:16px 18px 0;"><a href="index-movil.html" style="display:inline-flex;align-items:center;gap:8px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;text-decoration:none;">← Volver al inicio</a></div>
+
+  <!-- HERO -->
+  <div style="position:relative;padding:34px 16px 28px;text-align:center;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(1200px 420px at 50% -80px,rgba(27,204,206,.22),transparent 70%),linear-gradient(180deg,#0c2c44,#0a2438);pointer-events:none;"></div>
+    <div style="position:relative;max-width:880px;margin:0 auto;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">DOSSIER TÉCNICO · PROGRAMA DE SOCIOS 2026</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:.98;color:#fff;margin:12px 0 16px;">ENTRENAMIENTO EN OW</h1>
+      <p style="font-size:17.5px;line-height:1.7;color:#cfe4ee;margin:0 auto;max-width:760px;">Estructura de trabajo técnico y fisiológico para nadadores que preparan una carrera, un cruce o una marca específica, con plan a medida y seguimiento semanal.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:26px;">
+        <div style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:12px;padding:12px 18px;text-align:left;min-width:150px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;">DISCIPLINA</div>
+          <div style="font-size:14px;color:#eaf3f8;font-weight:600;">Aguas Abiertas · Pileta · Técnica</div>
+        </div>
+        <div style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:12px;padding:12px 18px;text-align:left;min-width:150px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;">NIVEL</div>
+          <div style="font-size:14px;color:#eaf3f8;font-weight:600;">Andarivel 1-2 · 3-4 · 5/6</div>
+        </div>
+        <div style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:12px;padding:12px 18px;text-align:left;min-width:150px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;">PLANIFICACIÓN</div>
+          <div style="font-size:14px;color:#eaf3f8;font-weight:600;">Zonas · cargas · semana</div>
+        </div>
+        <div style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:12px;padding:12px 18px;text-align:left;min-width:150px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;">SEGUIMIENTO</div>
+          <div style="font-size:14px;color:#eaf3f8;font-weight:600;">WhatsApp · chat · video</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTRO: 6 pasos -->
+  <div style="max-width:1120px;margin:0 auto;padding:30px 16px 0;">
+    <div style="background:linear-gradient(150deg,#0f3350,#0c2c44);border:1px solid #1a5678;border-radius:20px;padding:24px 20px 22px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:5px;color:#c9a24d;">CÓMO FUNCIONA ESTE PROGRAMA</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;margin:6px 0 14px;line-height:1.03;">UN PLAN A MEDIDA, EN SEIS PASOS</h2>
+      <p style="font-size:15.5px;line-height:1.75;color:#cfe4ee;margin:0 0 12px;max-width:960px;">Definimos, junto a cada nadador de <strong style="color:#fff;">Socio Local</strong> y <strong style="color:#fff;">Socio Pro</strong>, un plan de entrenamiento a medida cuando el objetivo es preparar una carrera, un cruce o una marca específica. El proceso combina cuatro definiciones — disciplina, nivel de destreza, planificación fisiológica y canal de seguimiento — que se ajustan de forma individual, pero siempre parten de la misma estructura de trabajo que usa todo el equipo de Open Water.</p>
+      <p style="font-size:15.5px;line-height:1.75;color:#9fc0d2;margin:0 0 26px;max-width:960px;">Aplica a los dos niveles de membresía que incluyen plan de entrenamiento: el <strong style="color:#c9a24d;">Socio Local</strong> (entrenamiento grupal presencial + seguimiento 1 a 1) y el <strong style="color:#e79a4a;">Socio Pro</strong> (plan 100% personalizado). La diferencia está en la frecuencia de contacto y de video feedback, no en la lógica de construcción del plan, que es la misma para los dos.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;">
+        <div style="display:flex;gap:14px;background:rgba(27,204,206,.07);border:1px solid rgba(27,204,206,.25);border-radius:12px;padding:16px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#1BCCCE;line-height:1;">1</span><div><div style="font-weight:800;color:#fff;font-size:15px;margin-bottom:2px;">División por disciplina</div><div style="font-size:13.5px;color:#bcd6e4;line-height:1.55;">Aguas Abiertas, Natación de Pileta o Técnica, según el objetivo.</div></div></div>
+        <div style="display:flex;gap:14px;background:rgba(27,204,206,.07);border:1px solid rgba(27,204,206,.25);border-radius:12px;padding:16px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#1BCCCE;line-height:1;">2</span><div><div style="font-weight:800;color:#fff;font-size:15px;margin-bottom:2px;">Nivel de destreza</div><div style="font-size:13.5px;color:#bcd6e4;line-height:1.55;">Un andarivel (1-2, 3-4 ó 5/6) define la proporción técnica–fisiología.</div></div></div>
+        <div style="display:flex;gap:14px;background:rgba(27,204,206,.07);border:1px solid rgba(27,204,206,.25);border-radius:12px;padding:16px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#1BCCCE;line-height:1;">3</span><div><div style="font-weight:800;color:#fff;font-size:15px;margin-bottom:2px;">Autoevaluación del nadador</div><div style="font-size:13.5px;color:#bcd6e4;line-height:1.55;">Se autoevalúa en técnica, fisiología y destrezas de aguas abiertas.</div></div></div>
+        <div style="display:flex;gap:14px;background:rgba(27,204,206,.07);border:1px solid rgba(27,204,206,.25);border-radius:12px;padding:16px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#1BCCCE;line-height:1;">4</span><div><div style="font-weight:800;color:#fff;font-size:15px;margin-bottom:2px;">Planificación semanal</div><div style="font-size:13.5px;color:#bcd6e4;line-height:1.55;">Combina zonas fisiológicas (Z1 a Z6) y bloques técnicos.</div></div></div>
+        <div style="display:flex;gap:14px;background:rgba(27,204,206,.07);border:1px solid rgba(27,204,206,.25);border-radius:12px;padding:16px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#1BCCCE;line-height:1;">5</span><div><div style="font-weight:800;color:#fff;font-size:15px;margin-bottom:2px;">Ejemplo real de una semana</div><div style="font-size:13.5px;color:#bcd6e4;line-height:1.55;">La planilla concreta que recibe cada nadador, semana a semana.</div></div></div>
+        <div style="display:flex;gap:14px;background:rgba(27,204,206,.07);border:1px solid rgba(27,204,206,.25);border-radius:12px;padding:16px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#1BCCCE;line-height:1;">6</span><div><div style="font-weight:800;color:#fff;font-size:15px;margin-bottom:2px;">Envío y seguimiento</div><div style="font-size:13.5px;color:#bcd6e4;line-height:1.55;">Envío del plan, feedback por WhatsApp y chat, y análisis de video.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div style="max-width:1120px;margin:0 auto;padding:44px 16px 0;">
+    <div style="display:flex;align-items:center;gap:18px;margin:0 0 8px;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#1BCCCE;line-height:1;">01</span>
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#c9a24d;">PASO 1</div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:27px;color:#fff;margin:2px 0 0;line-height:1.03;">DIVISIÓN POR DISCIPLINA</h2></div>
+    </div>
+    <p style="font-size:15px;line-height:1.7;color:#9fc0d2;margin:0 0 26px;max-width:960px;">Antes de definir cargas o técnica, ubicamos al nadador dentro de una de tres ramas de trabajo. Esta división determina qué proporción del entrenamiento se destina a técnica pura, a fisiología de carrera y a destrezas específicas de cada disciplina.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;">
+      <div class="ow-card" style="background:#0c2c44;border:1px solid rgba(27,204,206,.45);border-radius:18px;overflow:hidden;">
+        <div style="background:linear-gradient(150deg,#1BCCCE,#0b6ba8);padding:20px 24px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;">AGUAS ABIERTAS</div></div>
+        <div style="padding:20px 24px 24px;"><p style="font-size:14px;color:#bcd6e4;line-height:1.6;margin:0 0 14px;">Nadadores que preparan una carrera, cruce o travesía en río, lago o mar.</p><div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#1BCCCE;margin-bottom:6px;">FOCO DEL ENTRENAMIENTO</div><p style="font-size:14px;color:#e7f2f8;line-height:1.6;margin:0;">Crol como estilo base, sighting, nado en grupo y drafting, adaptación a oleaje/corriente/frío, boya de seguridad y transición pileta-río.</p></div>
+      </div>
+      <div class="ow-card" style="background:#0c2c44;border:1px solid rgba(79,170,220,.45);border-radius:18px;overflow:hidden;">
+        <div style="background:linear-gradient(150deg,#4db8e8,#1f5fa8);padding:20px 24px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;">NATACIÓN DE PILETA</div></div>
+        <div style="padding:20px 24px 24px;"><p style="font-size:14px;color:#bcd6e4;line-height:1.6;margin:0 0 14px;">Nadadores que compiten o entrenan en pileta corta o larga.</p><div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#4db8e8;margin-bottom:6px;">FOCO DEL ENTRENAMIENTO</div><p style="font-size:14px;color:#e7f2f8;line-height:1.6;margin:0;">Técnica de los cuatro estilos, partidas y viradas, ritmos de carrera y series distribuidas por zona fisiológica.</p></div>
+      </div>
+      <div class="ow-card" style="background:#0c2c44;border:1px solid rgba(127,224,224,.45);border-radius:18px;overflow:hidden;">
+        <div style="background:linear-gradient(150deg,#7fe0e0,#2b8fa8);padding:20px 24px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#04212e;line-height:1;">TÉCNICA</div></div>
+        <div style="padding:20px 24px 24px;"><p style="font-size:14px;color:#bcd6e4;line-height:1.6;margin:0 0 14px;">Nadadores sin objetivo competitivo inmediato que buscan mejorar el estilo.</p><div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fe0e0;margin-bottom:6px;">FOCO DEL ENTRENAMIENTO</div><p style="font-size:14px;color:#e7f2f8;line-height:1.6;margin:0;">Corrección postural, eficiencia de brazada, respiración y videoanálisis frecuente, con menor volumen fisiológico.</p></div>
+      </div>
+    </div>
+    <p style="font-size:13.5px;color:#8fb2c6;line-height:1.6;margin:18px 0 0;max-width:960px;font-style:italic;">Un mismo nadador puede combinar ramas si su calendario lo requiere — por ejemplo, base de entrenamiento en pileta con salidas periódicas al río para sumar millaje de aguas abiertas.</p>
+  </div>
+
+  <!-- PASO 2 -->
+  <div style="max-width:1120px;margin:0 auto;padding:44px 16px 0;">
+    <div style="display:flex;align-items:center;gap:18px;margin:0 0 8px;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#1BCCCE;line-height:1;">02</span>
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#c9a24d;">PASO 2</div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:27px;color:#fff;margin:2px 0 0;line-height:1.03;">NIVEL DE DESTREZA: SISTEMA DE ANDARIVELES</h2></div>
+    </div>
+    <p style="font-size:15px;line-height:1.7;color:#9fc0d2;margin:0 0 26px;max-width:960px;">Usamos la lógica de los andariveles de pileta para clasificar el nivel técnico de cada nadador, independientemente de su rama de trabajo. El nivel se define en conjunto: la autoevaluación del nadador (Paso 3) se cruza con la mirada objetiva del entrenador, observada en pileta y en el análisis de video.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;">
+      <div class="ow-card" style="background:#0c2c44;border:1px solid rgba(127,224,224,.4);border-radius:18px;padding:24px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;"><span style="font-family:'Bebas Neue',sans-serif;font-size:46px;color:#7fe0e0;line-height:1;">1-2</span><span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#7fe0e0;">BÁSICO</span></div>
+        <div style="height:1px;background:#16455f;margin:14px 0;"></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;margin-bottom:5px;">PERFIL TÉCNICO</div>
+        <p style="font-size:14px;color:#e7f2f8;line-height:1.6;margin:0 0 14px;">Nadador en formación de estilo: necesita corregir postura, respiración y coordinación de brazada. Los errores técnicos son de base.</p>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;margin-bottom:5px;">DISTRIBUCIÓN DEL ENTRENO</div>
+        <p style="font-size:14px;color:#bcd6e4;line-height:1.6;margin:0;">Mayor proporción de metros técnicos que fisiológicos. El volumen fisiológico crece a medida que mejora el estilo.</p>
+      </div>
+      <div class="ow-card" style="background:#0c2c44;border:1px solid rgba(79,170,220,.4);border-radius:18px;padding:24px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;"><span style="font-family:'Bebas Neue',sans-serif;font-size:46px;color:#4db8e8;line-height:1;">3-4</span><span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#4db8e8;">INTERMEDIO</span></div>
+        <div style="height:1px;background:#16455f;margin:14px 0;"></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;margin-bottom:5px;">PERFIL TÉCNICO</div>
+        <p style="font-size:14px;color:#e7f2f8;line-height:1.6;margin:0 0 14px;">Ya domina la técnica general: el entrenamiento se apoya en la carga fisiológica, aunque conserva más metros técnicos que el nivel avanzado.</p>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;margin-bottom:5px;">DISTRIBUCIÓN DEL ENTRENO</div>
+        <p style="font-size:14px;color:#bcd6e4;line-height:1.6;margin:0;">Equilibrio entre técnica y fisiología, con foco en sostener eficiencia de nado bajo fatiga.</p>
+      </div>
+      <div class="ow-card" style="background:#0c2c44;border:1px solid rgba(201,162,77,.45);border-radius:18px;padding:24px;">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;"><span style="font-family:'Bebas Neue',sans-serif;font-size:46px;color:#c9a24d;line-height:1;">5/6</span><span style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#c9a24d;">AVANZADO</span></div>
+        <div style="height:1px;background:#16455f;margin:14px 0;"></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;margin-bottom:5px;">PERFIL TÉCNICO</div>
+        <p style="font-size:14px;color:#e7f2f8;line-height:1.6;margin:0 0 14px;">Nadadores de mediano-alto rendimiento con objetivos competitivos a mediano y largo plazo. La técnica se trabaja sobre errores puntuales.</p>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#7fb4c4;margin-bottom:5px;">DISTRIBUCIÓN DEL ENTRENO</div>
+        <p style="font-size:14px;color:#bcd6e4;line-height:1.6;margin:0;">Predomina la carga fisiológica y la búsqueda de objetivos de rendimiento; la técnica es de ajuste fino.</p>
+      </div>
+    </div>
+    <div style="background:#0f3350;border:1px solid #1a5678;border-radius:14px;padding:22px 26px;margin-top:22px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;margin-bottom:12px;">CÓMO SE ASIGNA EL ANDARIVEL</div>
+      <ol style="margin:0;padding-left:20px;font-size:14.5px;color:#cfe4ee;line-height:1.75;">
+        <li>El nadador completa la planilla de autoevaluación del Paso 3.</li>
+        <li>El entrenador observa una sesión en pileta y/o un video de nado libre enviado por el nadador.</li>
+        <li>El andarivel se confirma en conjunto y puede recalibrarse durante el proceso, a medida que el nadador evoluciona.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div style="max-width:1120px;margin:0 auto;padding:44px 16px 0;">
+    <div style="display:flex;align-items:center;gap:18px;margin:0 0 8px;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#1BCCCE;line-height:1;">03</span>
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#c9a24d;">PASO 3</div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:27px;color:#fff;margin:2px 0 0;line-height:1.03;">PLANILLA DE AUTOEVALUACIÓN DEL NADADOR</h2></div>
+    </div>
+    <p style="font-size:15px;line-height:1.7;color:#9fc0d2;margin:0 0 26px;max-width:960px;">Todo nadador de Socio Local o Socio Pro completa esta autoevaluación antes de recibir su primer plan. Contempla los cuatro estilos, aunque profundiza en el crol por ser la base de las aguas abiertas. La escala es de <strong style="color:#eaf3f8;">1 (a mejorar)</strong> a <strong style="color:#eaf3f8;">5 (dominado)</strong>.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;">
+      <div style="background:#0c2c44;border:1px solid #16455f;border-radius:16px;padding:22px 24px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1BCCCE;margin-bottom:12px;">A · DATOS GENERALES</div>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:14px;color:#dceaf2;">
+          <li style="display:flex;gap:9px;"><span style="color:#1BCCCE;">•</span>Nombre y apellido</li>
+          <li style="display:flex;gap:9px;"><span style="color:#1BCCCE;">•</span>Edad</li>
+          <li style="display:flex;gap:9px;"><span style="color:#1BCCCE;">•</span>Rama de entrenamiento (Aguas Abiertas / Pileta / Técnica)</li>
+          <li style="display:flex;gap:9px;"><span style="color:#1BCCCE;">•</span>Objetivo — carrera, cruce o marca (prueba y fecha)</li>
+          <li style="display:flex;gap:9px;"><span style="color:#1BCCCE;">•</span>Días disponibles para entrenar por semana</li>
+          <li style="display:flex;gap:9px;"><span style="color:#1BCCCE;">•</span>Acceso a pileta / acceso a aguas abiertas</li>
+          <li style="display:flex;gap:9px;"><span style="color:#1BCCCE;">•</span>Lesiones o condiciones a considerar</li>
+        </ul>
+      </div>
+      <div style="background:#0c2c44;border:1px solid #16455f;border-radius:16px;padding:22px 24px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1BCCCE;margin-bottom:6px;">B · TÉCNICA POR ESTILO</div>
+        <div style="font-size:12.5px;color:#8fb2c6;margin-bottom:12px;">Cada ítem se puntúa 1–5 en autoevaluación y se cruza con la mirada del entrenador.</div>
+        <div style="font-weight:800;color:#fff;font-size:14px;margin:4px 0 6px;">Crol — base de aguas abiertas</div>
+        <ul style="list-style:none;margin:0 0 12px;padding:0;font-size:13.5px;color:#dceaf2;line-height:1.7;">
+          <li>Posición de la cabeza y línea de flotación</li>
+          <li>Rotación de tronco · Recobro de brazada</li>
+          <li>Patada (estabilidad, sin frenar el nado)</li>
+          <li>Respiración bilateral</li>
+          <li>Sighting — orientación sin línea de fondo</li>
+        </ul>
+        <div style="font-weight:800;color:#fff;font-size:14px;margin:4px 0 6px;">Espalda · Pecho · Mariposa</div>
+        <ul style="list-style:none;margin:0;padding:0;font-size:13.5px;color:#dceaf2;line-height:1.7;">
+          <li>Espalda: alineación, rotación, recobro y entrada de mano</li>
+          <li>Pecho: coordinación brazada–patada–respiración, deslizamiento</li>
+          <li>Mariposa: ondulación de tronco, coordinación y respiración</li>
+        </ul>
+      </div>
+      <div style="background:#0c2c44;border:1px solid #16455f;border-radius:16px;padding:22px 24px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1BCCCE;margin-bottom:12px;">C · FISIOLOGÍA</div>
+        <ul style="list-style:none;margin:0 0 18px;padding:0;font-size:13.5px;color:#dceaf2;line-height:1.65;display:flex;flex-direction:column;gap:6px;">
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Resistencia aeróbica (ritmo parejo en series largas)</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Tolerancia a series de velocidad</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Repetir esfuerzos con pausas cortas</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Frecuencia de entrenamiento actual (días/sem)</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Otros deportes o cargas complementarias</li>
+        </ul>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1BCCCE;margin-bottom:12px;">D · AGUAS ABIERTAS <span style="font-size:12px;color:#8fb2c6;font-family:'Barlow';letter-spacing:0;">(si aplica)</span></div>
+        <ul style="list-style:none;margin:0;padding:0;font-size:13.5px;color:#dceaf2;line-height:1.65;display:flex;flex-direction:column;gap:6px;">
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Orientación / sighting sin línea de fondo</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Nado en grupo y drafting</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Adaptación a oleaje, corriente y temperatura</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Uso de boya de seguridad y neopreno</li>
+          <li style="display:flex;gap:8px;"><span style="color:#1BCCCE;">•</span>Salidas y llegadas en playa u orilla</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(150deg,#0f3350,#0c2c44);border:1px solid #1a5678;border-radius:16px;padding:24px 26px;margin-top:22px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;margin-bottom:6px;">E · CÓMO SE USA EL PUNTAJE</div>
+      <div style="font-size:13px;color:#8fb2c6;margin-bottom:16px;">El puntaje promedio orienta el andarivel; siempre se confirma con la observación del entrenador (Paso 2).</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;">
+        <div style="border:1px solid rgba(127,224,224,.4);border-radius:12px;padding:16px;text-align:center;background:rgba(127,224,224,.06);"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#7fe0e0;">1,0 – 2,4</div><div style="font-size:14px;color:#eaf3f8;font-weight:700;">1 - 2 · Básico</div></div>
+        <div style="border:1px solid rgba(79,170,220,.4);border-radius:12px;padding:16px;text-align:center;background:rgba(79,170,220,.06);"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#4db8e8;">2,5 – 3,9</div><div style="font-size:14px;color:#eaf3f8;font-weight:700;">3 - 4 · Intermedio</div></div>
+        <div style="border:1px solid rgba(201,162,77,.45);border-radius:12px;padding:16px;text-align:center;background:rgba(201,162,77,.06);"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#c9a24d;">4,0 – 5,0</div><div style="font-size:14px;color:#eaf3f8;font-weight:700;">5 / 6 · Avanzado</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div style="max-width:1120px;margin:0 auto;padding:44px 16px 0;">
+    <div style="display:flex;align-items:center;gap:18px;margin:0 0 8px;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#1BCCCE;line-height:1;">04</span>
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#c9a24d;">PASO 4</div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:27px;color:#fff;margin:2px 0 0;line-height:1.03;">ESTRUCTURA DE LA PLANIFICACIÓN SEMANAL</h2></div>
+    </div>
+    <p style="font-size:15px;line-height:1.7;color:#9fc0d2;margin:0 0 26px;max-width:960px;">Cada semana, el nadador recibe una planilla con el mismo formato que usa el equipo de pileta de Open Water, adaptada a su rama y a su andarivel.</p>
+
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;margin:0 0 14px;">ZONAS FISIOLÓGICAS DE TRABAJO</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:16px;background:#0c2c44;border:1px solid #16455f;border-radius:12px;padding:14px 18px;"><span style="flex:0 0 54px;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#04212e;background:#7fe0e0;border-radius:8px;text-align:center;line-height:40px;height:40px;">Z1</span><div><strong style="color:#fff;">Calentamiento y técnica.</strong> <span style="color:#bcd6e4;">Entrada en calor, trabajo técnico y recuperación activa. Ayuda a lavar y a entrar en calor.</span></div></div>
+      <div style="display:flex;align-items:center;gap:16px;background:#0c2c44;border:1px solid #16455f;border-radius:12px;padding:14px 18px;"><span style="flex:0 0 54px;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#04212e;background:#35c0d6;border-radius:8px;text-align:center;line-height:40px;height:40px;">Z2</span><div><strong style="color:#fff;">Base aeróbica.</strong> <span style="color:#bcd6e4;">Suave y constante — si el nadador puede hablar mientras nada, está en zona.</span></div></div>
+      <div style="display:flex;align-items:center;gap:16px;background:#0c2c44;border:1px solid #16455f;border-radius:12px;padding:14px 18px;"><span style="flex:0 0 54px;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;background:#2b8fd0;border-radius:8px;text-align:center;line-height:40px;height:40px;">Z3</span><div><strong style="color:#fff;">Umbral anaeróbico.</strong> <span style="color:#bcd6e4;">Moderada, "cómodamente dura". Aumenta la capacidad aeróbica y retrasa la fatiga.</span></div></div>
+      <div style="display:flex;align-items:center;gap:16px;background:#0c2c44;border:1px solid #16455f;border-radius:12px;padding:14px 18px;"><span style="flex:0 0 54px;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#1a1300;background:#c9a24d;border-radius:8px;text-align:center;line-height:40px;height:40px;">Z4</span><div><strong style="color:#fff;">Potencia anaeróbica.</strong> <span style="color:#bcd6e4;">Alta intensidad. Trabaja el ritmo de carrera con intervalos cortos e intensos.</span></div></div>
+      <div style="display:flex;align-items:center;gap:16px;background:#0c2c44;border:1px solid #16455f;border-radius:12px;padding:14px 18px;"><span style="flex:0 0 54px;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#2b1200;background:#e79a4a;border-radius:8px;text-align:center;line-height:40px;height:40px;">Z5</span><div><strong style="color:#fff;">Esfuerzo casi máximo.</strong> <span style="color:#bcd6e4;">Muy alta. Velocidad y eficiencia muscular — pocas repeticiones, calidad y no cantidad.</span></div></div>
+      <div style="display:flex;align-items:center;gap:16px;background:#0c2c44;border:1px solid #16455f;border-radius:12px;padding:14px 18px;"><span style="flex:0 0 54px;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;background:#d43b25;border-radius:8px;text-align:center;line-height:40px;height:40px;">Z6</span><div><strong style="color:#fff;">Esfuerzo máximo.</strong> <span style="color:#bcd6e4;">Trabaja el remate final entrenando bajo fatiga (el último 25 de cada 100).</span></div></div>
+    </div>
+    <p style="font-size:13px;color:#8fb2c6;line-height:1.6;margin:14px 0 0;font-style:italic;">A esto se suman, de forma transversal, trabajos de hipoxia (escalas de respiración, subacuático) que se dosifican según el andarivel y la disciplina, especialmente en aguas abiertas.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:28px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;grid-column:1/-1;margin-bottom:-4px;">BLOQUES DE UNA SESIÓN</div>
+      <div style="background:rgba(27,204,206,.08);border:1px solid rgba(27,204,206,.3);border-radius:12px;padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#1BCCCE;line-height:1;">1</div><div style="font-weight:800;color:#fff;font-size:14px;margin:6px 0 3px;">Ablande / técnica inicial</div><div style="font-size:13px;color:#bcd6e4;line-height:1.55;">Entrada en calor y técnica de brazada o patada.</div></div>
+      <div style="background:rgba(27,204,206,.08);border:1px solid rgba(27,204,206,.3);border-radius:12px;padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#1BCCCE;line-height:1;">2</div><div style="font-weight:800;color:#fff;font-size:14px;margin:6px 0 3px;">Cuerpo principal fisiológico</div><div style="font-size:13px;color:#bcd6e4;line-height:1.55;">Según la zona objetivo del día (Z2 a Z6).</div></div>
+      <div style="background:rgba(27,204,206,.08);border:1px solid rgba(27,204,206,.3);border-radius:12px;padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#1BCCCE;line-height:1;">3</div><div style="font-weight:800;color:#fff;font-size:14px;margin:6px 0 3px;">Fuerza específica o patada</div><div style="font-size:13px;color:#bcd6e4;line-height:1.55;">Según lo que pida el microciclo.</div></div>
+      <div style="background:rgba(27,204,206,.08);border:1px solid rgba(27,204,206,.3);border-radius:12px;padding:18px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#1BCCCE;line-height:1;">4</div><div style="font-weight:800;color:#fff;font-size:14px;margin:6px 0 3px;">Descarga / técnica de cierre</div><div style="font-size:13px;color:#bcd6e4;line-height:1.55;">Vuelta a la calma y trabajo técnico en Z1.</div></div>
+    </div>
+
+    <!-- PERIODIZACIÓN -->
+    <div style="background:linear-gradient(150deg,#0f3350,#0c2c44);border:1px solid #1a5678;border-radius:18px;padding:26px 28px;margin-top:28px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:4px;color:#c9a24d;">PERIODIZACIÓN</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;margin:2px 0 6px;">EJEMPLO DE MACROCICLO — 4 MESES</div>
+      <p style="font-size:14px;color:#9fc0d2;line-height:1.65;margin:0 0 20px;max-width:900px;">La distribución de metros por zona cambia mes a mes según el momento del macrociclo. Este es un ejemplo real de cuatro meses de trabajo del equipo, que ilustra la lógica que se aplica también a los planes individuales de Socio Local y Socio Pro.</p>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#bcd6e4;margin-bottom:16px;">
+        <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:3px;background:#7fe0e0;display:inline-block;"></span>Z1 · Calent./técnica</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:3px;background:#35c0d6;display:inline-block;"></span>Z2 · Base aeróbica</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:3px;background:#2b8fd0;display:inline-block;"></span>Z3 · Umbral</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:3px;background:#c9a24d;display:inline-block;"></span>Z4 · Potencia</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;"><span style="color:#fff;font-weight:700;">Mes 1 · Base aeróbica</span><span style="color:#9fc0d2;">151.639 m</span></div><div style="display:flex;height:26px;border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;color:#04212e;"><div style="width:81%;background:#35c0d6;display:flex;align-items:center;justify-content:center;">81%</div><div style="width:11%;background:#2b8fd0;color:#fff;display:flex;align-items:center;justify-content:center;">11%</div><div style="width:8%;background:#7fe0e0;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;"><span style="color:#fff;font-weight:700;">Mes 2 · Base aeróbica</span><span style="color:#9fc0d2;">82.468 m</span></div><div style="display:flex;height:26px;border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;color:#04212e;"><div style="width:81%;background:#35c0d6;display:flex;align-items:center;justify-content:center;">81%</div><div style="width:15%;background:#2b8fd0;color:#fff;display:flex;align-items:center;justify-content:center;">15%</div><div style="width:4%;background:#7fe0e0;"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;"><span style="color:#fff;font-weight:700;">Mes 3 · Calidad en el umbral</span><span style="color:#9fc0d2;">125.748 m</span></div><div style="display:flex;height:26px;border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;color:#04212e;"><div style="width:74%;background:#35c0d6;display:flex;align-items:center;justify-content:center;">74%</div><div style="width:17%;background:#2b8fd0;color:#fff;display:flex;align-items:center;justify-content:center;">17%</div><div style="width:9%;background:#c9a24d;display:flex;align-items:center;justify-content:center;">8%</div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;"><span style="color:#fff;font-weight:700;">Mes 4 · Descarga / transición</span><span style="color:#9fc0d2;">59.600 m</span></div><div style="display:flex;height:26px;border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;color:#04212e;"><div style="width:47%;background:#35c0d6;display:flex;align-items:center;justify-content:center;">47%</div><div style="width:42%;background:#2b8fd0;color:#fff;display:flex;align-items:center;justify-content:center;">42%</div><div style="width:11%;background:#c9a24d;display:flex;align-items:center;justify-content:center;">9%</div></div></div>
+      </div>
+      <p style="font-size:13px;color:#8fb2c6;line-height:1.6;margin:20px 0 0;">El macrociclo sigue el enfoque tradicional de natación: se empieza con una gran base aeróbica, se introduce la calidad en el umbral y se cierra con una descarga con foco alto en ritmo sostenido (Z2/Z3), para consolidar las adaptaciones antes del objetivo. Los porcentajes exactos de cada nadador se ajustan según su andarivel y la fecha de su carrera, cruce o marca.</p>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div style="max-width:1180px;margin:0 auto;padding:44px 12px 0;">
+    <div style="display:flex;align-items:center;gap:18px;margin:0 0 8px;padding:0 8px;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#1BCCCE;line-height:1;">05</span>
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#c9a24d;">PASO 5</div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:27px;color:#fff;margin:2px 0 0;line-height:1.03;">EJEMPLO REAL DE UNA SEMANA</h2></div>
+    </div>
+    <p style="font-size:15px;line-height:1.7;color:#9fc0d2;margin:0 0 24px;max-width:980px;padding:0 8px;">Así se ve, en la práctica, una semana del "Tercer microciclo": el mismo formato que reciben los nadadores de Socio Local y Socio Pro, ajustado a su andarivel, su rama y su objetivo. Esta semana está calibrada para un nivel intermedio-avanzado; el volumen y la carga se adaptan según el andarivel de cada nadador.</p>
+    <div style="overflow-x:auto;border:1px solid #16455f;border-radius:16px;">
+      <table style="width:100%;border-collapse:collapse;min-width:940px;font-size:12.5px;">
+        <thead>
+          <tr style="background:#08202f;">
+            <th style="text-align:left;padding:14px 14px;color:#c9a24d;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;position:sticky;left:0;background:#08202f;min-width:150px;">3er MICROCICLO</th>
+            <th style="padding:14px 12px;color:#1BCCCE;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;">LUNES</th>
+            <th style="padding:14px 12px;color:#1BCCCE;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;">MARTES</th>
+            <th style="padding:14px 12px;color:#1BCCCE;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;">MIÉRCOLES</th>
+            <th style="padding:14px 12px;color:#1BCCCE;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;">JUEVES</th>
+            <th style="padding:14px 12px;color:#1BCCCE;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;">VIERNES</th>
+          </tr>
+        </thead>
+        <tbody style="color:#dceaf2;">
+          <tr style="border-top:1px solid #12384f;"><td style="padding:12px 14px;font-weight:800;color:#7fe0e0;position:sticky;left:0;background:#0c2c44;">Ablande + técnica</td><td style="padding:12px 12px;vertical-align:top;">4x150 brazada – pp – estilo (75x2)</td><td style="padding:12px 12px;vertical-align:top;">4x200 EE y crol (voy drill, vuelvo completo)</td><td style="padding:12px 12px;vertical-align:top;">2x400: 50 drill x 50 estilo (400 mismo estilo)</td><td style="padding:12px 12px;vertical-align:top;">1x600: 1 subacuático largo x 1 subacuático corto crol</td><td style="padding:12px 12px;vertical-align:top;">8x100: 50 estilo + 50 pp · pausa 30"</td></tr>
+          <tr style="border-top:1px solid #12384f;background:rgba(255,255,255,.02);"><td style="padding:12px 14px;font-weight:800;color:#35c0d6;position:sticky;left:0;background:#0c2c44;">Puesta a punto</td><td style="padding:12px 12px;vertical-align:top;">6x50: 25 Z2 + 25 progresivo · pausa 20"</td><td style="padding:12px 12px;vertical-align:top;">4x100: 50 Z2 + 50 progre en 50 · pausa 30"</td><td style="padding:12px 12px;vertical-align:top;">4x75 progresivo–suave–progresivo · pausa 30"</td><td style="padding:12px 12px;vertical-align:top;">6x50 pp progresiva, vuelvo suave · pausa 30"</td><td style="padding:12px 12px;vertical-align:top;">8x25 progresivos · pausa 20"</td></tr>
+          <tr style="border-top:1px solid #12384f;"><td style="padding:12px 14px;font-weight:800;color:#e79a4a;position:sticky;left:0;background:#0c2c44;">Velocidad glucolítica</td><td style="padding:12px 12px;vertical-align:top;">8x(2x25) Z5: 2 crol c/remera + 2 mariposa s/remera, macro c/2: 1'</td><td style="padding:12px 12px;vertical-align:top;">8x25 Z5 EE con remera · pausa 20" · macropausa 1'</td><td style="padding:12px 12px;vertical-align:top;">10x50 Z3 · 8x50 (25 Z5-25 Z2) · 6x50 Z4 aletas · 4x50 remera Z4 · 2x50 Z5</td><td style="padding:12px 12px;vertical-align:top;">12x25 pp crol Z4 · pausa 30" · macro c/4: 1'30" caminando</td><td style="padding:12px 12px;vertical-align:top;">16x50: Z5-Z2-Z3-Z3 · pausa 20" · macro c/4: 1'</td></tr>
+          <tr style="border-top:1px solid #12384f;background:rgba(255,255,255,.02);"><td style="padding:12px 14px;font-weight:800;color:#4db8e8;position:sticky;left:0;background:#0c2c44;">Descarga</td><td style="padding:12px 12px;vertical-align:top;">1x400 suave</td><td style="padding:12px 12px;vertical-align:top;">8x50: 25 subacuático + 25 crol suave</td><td style="padding:12px 12px;vertical-align:top;">6x100 técnica + 300 suave</td><td style="padding:12px 12px;vertical-align:top;">8x50 técnica de crol · pausa 20"</td><td style="padding:12px 12px;vertical-align:top;">12x25 técnicos · pausa 20"</td></tr>
+          <tr style="border-top:1px solid #12384f;"><td style="padding:12px 14px;font-weight:800;color:#c9a24d;position:sticky;left:0;background:#0c2c44;">Fuerza específica / patada</td><td style="padding:12px 12px;vertical-align:top;">30" plancha + 15x50 Z3 · pausa 25"</td><td style="padding:12px 12px;vertical-align:top;">Apoyos en plancha o flexiones x5 + 8x25 Z3/Z4 mariposa o espalda</td><td style="padding:12px 12px;vertical-align:top;color:#5a7c8c;">—</td><td style="padding:12px 12px;vertical-align:top;">10x100 Z3 con remera · pausa 45"</td><td style="padding:12px 12px;vertical-align:top;">8x100 sosteniendo 10" sobre ritmo de 100 libre de carrera · pausa 40"</td></tr>
+          <tr style="border-top:1px solid #12384f;background:rgba(255,255,255,.02);"><td style="padding:12px 14px;font-weight:800;color:#d43b25;position:sticky;left:0;background:#0c2c44;">Fosfagenolítica · partidas y vueltas</td><td style="padding:12px 12px;vertical-align:top;">3x200 o técnica x600 Z2 · pausa 30"</td><td style="padding:12px 12px;vertical-align:top;">8x50 pp (1/2 pileta Z2 + 1/2 al palo) · pausa 30"</td><td style="padding:12px 12px;vertical-align:top;color:#5a7c8c;">—</td><td style="padding:12px 12px;vertical-align:top;">2x(3x25): 1 con partida y 2 de abajo · pausa 1' · macro 2'</td><td style="padding:12px 12px;vertical-align:top;">4x25 pp al palo · pausa 45"</td></tr>
+          <tr style="border-top:1px solid #12384f;"><td style="padding:12px 14px;font-weight:800;color:#7fe0e0;position:sticky;left:0;background:#0c2c44;">Técnico Z1</td><td style="padding:12px 12px;vertical-align:top;color:#5a7c8c;">—</td><td style="padding:12px 12px;vertical-align:top;">400 suave</td><td style="padding:12px 12px;vertical-align:top;color:#5a7c8c;">—</td><td style="padding:12px 12px;vertical-align:top;">200 suave</td><td style="padding:12px 12px;vertical-align:top;">200 suave</td></tr>
+          <tr style="border-top:2px solid #16455f;background:#08202f;"><td style="padding:14px 14px;font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:1px;position:sticky;left:0;background:#08202f;">Metros del día</td><td style="padding:14px 12px;font-weight:800;color:#1BCCCE;">3.000 m</td><td style="padding:14px 12px;font-weight:800;color:#1BCCCE;">3.000 m</td><td style="padding:14px 12px;font-weight:800;color:#1BCCCE;">3.500 m</td><td style="padding:14px 12px;color:#5a7c8c;">—</td><td style="padding:14px 12px;font-weight:800;color:#c9a24d;">9.500 m / semana</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px;color:#8fb2c6;line-height:1.6;margin:14px 8px 0;">Distribución de zonas de esta semana (parcial): Z3 ≈ 1.250 m. El resto de la carga se completa en Z1, Z2 y Z5 según el día, siguiendo la lógica de zonas descripta en el Paso 4.</p>
+  </div>
+
+  <!-- PASO 6 -->
+  <div style="max-width:1120px;margin:0 auto;padding:44px 16px 0;">
+    <div style="display:flex;align-items:center;gap:18px;margin:0 0 8px;">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#1BCCCE;line-height:1;">06</span>
+      <div><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#c9a24d;">PASO 6</div><h2 style="font-family:'Bebas Neue',sans-serif;font-size:27px;color:#fff;margin:2px 0 0;line-height:1.03;">ENVÍO Y SEGUIMIENTO</h2></div>
+    </div>
+    <p style="font-size:15px;line-height:1.7;color:#9fc0d2;margin:0 0 26px;max-width:960px;">El plan no termina en la planilla semanal: el seguimiento es lo que permite ajustar la carga y corregir la técnica a tiempo. Así se organiza la comunicación con cada nadador.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+      <div style="background:#0c2c44;border:1px solid #16455f;border-radius:14px;padding:22px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1BCCCE;margin-bottom:6px;">ENVÍO SEMANAL</div><div style="font-size:14px;color:#cfe4ee;line-height:1.6;">El nadador recibe la planilla de la semana siguiente, con el detalle de todos los días.</div></div>
+      <div style="background:#0c2c44;border:1px solid #16455f;border-radius:14px;padding:22px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1BCCCE;margin-bottom:6px;">INDICACIÓN DIARIA</div><div style="font-size:14px;color:#cfe4ee;line-height:1.6;">Recordatorio del entreno del día: foco técnico, zona de trabajo y ajustes de último momento.</div></div>
+      <div style="background:#0c2c44;border:1px solid #16455f;border-radius:14px;padding:22px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#1BCCCE;margin-bottom:6px;">VIDEO FEEDBACK</div><div style="font-size:14px;color:#cfe4ee;line-height:1.6;">El nadador graba la serie indicada y el entrenador devuelve un análisis biomecánico.</div></div>
+    </div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;margin:30px 0 14px;">CANALES DE CONTACTO</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+      <div style="background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.35);border-radius:14px;padding:22px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#3ddc84;margin-bottom:6px;">GRUPO DE WHATSAPP</div><div style="font-size:14px;color:#cfe4ee;line-height:1.6;">Comunidad, motivación, avisos generales y logística de salidas o entrenamientos grupales.</div></div>
+      <div style="background:rgba(79,170,220,.08);border:1px solid rgba(79,170,220,.35);border-radius:14px;padding:22px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#4db8e8;margin-bottom:6px;">CHAT PERSONAL</div><div style="font-size:14px;color:#cfe4ee;line-height:1.6;">Consultas puntuales, ajustes de carga y seguimiento 1 a 1 del objetivo.</div></div>
+      <div style="background:rgba(201,162,77,.08);border:1px solid rgba(201,162,77,.35);border-radius:14px;padding:22px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#c9a24d;margin-bottom:6px;">DEVOLUCIÓN TÉCNICA</div><div style="font-size:14px;color:#cfe4ee;line-height:1.6;">Correcciones puntuales de biomecánica para aplicar en la semana siguiente.</div></div>
+    </div>
+
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;margin:30px 0 14px;">FRECUENCIA DE VIDEO FEEDBACK POR NIVEL</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+      <div style="background:#12233a;border:2px solid #c9a24d;border-radius:18px;overflow:hidden;">
+        <div style="background:linear-gradient(150deg,#e2be62,#c9a24d);padding:18px 24px;color:#1a1300;"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;">SOCIO LOCAL</div><div style="font-size:13px;font-weight:700;">$40.000/mes · entrenamiento grupal presencial</div></div>
+        <div style="padding:20px 24px;display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#9fc0d2;">Frecuencia de video feedback</span><span style="color:#fff;font-weight:800;">Hasta 1 / semana</span></div>
+          <div style="height:1px;background:#1a5678;"></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#9fc0d2;">Prioridad de respuesta</span><span style="color:#fff;font-weight:800;">Estándar</span></div>
+        </div>
+      </div>
+      <div style="background:#0c2c44;border:2px solid #e79a4a;border-radius:18px;overflow:hidden;">
+        <div style="background:linear-gradient(150deg,#e79a4a,#c0491a);padding:18px 24px;color:#2b1200;"><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;color:#fff;">SOCIO PRO</div><div style="font-size:13px;font-weight:700;">$60.000/mes · plan 100% personalizado</div></div>
+        <div style="padding:20px 24px;display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#9fc0d2;">Frecuencia de video feedback</span><span style="color:#fff;font-weight:800;">Ilimitado</span></div>
+          <div style="height:1px;background:#1a5678;"></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;"><span style="color:#9fc0d2;">Prioridad de respuesta</span><span style="color:#fff;font-weight:800;">Prioritaria</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMEN + CTA -->
+  <div style="max-width:1120px;margin:64px auto 0;padding:0 16px;">
+    <div style="background:linear-gradient(150deg,#0f3350,#0b2438);border:1px solid #1a5678;border-radius:20px;padding:26px 20px;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:5px;color:#c9a24d;">RESUMEN</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;margin:6px 0 20px;line-height:1;">CÓMO SE ARMA EL PLAN A MEDIDA</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+        <span style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:999px;padding:8px 16px;font-size:13.5px;color:#eaf3f8;"><strong style="color:#1BCCCE;">1</strong> Disciplina</span>
+        <span style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:999px;padding:8px 16px;font-size:13.5px;color:#eaf3f8;"><strong style="color:#1BCCCE;">2</strong> Andarivel</span>
+        <span style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:999px;padding:8px 16px;font-size:13.5px;color:#eaf3f8;"><strong style="color:#1BCCCE;">3</strong> Autoevaluación</span>
+        <span style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:999px;padding:8px 16px;font-size:13.5px;color:#eaf3f8;"><strong style="color:#1BCCCE;">4</strong> Planificación semanal</span>
+        <span style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:999px;padding:8px 16px;font-size:13.5px;color:#eaf3f8;"><strong style="color:#1BCCCE;">5</strong> Ejemplo de semana</span>
+        <span style="background:rgba(27,204,206,.12);border:1px solid rgba(27,204,206,.4);border-radius:999px;padding:8px 16px;font-size:13.5px;color:#eaf3f8;"><strong style="color:#1BCCCE;">6</strong> Envío y seguimiento</span>
+      </div>
+      <p style="font-size:15px;color:#cfe4ee;line-height:1.75;max-width:820px;margin:24px auto 0;">El resultado es un plan que se ajusta semana a semana hacia el objetivo del nadador — carrera, cruce o marca —, con la misma estructura de trabajo que usa todo el equipo de Open Water, pero con la carga, la técnica y el seguimiento calibrados a su nivel real.</p>
+    </div>
+  </div>
+
+  <div style="max-width:760px;margin:44px auto 84px;padding:0 16px;text-align:center;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;margin:0 0 10px;">¿LISTO PARA ENTRENAR CON OW?</h2>
+    <p style="font-size:15px;color:#cfe4ee;line-height:1.7;margin:0 0 22px;">El plan de entrenamiento está incluido en las membresías <strong style="color:#c9a24d;">Socio Local</strong> y <strong style="color:#e79a4a;">Socio Pro</strong>. Elegí tu nivel y armamos tu plan a medida.</p>
+    <a href="socios-movil.html" style="display:inline-block;background:linear-gradient(270deg,#0b6ba8,#1BCCCE);color:#04212e;padding:15px 40px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;text-decoration:none;box-shadow:0 14px 34px rgba(27,204,206,.28);">VER MEMBRESÍAS →</a>
+  </div>
+
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:32px 16px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;">OPEN WATER PATAGONES-VIEDMA</div>
+        <div style="font-size:14px;color:#a9c6d6;margin-top:8px;">openwaterrionegro@gmail.com</div>
+        <div style="font-size:14px;color:#a9c6d6;">+54 9 2920 650486<br>+54 9 2920 352579</div>
+      </div>
+      <div style="font-size:14px;color:#a9c6d6;">
+        <div>@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals(){ return {}; }
+}
+</script>
+</body>
+</html>
