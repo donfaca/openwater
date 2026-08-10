@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script id="ow-autoswitch">(function(){try{var q=location.search,seg=location.pathname.split("/"),inM=seg.indexOf("m")!==-1,f=seg[seg.length-1]||"index.html";var mob=/Android|iPhone|iPod|Windows Phone|BlackBerry|Opera Mini|IEMobile/i.test(navigator.userAgent)||window.matchMedia("(max-width:768px)").matches;if(!inM&&mob&&!/[?&]full/.test(q))location.replace("m/"+f+q+location.hash);else if(inM&&!mob&&!/[?&]movil/.test(q))location.replace("../"+f+q+location.hash);}catch(e){}})();</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -16,6 +15,17 @@
     a { color:#4db8e8; text-decoration:none; }
     a:hover { color:#8fd4f5; }
   </style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  if(sessionStorage.getItem('ow-force-desktop')==='1') return;
+  var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
+  if(!ismobile) return;
+  var file = location.pathname.split('/').pop() || 'index.html';
+  if(/-movil\.html$/.test(file)) return;
+  location.replace(file.replace(/\.html$/, '-movil.html'));
+}catch(e){}})();
+  </script>
 
   <script src="./ow-stats.js"></script>
 </helmet>
@@ -24,12 +34,11 @@
 
   <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:16px 40px;background:#08202f;border-bottom:1px solid #16455f;position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
     <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:#fff;">OPEN WATER</span>
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:#c9a24d;">RÍO NEGRO</span>
+      <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;"><img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:50px;width:50px;object-fit:cover;border-radius:50%;display:block;"><span style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:10px;letter-spacing:.04em;color:#8bb0c4;margin-top:2px;">(home page)</span></span>
     </a>
     <div style="display:flex;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:700;">
       <a href="proximo-evento.html" style="color:#eaf3f8;text-decoration:none;">Próximos Eventos</a>
-      <a href="pasados.html" style="color:#eaf3f8;text-decoration:none;">Eventos Pasados</a>
+      <a href="pasados.html" style="color:#eaf3f8;text-decoration:none;">Ediciones anteriores</a>
       <a href="actividades.html" style="color:#eaf3f8;text-decoration:none;">Actividades</a>
       <a href="sponsors.html" style="color:#eaf3f8;text-decoration:none;">Sponsors</a>
       <a href="contacto.html" style="color:#eaf3f8;text-decoration:none;">Contacto</a>
