@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#160d05; font-family:'Barlow',sans-serif; -webkit-text-size-adjust:100%; }
+    a { color:#ff9a3d; text-decoration:none; }
+    a:hover { color:#ffbe7a; }
+    *{ box-sizing:border-box; }
+    details.ow-ham summary::-webkit-details-marker{ display:none; }
+  </style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop() || 'index.html';
+    var desk = file.replace(/-movil\.dc\.html$/, '.html');
+    var a = document.createElement('a');
+    a.href = desk; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+</helmet>
+
+<div style="background:#160d05;color:#f4e9dd;min-height:100vh;max-width:520px;margin:0 auto;position:relative;overflow-x:hidden;">
+
+  <!-- NAV -->
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;"><img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:42px;width:42px;object-fit:cover;border-radius:50%;display:block;"><span style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:10px;letter-spacing:.04em;color:#8bb0c4;margin-top:2px;">(home page)</span></span>
+    </a>
+    <details class="ow-ham" style="position:relative;">
+      <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
+      <div style="position:absolute;right:0;top:54px;width:min(78vw,300px);background:#08202f;border:1px solid #16455f;border-radius:10px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:1001;"><a href="noticias-movil.html" style="display:block;padding:14px 18px;color:#ff4545;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Noticias</a><a href="proximo-evento-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Próximos Eventos</a><a href="pasados-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Ediciones anteriores</a><a href="actividades-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Actividades</a><a href="sponsors-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Sponsors</a><a href="contacto-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Contacto</a><a href="socios-movil.html" style="display:block;padding:14px 18px;color:#eaf3f8;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Asociate a OW</a><a href="entrenamiento-movil.html" style="display:block;padding:14px 18px;color:#1BCCCE;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Entrenamiento en OW</a><a href="record-guinness-movil.html" style="display:block;padding:14px 18px;color:#c9a24d;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">★ Récord Guinness</a><a href="index-movil.html" style="display:block;padding:13px 18px;color:#8bb0c4;font-size:13px;text-decoration:none;">🏠 Inicio</a></div>
+    </details>
+  </nav>
+
+  <!-- HERO -->
+  <div style="position:relative;padding:46px 22px 40px;text-align:center;background:linear-gradient(135deg,#ff7a1a 0%,#ff4d00 60%,#c93a00 100%);overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 82% 12%,rgba(255,255,255,.22),transparent 48%);pointer-events:none;"></div>
+    <div style="position:relative;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;color:#2a1200;">OPEN WATER PATAGONES-VIEDMA</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:.9;color:#fff;margin:6px 0 12px;text-shadow:0 3px 16px rgba(120,40,0,.4);">NOTICIAS</h1>
+      <p style="font-size:16px;line-height:1.55;color:#fff2e6;margin:0;font-weight:600;">Novedades y anuncios del Open Water. Volvé seguido: acá subimos las últimas noticias.</p>
+    </div>
+  </div>
+
+  <!-- BLOQUES -->
+  <div style="padding:28px 18px 60px;display:flex;flex-direction:column;gap:18px;">
+
+    <!-- Duplicá un bloque para agregar una noticia (el más reciente arriba) -->
+    <article style="background:#241608;border:1px solid #3d2510;border-left:5px solid #ff7a1a;border-radius:14px;overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:14px;padding:16px 18px;background:linear-gradient(90deg,#2d1a09,#241608);">
+        <div style="text-align:center;flex:0 0 auto;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:.8;color:#ff9a3d;">06</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:#f4e9dd;">FEB 2027</div>
+        </div>
+        <span style="margin-left:auto;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#160d05;background:#ffb347;padding:3px 11px;border-radius:999px;">EVENTO</span>
+      </div>
+      <div style="padding:4px 18px 20px;">
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;margin:6px 0 8px;line-height:1.05;">Open Water Eclipse en Las Grutas: cupos limitados</h2>
+        <p style="font-size:15px;line-height:1.6;color:#d9c3ad;margin:0;">2.5K de nado en el mar durante un eclipse solar anular. Una experiencia exclusiva del 6 de febrero de 2027.</p>
+        <a href="oweclipse-2027-movil.html" style="display:inline-block;margin-top:12px;color:#ff9a3d;font-weight:800;">Ver el evento →</a>
+      </div>
+    </article>
+
+    <article style="background:#241608;border:1px solid #3d2510;border-left:5px solid #ff7a1a;border-radius:14px;overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:14px;padding:16px 18px;background:linear-gradient(90deg,#2d1a09,#241608);">
+        <div style="text-align:center;flex:0 0 auto;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:.8;color:#ff9a3d;">23</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:#f4e9dd;">ENE 2027</div>
+        </div>
+        <span style="margin-left:auto;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#160d05;background:#ffb347;padding:3px 11px;border-radius:999px;">INSCRIPCIÓN</span>
+      </div>
+      <div style="padding:4px 18px 20px;">
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;margin:6px 0 8px;line-height:1.05;">2ª Summer Open Water: abrió la inscripción</h2>
+        <p style="font-size:15px;line-height:1.6;color:#d9c3ad;margin:0;">Vuelve el clásico de verano en Viedma, 23 y 24 de enero. Distancias 10K y 5K sobre el Río Negro.</p>
+        <a href="summer-open-water-2027-movil.html" style="display:inline-block;margin-top:12px;color:#ff9a3d;font-weight:800;">Ver el evento →</a>
+      </div>
+    </article>
+
+    <article style="background:#241608;border:1px solid #3d2510;border-left:5px solid #ff7a1a;border-radius:14px;overflow:hidden;">
+      <div style="display:flex;align-items:center;gap:14px;padding:16px 18px;background:linear-gradient(90deg,#2d1a09,#241608);">
+        <div style="text-align:center;flex:0 0 auto;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:.8;color:#ff9a3d;">14</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;color:#f4e9dd;">JUN 2026</div>
+        </div>
+        <span style="margin-left:auto;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#160d05;background:#ffb347;padding:3px 11px;border-radius:999px;">RESULTADOS</span>
+      </div>
+      <div style="padding:4px 18px 20px;">
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;margin:6px 0 8px;line-height:1.05;">Winter Open Water 2026: resultados disponibles</h2>
+        <p style="font-size:15px;line-height:1.6;color:#d9c3ad;margin:0;">Ya están publicadas las clasificaciones y la general de la edición de invierno.</p>
+        <a href="resultados-general-wow-2026-movil.html" style="display:inline-block;margin-top:12px;color:#ff9a3d;font-weight:800;">Ver resultados →</a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:28px 18px;color:#a9c6d6;font-size:14px;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;">OPEN WATER PATAGONES-VIEDMA</div>
+    <div style="margin-top:6px;">openwaterrionegro@gmail.com<br>Viedma, Río Negro, Argentina</div>
+    <div style="margin-top:16px;"><a href="index-movil.html" style="color:#ff9a3d;font-weight:800;">← Volver al inicio</a></div>
+  </footer>
+
+</div>
+</x-dc>
+</body>
+</html>
