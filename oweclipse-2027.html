@@ -25,12 +25,13 @@
   var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
   if(!ismobile) return;
   var file = location.pathname.split('/').pop();
-  if(/-movil\.dc\.html$/.test(file)) return;
-  location.replace(file.replace(/\.dc\.html$/, '-movil.html'));
+  if(/-movil\.(dc\.)?html$/.test(file)) return;
+  var _t=file.replace(/(\.dc)?\.html$/,'-movil$1.html'); if(_t!==file) location.replace(_t);
 }catch(e){}})();
   </script>
 
   <script src="./ow-stats.js"></script>
+  <script src="./ow-eclipse-countdown.js"></script>
 </helmet>
 
 <div style="font-family:'Archivo',system-ui,sans-serif;color:#1A0B08;background:#FFF8F5;line-height:1.55;overflow-x:hidden;">
@@ -72,7 +73,7 @@
         <div style="display:flex;flex-direction:column;gap:.15rem;"><span style="font-family:'Anton';font-size:clamp(1.5rem,4.5vw,2.3rem);color:#fff;line-height:1;">Las Grutas</span><span style="font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:#F4A11B;">Río Negro · Patagonia</span></div>
       </div>
       <div style="margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
-        <a href="mailto:openwaterrionegro@gmail.com" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:linear-gradient(120deg,#F4A11B,#C0271A);color:#fff;box-shadow:0 12px 30px rgba(192,39,26,.4);text-decoration:none;">Quiero inscribirme</a>
+        <a href="mailto:openwaterrionegro@gmail.com" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:linear-gradient(120deg,#F4A11B,#C0271A);color:#fff;box-shadow:0 12px 30px rgba(192,39,26,.4);text-decoration:none;"><span data-eclipse-lbl data-open-label="Quiero inscribirme">Quiero inscribirme</span></a>
         <button onClick="{{ openIntent }}" style="display:inline-flex;align-items:center;justify-content:center;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(120deg,#FFD9A0,#F4A11B);color:#3A1608;box-shadow:0 12px 30px rgba(244,161,27,.35);">Me gustaría estar</button>
         <a href="record-guinness.html" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:transparent;border:1.5px solid #F4A11B;color:#FFE7B0;text-decoration:none;">★ Posible Récord Guinness</a>
       </div>
@@ -332,7 +333,7 @@
       <h2 style="font-family:'Anton';text-transform:uppercase;font-size:clamp(2rem,6vw,3.6rem);color:#fff;margin:0 0 .6rem;">Sé parte de la historia</h2>
       <p style="color:rgba(255,255,255,.7);max-width:44ch;margin:0 auto 2rem;">Los cupos son limitados. Asegurá tu lugar en la primera competencia de aguas abiertas bajo un eclipse solar anular.</p>
       <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
-        <a href="mailto:openwaterrionegro@gmail.com" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:linear-gradient(120deg,#F4A11B,#C0271A);color:#fff;box-shadow:0 12px 30px rgba(192,39,26,.4);">Quiero inscribirme</a>
+        <a href="mailto:openwaterrionegro@gmail.com" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:linear-gradient(120deg,#F4A11B,#C0271A);color:#fff;box-shadow:0 12px 30px rgba(192,39,26,.4);"><span data-eclipse-lbl data-open-label="Quiero inscribirme">Quiero inscribirme</span></a>
         <button onClick="{{ openIntent }}" style="display:inline-flex;align-items:center;justify-content:center;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;border:none;cursor:pointer;background:linear-gradient(120deg,#FFD9A0,#F4A11B);color:#3A1608;box-shadow:0 12px 30px rgba(244,161,27,.35);">Me gustaría estar</button>
         <a href="record-guinness.html" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:transparent;border:1.5px solid #F4A11B;color:#FFE7B0;">★ Posible Récord Guinness</a>
       </div>

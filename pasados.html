@@ -21,9 +21,9 @@
   if(sessionStorage.getItem('ow-force-desktop')==='1') return;
   var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
   if(!ismobile) return;
-  var file = location.pathname.split('/').pop() || 'index.html';
-  if(/-movil\.html$/.test(file)) return;
-  location.replace(file.replace(/\.html$/, '-movil.html'));
+  var file = location.pathname.split('/').pop();
+  if(/-movil\.(dc\.)?html$/.test(file)) return;
+  var _t=file.replace(/(\.dc)?\.html$/,'-movil$1.html'); if(_t!==file) location.replace(_t);
 }catch(e){}})();
   </script>
 
@@ -138,7 +138,7 @@
 
     <div style="background:#0f3350;border-radius:12px;overflow:hidden;border:1px solid #1a5678;">
       <div style="width:100%;height:220px;">
-        <img src="assets/pasado-summer-2026.webp" alt="Fotos de OW Summer 2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="ow-summer-2026" shape="rect" placeholder="Fotos de OW Summer 2026" hint-size="100%,220px"><img src="./flyer_ow_v1-opt.jpg" alt="flyer_ow_v1" style="max-width: 100%; height: auto; display: block; object-fit: cover"></x-import>
       </div>
       <div style="padding: 22px; background-color: #6D0D02">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#c9a24d;letter-spacing:2px;">ENERO 2026</div>
@@ -152,7 +152,7 @@
 
     <div style="background:#0f3350;border-radius:12px;overflow:hidden;border:1px solid #1a5678;">
       <div style="width:100%;height:220px;">
-        <img src="assets/pasado-winter-2026.webp" alt="Fotos de Winter Open Water 2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="winter-ow-2026" shape="rect" placeholder="Fotos de Winter Open Water 2026" hint-size="100%,220px"></x-import>
       </div>
       <div style="padding: 22px; background-color: #352B57">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:#c9a24d;letter-spacing:2px;">INVIERNO 2026</div>

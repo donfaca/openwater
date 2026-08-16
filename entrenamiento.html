@@ -23,9 +23,9 @@
   if(sessionStorage.getItem('ow-force-desktop')==='1') return;
   var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
   if(!ismobile) return;
-  var file = location.pathname.split('/').pop() || 'index.html';
-  if(/-movil\.html$/.test(file)) return;
-  location.replace(file.replace(/\.html$/, '-movil.html'));
+  var file = location.pathname.split('/').pop();
+  if(/-movil\.(dc\.)?html$/.test(file)) return;
+  var _t=file.replace(/(\.dc)?\.html$/,'-movil$1.html'); if(_t!==file) location.replace(_t);
 }catch(e){}})();
   </script>
 </helmet>

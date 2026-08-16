@@ -17,7 +17,7 @@
 <x-dc>
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
     a { color:#4db8e8; text-decoration:none; }
@@ -29,9 +29,9 @@
   if(sessionStorage.getItem('ow-force-desktop')==='1') return;
   var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
   if(!ismobile) return;
-  var file = location.pathname.split('/').pop() || 'index.html';
-  if(/-movil\.html$/.test(file)) return;
-  location.replace(file.replace(/\.html$/, '-movil.html'));
+  var file = location.pathname.split('/').pop();
+  if(/-movil\.(dc\.)?html$/.test(file)) return;
+  var _t=file.replace(/(\.dc)?\.html$/,'-movil$1.html'); if(_t!==file) location.replace(_t);
 }catch(e){}})();
   </script>
 

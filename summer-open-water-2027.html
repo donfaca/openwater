@@ -181,8 +181,8 @@ footer b{color:var(--aqua)}
   var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
   if(!ismobile) return;
   var file = location.pathname.split('/').pop() || 'index.html';
-  if(/-movil\.dc\.html$/.test(file)) return;
-  location.replace(file.replace(/\.dc\.html$/, '-movil.html'));
+  if(/-movil\.(dc\.)?html$/.test(file)) return;
+  var _t=file.replace(/(\.dc)?\.html$/,'-movil$1.html'); if(_t!==file) location.replace(_t);
 }catch(e){}})();
   </script>
 

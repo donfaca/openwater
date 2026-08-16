@@ -22,9 +22,9 @@
   if(sessionStorage.getItem('ow-force-desktop')==='1') return;
   var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
   if(!ismobile) return;
-  var file = location.pathname.split('/').pop() || 'index.html';
-  if(/-movil\.html$/.test(file)) return;
-  location.replace(file.replace(/\.html$/, '-movil.html'));
+  var file = location.pathname.split('/').pop();
+  if(/-movil\.(dc\.)?html$/.test(file)) return;
+  var _t=file.replace(/(\.dc)?\.html$/,'-movil$1.html'); if(_t!==file) location.replace(_t);
 }catch(e){}})();
   </script>
 
@@ -209,7 +209,7 @@
       </table>
       <figure style="margin:1.4rem 0 0;">
         <div style="aspect-ratio:16/8;border-radius:10px;overflow:hidden;border:1px solid rgba(11,46,92,.2);">
-          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#e9eef3;color:#8a99a8;font-family:'Archivo Narrow',sans-serif;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;">Mapa · próximamente</div>
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="rg-track-map" shape="rect" placeholder="Track of the band of annularity across South America" hint-size="100%,100%"></x-import>
         </div>
         <figcaption style="font-family:'Archivo Narrow';font-size:.85rem;color:#6b5a44;margin-top:.5rem;text-align:center;">Track of the band of annularity across South America — the central line crosses Argentine Patagonia.</figcaption>
       </figure>
@@ -228,7 +228,7 @@
       <p style="font-size:1.05rem;line-height:1.78;color:#33261a;">The crossing takes place entirely at sea, over a buoyed circuit of 2,500 metres in front of the beach at Las Grutas. The route takes advantage of the morning's rising tide, which assists the swimmers' progress and improves safety conditions. The event is designed to be completed in approximately one hour, with the start at 10:31:40 — at the very onset of the eclipse — and all swimmers out of the water before 11:30.</p>
       <figure style="margin:1.2rem 0;">
         <div style="aspect-ratio:16/8;border-radius:10px;overflow:hidden;border:1px solid rgba(11,46,92,.2);">
-          <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#e9eef3;color:#8a99a8;font-family:'Archivo Narrow',sans-serif;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;">Mapa · próximamente</div>
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="rg-route-map" shape="rect" placeholder="Layout of the swim route along the Las Grutas coast" hint-size="100%,100%"></x-import>
         </div>
         <figcaption style="font-family:'Archivo Narrow';font-size:.85rem;color:#6b5a44;margin-top:.5rem;text-align:center;">Layout of the swim route along the Las Grutas coast. Total circuit length: 2,508 m.</figcaption>
       </figure>
