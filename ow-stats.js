@@ -110,7 +110,7 @@
     // Header
     var hd = el('div', 'position:relative;padding:24px 26px 18px;background:#08202f;border-bottom:1px solid #16455f;');
     hd.appendChild(el('div', "font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:14px;color:#c9a24d;", 'ESTADÍSTICAS DEL SITIO'));
-    hd.appendChild(el('div', "font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:#fff;margin-top:4px;", 'OPEN WATER · PATAGONES-VIEDMA'));
+    hd.appendChild(el('div', "font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:#fff;margin-top:4px;", 'OPEN WATER · RÍO NEGRO'));
     var x = el('button', 'position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:9px;border:1px solid #16455f;background:#0f3350;color:#eaf3f8;font-size:20px;line-height:1;cursor:pointer;', '×');
     x.setAttribute('aria-label', 'Cerrar');
     x.addEventListener('click', close);
