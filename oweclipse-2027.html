@@ -75,6 +75,7 @@
       <div style="margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
         <a href="mailto:openwaterrionegro@gmail.com" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:linear-gradient(120deg,#F4A11B,#C0271A);color:#fff;box-shadow:0 12px 30px rgba(192,39,26,.4);text-decoration:none;"><span data-eclipse-lbl data-open-label="Quiero inscribirme">Quiero inscribirme</span></a>
         <a href="record-guinness.html" style="display:inline-block;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.9rem;padding:1rem 2.4rem;border-radius:999px;background:transparent;border:1.5px solid #F4A11B;color:#FFE7B0;text-decoration:none;">★ Posible Récord Guinness</a>
+        <a href="inscriptos-eclipse.html" style="display:inline-flex;align-items:center;gap:.7rem;font-family:'Archivo Narrow';font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.6rem 1.3rem;border-radius:999px;background:rgba(11,5,7,.5);border:1.5px solid rgba(244,161,27,.55);color:#FFE7B0;text-decoration:none;backdrop-filter:blur(4px);"><span ref="{{ countRef }}" style="font-family:'Anton';font-size:1.8rem;line-height:.9;color:#fff;">—</span><span style="display:flex;flex-direction:column;line-height:1.1;font-size:.72rem;letter-spacing:.14em;">Inscriptos<span style="opacity:.85;">Ver lista →</span></span></a>
       </div>
     </div>
     </div>
@@ -350,6 +351,7 @@ class Component extends DCLogic {
   static FORM_ACTION = "";    // ej: https://docs.google.com/forms/d/e/XXXX/formResponse
   static FORM_NOMBRE = "";    // ej: entry.1111111111
   static FORM_APELLIDO = "";  // ej: entry.2222222222
+  static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9Nfkl99ojuWQMk3pBz6vs8vBUv3muWSyMr15cXGstsehOy3KcLuaWElnvq_4pg0uYKCF2IMKXpKfn/pub?output=csv";
   state = { intentOpen:false, sent:false, error:'' };
   openIntent(){ this.setState({ intentOpen:true, sent:false, error:'' }); }
   closeIntent(){ this.setState({ intentOpen:false }); }
@@ -371,6 +373,7 @@ class Component extends DCLogic {
     this.setState({ sent:true, error:'' });
   }
   componentDidMount() {
+    this.loadInscriptos();
     const target = new Date('2027-02-06T10:31:40-03:00').getTime();
     const tick = () => {
       let diff = Math.max(0, target - Date.now());
@@ -387,6 +390,16 @@ class Component extends DCLogic {
     this._timer = setInterval(tick, 1000);
   }
 
+  loadInscriptos(){
+    var self=this, url=Component.CSV_URL; if(!url) return;
+    fetch(url,{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(t){ self.setInsc(self.countCsvRows(t)); }).catch(function(){});
+  }
+  countCsvRows(text){
+    text=String(text).replace(/\r/g,''); var rows=0, inQ=false;
+    for(var i=0;i<text.length;i++){ var c=text[i]; if(c==='"'){ if(inQ && text[i+1]==='"'){ i++; } else inQ=!inQ; } else if(c==='\n' && !inQ) rows++; }
+    if(text.length && text[text.length-1]!=='\n') rows++; return Math.max(0, rows-1);
+  }
+  setInsc(n){ if(this.c && this.c.current) this.c.current.textContent = String(Math.max(0,n|0)); }
   componentWillUnmount() {
     clearInterval(this._timer);
   }
@@ -394,9 +407,9 @@ class Component extends DCLogic {
   renderVals() {
     var R = function(){ return React.createRef(); };
     this.d=this.d||R(); this.h=this.h||R(); this.m=this.m||R(); this.s=this.s||R();
-    this.nombre=this.nombre||R(); this.apellido=this.apellido||R();
+    this.nombre=this.nombre||R(); this.apellido=this.apellido||R(); this.c=this.c||R();
     var self=this;
-    return { dRef:this.d, hRef:this.h, mRef:this.m, sRef:this.s,
+    return { dRef:this.d, hRef:this.h, mRef:this.m, sRef:this.s, countRef:this.c,
       intentOpen:this.state.intentOpen, sent:this.state.sent, showForm:!this.state.sent, error:this.state.error,
       nombreRef:this.nombre, apellidoRef:this.apellido,
       openIntent:function(){ self.openIntent(); }, closeIntent:function(){ self.closeIntent(); },
