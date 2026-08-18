@@ -89,20 +89,41 @@ footer b{color:var(--sun)}
   .grid2,.sigrow{grid-template-columns:1fr}
 }
 @media print{
+  @page{margin:9mm 11mm}
   nav.top,.doc-hero .actions,.cta,footer,.no-print{display:none!important}
-  body{background:#fff;color:#000;font-size:12px;line-height:1.45}
-  .doc-hero{background:#fff!important;color:#000;padding:.2rem 0 .6rem}
+  body{background:#fff;color:#000;font-size:9.4px;line-height:1.26}
+  .doc-hero{background:#fff!important;color:#000;padding:0 0 .3rem}
   .doc-hero::after{display:none}
-  .doc-hero h1,.doc-hero .sub{color:#000}
-  .doc-hero h1 span{color:#000}
-  .doc h2{color:#000}
-  .doc h2 .num{background:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .doc h3{color:#000}
-  .doc p{margin:.35rem 0}
-  .doc article{break-inside:avoid;padding:.5rem 0;border-bottom:1px solid #ccc}
-  .alert{background:#fff;border-color:#000;color:#000}
-  .alert b{color:#000}
-  .tbl th{background:#333;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .doc-hero .eyebrow{display:none}
+  .doc-hero h1{font-size:15px;margin:0 0 .1rem;color:#000}
+  .doc-hero h1 span{font-size:.7em;color:#000}
+  .doc-hero .sub{font-size:10px;color:#000}
+  .alert{margin:.35rem 0 0;padding:.35rem .6rem;border-width:1px;border-left-width:3px;background:#fff;border-color:#000;color:#000;font-size:9px}
+  .alert b{color:#000;font-size:9.5px;margin-bottom:.1rem}
+  .doc{padding:.4rem 0 0}
+  .doc article{padding:.25rem 0 .3rem;border-bottom:1px solid #ccc;break-inside:auto}
+  .doc article:nth-of-type(2){column-count:2;column-gap:16px}
+  .doc article:nth-of-type(2) h2{column-span:all;margin-bottom:.12rem}
+  .doc article:nth-of-type(2)>p:first-of-type{column-span:all}
+  .doc article:nth-of-type(2) p{font-size:8.3px;line-height:1.22;margin:.1rem 0;text-align:justify}
+  .doc article:nth-of-type(2) h3{font-size:9px;margin:.22rem 0 .08rem;break-after:avoid}
+  .sigrow,.grid2,.field{break-inside:avoid}
+  .doc h2{color:#000;font-size:12px;margin-bottom:.25rem;gap:.5rem}
+  .doc h2 .num{width:1.3rem;height:1.3rem;font-size:.8rem;border-radius:5px;background:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .doc h3{color:#000;font-size:10px;margin:.4rem 0 .15rem}
+  .doc p{margin:.18rem 0}
+  .doc p.muted{font-size:8.6px}
+  .field{margin:.25rem 0}
+  .field .line{height:1.1rem}
+  .field label{font-size:.68rem;margin-bottom:.05rem}
+  .checks{margin:.3rem 0 .1rem;gap:.3rem 1rem}
+  .check{font-size:8.8px}
+  .sigrow{margin-top:.7rem;gap:.6rem 2rem}
+  .sigcell .space{height:1.4rem}
+  .sigline{font-size:.66rem;padding-top:.2rem}
+  .tbl{margin:.4rem 0 .2rem;box-shadow:none}
+  .tbl th{background:#333;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:.72rem;padding:.3rem .6rem}
+  .tbl td{padding:.28rem .6rem;font-size:8.8px}
   a{color:#000}
 }
 </style>
