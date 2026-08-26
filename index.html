@@ -38,7 +38,7 @@
     </a>
     <div style="display:flex;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:700;">
       <a href="noticias.html" style="color:#ff4545;text-decoration:none;font-weight:800;">Noticias</a>
-      <a href="proximo-evento.html" style="color:#eaf3f8;text-decoration:none;">Próximos Eventos</a>
+      <a href="proximo-evento.html" style="color:#eaf3f8;text-decoration:none;">Próximas Ediciones</a>
       <a href="pasados.html" style="color:#eaf3f8;text-decoration:none;">Ediciones anteriores</a>
       <a href="actividades.html" style="color:#eaf3f8;text-decoration:none;">Actividades</a>
       <a href="sponsors.html" style="color:#eaf3f8;text-decoration:none;">Sponsors</a>
@@ -65,9 +65,15 @@
 
   <!-- PROXIMOS EVENTOS -->
   <div style="max-width:1100px;margin:0 auto;padding:36px 40px 8px;">
-    <div style="text-align:center;margin-bottom:20px;">
-      <div style="font-family: 'Bebas Neue',sans-serif; font-size: 20px; letter-spacing: 4px; color: #c9a24d">no te los pierdas</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#fff;margin:6px 0 0;">PRÓXIMOS EVENTOS</h2>
+    <div style="position:relative;text-align:center;margin-bottom:20px;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#fff;margin:0;">PRÓXIMAS EDICIONES</h2>
+      <div style="position:absolute;right:0;top:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#c9a24d;">
+        <span>VISITAS AL SITIO: <span ref="{{ visitsRef }}" style="color:#fff;">—</span></span>
+        <button onClick="{{ openStats }}" title="Ver estadísticas del sitio" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#c9a24d;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;border:1px solid #c9a24d;border-radius:8px;padding:7px 14px;cursor:pointer;" style-hover="background:#c9a24d;color:#0a2438;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><rect x="7" y="12" width="3" height="5"></rect><rect x="12" y="8" width="3" height="9"></rect><rect x="17" y="14" width="3" height="3"></rect></svg>
+          VER ESTADÍSTICAS
+        </button>
+      </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:start;">
 
@@ -147,8 +153,9 @@
 
     </div>
 
-    <!-- COMBO 2+2 -->
-    <div style="margin-top:24px;background:linear-gradient(135deg,#0a2438,#0f3350);border:1px solid #1a5678;border-radius:16px;overflow:hidden;">
+    <!-- COMBO 2+2 + TRILOGIA -->
+    <div style="margin-top:24px;display:flex;flex-wrap:wrap;align-items:flex-start;gap:20px;">
+    <div style="flex:1 1 560px;min-width:0;background:linear-gradient(135deg,#0a2438,#0f3350);border:1px solid #1a5678;border-radius:16px;overflow:hidden;">
       <div style="padding:20px 26px;display:flex;flex-wrap:wrap;align-items:center;gap:24px 32px;justify-content:space-between;background:linear-gradient(90deg,#08202f,#0f3350);border-bottom:1px solid #1a5678;">
         <div style="min-width:240px;flex:1;">
           <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:3px;color:#c9a24d;font-size:16px;">COMBO 2 EVENTOS OW</div>
@@ -156,10 +163,10 @@
           <div style="font-size:18px;color:#a9c6d6;margin-top:8px;">4 distancias a menor valor.</div>
         </div>
         <div style="display:flex;align-items:center;gap:14px;">
-          <img src="SummerOW_logo-opt.webp" alt="OW Summer" style="width:200px;height:200px;object-fit:contain;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:54px;color:#c9a24d;line-height:1;">+</span>
-          <img src="OWE_logo-opt.webp" alt="OW Eclipse" style="width:200px;height:200px;object-fit:contain;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:54px;color:#c9a24d;line-height:1;">=</span>
+          <img src="SummerOW_logo-opt.webp" alt="OW Summer" style="width:120px;height:120px;object-fit:contain;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#c9a24d;line-height:1;">+</span>
+          <img src="OWE_logo-opt.webp" alt="OW Eclipse" style="width:120px;height:120px;object-fit:contain;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#c9a24d;line-height:1;">=</span>
           <div style="position:relative;width:172px;height:108px;flex:0 0 auto;" title="Combo OW Summer + OW Eclipse">
             <img src="SummerOW_logo-opt.webp" alt="" style="position:absolute;left:0;top:2px;width:100px;height:100px;object-fit:contain;border-radius:50%;background:#02121d;padding:5px;border:3px solid #0f3350;">
             <img src="OWE_logo-opt.webp" alt="" style="position:absolute;left:66px;top:2px;width:100px;height:100px;object-fit:contain;border-radius:50%;background:#02121d;padding:5px;border:3px solid #0f3350;">
@@ -209,6 +216,36 @@
 
       <div style="padding:16px 26px 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
         <a href="https://forms.gle/fquj8S8UzUvMP46D7" target="_blank" rel="noopener" onClick="{{ comboInscClick }}" ref="{{ comboBtnRef }}" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#0b0b0b;border:1px solid #333;color:#fff;padding:13px 24px;border-radius:8px;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);"><span style="background:#fff;color:#0b0b0b;font-size:11px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:999px;">NEW</span><span ref="{{ comboLblRef }}">Inscripción combo abierta →</span></a>
+      </div>
+    </div>
+
+      <!-- TRILOGIA -->
+      <div style="flex:0 0 380px;max-width:100%;display:flex;flex-direction:column;gap:20px;">
+      <div style="position:relative;border:1px solid #1a5678;border-radius:16px;overflow:hidden;background:#5f6165;">
+        <img src="trilogia.jpeg" alt="Medalla trilogía OW Summer + Eclipse + Winter 2027" style="display:block;width:100%;height:auto;">
+        <div style="position:absolute;left:0;right:0;top:0;padding:22px 22px 26px;background:linear-gradient(180deg,rgba(20,20,22,.55),rgba(20,20,22,0));">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:.98;color:#fff;letter-spacing:1px;text-shadow:0 2px 10px rgba(0,0,0,.55);">HAY TRILOGÍAS QUE SON ÉPICAS</div>
+        </div>
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:26px 22px 20px;background:linear-gradient(0deg,rgba(20,20,22,.6),rgba(20,20,22,0));">
+          <div style="font-size:14px;line-height:1.6;color:#f2f5f7;text-shadow:0 2px 8px rgba(0,0,0,.6);">Participando en cualquiera de las OW Summer o Eclipse, reservás tu lugar para Winter. Tus medallas finisher son la parte de todo. <b style="color:#f0d089;">No lo dejes pasar.</b></div>
+          <div style="margin-top:8px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;line-height:1.15;color:#f0d089;text-shadow:0 2px 8px rgba(0,0,0,.6);">ARMÁ TU ROMPECABEZAS PARA ENMARCAR EN LA PARED (23 CM DE DIÁMETRO)</div>
+        </div>
+      </div>
+
+      <div style="background:#5f6165;border:1px solid #1a5678;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;">
+        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#5ACBE0,#EDC264);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D43B25;letter-spacing:2px;">23-24 ENERO 2027</div>
+          <a href="summer-open-water-2027.html" style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;display:block;text-decoration:none;">2ª Summer Open Water<br>Patagones - Viedma (RN)<br>Evento Nacional / Internacional</a>
+        </div>
+        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#EF7129,#000000);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#E00A0A;letter-spacing:2px;">6 FEBRERO 2027</div>
+          <a href="oweclipse-2027.html" style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;display:block;text-decoration:none;">Open Water Eclipse<br>Las Grutas (RN)<br>Evento exclusivo</a>
+        </div>
+        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#D7DDE2,#31467C);">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#020201;letter-spacing:2px;">18-20 de JUNIO 2027</div>
+          <div style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;">2ª Winter Open Water<br>Patagones - Viedma (RN)<br>Fecha NAF - Nacional</div>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -265,26 +302,6 @@
     </div>
   </div>
 
-  <!-- VIAJES TEASER -->
-  <div style="max-width:1100px;margin:0 auto;padding:36px 40px;">
-    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;margin:0 0 16px;">PRÓXIMOS VIAJES Y ACTIVIDADES</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;">
-      <div style="border-radius: 10px; padding: 16px; border: 1px solid #1a5678; background: linear-gradient(270deg, #5ACBE0, #EDC264)">
-        <div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; color: #D43B25; letter-spacing: 2px">23-24 ENERO 2027</div><a href="summer-open-water-2027.html" style="font-size: 18px; font-weight: 700; color: #fff; margin-top: 6px; display:block">2ª Summer Open Water<br>Patagones - Viedma (RN)<br>Evento Nacional / Internacional</a>
-        
-      </div>
-      <div style="background: linear-gradient(270deg, #EF7129, #000000); border-radius: 10px; padding: 16px; border: 1px solid #1a5678">
-        <div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; color: #E00A0A; letter-spacing: 2px">6 FEBRERO 2027</div><a href="oweclipse-2027.html" style="font-size: 18px; font-weight: 700; color: #fff; margin-top: 6px; display:block">Open Water Eclipse <br>Las Grutas (RN)<br>Evento exclusivo&nbsp;</a>
-        
-      </div>
-      <div style="border-radius: 10px; padding: 16px; border: 1px solid #1a5678; background: linear-gradient(270deg, #D7DDE2, #31467C)">
-        <div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; color: #020201; letter-spacing: 2px">18-20 de JUNIO 2027</div>
-        <div style="font-size: 18px; font-weight: 700; color: #fff; margin-top: 6px">2ª Winter Open Water <br>Patagones - Viedma (RN)<br>Fecha NAF - Nacional</div>
-      </div>
-    </div>
-    <div style="margin-top:20px;"></div>
-  </div>
-
   <!-- AUSPICIANTES -->
   <section style="background:#0b2942;border-top:1px solid #16455f;padding:36px 40px;">
     <div style="max-width:1100px;margin:0 auto;text-align:center;">
@@ -313,13 +330,6 @@
       <div style="font-size:14px;color:#a9c6d6;">
         <div style="color: #F1F3F4; font-size: 14px">@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete<br><br>ASOCIACIÓN CIVIL Y DEPORTIVA OPEN WATER<br>CUIT&nbsp;33719416859<br>Viedma, Río Negro, Argentina<br></div>
       </div>
-    </div>
-    <div style="max-width:1100px;margin:20px auto 0;padding-top:16px;border-top:1px solid #16455f;display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#c9a24d;">
-      <span>VISITAS AL SITIO: <span ref="{{ visitsRef }}" style="color:#fff;">—</span></span>
-      <button onClick="{{ openStats }}" title="Ver estadísticas del sitio" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#c9a24d;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;border:1px solid #c9a24d;border-radius:8px;padding:7px 14px;cursor:pointer;" style-hover="background:#c9a24d;color:#0a2438;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><rect x="7" y="12" width="3" height="5"></rect><rect x="12" y="8" width="3" height="9"></rect><rect x="17" y="14" width="3" height="3"></rect></svg>
-        VER ESTADÍSTICAS
-      </button>
     </div>
   </footer>
 

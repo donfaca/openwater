@@ -40,13 +40,25 @@
 
   // Devuelve una Promise<number> con los visitantes únicos de una ruta.
   // path 'TOTAL' = todo el sitio. start opcional = fecha YYYY-MM-DD.
-  function counterJson(path, start) {
+  function counterJson(path, start, _try) {
     var url = BASE + '/counter/' + encodeURIComponent(path) + '.json';
     if (start) url += '?start=' + start;
     return fetch(url, { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (d) { return d ? toNum(d.count) : 0; })
-      .catch(function () { return 0; });
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (d) {
+        if (!d) return 0;
+        // GoatCounter devuelve count (visitas) y count_unique (visitantes).
+        var v = (d.count_unique != null) ? d.count_unique : d.count;
+        return toNum(v);
+      })
+      .catch(function () {
+        // Reintenta ante fallos transitorios / respuesta lenta del contador.
+        if ((_try || 0) < 2) {
+          return new Promise(function (res) { setTimeout(res, 1200); })
+            .then(function () { return counterJson(path, start, (_try || 0) + 1); });
+        }
+        return 0;
+      });
   }
 
   function daysAgo(n) {
