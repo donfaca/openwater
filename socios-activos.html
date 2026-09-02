@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Socios activos · Open Water Río Negro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#0a2438;font-family:'Barlow',sans-serif;color:#eaf3f8}
+  a{color:#4db8e8}
+  a:hover{color:#1BCCCE}
+  h1,h2,.bebas{font-family:'Bebas Neue',sans-serif;letter-spacing:1px}
+  nav.ow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:16px 40px;background:#08202f;border-bottom:1px solid #16455f;position:sticky;top:0;z-index:10}
+  nav.ow a{color:#fff;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:26px 32px 70px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 24px}
+  .kpi{background:#0f3350;border:1px solid #1a5678;border-radius:14px;padding:16px 18px}
+  .kpi .lab{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#8fb2c6}
+  .kpi .val{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1.05;color:#fff}
+  .kpi .sub{font-size:13px;color:#a9c6d6}
+  .barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+  input[type=search],select{background:#0c2c44;border:1px solid #1a5678;border-radius:9px;color:#eaf3f8;padding:10px 12px;font-family:'Barlow',sans-serif;font-size:14px}
+  input[type=search]{min-width:230px}
+  .btn{cursor:pointer;font-family:'Barlow',sans-serif;font-weight:800;font-size:13.5px;padding:11px 16px;border-radius:9px;border:1px solid #1BCCCE;background:transparent;color:#1BCCCE}
+  .btn:hover{background:rgba(27,204,206,.12)}
+  .btn-oro{border-color:#c9a24d;color:#1a1300;background:#c9a24d}
+  .btn-oro:hover{background:#e2be62}
+  .btn-off{border-color:#3a5f77;color:#a9c6d6}
+  .tabla-cont{overflow-x:auto;border:1px solid #16455f;border-radius:14px;background:#0c2c44}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:1020px}
+  th{background:#08202f;text-align:left;padding:13px 14px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#a9c6d6;white-space:nowrap}
+  td{padding:12px 14px;border-top:1px solid #12384f;vertical-align:middle}
+  tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  .plan-tag{display:inline-block;font-family:'Bebas Neue',sans-serif;letter-spacing:1.4px;font-size:14px;padding:3px 10px;border-radius:999px;white-space:nowrap}
+  .pago{cursor:pointer;border:none;border-radius:999px;padding:6px 13px;font-family:'Barlow',sans-serif;font-weight:800;font-size:12px;letter-spacing:.04em}
+  .al-dia{background:rgba(63,191,111,.16);color:#7ee0a4;box-shadow:inset 0 0 0 1px rgba(63,191,111,.5)}
+  .debe{background:rgba(224,60,60,.14);color:#ff9b9b;box-shadow:inset 0 0 0 1px rgba(224,60,60,.5)}
+  .vacio{padding:52px 26px;text-align:center;color:#a9c6d6;font-size:15px;line-height:1.7}
+  .drop{margin-top:16px;border:1.5px dashed #2a6a8c;border-radius:14px;padding:22px;text-align:center;color:#8fb2c6;font-size:14px;background:rgba(12,44,68,.5)}
+  .drop.on{border-color:#1BCCCE;background:rgba(27,204,206,.08);color:#eaf3f8}
+  .quitar{background:none;border:none;color:#6f93a8;cursor:pointer;font-size:16px;line-height:1}
+  .quitar:hover{color:#ff9b9b}
+  @media(max-width:720px){nav.ow{padding:14px 18px}.wrap{padding:20px 16px 60px}}
+</style>
+</head>
+<body>
+
+<nav class="ow">
+  <a href="index.html" style="display:flex;align-items:center;gap:10px;">
+    <img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:46px;width:46px;object-fit:cover;border-radius:50%;">
+    <span class="bebas" style="font-size:22px;color:#fff;">OPEN WATER RÍO NEGRO</span>
+  </a>
+  <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;font-weight:700;">
+    <a href="socios.html">Asociate a OW</a>
+    <a href="ficha-asociacion.html">Ficha de asociación</a>
+    <a href="index.html">Inicio</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="bebas" style="font-size:14px;letter-spacing:5px;color:#c9a24d;">BASE DE DATOS · USO INTERNO</div>
+  <h1 style="font-size:52px;line-height:.95;color:#fff;margin:10px 0 8px;">SOCIOS ACTIVOS</h1>
+  <p style="max-width:760px;font-size:15.5px;line-height:1.7;color:#cfe4ee;margin:0;">Padrón de socios con su modalidad, cuota y estado de pago. Se carga con los archivos CSV que genera la ficha de asociación: cada CSV nuevo se suma al padrón y los repetidos se actualizan por DNI. Los datos quedan guardados en este navegador.</p>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="barra">
+    <input type="search" id="q" placeholder="Buscar por nombre, DNI o localidad">
+    <select id="fplan"><option value="">Todas las modalidades</option></select>
+    <select id="fpago">
+      <option value="">Todos los pagos</option>
+      <option value="al-dia">Al día</option>
+      <option value="debe">Debe</option>
+    </select>
+    <label class="btn btn-oro" style="display:inline-flex;align-items:center;">Cargar CSV de la ficha
+      <input type="file" id="file" accept=".csv,text/csv" multiple hidden>
+    </label>
+    <button class="btn" id="exportar">Exportar padrón (CSV)</button>
+    <button class="btn btn-off" id="vaciar">Vaciar padrón</button>
+  </div>
+
+  <div class="tabla-cont">
+    <table>
+      <thead>
+        <tr>
+          <th>Socio</th><th>DNI</th><th>Edad</th><th>Localidad</th><th>Modalidad</th>
+          <th>Cuota</th><th>Forma de pago</th><th>Pago del mes</th><th>Alta</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo"></tbody>
+    </table>
+    <div class="vacio" id="vacio">Todavía no hay socios cargados.<br>Cargá uno o varios CSV generados por la <a href="ficha-asociacion.html">ficha de asociación</a>.</div>
+  </div>
+
+  <div class="drop" id="drop">También podés arrastrar acá los archivos CSV de las fichas.</div>
+</div>
+
+<script>
+const CLAVE = 'ow-socios-activos-v1';
+const COLORES = {
+  'Socio Base':   {bg:'rgba(63,191,111,.16)', c:'#7ee0a4'},
+  'Socio Digital':{bg:'rgba(27,204,206,.14)', c:'#7fe3e4'},
+  'Socio Local':  {bg:'rgba(201,162,77,.16)', c:'#e2be62'},
+  'Socio Pro':    {bg:'rgba(231,154,74,.16)', c:'#e79a4a'}
+};
+const $ = (s) => document.querySelector(s);
+let socios = cargar();
+
+function cargar(){ try{ return JSON.parse(localStorage.getItem(CLAVE)) || []; }catch(e){ return []; } }
+function guardar(){ localStorage.setItem(CLAVE, JSON.stringify(socios)); }
+
+/* --- CSV --- */
+function parseCSV(txt){
+  txt = txt.replace(/^\uFEFF/, '');
+  const sep = (txt.split('\n')[0].match(/;/g) || []).length >= (txt.split('\n')[0].match(/,/g) || []).length ? ';' : ',';
+  const filas = []; let campo = '', fila = [], dentro = false;
+  for(let i = 0; i < txt.length; i++){
+    const ch = txt[i];
+    if(dentro){
+      if(ch === '"' && txt[i+1] === '"'){ campo += '"'; i++; }
+      else if(ch === '"'){ dentro = false; }
+      else campo += ch;
+    } else if(ch === '"'){ dentro = true; }
+    else if(ch === sep){ fila.push(campo); campo = ''; }
+    else if(ch === '\n'){ fila.push(campo); filas.push(fila); fila = []; campo = ''; }
+    else if(ch !== '\r'){ campo += ch; }
+  }
+  if(campo || fila.length){ fila.push(campo); filas.push(fila); }
+  if(!filas.length) return [];
+  const claves = filas.shift().map(k => k.trim());
+  return filas.filter(f => f.some(v => v.trim() !== '')).map(f => {
+    const o = {}; claves.forEach((k, i) => o[k] = (f[i] || '').trim()); return o;
+  });
+}
+function sumarFilas(filas){
+  let nuevos = 0, actualizados = 0;
+  filas.forEach(f => {
+    const s = {
+      nombre:    f['Nombre y apellido'] || '',
+      dni:       f['DNI'] || '',
+      edad:      f['Edad'] || '',
+      localidad: [f['Localidad'], f['Provincia']].filter(Boolean).join(', '),
+      plan:      f['Plan'] || '',
+      cuota:     f['Cuota mensual'] || '',
+      pago:      f['Forma de pago'] || '',
+      alta:      f['Fecha de alta'] || '',
+      telefono:  f['Teléfono'] || '',
+      email:     f['Email'] || '',
+      estado:    'debe'
+    };
+    if(!s.nombre && !s.dni) return;
+    const i = socios.findIndex(x => (s.dni && x.dni === s.dni) || (!s.dni && x.nombre.toLowerCase() === s.nombre.toLowerCase()));
+    if(i >= 0){ s.estado = socios[i].estado; socios[i] = s; actualizados++; }
+    else { socios.push(s); nuevos++; }
+  });
+  guardar(); pintar();
+  return {nuevos, actualizados};
+}
+function leerArchivos(lista){
+  const archivos = Array.from(lista).filter(f => /\.csv$/i.test(f.name));
+  if(!archivos.length) return;
+  let pendientes = archivos.length, tot = {nuevos:0, actualizados:0};
+  archivos.forEach(f => {
+    const r = new FileReader();
+    r.onload = () => {
+      const res = sumarFilas(parseCSV(r.result));
+      tot.nuevos += res.nuevos; tot.actualizados += res.actualizados;
+      if(--pendientes === 0){
+        $('#drop').textContent = tot.nuevos + ' socio(s) nuevo(s) y ' + tot.actualizados + ' actualizado(s).';
+        setTimeout(() => $('#drop').textContent = 'También podés arrastrar acá los archivos CSV de las fichas.', 5000);
+      }
+    };
+    r.readAsText(f, 'utf-8');
+  });
+}
+
+/* --- Render --- */
+function aNumero(t){ return Number(String(t).replace(/[^0-9]/g, '')) || 0; }
+function pintar(){
+  const q = ($('#q').value || '').toLowerCase().trim();
+  const fp = $('#fplan').value, fg = $('#fpago').value;
+  const lista = socios.filter(s => {
+    if(fp && s.plan !== fp) return false;
+    if(fg && s.estado !== fg) return false;
+    if(!q) return true;
+    return (s.nombre + ' ' + s.dni + ' ' + s.localidad).toLowerCase().includes(q);
+  });
+
+  const planes = Array.from(new Set(socios.map(s => s.plan).filter(Boolean))).sort();
+  const sel = $('#fplan'), actual = sel.value;
+  sel.innerHTML = '<option value="">Todas las modalidades</option>' + planes.map(p => '<option>' + p + '</option>').join('');
+  sel.value = planes.includes(actual) ? actual : '';
+
+  const alDia = socios.filter(s => s.estado === 'al-dia');
+  const recauda = alDia.reduce((a, s) => a + aNumero(s.cuota), 0);
+  const porPlan = planes.map(p => p.replace('Socio ', '') + ' ' + socios.filter(s => s.plan === p).length).join(' · ');
+  $('#kpis').innerHTML = [
+    ['SOCIOS EN EL PADRÓN', socios.length, porPlan || 'Sin modalidades cargadas'],
+    ['AL DÍA CON LA CUOTA', alDia.length, socios.length - alDia.length + ' con cuota pendiente'],
+    ['CUOTAS COBRADAS ESTE MES', '$' + recauda.toLocaleString('es-AR'), 'Suma de las cuotas marcadas al día'],
+    ['CUOTA PROMEDIO', socios.length ? '$' + Math.round(socios.reduce((a, s) => a + aNumero(s.cuota), 0) / socios.length).toLocaleString('es-AR') : '—', 'Sobre el total del padrón']
+  ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
+
+  $('#vacio').style.display = lista.length ? 'none' : 'block';
+  if(!socios.length) $('#vacio').innerHTML = 'Todavía no hay socios cargados.<br>Cargá uno o varios CSV generados por la <a href="ficha-asociacion.html">ficha de asociación</a>.';
+  else if(!lista.length) $('#vacio').innerHTML = 'Ningún socio coincide con el filtro.';
+
+  $('#cuerpo').innerHTML = lista.map(s => {
+    const col = COLORES[s.plan] || {bg:'rgba(255,255,255,.08)', c:'#cfe4ee'};
+    const i = socios.indexOf(s);
+    return '<tr>' +
+      '<td><div style="font-weight:700;color:#fff;">' + esc(s.nombre) + '</div>' +
+        (s.telefono || s.email ? '<div style="font-size:12.5px;color:#8fb2c6;">' + esc([s.telefono, s.email].filter(Boolean).join(' · ')) + '</div>' : '') + '</td>' +
+      '<td>' + esc(s.dni) + '</td>' +
+      '<td>' + esc(s.edad) + '</td>' +
+      '<td>' + esc(s.localidad) + '</td>' +
+      '<td><span class="plan-tag" style="background:' + col.bg + ';color:' + col.c + ';">' + esc(s.plan || '—') + '</span></td>' +
+      '<td style="font-weight:700;color:#fff;">' + esc(s.cuota || '—') + '</td>' +
+      '<td>' + esc(s.pago || '—') + '</td>' +
+      '<td><button class="pago ' + s.estado + '" data-i="' + i + '">' + (s.estado === 'al-dia' ? 'AL DÍA' : 'DEBE') + '</button></td>' +
+      '<td>' + esc(s.alta) + '</td>' +
+      '<td><button class="quitar" data-q="' + i + '" title="Quitar del padrón">✕</button></td>' +
+    '</tr>';
+  }).join('');
+}
+function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+/* --- Eventos --- */
+$('#file').addEventListener('change', (e) => { leerArchivos(e.target.files); e.target.value = ''; });
+['dragenter','dragover'].forEach(ev => $('#drop').addEventListener(ev, (e) => { e.preventDefault(); $('#drop').classList.add('on'); }));
+['dragleave','drop'].forEach(ev => $('#drop').addEventListener(ev, () => $('#drop').classList.remove('on')));
+$('#drop').addEventListener('drop', (e) => { e.preventDefault(); leerArchivos(e.dataTransfer.files); });
+$('#q').addEventListener('input', pintar);
+$('#fplan').addEventListener('change', pintar);
+$('#fpago').addEventListener('change', pintar);
+$('#cuerpo').addEventListener('click', (e) => {
+  const p = e.target.closest('.pago'), q = e.target.closest('.quitar');
+  if(p){ const i = +p.dataset.i; socios[i].estado = socios[i].estado === 'al-dia' ? 'debe' : 'al-dia'; guardar(); pintar(); }
+  if(q){ const i = +q.dataset.q; if(confirm('¿Quitar a ' + socios[i].nombre + ' del padrón?')){ socios.splice(i, 1); guardar(); pintar(); } }
+});
+$('#vaciar').addEventListener('click', () => {
+  if(!socios.length) return;
+  if(confirm('¿Vaciar el padrón completo de este navegador? Conviene exportarlo antes.')){ socios = []; guardar(); pintar(); }
+});
+$('#exportar').addEventListener('click', () => {
+  if(!socios.length) return;
+  const cols = ['nombre','dni','edad','localidad','plan','cuota','pago','estado','alta','telefono','email'];
+  const cab = ['Nombre y apellido','DNI','Edad','Localidad','Modalidad','Cuota mensual','Forma de pago','Pago del mes','Fecha de alta','Teléfono','Email'];
+  const esq = (t) => '"' + String(t == null ? '' : t).replace(/"/g, '""') + '"';
+  const csv = '\uFEFF' + cab.map(esq).join(';') + '\r\n' +
+    socios.map(s => cols.map(c => esq(c === 'estado' ? (s.estado === 'al-dia' ? 'Al día' : 'Debe') : s[c])).join(';')).join('\r\n') + '\r\n';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+  a.download = 'OW-padron-socios-' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+});
+
+pintar();
+</script>
+</body>
+</html>

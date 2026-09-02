@@ -557,6 +557,7 @@ input.bad,select.bad,textarea.bad{border-color:var(--error);border-bottom-color:
     <button class="btn btn-1" id="btn-enviar">Enviar la ficha</button>
     <button class="btn btn-2" id="btn-wa">Enviar por WhatsApp</button>
     <button class="btn btn-2" id="btn-mail">Enviar por email</button>
+    <button class="btn btn-2" id="btn-csv">Descargar registro del socio (CSV)</button>
     <button class="btn btn-2" id="btn-print">Imprimir o guardar en PDF</button>
   </div>
 
@@ -728,7 +729,7 @@ $("#btn-enviar").addEventListener("click", async () => {
   const cuerpo = JSON.stringify(datos());
   try{
     await fetch(CONTACTO.endpoint, {method:"POST", body:cuerpo});
-    exito();
+    exito(); descargarRegistro();
   }catch(err){
     try{
       await fetch(CONTACTO.endpoint, {method:"POST", mode:"no-cors", body:cuerpo});
@@ -762,6 +763,72 @@ $("#btn-mail").addEventListener("click", () => {
   $("#estado").classList.add("ok");
 });
 $("#btn-print").addEventListener("click", () => window.print());
+
+/* --- Registro de socios: archivo de salida (CSV) --- */
+function edadHoy(){
+  const v = $("#nac").value;
+  if(!v) return "";
+  const hoy = new Date(), n = new Date(v);
+  let e = hoy.getFullYear() - n.getFullYear();
+  const m = hoy.getMonth() - n.getMonth();
+  if(m < 0 || (m === 0 && hoy.getDate() < n.getDate())) e--;
+  return e >= 0 ? String(e) : "";
+}
+function fechaAR(iso){
+  if(!iso) return "";
+  const p = iso.split("-");
+  return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0] : iso;
+}
+/* Columnas del registro OW — una fila por socio */
+function filaRegistro(){
+  const plan  = valorDe("plan");                        // "Socio Local · $40.000/mes"
+  const part  = plan.split("·");
+  const nivel = (part[0] || "").trim();
+  const cuota = (part[1] || "").replace("/mes", "").trim();
+  const emerg = [valorDe("emergencia_nombre"), valorDe("emergencia_vinculo"), valorDe("emergencia_telefono")].filter(Boolean).join(" / ");
+  return {
+    "Fecha de alta":        new Date().toLocaleDateString("es-AR"),
+    "Nombre y apellido":    valorDe("nombre"),
+    "DNI":                  valorDe("dni"),
+    "Edad":                 edadHoy(),
+    "Fecha de nacimiento":  fechaAR(valorDe("nacimiento")),
+    "Género":               valorDe("genero"),
+    "Localidad":            valorDe("localidad"),
+    "Provincia":            valorDe("provincia"),
+    "Teléfono":             valorDe("telefono"),
+    "Email":                valorDe("email"),
+    "Plan":                 nivel,
+    "Cuota mensual":        cuota,
+    "Forma de pago":        valorDe("pago"),
+    "Alta deseada":         fechaAR(valorDe("inicio")),
+    "Nivel de nado":        valorDe("nivel"),
+    "Experiencia aguas abiertas": valorDe("aa"),
+    "Apto médico":          valorDe("apto"),
+    "Obra social":          valorDe("obra_social"),
+    "Grupo sanguíneo":      valorDe("grupo_sanguineo"),
+    "Contacto de emergencia": emerg,
+    "Talle":                valorDe("talle"),
+    "Adulto responsable":   valorDe("tutor_nombre"),
+    "Uso de imagen":        valorDe("dj_imagen") ? "Sí" : "No"
+  };
+}
+function descargarRegistro(){
+  const fila = filaRegistro();
+  const esc  = (t) => '"' + String(t == null ? "" : t).replace(/"/g, '""') + '"';
+  const csv  = "\uFEFF" + Object.keys(fila).map(esc).join(";") + "\r\n" + Object.values(fila).map(esc).join(";") + "\r\n";
+  const slug = (fila["Nombre y apellido"] || "socio").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase();
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"}));
+  a.download = "OW-socio-" + slug + (fila.DNI ? "-" + fila.DNI : "") + ".csv";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+$("#btn-csv").addEventListener("click", () => {
+  if(!validar()) return;
+  descargarRegistro();
+  $("#estado").textContent = "Descargamos el registro del socio en CSV. Adjuntalo al mail o sumalo a la planilla de socios OW.";
+  $("#estado").classList.add("ok");
+});
 
 actualizarProgreso();
 </script>
