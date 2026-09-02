@@ -531,6 +531,7 @@ input.bad,select.bad,textarea.bad{border-color:var(--error);border-bottom-color:
     </div>
 
     <div class="aviso">
+      Si nos enviás la ficha por email, <b>adjuntá el archivo CSV</b> que se descarga al tocar el botón: es el registro de tus datos y nos permite dar el alta sin volver a tipear nada.<br><br>
       El alta queda confirmada una vez recibida la ficha y acreditado el primer pago. Te escribimos por WhatsApp dentro de las 72 horas con los datos para abonar y el horario del primer entrenamiento.
     </div>
 
@@ -757,9 +758,13 @@ $("#btn-wa").addEventListener("click", () => {
 });
 $("#btn-mail").addEventListener("click", () => {
   if(!validar()) return;
+  const archivo = descargarRegistro();
   const asunto = "Ficha de asociación — " + ($("#nombre").value || "nuevo socio");
-  window.location.href = "mailto:" + CONTACTO.email + "?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(resumen());
-  $("#estado").textContent = "Se abrió tu correo con la ficha cargada.";
+  const cuerpo = resumen() + "\n\n----------\nADJUNTAR: el archivo " + archivo + " que se acaba de descargar en este dispositivo.";
+  setTimeout(() => {
+    window.location.href = "mailto:" + CONTACTO.email + "?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo);
+  }, 700);
+  $("#estado").innerHTML = "Descargamos el archivo <b>" + archivo + "</b> y abrimos tu correo. <b>Adjuntá ese archivo al mail</b> antes de enviarlo: con eso la Asociación carga tu alta en un clic.";
   $("#estado").classList.add("ok");
 });
 $("#btn-print").addEventListener("click", () => window.print());
@@ -822,6 +827,7 @@ function descargarRegistro(){
   a.download = "OW-socio-" + slug + (fila.DNI ? "-" + fila.DNI : "") + ".csv";
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  return a.download;
 }
 $("#btn-csv").addEventListener("click", () => {
   if(!validar()) return;

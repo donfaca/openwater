@@ -40,6 +40,8 @@
   .vacio{padding:52px 26px;text-align:center;color:#a9c6d6;font-size:15px;line-height:1.7}
   .drop{margin-top:16px;border:1.5px dashed #2a6a8c;border-radius:14px;padding:22px;text-align:center;color:#8fb2c6;font-size:14px;background:rgba(12,44,68,.5)}
   .drop.on{border-color:#1BCCCE;background:rgba(27,204,206,.08);color:#eaf3f8}
+  .recordar{display:inline-block;margin-right:8px;font-weight:800;font-size:12.5px;color:#1BCCCE;text-decoration:none;border:1px solid #1BCCCE;border-radius:999px;padding:5px 11px}
+  .recordar:hover{background:rgba(27,204,206,.14);color:#eaf3f8}
   .quitar{background:none;border:none;color:#6f93a8;cursor:pointer;font-size:16px;line-height:1}
   .quitar:hover{color:#ff9b9b}
   @media(max-width:720px){nav.ow{padding:14px 18px}.wrap{padding:20px 16px 60px}}
@@ -62,7 +64,7 @@
 <div class="wrap">
   <div class="bebas" style="font-size:14px;letter-spacing:5px;color:#c9a24d;">BASE DE DATOS · USO INTERNO</div>
   <h1 style="font-size:52px;line-height:.95;color:#fff;margin:10px 0 8px;">SOCIOS ACTIVOS</h1>
-  <p style="max-width:760px;font-size:15.5px;line-height:1.7;color:#cfe4ee;margin:0;">Padrón de socios con su modalidad, cuota y estado de pago. Se carga con los archivos CSV que genera la ficha de asociación: cada CSV nuevo se suma al padrón y los repetidos se actualizan por DNI. Los datos quedan guardados en este navegador.</p>
+  <p style="max-width:760px;font-size:15.5px;line-height:1.7;color:#cfe4ee;margin:0;">Padrón de socios con su modalidad, cuota y estado de pago. Se carga con los archivos CSV que genera la ficha de asociación: cada CSV nuevo se suma al padrón y los repetidos se actualizan por DNI. Los datos quedan guardados en este navegador. Para marcar pagos, cargar fichas o borrar socios hay que activar el <strong style="color:#c9a24d;">modo administrador</strong> con la clave.</p>
 
   <div class="kpis" id="kpis"></div>
 
@@ -73,12 +75,15 @@
       <option value="">Todos los pagos</option>
       <option value="al-dia">Al día</option>
       <option value="debe">Debe</option>
+      <option value="vencida">Cuota vencida (+30 días)</option>
     </select>
     <label class="btn btn-oro" style="display:inline-flex;align-items:center;">Cargar CSV de la ficha
       <input type="file" id="file" accept=".csv,text/csv" multiple hidden>
     </label>
+    <button class="btn" id="recordar-todos">Recordatorios pendientes</button>
     <button class="btn" id="exportar">Exportar padrón (CSV)</button>
     <button class="btn btn-off" id="vaciar">Vaciar padrón</button>
+    <button class="btn" id="admin" style="margin-left:auto;">🔒 Modo lectura</button>
   </div>
 
   <div class="tabla-cont">
@@ -86,7 +91,7 @@
       <thead>
         <tr>
           <th>Socio</th><th>DNI</th><th>Edad</th><th>Localidad</th><th>Modalidad</th>
-          <th>Cuota</th><th>Forma de pago</th><th>Pago del mes</th><th>Alta</th><th></th>
+          <th>Cuota</th><th>Forma de pago</th><th>Pago del mes</th><th>Último pago</th><th>Recordatorio</th><th></th>
         </tr>
       </thead>
       <tbody id="cuerpo"></tbody>
@@ -99,6 +104,11 @@
 
 <script>
 const CLAVE = 'ow-socios-activos-v1';
+/* Clave para editar el padrón (cambiala por la que quieras) */
+const PIN = '2027';
+/* Días del ciclo de cuota: a los 30 días del último pago se recuerda */
+const CICLO = 30;
+let admin = sessionStorage.getItem('ow-admin') === '1';
 const COLORES = {
   'Socio Base':   {bg:'rgba(63,191,111,.16)', c:'#7ee0a4'},
   'Socio Digital':{bg:'rgba(27,204,206,.14)', c:'#7fe3e4'},
@@ -146,6 +156,7 @@ function sumarFilas(filas){
       cuota:     f['Cuota mensual'] || '',
       pago:      f['Forma de pago'] || '',
       alta:      f['Fecha de alta'] || '',
+      ultimoPago: '',
       telefono:  f['Teléfono'] || '',
       email:     f['Email'] || '',
       estado:    'debe'
@@ -178,12 +189,67 @@ function leerArchivos(lista){
 
 /* --- Render --- */
 function aNumero(t){ return Number(String(t).replace(/[^0-9]/g, '')) || 0; }
+function hoyISO(){ return new Date().toISOString().slice(0, 10); }
+function diasDesde(iso){
+  if(!iso) return null;
+  return Math.floor((new Date(hoyISO()) - new Date(iso)) / 86400000);
+}
+/* Fecha de referencia: el último pago o, si no hay, la fecha de alta */
+function refPago(s){ return s.ultimoPago || aISO(s.alta); }
+function aISO(t){
+  const m = String(t || '').trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if(m) return m[3] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[1]).slice(-2);
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(t || '')) ? t : '';
+}
+/* Vencida: la última referencia de pago tiene 30 días o más */
+function vencida(s){
+  const d = diasDesde(refPago(s));
+  return d === null ? s.estado !== 'al-dia' : d >= CICLO;
+}
+function textoRecordatorio(s){
+  const d = diasDesde(refPago(s));
+  const nombre = (s.nombre || '').split(' ')[0] || 'socio/a';
+  return 'Hola ' + nombre + ', ¿cómo estás?\n\n' +
+  'Te escribimos de la Asociación Civil y Deportiva Open Water para recordarte la cuota de ' + (s.plan || 'socio') + (s.cuota ? ' (' + s.cuota + ' por mes)' : '') + '.\n' +
+  (d === null ? 'No tenemos registrado tu último pago.' : 'Tu último pago registrado es del ' + fechaAR(refPago(s)) + ', hace ' + d + ' días.') + '\n\n' +
+  'Si ya abonaste, mandanos el comprobante respondiendo este mensaje así lo registramos.\n\n' +
+  'Datos para transferir:\n' +
+  'Asociación Civil y Deportiva Open Water · CUIT 33-71941685-9\n' +
+  'Banco Patagonia · CA $ 299-299040170-000\n' +
+  'CBU 0340299508299040170004\n' +
+  'Alias OWRIONEGRO\n\n' +
+  '¡Gracias y nos vemos en el agua!\n' +
+  'Open Water Río Negro · openwaterrionegro@gmail.com';
+}
+function fechaAR(iso){
+  if(!iso) return '';
+  const p = String(iso).split('-');
+  return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : iso;
+}
+function mailtoDe(s){
+  return 'mailto:' + encodeURIComponent(s.email || '') +
+    '?subject=' + encodeURIComponent('Cuota de socio · Open Water Río Negro') +
+    '&body=' + encodeURIComponent(textoRecordatorio(s));
+}
+/* Normaliza a 549 + área + número: saca +54, el 0 inicial y el 15 de celular */
+function waNumero(tel){
+  let t = String(tel || '').replace(/[^0-9]/g, '');
+  t = t.replace(/^0*54/, '');       // 54 / 0054
+  t = t.replace(/^9/, '');          // 9 móvil
+  t = t.replace(/^0/, '');          // 0 de larga distancia
+  t = t.replace(/^(\d{2,4})15(\d{6,8})$/, '$1$2');  // 15 de celular
+  return t.length >= 9 ? '549' + t : '';
+}
+function waDe(s){
+  return 'https://wa.me/' + waNumero(s.telefono) + '?text=' + encodeURIComponent(textoRecordatorio(s));
+}
 function pintar(){
   const q = ($('#q').value || '').toLowerCase().trim();
   const fp = $('#fplan').value, fg = $('#fpago').value;
   const lista = socios.filter(s => {
     if(fp && s.plan !== fp) return false;
-    if(fg && s.estado !== fg) return false;
+    if(fg === 'vencida'){ if(!vencida(s)) return false; }
+    else if(fg && s.estado !== fg) return false;
     if(!q) return true;
     return (s.nombre + ' ' + s.dni + ' ' + s.localidad).toLowerCase().includes(q);
   });
@@ -200,8 +266,19 @@ function pintar(){
     ['SOCIOS EN EL PADRÓN', socios.length, porPlan || 'Sin modalidades cargadas'],
     ['AL DÍA CON LA CUOTA', alDia.length, socios.length - alDia.length + ' con cuota pendiente'],
     ['CUOTAS COBRADAS ESTE MES', '$' + recauda.toLocaleString('es-AR'), 'Suma de las cuotas marcadas al día'],
-    ['CUOTA PROMEDIO', socios.length ? '$' + Math.round(socios.reduce((a, s) => a + aNumero(s.cuota), 0) / socios.length).toLocaleString('es-AR') : '—', 'Sobre el total del padrón']
+    ['CUOTA PROMEDIO', socios.length ? '$' + Math.round(socios.reduce((a, s) => a + aNumero(s.cuota), 0) / socios.length).toLocaleString('es-AR') : '—', 'Sobre el total del padrón'],
+    ['RECORDATORIOS A ENVIAR', socios.filter(vencida).length, 'Cuotas de 30 días o más']
   ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
+
+  ['file','exportar','vaciar','recordar-todos'].forEach(id => {
+    const el = document.getElementById(id);
+    const cont = id === 'file' ? el.closest('label') : el;
+    cont.style.display = admin ? '' : 'none';
+  });
+  $('#drop').style.display = admin ? '' : 'none';
+  const ba = $('#admin');
+  ba.textContent = admin ? '🔓 Modo administrador' : '🔒 Modo lectura';
+  ba.className = 'btn' + (admin ? ' btn-oro' : ' btn-off');
 
   $('#vacio').style.display = lista.length ? 'none' : 'block';
   if(!socios.length) $('#vacio').innerHTML = 'Todavía no hay socios cargados.<br>Cargá uno o varios CSV generados por la <a href="ficha-asociacion.html">ficha de asociación</a>.';
@@ -219,9 +296,16 @@ function pintar(){
       '<td><span class="plan-tag" style="background:' + col.bg + ';color:' + col.c + ';">' + esc(s.plan || '—') + '</span></td>' +
       '<td style="font-weight:700;color:#fff;">' + esc(s.cuota || '—') + '</td>' +
       '<td>' + esc(s.pago || '—') + '</td>' +
-      '<td><button class="pago ' + s.estado + '" data-i="' + i + '">' + (s.estado === 'al-dia' ? 'AL DÍA' : 'DEBE') + '</button></td>' +
-      '<td>' + esc(s.alta) + '</td>' +
-      '<td><button class="quitar" data-q="' + i + '" title="Quitar del padrón">✕</button></td>' +
+      '<td><button class="pago ' + s.estado + '" data-i="' + i + '"' + (admin ? '' : ' disabled style="cursor:default;opacity:.85" title="Activá el modo administrador para editar"') + '>' + (s.estado === 'al-dia' ? 'AL DÍA' : 'DEBE') + '</button></td>' +
+      '<td>' + (refPago(s)
+        ? fechaAR(refPago(s)) + '<div style="font-size:12px;color:' + (vencida(s) ? '#ff9b9b' : '#8fb2c6') + ';">hace ' + diasDesde(refPago(s)) + ' días' + (s.ultimoPago ? '' : ' (desde el alta)') + '</div>'
+        : '<span style="color:#8fb2c6;">sin registro</span>') + '</td>' +
+      '<td style="white-space:nowrap;">' + (vencida(s)
+        ? (s.email ? '<a href="' + mailtoDe(s) + '" class="recordar" title="Enviar recordatorio por email">✉ Email</a>' : '') +
+          (waNumero(s.telefono) ? '<a href="' + waDe(s) + '" target="_blank" rel="noopener" class="recordar" title="Enviar recordatorio por WhatsApp">WhatsApp</a>' : '') +
+          (!s.email && !waNumero(s.telefono) ? '<span style="color:#8fb2c6;">sin contacto</span>' : '')
+        : '<span style="color:#8fb2c6;">al día</span>') + '</td>' +
+      '<td>' + (admin ? '<button class="quitar" data-q="' + i + '" title="Quitar del padrón">✕</button>' : '') + '</td>' +
     '</tr>';
   }).join('');
 }
@@ -237,8 +321,24 @@ $('#fplan').addEventListener('change', pintar);
 $('#fpago').addEventListener('change', pintar);
 $('#cuerpo').addEventListener('click', (e) => {
   const p = e.target.closest('.pago'), q = e.target.closest('.quitar');
-  if(p){ const i = +p.dataset.i; socios[i].estado = socios[i].estado === 'al-dia' ? 'debe' : 'al-dia'; guardar(); pintar(); }
+  if(p){
+    const i = +p.dataset.i;
+    if(socios[i].estado === 'al-dia'){ socios[i].estado = 'debe'; }
+    else { socios[i].estado = 'al-dia'; socios[i].ultimoPago = hoyISO(); }
+    guardar(); pintar();
+  }
   if(q){ const i = +q.dataset.q; if(confirm('¿Quitar a ' + socios[i].nombre + ' del padrón?')){ socios.splice(i, 1); guardar(); pintar(); } }
+});
+$('#recordar-todos').addEventListener('click', () => {
+  const pend = socios.filter(vencida);
+  if(!pend.length){ alert('No hay cuotas vencidas: todos los socios están dentro de los 30 días.'); return; }
+  $('#fpago').value = 'vencida'; pintar();
+  const correos = pend.map(s => s.email).filter(Boolean);
+  const txt = 'RECORDATORIOS PENDIENTES (' + pend.length + ')\n\n' +
+    pend.map(s => '• ' + s.nombre + ' — ' + (s.plan || '') + ' ' + (s.cuota || '') + ' — ' + (refPago(s) ? 'último pago ' + fechaAR(refPago(s)) + ' (' + diasDesde(refPago(s)) + ' días)' : 'sin pago registrado') + ' — ' + [s.email, s.telefono].filter(Boolean).join(' / ')).join('\n') +
+    '\n\nCorreos para copiar y pegar:\n' + correos.join(', ') + '\n\n--- MENSAJE SUGERIDO ---\n' + textoRecordatorio(pend[0]);
+  navigator.clipboard && navigator.clipboard.writeText(txt);
+  alert(pend.length + ' socio(s) con cuota vencida. Los filtré en la tabla y copié la lista al portapapeles.\n\nUsá el botón ✉ Email o WhatsApp de cada fila para enviar el recordatorio ya escrito.');
 });
 $('#vaciar').addEventListener('click', () => {
   if(!socios.length) return;
@@ -246,8 +346,8 @@ $('#vaciar').addEventListener('click', () => {
 });
 $('#exportar').addEventListener('click', () => {
   if(!socios.length) return;
-  const cols = ['nombre','dni','edad','localidad','plan','cuota','pago','estado','alta','telefono','email'];
-  const cab = ['Nombre y apellido','DNI','Edad','Localidad','Modalidad','Cuota mensual','Forma de pago','Pago del mes','Fecha de alta','Teléfono','Email'];
+  const cols = ['nombre','dni','edad','localidad','plan','cuota','pago','estado','ultimoPago','alta','telefono','email'];
+  const cab = ['Nombre y apellido','DNI','Edad','Localidad','Modalidad','Cuota mensual','Forma de pago','Pago del mes','Último pago','Fecha de alta','Teléfono','Email'];
   const esq = (t) => '"' + String(t == null ? '' : t).replace(/"/g, '""') + '"';
   const csv = '\uFEFF' + cab.map(esq).join(';') + '\r\n' +
     socios.map(s => cols.map(c => esq(c === 'estado' ? (s.estado === 'al-dia' ? 'Al día' : 'Debe') : s[c])).join(';')).join('\r\n') + '\r\n';
@@ -256,6 +356,14 @@ $('#exportar').addEventListener('click', () => {
   a.download = 'OW-padron-socios-' + new Date().toISOString().slice(0, 10) + '.csv';
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+});
+
+$('#admin').addEventListener('click', () => {
+  if(admin){ admin = false; sessionStorage.removeItem('ow-admin'); pintar(); return; }
+  const c = prompt('Clave de administrador para editar el padrón:');
+  if(c === null) return;
+  if(c.trim() === PIN){ admin = true; sessionStorage.setItem('ow-admin','1'); pintar(); }
+  else alert('Clave incorrecta.');
 });
 
 pintar();
