@@ -12,35 +12,37 @@
   a{color:#4db8e8}
   a:hover{color:#1BCCCE}
   h1,h2,.bebas{font-family:'Bebas Neue',sans-serif;letter-spacing:1px}
-  nav.ow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:16px 40px;background:#08202f;border-bottom:1px solid #16455f;position:sticky;top:0;z-index:10}
+  nav.ow{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 16px;background:#08202f;border-bottom:1px solid #16455f;position:sticky;top:0;z-index:10}
   nav.ow a{color:#fff;text-decoration:none}
-  .wrap{max-width:1240px;margin:0 auto;padding:26px 32px 70px}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0 24px}
-  .kpi{background:#0f3350;border:1px solid #1a5678;border-radius:14px;padding:16px 18px}
+  .wrap{max-width:100%;margin:0 auto;padding:18px 14px 60px}
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0 20px}
+  .kpi{background:#0f3350;border:1px solid #1a5678;border-radius:12px;padding:12px 13px}
   .kpi .lab{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#8fb2c6}
-  .kpi .val{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1.05;color:#fff}
-  .kpi .sub{font-size:13px;color:#a9c6d6}
+  .kpi .val{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1.05;color:#fff}
+  .kpi .sub{font-size:12px;color:#a9c6d6}
   .barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
   input[type=search],select{background:#0c2c44;border:1px solid #1a5678;border-radius:9px;color:#eaf3f8;padding:10px 12px;font-family:'Barlow',sans-serif;font-size:14px}
-  input[type=search]{min-width:230px}
-  .btn{cursor:pointer;font-family:'Barlow',sans-serif;font-weight:800;font-size:13.5px;padding:11px 16px;border-radius:9px;border:1px solid #1BCCCE;background:transparent;color:#1BCCCE}
+  input[type=search]{min-width:0;flex:1 1 100%}
+  .barra{gap:8px}
+  .barra select,.barra .btn,.barra label.btn{flex:1 1 46%;text-align:center;justify-content:center}
+  .btn{cursor:pointer;font-family:'Barlow',sans-serif;font-weight:800;font-size:13.5px;padding:13px 14px;min-height:46px;border-radius:9px;border:1px solid #1BCCCE;background:transparent;color:#1BCCCE}
   .btn:hover{background:rgba(27,204,206,.12)}
   .btn-oro{border-color:#c9a24d;color:#1a1300;background:#c9a24d}
   .btn-oro:hover{background:#e2be62}
   .btn-off{border-color:#3a5f77;color:#a9c6d6}
   .tabla-cont{overflow-x:auto;border:1px solid #16455f;border-radius:14px;background:#0c2c44}
-  table{width:100%;border-collapse:collapse;font-size:14px;min-width:1020px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:900px}
   th{background:#08202f;text-align:left;padding:13px 14px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#a9c6d6;white-space:nowrap}
   td{padding:12px 14px;border-top:1px solid #12384f;vertical-align:middle}
   tr:nth-child(even) td{background:rgba(255,255,255,.02)}
   .plan-tag{display:inline-block;font-family:'Bebas Neue',sans-serif;letter-spacing:1.4px;font-size:14px;padding:3px 10px;border-radius:999px;white-space:nowrap}
-  .pago{cursor:pointer;border:none;border-radius:999px;padding:6px 13px;font-family:'Barlow',sans-serif;font-weight:800;font-size:12px;letter-spacing:.04em}
+  .pago{cursor:pointer;border:none;border-radius:999px;padding:10px 15px;min-height:40px;font-family:'Barlow',sans-serif;font-weight:800;font-size:12px;letter-spacing:.04em}
   .al-dia{background:rgba(63,191,111,.16);color:#7ee0a4;box-shadow:inset 0 0 0 1px rgba(63,191,111,.5)}
   .debe{background:rgba(224,60,60,.14);color:#ff9b9b;box-shadow:inset 0 0 0 1px rgba(224,60,60,.5)}
   .vacio{padding:52px 26px;text-align:center;color:#a9c6d6;font-size:15px;line-height:1.7}
   .drop{margin-top:16px;border:1.5px dashed #2a6a8c;border-radius:14px;padding:22px;text-align:center;color:#8fb2c6;font-size:14px;background:rgba(12,44,68,.5)}
   .drop.on{border-color:#1BCCCE;background:rgba(27,204,206,.08);color:#eaf3f8}
-  .recordar{display:inline-block;margin-right:8px;font-weight:800;font-size:12.5px;color:#1BCCCE;text-decoration:none;border:1px solid #1BCCCE;border-radius:999px;padding:5px 11px}
+  .recordar{display:inline-block;margin:0 6px 4px 0;font-weight:800;font-size:12.5px;color:#1BCCCE;text-decoration:none;border:1px solid #1BCCCE;border-radius:999px;padding:9px 13px;min-height:40px}
   .recordar:hover{background:rgba(27,204,206,.14);color:#eaf3f8}
   .quitar{background:none;border:none;color:#6f93a8;cursor:pointer;font-size:16px;line-height:1}
   .quitar:hover{color:#ff9b9b}
@@ -59,25 +61,25 @@
 
 <nav class="ow">
   <a href="index.html" style="display:flex;align-items:center;gap:10px;">
-    <img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:46px;width:46px;object-fit:cover;border-radius:50%;">
-    <span class="bebas" style="font-size:22px;color:#fff;">OPEN WATER RÍO NEGRO</span>
+    <img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:40px;width:40px;object-fit:cover;border-radius:50%;">
+    <span class="bebas" style="font-size:17px;line-height:1.05;color:#fff;">OPEN WATER<br>RÍO NEGRO</span>
   </a>
-  <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;font-weight:700;">
-    <a href="socios.html">Asociate a OW</a>
+  <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px;font-weight:700;">
+    <a href="socios-movil.html">Asociate a OW</a>
     <a href="ficha-asociacion.html">Ficha de asociación</a>
-    <a href="index.html">Inicio</a>
+    <a href="index-movil.html">Inicio</a>
   </div>
 </nav>
 
 <div class="wrap">
-  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;">
     <div>
       <div class="bebas" style="font-size:14px;letter-spacing:5px;color:#c9a24d;">BASE DE DATOS · USO INTERNO</div>
-      <h1 style="font-size:52px;line-height:.95;color:#fff;margin:10px 0 8px;">SOCIOS ACTIVOS</h1>
+      <h1 style="font-size:36px;line-height:.95;color:#fff;margin:8px 0 6px;">SOCIOS ACTIVOS</h1>
     </div>
-    <button class="btn btn-oro" id="admin" style="margin-top:6px;font-size:15px;padding:14px 22px;">🔒 Editar padrón</button>
+    <button class="btn btn-oro" id="admin" style="font-size:15px;padding:14px 20px;flex:1 1 100%;">🔒 Editar padrón</button>
   </div>
-  <p style="max-width:760px;font-size:15.5px;line-height:1.7;color:#cfe4ee;margin:0;">Padrón de socios con su modalidad, cuota y estado de pago. Se carga con los archivos CSV que genera la ficha de asociación: cada CSV nuevo se suma al padrón y los repetidos se actualizan por DNI. Los datos quedan guardados en este navegador. Para marcar pagos, cargar fichas o borrar socios hay que activar el <strong style="color:#c9a24d;">modo administrador</strong> con la clave.</p>
+  <p style="max-width:760px;font-size:14.5px;line-height:1.7;color:#cfe4ee;margin:0;">Padrón de socios con su modalidad, cuota y estado de pago. Se carga con los archivos CSV que genera la ficha de asociación: cada CSV nuevo se suma al padrón y los repetidos se actualizan por DNI. Los datos quedan guardados en este navegador. Para marcar pagos, cargar fichas o borrar socios hay que activar el <strong style="color:#c9a24d;">modo administrador</strong> con la clave.</p>
 
   <div class="kpis" id="kpis"></div>
 
@@ -111,7 +113,7 @@
     <div class="vacio" id="vacio">Todavía no hay socios cargados.<br>Cargá uno o varios CSV generados por la <a href="ficha-asociacion.html">ficha de asociación</a>.</div>
   </div>
 
-  <div class="drop" id="drop">También podés arrastrar acá los archivos CSV de las fichas.</div>
+  <div class="drop" id="drop">Usá el botón «Cargar CSV de la ficha» para sumar socios al padrón.</div>
 </div>
 
 <script>
