@@ -40,7 +40,8 @@
   .vacio{padding:52px 26px;text-align:center;color:#a9c6d6;font-size:15px;line-height:1.7}
   .drop{margin-top:16px;border:1.5px dashed #2a6a8c;border-radius:14px;padding:22px;text-align:center;color:#8fb2c6;font-size:14px;background:rgba(12,44,68,.5)}
   .drop.on{border-color:#1BCCCE;background:rgba(27,204,206,.08);color:#eaf3f8}
-  .recordar{display:inline-block;margin-right:8px;font-weight:800;font-size:12.5px;color:#1BCCCE;text-decoration:none;border:1px solid #1BCCCE;border-radius:999px;padding:5px 11px}
+  .recordar{display:inline-block;margin-right:8px;font-weight:800;font-size:12.5px;color:#1BCCCE;text-decoration:none;border:1px solid #1BCCCE;border-radius:999px;padding:5px 11px;background:transparent;font-family:'Barlow',sans-serif;cursor:pointer;white-space:nowrap}
+  button.recordar[data-carnet]{color:#c9a24d;border-color:#c9a24d}
   .recordar:hover{background:rgba(27,204,206,.14);color:#eaf3f8}
   .quitar{background:none;border:none;color:#6f93a8;cursor:pointer;font-size:16px;line-height:1}
   .quitar:hover{color:#ff9b9b}
@@ -102,8 +103,8 @@
     <table>
       <thead>
         <tr>
-          <th>Socio</th><th>DNI</th><th>Edad</th><th>Localidad</th><th>Modalidad</th>
-          <th>Cuota</th><th>Forma de pago</th><th>Pago del mes</th><th>Último pago</th><th>Recordatorio</th><th></th>
+          <th style="width:64px;">N.º</th><th>Socio</th><th>DNI</th><th>Edad</th><th>Localidad</th><th>Modalidad</th>
+          <th>Cuota</th><th>Forma de pago</th><th>Pago del mes</th><th>Último pago</th><th>Recordatorio</th><th>Carnet</th><th></th>
         </tr>
       </thead>
       <tbody id="cuerpo"></tbody>
@@ -117,7 +118,7 @@
 <script>
 const CLAVE = 'ow-socios-activos-v1';
 /* Clave para editar el padrón (cambiala por la que quieras) */
-const PIN = '2027';
+const PIN = '129430';
 /* Días del ciclo de cuota: a los 30 días del último pago se recuerda */
 const CICLO = 30;
 let admin = sessionStorage.getItem('ow-admin') === '1';
@@ -132,6 +133,32 @@ let socios = cargar();
 
 function cargar(){ try{ return JSON.parse(localStorage.getItem(CLAVE)) || []; }catch(e){ return []; } }
 function guardar(){ localStorage.setItem(CLAVE, JSON.stringify(socios)); }
+
+/* --- Número de socio: único y fijo de por vida (de acá sale el carnet) --- */
+const CLAVE_NRO = 'ow-socios-ultimo-nro-v1';
+function ultimoNro(){
+  const guardado = parseInt(localStorage.getItem(CLAVE_NRO) || '0', 10) || 0;
+  const enPadron = socios.reduce((m, s) => Math.max(m, parseInt(s.nro, 10) || 0), 0);
+  return Math.max(guardado, enPadron);
+}
+function proximoNro(){
+  const n = ultimoNro() + 1;
+  localStorage.setItem(CLAVE_NRO, String(n));
+  return n;
+}
+/* Número que ya venía en el CSV: se respeta y el contador nunca lo reutiliza */
+function nroImportado(f){
+  const v = parseInt(String(f['N.º de socio'] || f['N° de socio'] || f['Nro de socio'] || f['Nro'] || '').replace(/\D/g, ''), 10);
+  if(!v) return 0;
+  localStorage.setItem(CLAVE_NRO, String(Math.max(ultimoNro(), v)));
+  return v;
+}
+/* Socios cargados antes de esta versión: se les fija el número una sola vez */
+(function numerarViejos(){
+  let cambio = false;
+  socios.forEach(s => { if(!s.nro){ s.nro = proximoNro(); cambio = true; } });
+  if(cambio) guardar();
+})();
 
 /* --- CSV --- */
 function parseCSV(txt){
@@ -175,8 +202,14 @@ function sumarFilas(filas){
     };
     if(!s.nombre && !s.dni) return;
     const i = socios.findIndex(x => (s.dni && x.dni === s.dni) || (!s.dni && x.nombre.toLowerCase() === s.nombre.toLowerCase()));
-    if(i >= 0){ s.estado = socios[i].estado; socios[i] = s; actualizados++; }
-    else { socios.push(s); nuevos++; }
+    /* Si el CSV es un respaldo del padrón, recupera también el estado de pago */
+    if(/al d/i.test(f['Pago del mes'] || '')) s.estado = 'al-dia';
+    const up = (f['Último pago'] || '').trim();
+    if(/^\d{2}\/\d{2}\/\d{4}$/.test(up)){ const pz = up.split('/'); s.ultimoPago = pz[2] + '-' + pz[1] + '-' + pz[0]; }
+    else if(/^\d{4}-\d{2}-\d{2}$/.test(up)) s.ultimoPago = up;
+    const nImp = nroImportado(f);
+    if(i >= 0){ s.estado = socios[i].estado; s.foto = socios[i].foto || ''; s.nro = socios[i].nro || nImp || proximoNro(); socios[i] = s; actualizados++; }
+    else { s.nro = nImp || proximoNro(); socios.push(s); nuevos++; }
   });
   guardar(); pintar();
   return {nuevos, actualizados};
@@ -277,10 +310,11 @@ function pintar(){
   $('#kpis').innerHTML = [
     ['SOCIOS EN EL PADRÓN', socios.length, porPlan || 'Sin modalidades cargadas'],
     ['AL DÍA CON LA CUOTA', alDia.length, socios.length - alDia.length + ' con cuota pendiente'],
-    ['CUOTAS COBRADAS ESTE MES', '$' + recauda.toLocaleString('es-AR'), 'Suma de las cuotas marcadas al día'],
-    ['CUOTA PROMEDIO', socios.length ? '$' + Math.round(socios.reduce((a, s) => a + aNumero(s.cuota), 0) / socios.length).toLocaleString('es-AR') : '—', 'Sobre el total del padrón'],
     ['RECORDATORIOS A ENVIAR', socios.filter(vencida).length, 'Cuotas de 30 días o más']
-  ].map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
+  ].concat(admin ? [
+    ['CUOTAS COBRADAS ESTE MES', '$' + recauda.toLocaleString('es-AR'), 'Suma de las cuotas marcadas al día'],
+    ['CUOTA PROMEDIO', socios.length ? '$' + Math.round(socios.reduce((a, s) => a + aNumero(s.cuota), 0) / socios.length).toLocaleString('es-AR') : '—', 'Sobre el total del padrón']
+  ] : []).map(k => '<div class="kpi"><div class="lab">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>').join('');
 
   ['file','exportar','vaciar','recordar-todos'].forEach(id => {
     const el = document.getElementById(id);
@@ -302,8 +336,9 @@ function pintar(){
     const col = COLORES[s.plan] || {bg:'rgba(255,255,255,.08)', c:'#cfe4ee'};
     const i = socios.indexOf(s);
     return '<tr>' +
+      '<td style="font-family:\'Bebas Neue\',sans-serif;letter-spacing:1px;font-size:17px;color:#c9a24d;">' + nroSocio(s) + '</td>' +
       '<td><div style="font-weight:700;color:#fff;">' + esc(s.nombre) + '</div>' +
-        (s.telefono || s.email ? '<div style="font-size:12.5px;color:#8fb2c6;">' + esc([s.telefono, s.email].filter(Boolean).join(' · ')) + '</div>' : '') + '</td>' +
+        (admin && (s.telefono || s.email) ? '<div style="font-size:12.5px;color:#8fb2c6;">' + esc([s.telefono, s.email].filter(Boolean).join(' · ')) + '</div>' : '') + '</td>' +
       '<td>' + esc(s.dni) + '</td>' +
       '<td>' + esc(s.edad) + '</td>' +
       '<td>' + esc(s.localidad) + '</td>' +
@@ -319,9 +354,103 @@ function pintar(){
           (waNumero(s.telefono) ? '<a href="' + waDe(s) + '" target="_blank" rel="noopener" class="recordar" title="Enviar recordatorio por WhatsApp">WhatsApp</a>' : '') +
           (!s.email && !waNumero(s.telefono) ? '<span style="color:#8fb2c6;">sin contacto</span>' : '')
         : '<span style="color:#8fb2c6;">al día</span>') + '</td>' +
+      '<td style="white-space:nowrap;"><button class="recordar" data-carnet="' + i + '" title="Descargar el carnet en PDF">⬇ Carnet</button>' +
+        (admin ? '<button class="recordar" data-foto="' + i + '" title="' + (s.foto ? 'Cambiar la foto del carnet' : 'Cargar la foto del carnet') + '">' + (s.foto ? '🖼 Foto ✓' : '📷 Foto') + '</button>' : '') + '</td>' +
       '<td>' + (admin ? '<button class="quitar" data-q="' + i + '" title="Quitar del padrón">✕</button>' : '') + '</td>' +
     '</tr>';
   }).join('');
+}
+function nroSocio(s){ return String(parseInt(s && s.nro, 10) || 0).padStart(4, '0'); }
+/* --- Carnet de socio (PDF) --- */
+function carnetHTML(s){
+  const logo = new URL('logo-ow.jpg', location.href).href;
+  const hoy = new Date();
+  const vig = new Date(hoy.getFullYear(), 11, 31).toLocaleDateString('es-AR');
+  const fila = (k, v) => '<div class="d"><span>' + k + '</span><b>' + esc(v || '—') + '</b></div>';
+  return '<!DOCTYPE html><html lang="es-AR"><head><meta charset="utf-8">' +
+  '<title>Carnet ' + nroSocio(s) + ' · ' + esc(s.nombre) + '</title>' +
+  '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">' +
+  '<style>' +
+  '@page{size:88mm 56mm;margin:0}' +
+  '*{box-sizing:border-box}' +
+  'html,body{margin:0;padding:0;background:#e8eef2;font-family:Barlow,system-ui,sans-serif}' +
+  '.carnet{width:88mm;height:56mm;background:#0a2438;color:#eaf3f8;display:grid;grid-template-columns:23mm 1fr;overflow:hidden;position:relative}' +
+  '.carnet:before{content:"";position:absolute;left:0;right:0;top:0;height:2.4mm;background:linear-gradient(90deg,#c9a24d,#e2be62)}' +
+  '.izq{padding:5.4mm 2.4mm 3mm 3.2mm;display:flex;flex-direction:column;align-items:center;gap:1.6mm}' +
+  '.logo{width:15mm;height:15mm;border-radius:50%;object-fit:cover;border:.5mm solid #c9a24d}' +
+  'img.foto{object-fit:cover;border:.4mm solid #c9a24d;border-style:solid}' +
+  '.foto{width:17mm;height:21mm;border:.4mm dashed #46718c;border-radius:1mm;background:#0f3350;display:flex;align-items:center;justify-content:center;text-align:center;font-family:Bebas Neue,sans-serif;font-size:2.6mm;letter-spacing:.4mm;color:#7fa3b8;line-height:1.2;padding:1mm}' +
+  '.der{padding:5mm 3.4mm 2.4mm 1mm;display:flex;flex-direction:column;min-height:0;overflow:hidden}' +
+  '.marca{font-family:Bebas Neue,sans-serif;font-size:4.2mm;letter-spacing:.5mm;color:#fff;line-height:1}' +
+  '.marca i{display:block;font-style:normal;font-size:2.3mm;letter-spacing:1mm;color:#c9a24d;margin-top:.6mm}' +
+  '.nombre{font-family:Bebas Neue,sans-serif;font-size:5mm;line-height:1.05;color:#fff;margin:2.2mm 0 .4mm;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word;max-width:47mm}' +
+  '.plan{display:inline-block;font-family:Bebas Neue,sans-serif;font-size:2.9mm;letter-spacing:.6mm;color:#0a2438;background:#c9a24d;padding:.5mm 2mm;border-radius:6mm;align-self:flex-start}' +
+  '.datos{margin-top:auto;display:grid;grid-template-columns:1fr 1fr;gap:.8mm 2mm;flex:none}' +
+  '.d span{display:block;font-family:Bebas Neue,sans-serif;font-size:2.2mm;letter-spacing:.5mm;color:#8fb2c6}' +
+  '.d b{font-size:2.9mm;font-weight:700;color:#fff}' +
+  '.nro{position:absolute;right:3.4mm;top:4.6mm;text-align:right}' +
+  '.nro span{display:block;font-family:Bebas Neue,sans-serif;font-size:2.2mm;letter-spacing:.6mm;color:#8fb2c6}' +
+  '.nro b{font-family:Bebas Neue,sans-serif;font-size:7mm;line-height:1;color:#c9a24d}' +
+  '.pie{margin-top:1.4mm;font-size:2.2mm;color:#7fa3b8;letter-spacing:.2mm;flex:none}' +
+  '.aviso{font-family:Barlow,sans-serif;font-size:13px;color:#25455c;text-align:center;padding:18px 16px 0}' +
+  '.aviso b{color:#0a2438}' +
+  '@media print{.aviso{display:none}body{background:#fff}}' +
+  '</style></head><body>' +
+  '<p class="aviso">Se abrirá el diálogo de impresión: elegí <b>Guardar como PDF</b>. El tamaño ya está fijado al de un carnet (88 × 56 mm).<br>El recuadro punteado es el espacio para pegar la foto.</p>' +
+  '<div class="carnet">' +
+    '<div class="izq">' +
+      '<img class="logo" src="' + logo + '" alt="Open Water Río Negro">' +
+      (s.foto ? '<img class="foto" src="' + s.foto + '" alt="Foto del socio">' : '<div class="foto">FOTO<br>DEL SOCIO</div>') +
+    '</div>' +
+    '<div class="der">' +
+      '<div class="marca">OPEN WATER<i>RÍO NEGRO</i></div>' +
+      '<div class="nro"><span>N.º DE SOCIO</span><b>' + nroSocio(s) + '</b></div>' +
+      '<div class="nombre">' + esc(s.nombre) + '</div>' +
+      '<div class="plan">' + esc((s.plan || 'SOCIO').toUpperCase()) + '</div>' +
+      '<div class="datos">' +
+        fila('DNI', s.dni) +
+        fila('EDAD', s.edad) +
+        fila('SOCIO DESDE', s.alta) +
+        fila('VÁLIDO HASTA', vig) +
+      '</div>' +
+      '<div class="pie">Asociación Civil y Deportiva Open Water · openwater.ar</div>' +
+    '</div>' +
+  '</div>' +
+  '<script>window.addEventListener("load", function(){ setTimeout(function(){ window.print(); }, 400); });<\/script>' +
+  '</body></html>';
+}
+function cargarFoto(i){
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*';
+  inp.addEventListener('change', () => {
+    const f = inp.files && inp.files[0];
+    if(!f) return;
+    const fr = new FileReader();
+    fr.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const AN = 360, AL = 450;
+        const c = document.createElement('canvas');
+        c.width = AN; c.height = AL;
+        const k = Math.max(AN / img.width, AL / img.height);
+        const w = img.width * k, h = img.height * k;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, AN, AL);
+        ctx.drawImage(img, (AN - w) / 2, (AL - h) / 2, w, h);
+        socios[i].foto = c.toDataURL('image/jpeg', 0.82);
+        try{ guardar(); }catch(e){ socios[i].foto = ''; alert('No hay espacio en este navegador para guardar más fotos.'); }
+        pintar();
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(f);
+  });
+  inp.click();
+}
+function abrirCarnet(s){
+  const w = window.open('', '_blank');
+  if(!w){ alert('El navegador bloqueó la ventana del carnet. Permití las ventanas emergentes para este sitio.'); return; }
+  w.document.open(); w.document.write(carnetHTML(s)); w.document.close();
 }
 function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -334,6 +463,10 @@ $('#q').addEventListener('input', pintar);
 $('#fplan').addEventListener('change', pintar);
 $('#fpago').addEventListener('change', pintar);
 $('#cuerpo').addEventListener('click', (e) => {
+  const c = e.target.closest('[data-carnet]');
+  if(c){ abrirCarnet(socios[+c.dataset.carnet]); return; }
+  const fo = e.target.closest('[data-foto]');
+  if(fo){ cargarFoto(+fo.dataset.foto); return; }
   const p = e.target.closest('.pago'), q = e.target.closest('.quitar');
   if(p){
     const i = +p.dataset.i;
@@ -361,10 +494,10 @@ $('#vaciar').addEventListener('click', () => {
 $('#exportar').addEventListener('click', () => {
   if(!socios.length) return;
   const cols = ['nombre','dni','edad','localidad','plan','cuota','pago','estado','ultimoPago','alta','telefono','email'];
-  const cab = ['Nombre y apellido','DNI','Edad','Localidad','Modalidad','Cuota mensual','Forma de pago','Pago del mes','Último pago','Fecha de alta','Teléfono','Email'];
+  const cab = ['N.º de socio','Nombre y apellido','DNI','Edad','Localidad','Modalidad','Cuota mensual','Forma de pago','Pago del mes','Último pago','Fecha de alta','Teléfono','Email'];
   const esq = (t) => '"' + String(t == null ? '' : t).replace(/"/g, '""') + '"';
   const csv = '\uFEFF' + cab.map(esq).join(';') + '\r\n' +
-    socios.map(s => cols.map(c => esq(c === 'estado' ? (s.estado === 'al-dia' ? 'Al día' : 'Debe') : s[c])).join(';')).join('\r\n') + '\r\n';
+    socios.map((s) => [esq(nroSocio(s))].concat(cols.map(c => esq(c === 'estado' ? (s.estado === 'al-dia' ? 'Al día' : 'Debe') : s[c]))).join(';')).join('\r\n') + '\r\n';
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
   a.download = 'OW-padron-socios-' + new Date().toISOString().slice(0, 10) + '.csv';

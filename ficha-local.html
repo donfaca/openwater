@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ficha Socio Local · Open Water Río Negro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   CONFIGURACIÓN RÁPIDA — editar en el <script> al final:
+   número de WhatsApp y email de la Asociación.
+   ============================================================ */
+
+:root{
+  --navy:#0A2540;
+  --navy-2:#123A5C;
+  --rio:#1B4F8A;
+  --agua:#16BDCA;
+  --agua-soft:#E4F7F9;
+  --oro:#A9761C;
+  --oro-soft:#FBF3E3;
+  --brote:#1F7A5C;
+  --brote-soft:#E7F4EE;
+  --bg:#EFF4F8;
+  --card:#FFFFFF;
+  --tinta:#12222E;
+  --gris:#5F7386;
+  --linea:#D9E3EC;
+  --error:#C0392B;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Archivo","Inter",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--tinta);
+  font-family:var(--sans);font-size:15px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+
+.wrap{max-width:920px;margin:0 auto;padding:0 0 64px}
+
+/* ---------- Encabezado institucional ---------- */
+.topbar{
+  background:var(--navy);color:#fff;display:flex;align-items:center;gap:14px;
+  padding:12px 22px;
+}
+.topbar .chip{
+  background:#fff;border-radius:9px;padding:6px 8px;line-height:0;flex:none;
+}
+.topbar .chip img{width:52px}
+.topbar .org{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#BFD6E6}
+.topbar .org b{display:block;color:#fff;font-weight:600;letter-spacing:.06em;font-size:12px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--navy);overflow:hidden}
+.hero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:.7}
+.hero .veil{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(10,37,64,.30) 0%,rgba(10,37,64,.55) 45%,rgba(10,37,64,.94) 100%);
+}
+.hero .inner{position:relative;padding:96px 22px 26px}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--agua);margin:0 0 10px
+}
+.hero h1{
+  font-family:var(--display);font-weight:800;letter-spacing:-.02em;
+  font-size:clamp(30px,6.2vw,46px);line-height:1.02;color:#fff;margin:0 0 10px
+}
+.hero p{margin:0;max-width:56ch;color:#CBDDEA;font-size:14.5px}
+
+/* ---------- Línea de flotación (progreso) ---------- */
+.waterline{
+  position:sticky;top:0;z-index:30;height:46px;background:var(--navy-2);
+  overflow:hidden;box-shadow:0 1px 0 rgba(0,0,0,.15)
+}
+.waterline .fill{
+  position:absolute;left:0;right:0;bottom:0;height:0%;
+  background:linear-gradient(180deg,#1FA9C6 0%,#16BDCA 100%);
+  transition:height .55s cubic-bezier(.4,0,.2,1)
+}
+.waterline .fill svg{position:absolute;top:-11px;left:0;width:200%;height:14px;animation:drift 9s linear infinite}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.waterline .read{
+  position:relative;z-index:2;height:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:0 22px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff
+}
+.waterline .read span{text-shadow:0 1px 3px rgba(10,37,64,.5)}
+@media(prefers-reduced-motion:reduce){
+  .waterline .fill{transition:none}
+  .waterline .fill svg{animation:none}
+}
+
+/* ---------- Secciones ---------- */
+.sec{background:var(--card);margin:18px 14px 0;border-radius:14px;padding:26px 22px;border:1px solid var(--linea)}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin:0 0 4px}
+.sec-num{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--agua);letter-spacing:.1em}
+.sec-head h2{font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:-.01em;margin:0}
+.sec-desc{color:var(--gris);font-size:13.5px;margin:0 0 20px}
+.rule{height:1px;background:var(--linea);margin:0 0 20px}
+
+/* ---------- Campos ---------- */
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.f{grid-column:span 6;display:flex;flex-direction:column}
+.f-4{grid-column:span 4}.f-3{grid-column:span 3}.f-12{grid-column:span 12}.f-8{grid-column:span 8}
+label.lab{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--gris);margin:0 0 6px;font-weight:500
+}
+label.lab .req{color:var(--agua)}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
+  font-family:var(--sans);font-size:15px;color:var(--tinta);background:#F7FAFC;
+  border:1px solid var(--linea);border-bottom:2px solid #C6D4E0;border-radius:8px;
+  padding:10px 12px;width:100%;transition:border-color .15s,background .15s
+}
+textarea{resize:vertical;min-height:76px;line-height:1.5}
+input:focus,select:focus,textarea:focus{
+  outline:none;background:#fff;border-color:var(--agua);border-bottom-color:var(--agua);
+  box-shadow:0 0 0 3px rgba(22,189,202,.18)
+}
+input.bad,select.bad,textarea.bad{border-color:var(--error);border-bottom-color:var(--error);background:#FDF3F2}
+.hint{font-size:12px;color:var(--gris);margin:6px 0 0}
+
+/* ---------- Opciones (radio / check) ---------- */
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:100%;height:100%;left:0;top:0;margin:0;cursor:pointer}
+.opt span{
+  display:block;padding:8px 14px;border:1px solid var(--linea);border-radius:999px;
+  background:#F7FAFC;font-size:14px;cursor:pointer;transition:.15s
+}
+.opt input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff}
+.opt input:focus-visible + span{box-shadow:0 0 0 3px rgba(22,189,202,.35)}
+
+.checks{display:flex;flex-direction:column;gap:12px}
+.chk{display:flex;gap:11px;align-items:flex-start;font-size:14px;line-height:1.5;cursor:pointer}
+.chk input{width:19px;height:19px;flex:none;margin:1px 0 0;accent-color:var(--agua);cursor:pointer}
+.chk.bad{color:var(--error)}
+.chk small{display:block;color:var(--gris);font-size:12.5px;margin-top:2px}
+
+/* ---------- Planes ---------- */
+.planes{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.plan{position:relative}
+.plan input{position:absolute;opacity:0;width:100%;height:100%;left:0;top:0;margin:0;cursor:pointer}
+.plan .box{
+  display:block;
+  border:1.5px solid var(--linea);border-radius:12px;padding:16px 15px 15px;height:100%;
+  background:#fff;cursor:pointer;transition:.18s
+}
+.plan .tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.plan h3{font-family:var(--display);font-size:17px;font-weight:700;margin:4px 0 2px}
+.plan .precio{font-family:var(--display);font-size:23px;font-weight:800;letter-spacing:-.02em;margin:8px 0 0}
+.plan .precio i{font-style:normal;font-size:12px;font-weight:500;color:var(--gris)}
+.plan ul{list-style:none;margin:12px 0 0;padding:0;font-size:12.8px;color:var(--gris);line-height:1.45}
+.plan li{padding-left:15px;position:relative;margin-bottom:5px}
+.plan li:before{content:"—";position:absolute;left:0;color:var(--agua)}
+.plan .flag{
+  display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--agua-soft);color:#0E7C87;padding:3px 7px;border-radius:5px;margin-top:9px
+}
+.plan input:checked + .box{border-color:var(--agua);border-width:2px;background:#F5FDFE;box-shadow:0 0 0 3px rgba(22,189,202,.16)}
+.plan input:focus-visible + .box{box-shadow:0 0 0 3px rgba(22,189,202,.4)}
+.plan.local input:checked + .box{border-color:var(--rio);background:#F4F8FE;box-shadow:0 0 0 3px rgba(27,79,138,.14)}
+.plan.pro input:checked + .box{border-color:var(--oro);background:#FEFBF4;box-shadow:0 0 0 3px rgba(169,118,28,.14)}
+.plan.local .flag{background:#E7EFF9;color:var(--rio)}
+.plan.pro .flag{background:var(--oro-soft);color:var(--oro)}
+.plan.base .flag{background:var(--brote-soft);color:var(--brote)}
+.plan.base input:checked + .box{border-color:var(--brote);background:#F5FBF8;box-shadow:0 0 0 3px rgba(31,122,92,.14)}
+.plan.base li:before{color:var(--brote)}
+
+/* ---------- Datos bancarios ---------- */
+.banco{margin:18px 0 0;border:1px solid var(--linea);border-radius:12px;background:#FAFCFD;padding:16px 18px}
+.banco h4{font-family:var(--display);font-size:15px;font-weight:700;margin:0 0 3px}
+.banco .nota{color:var(--gris);font-size:12.8px;margin:0 0 14px}
+.banco .datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.banco .dato{background:#fff;border:1px solid var(--linea);border-radius:9px;padding:11px 13px}
+.banco .dato span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--oro);margin-bottom:4px}
+.banco .dato b{font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.02em;color:var(--tinta);word-break:break-word}
+.banco .cbu{grid-column:1/-1;border-color:var(--oro);background:var(--oro-soft)}
+.banco .pie-nota{font-size:12.8px;color:var(--gris);margin:14px 0 0}
+
+/* ---------- Bloques auxiliares ---------- */
+.aviso{
+  background:var(--agua-soft);border-left:3px solid var(--agua);border-radius:0 10px 10px 0;
+  padding:14px 16px;font-size:13.5px;color:#0B4D55;margin:18px 0 0
+}
+.oculto{display:none}
+
+/* ---------- Firma / uso interno ---------- */
+.firma{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px}
+.linea-firma{border-bottom:1px solid #9FB3C4;height:52px}
+.linea-firma + p{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin:7px 0 0}
+.interno{border:1px dashed #B9C8D6;border-radius:10px;padding:16px;margin-top:22px;background:#FAFCFD}
+
+/* ---------- Acciones ---------- */
+.acciones{margin:20px 14px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{
+  font-family:var(--sans);font-size:14.5px;font-weight:600;border-radius:10px;padding:13px 20px;
+  border:1px solid transparent;cursor:pointer;transition:.15s
+}
+.btn-1{background:var(--navy);color:#fff}
+.btn-1:hover{background:#0E3357}
+.btn-2{background:#fff;color:var(--navy);border-color:#C6D4E0}
+.btn-2:hover{border-color:var(--navy)}
+.btn:focus-visible{outline:3px solid rgba(22,189,202,.5);outline-offset:2px}
+.estado{font-size:13.5px;color:var(--error);margin:12px 14px 0;min-height:18px;line-height:1.5}
+.btn:disabled{opacity:.65;cursor:default}
+.estado.ok{color:#0E7C87}
+
+/* ---------- Pie ---------- */
+.pie{
+  margin:26px 14px 0;padding:20px 22px;background:var(--navy);color:#9FBDD4;border-radius:14px;
+  font-size:12.5px;line-height:1.6
+}
+.pie b{color:#fff;font-weight:600;display:block;font-size:13.5px;margin-bottom:3px}
+
+/* ---------- Responsive ---------- */
+@media(max-width:720px){
+  .f,.f-4,.f-3,.f-8{grid-column:span 12}
+  .planes{grid-template-columns:1fr}
+  .firma{grid-template-columns:1fr;gap:18px}
+  .hero .inner{padding:70px 18px 22px}
+  .sec{padding:22px 17px;margin:14px 10px 0}
+  .acciones,.pie,.estado{margin-left:10px;margin-right:10px}
+}
+
+/* ---------- Impresión ---------- */
+@media print{
+  @page{margin:12mm}
+  body{background:#fff;font-size:11px}
+  .waterline,.acciones,.estado,.no-print{display:none !important}
+  .wrap{max-width:none;padding:0}
+  .sec{border:none;border-top:1px solid #ccc;border-radius:0;margin:0;padding:12px 0;break-inside:avoid}
+  .hero .inner{padding:34px 0 14px}
+  .hero img{opacity:.5}
+  .plan .box{padding:10px}
+  .plan ul{display:none}
+  .pie{background:#fff;color:#333;border-top:1px solid #ccc;border-radius:0;margin:10px 0 0;padding:10px 0}
+  .pie b{color:#000}
+  input,select,textarea{background:#fff !important;border-color:#aaa !important}
+  .solo-print{display:block !important}
+}
+.solo-print{display:none}
+
+.foto-carnet{display:flex;gap:14px;align-items:flex-start;margin-top:16px;border:1px solid var(--linea);border-radius:12px;padding:14px;background:#FAFCFD}
+.fc-slot{width:62px;height:78px;flex:none;border:1.5px dashed #B9C8D6;border-radius:7px;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--gris);overflow:hidden}
+.fc-slot img{width:100%;height:100%;object-fit:cover}
+.fc-txt{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.fc-btn{font-family:var(--sans);font-size:13.5px;font-weight:600;border-radius:9px;padding:9px 15px;border:1px solid #C6D4E0;background:#fff;color:var(--navy);cursor:pointer}
+.fc-btn:hover{border-color:var(--navy)}
+.topbar a.chip{display:block;text-decoration:none}
+/* ---------- Color de la membresía elegida ---------- */
+:root{--navy:#6f4a10;--navy-2:#8a5f16;--agua:#e2be62;--bg:#a9761c}
+body{background:#a9761c}
+.waterline .fill{background:#e2be62}
+.waterline .fill svg path{fill:#e2be62}
+.aviso{background:#F4F8FB;border-left-color:#e2be62;color:#12222E}
+.plan-fijo{border:2px solid #e2be62;border-radius:14px;padding:18px 18px 16px;background:#FAFCFD}
+.plan-fijo .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gris)}
+.plan-fijo h3{font-family:var(--display);font-size:24px;font-weight:800;letter-spacing:-.01em;margin:5px 0 0}
+.plan-fijo .precio{font-family:var(--display);font-size:30px;font-weight:800;letter-spacing:-.02em;margin:8px 0 0}
+.plan-fijo .precio i{font-style:normal;font-size:13px;font-weight:500;color:var(--gris)}
+.plan-fijo ul{list-style:none;margin:14px 0 0;padding:0;font-size:13.5px;color:var(--gris);line-height:1.5}
+.plan-fijo li{padding-left:16px;position:relative;margin-bottom:6px}
+.plan-fijo li:before{content:"—";position:absolute;left:0;color:#e2be62}
+.plan-fijo .cambiar{display:inline-block;margin-top:14px;font-size:13px;color:var(--navy);font-weight:600}
+.btn-1{background:#6f4a10}
+.btn-1:hover{background:#8a5f16}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <a class="chip" href="index.html" title="Ir al inicio"><img src="./fotos/ficha-logo.jpg" alt="Open Water Río Negro"></a>
+    <div class="org">Asociación Civil y Deportiva<b>Open Water · Viedma, Río Negro</b></div>
+  </header>
+
+  <section class="hero">
+    <img src="./fotos/ficha-hero.jpg" alt="">
+    <div class="veil"></div>
+    <div class="inner">
+      <p class="eyebrow">Ficha de asociación · Socio Local · Temporada 2026</p>
+      <h1>Socio Local</h1>
+      <p>Ya elegiste tu membresía. Completá tus datos y te contactamos para confirmar el alta: son tres pasos cortos.</p>
+    </div>
+  </section>
+
+  <div class="waterline" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Avance de la ficha">
+    <div class="fill" id="fill">
+      <svg viewBox="0 0 1200 20" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,12 C75,2 150,2 225,12 C300,22 375,22 450,12 C525,2 600,2 675,12 C750,22 825,22 900,12 C975,2 1050,2 1125,12 C1162,17 1181,17 1200,14 L1200,20 L0,20 Z"></path>
+      </svg>
+    </div>
+    <div class="read"><span>Socio Local</span><span id="pct">0% completo</span></div>
+  </div>
+
+  <!-- 01 · MEMBRESÍA ELEGIDA -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Tu membresía</h2></div>
+    <p class="sec-desc">Esta es la membresía que elegiste. Podés cambiar de nivel cuando quieras.</p>
+
+    <div class="plan-fijo">
+      <div class="tag">02 · Presencial — entrenamiento en equipo + seguro</div>
+      <h3>Socio Local</h3>
+      <div class="precio">$40.000 <i>/mes</i></div>
+      <ul>
+            <li>Hasta 70% OFF en cursos y capacitaciones</li>
+            <li>Plan de entrenamiento grupal presencial</li>
+            <li>Video feedback semanal + corrección biomecánica</li>
+            <li>Seguimiento 1 a 1 y estrategia en competencias</li>
+            <li>Seguro de accidentes personales incluido en las salidas</li>
+      </ul>
+      <a class="cambiar" href="socios.html">← Ver los otros niveles</a>
+    </div>
+
+    <div class="foto-carnet">
+      <div class="fc-slot" id="fc-slot">FOTO<br>CARNET</div>
+      <div class="fc-txt">
+        <label class="fc-btn" for="foto">Agregar foto para el carnet de socio</label>
+        <input type="file" id="foto" accept="image/*" style="display:none">
+        <p class="hint" style="margin:0">Opcional. Retrato de frente, tipo carnet. Se envía adjunta junto con la ficha, así queda lista para el carnet de socio.</p>
+        <button type="button" class="fc-btn" id="fc-quitar" style="display:none">Quitar la foto</button>
+      </div>
+    </div>
+    <input type="hidden" name="plan" id="plan" value="Socio Local · $40.000/mes">
+
+    <div class="grid" style="margin-top:18px">
+      <div class="f f-4">
+        <label class="lab" for="inicio">Fecha de alta deseada</label>
+        <input type="date" id="inicio" name="inicio">
+      </div>
+      <div class="f f-8">
+        <label class="lab">Forma de pago de la cuota <span class="req">*</span></label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="pago" value="Transferencia bancaria" data-req><span>Transferencia</span></label>
+          <label class="opt"><input type="radio" name="pago" value="Mercado Pago"><span>Mercado Pago</span></label>
+          <label class="opt"><input type="radio" name="pago" value="Débito automático"><span>Débito automático</span></label>
+          <label class="opt"><input type="radio" name="pago" value="Efectivo"><span>Efectivo</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="banco">
+      <h4>Datos para el pago de la cuota</h4>
+      <p class="nota">Cuenta de la Asociación Civil y Deportiva Open Water, entidad sin fines de lucro declarada de Interés Provincial por el Decreto N.º 666/26 de la Legislatura de Río Negro.</p>
+      <div class="datos">
+        <div class="dato"><span>Entidad</span><b>Asociación Civil y Deportiva Open Water</b></div>
+        <div class="dato"><span>CUIT</span><b>33-71941685-9</b></div>
+        <div class="dato"><span>Banco</span><b>Banco Patagonia · CA $ 299-299040170-000</b></div>
+        <div class="dato"><span>Alias</span><b>OWRIONEGRO</b></div>
+        <div class="dato cbu"><span>CBU</span><b>0340299508299040170004</b></div>
+      </div>
+      <p class="pie-nota">Enviá el comprobante por WhatsApp junto con la ficha para que podamos acreditar el alta.</p>
+    </div>
+  </section>
+
+  <!-- 02 · DATOS PERSONALES -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Datos personales</h2></div>
+    <p class="sec-desc">Tal como figuran en tu DNI.</p>
+    <div class="grid">
+      <div class="f f-8"><label class="lab" for="nombre">Nombre y apellido <span class="req">*</span></label><input type="text" id="nombre" name="nombre" autocomplete="name" data-req></div>
+      <div class="f f-4"><label class="lab" for="dni">DNI <span class="req">*</span></label><input type="text" id="dni" name="dni" inputmode="numeric" data-req></div>
+
+      <div class="f f-4"><label class="lab" for="nac">Fecha de nacimiento <span class="req">*</span></label><input type="date" id="nac" name="nacimiento" data-req></div>
+      <div class="f f-4"><label class="lab" for="genero">Género</label>
+        <select id="genero" name="genero">
+          <option value="">Seleccionar</option><option>Femenino</option><option>Masculino</option><option>Otro</option><option>Prefiero no informarlo</option>
+        </select>
+      </div>
+      <div class="f f-4"><label class="lab" for="talle">Talle de indumentaria</label>
+        <select id="talle" name="talle">
+          <option value="">Seleccionar</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
+        </select>
+      </div>
+
+      <div class="f f-8"><label class="lab" for="domicilio">Domicilio <span class="req">*</span></label><input type="text" id="domicilio" name="domicilio" placeholder="Calle y número" autocomplete="street-address" data-req></div>
+      <div class="f f-4"><label class="lab" for="localidad">Localidad <span class="req">*</span></label><input type="text" id="localidad" name="localidad" value="Viedma" data-req></div>
+
+      <div class="f"><label class="lab" for="tel">Teléfono / WhatsApp <span class="req">*</span></label><input type="tel" id="tel" name="telefono" placeholder="Ej. 2920 40-0000" autocomplete="tel" data-req></div>
+      <div class="f"><label class="lab" for="email">Email <span class="req">*</span></label><input type="email" id="email" name="email" autocomplete="email" data-req></div>
+    </div>
+  </section>
+
+  <!-- 03 · TU NADAR HOY -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Tu nadar hoy</h2></div>
+    <p class="sec-desc">Para ubicarte en el grupo adecuado desde el primer día.</p>
+    <div class="grid">
+      <div class="f f-12"><label class="lab">Nivel actual <span class="req">*</span></label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="nivel" value="Inicial" data-req><span>Inicial — estoy aprendiendo</span></label>
+          <label class="opt"><input type="radio" name="nivel" value="Intermedio"><span>Intermedio</span></label>
+          <label class="opt"><input type="radio" name="nivel" value="Avanzado"><span>Avanzado</span></label>
+          <label class="opt"><input type="radio" name="nivel" value="Competitivo"><span>Competitivo</span></label>
+        </div>
+      </div>
+      <div class="f f-12" style="margin-top:4px"><label class="lab">Experiencia en aguas abiertas <span class="req">*</span></label>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="aa" value="Nunca nadé en aguas abiertas" data-req><span>Nunca nadé en aguas abiertas</span></label>
+          <label class="opt"><input type="radio" name="aa" value="Alguna vez"><span>Alguna vez</span></label>
+          <label class="opt"><input type="radio" name="aa" value="Nado habitualmente"><span>Nado habitualmente</span></label>
+          <label class="opt"><input type="radio" name="aa" value="Compito en aguas abiertas"><span>Compito</span></label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · MENORES (solo si corresponde) -->
+  <section class="sec oculto" id="sec-menor">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Adulto responsable</h2></div>
+    <p class="sec-desc">Se completa cuando el o la solicitante es menor de 18 años.</p>
+    <div class="grid">
+      <div class="f f-8"><label class="lab" for="tut_nombre">Nombre y apellido del padre, madre o tutor/a</label><input type="text" id="tut_nombre" name="tutor_nombre"></div>
+      <div class="f f-4"><label class="lab" for="tut_dni">DNI</label><input type="text" id="tut_dni" name="tutor_dni" inputmode="numeric"></div>
+      <div class="f f-4"><label class="lab" for="tut_tel">Teléfono</label><input type="tel" id="tut_tel" name="tutor_telefono"></div>
+    </div>
+  </section>
+
+  <!-- 05 · DECLARACIÓN -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num" id="num-decl">04</span><h2>Declaración</h2></div>
+    <div class="checks">
+      <label class="chk"><input type="checkbox" name="dj_todo" value="Sí" data-req>
+        <span>Declaro estar en condiciones físicas para nadar, conocer los riesgos de las aguas abiertas y respetar las indicaciones del equipo. Acepto el estatuto y el pago de la cuota, y autorizo el uso de mis datos (Ley 25.326) y de mi imagen con fines institucionales.
+        <small>Obligatorio para dar el alta. Si sos menor de 18, firma el adulto responsable.</small></span>
+      </label>
+    </div>
+
+    <div class="aviso">
+      Al tocar <b>Enviar la ficha</b> tus datos y la foto llegan solos a la Asociación: no hace falta adjuntar nada.<br><br>
+      El alta queda confirmada una vez recibida la ficha y acreditado el primer pago. Te escribimos por WhatsApp dentro de las 72 horas.
+    </div>
+
+    <div class="firma solo-print">
+      <div><div class="linea-firma"></div><p>Firma del solicitante</p></div>
+      <div><div class="linea-firma"></div><p>Aclaración y DNI</p></div>
+      <div><div class="linea-firma"></div><p>Lugar y fecha</p></div>
+      <div><div class="linea-firma"></div><p>Firma del adulto responsable (si corresponde)</p></div>
+    </div>
+  </section>
+
+  <p class="estado" id="estado" role="status" aria-live="polite"></p>
+
+  <div class="acciones no-print">
+    <button class="btn btn-1" id="btn-enviar">Enviar la ficha</button>
+    <button class="btn btn-2" id="btn-wa">Enviar por WhatsApp</button>
+    <button class="btn btn-2" id="btn-mail">Enviar por email</button>
+    <button class="btn btn-2" id="btn-csv">Descargar registro del socio (CSV)</button>
+    <button class="btn btn-2" id="btn-print">Imprimir o guardar en PDF</button>
+  </div>
+
+  <footer class="pie">
+    <b>Asociación Civil y Deportiva Open Water</b>
+    CUIT 33-71941685-9 · Viedma, Río Negro, Argentina<br>
+    openwaterrionegro@gmail.com · +54 9 2920 352579 · openwater.ar
+  </footer>
+
+</div>
+
+<script>
+
+const CONTACTO = {
+  endpoint: "https://script.google.com/macros/s/AKfycbzBPM9O9FPmC5RYBEypDFaicV_oKdIUhAE_FY5wKnCU_8ztgFOsDI4fsysD5H2kCP2qZg/exec",
+  whatsapp: "5492920352579",
+  email:    "openwaterrionegro@gmail.com"
+};
+const $  = (s) => document.querySelector(s);
+const $$ = (s) => Array.from(document.querySelectorAll(s));
+const ETIQUETAS = {
+  plan:"Membresía", inicio:"Alta deseada", pago:"Forma de pago",
+  nombre:"Nombre y apellido", dni:"DNI", nacimiento:"Fecha de nacimiento", genero:"Género",
+  domicilio:"Domicilio", localidad:"Localidad", talle:"Talle", telefono:"Teléfono", email:"Email",
+  nivel:"Nivel", aa:"Experiencia aguas abiertas",
+  tutor_nombre:"Tutor/a", tutor_dni:"Tutor/a DNI", tutor_telefono:"Tutor/a teléfono",
+  dj_todo:"Declaración y aceptación"
+};
+function campos(){
+  const nombres = new Set();
+  $$("input[name], select[name], textarea[name]").forEach(e => nombres.add(e.name));
+  return Array.from(nombres);
+}
+function valorDe(nombre){
+  const els = $$('[name="'+nombre+'"]');
+  const tipo = els[0].type;
+  if(tipo === "radio"){ const m = els.find(e=>e.checked); return m ? m.value : ""; }
+  if(tipo === "checkbox"){ return els[0].checked ? els[0].value : ""; }
+  return els[0].value.trim();
+}
+function visibles(){
+  return campos().filter(n => {
+    const el = $('[name="'+n+'"]');
+    const sec = el.closest("section");
+    return !sec || sec.offsetParent !== null;
+  });
+}
+function actualizarProgreso(){
+  const v = visibles();
+  const llenos = v.filter(n => valorDe(n) !== "").length;
+  const pct = Math.round(llenos / v.length * 100);
+  $("#fill").style.height = pct + "%";
+  $("#pct").textContent = pct + "% completo";
+  $(".waterline").setAttribute("aria-valuenow", pct);
+}
+function chequearEdad(){
+  const v = $("#nac").value;
+  let menor = false;
+  if(v){
+    const hoy = new Date(), n = new Date(v);
+    let edad = hoy.getFullYear() - n.getFullYear();
+    const m = hoy.getMonth() - n.getMonth();
+    if(m < 0 || (m === 0 && hoy.getDate() < n.getDate())) edad--;
+    menor = edad < 18 && edad >= 0;
+  }
+  $("#sec-menor").classList.toggle("oculto", !menor);
+  $("#num-decl").textContent = menor ? "05" : "04";
+  actualizarProgreso();
+}
+function validar(){
+  let primerError = null;
+  $$("[data-req]").forEach(el => {
+    const grupo = $$('[name="'+el.name+'"]');
+    const ok = valorDe(el.name) !== "";
+    grupo.forEach(g => {
+      g.classList.toggle("bad", !ok);
+      if(g.type === "checkbox") g.closest(".chk").classList.toggle("bad", !ok);
+    });
+    if(!ok && !primerError) primerError = grupo[0];
+  });
+  const mail = $("#email").value.trim();
+  if(mail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)){
+    $("#email").classList.add("bad");
+    if(!primerError) primerError = $("#email");
+  }
+  if(primerError){
+    $("#estado").textContent = "Faltan datos obligatorios. Revisá los campos marcados en rojo.";
+    $("#estado").classList.remove("ok");
+    primerError.focus({preventScroll:true});
+    return false;
+  }
+  $("#estado").textContent = "";
+  return true;
+}
+function resumen(){
+  const lineas = ["FICHA DE ASOCIACIÓN — OPEN WATER RÍO NEGRO", "Membresía: Socio Local · $40.000/mes", ""];
+  visibles().forEach(n => {
+    if(n === "plan") return;
+    const v = valorDe(n);
+    if(v) lineas.push((ETIQUETAS[n] || n) + ": " + v);
+  });
+  lineas.push("", "Enviada el " + new Date().toLocaleDateString("es-AR"));
+  return lineas.join("\n");
+}
+document.addEventListener("input", (e) => {
+  if(e.target.matches("input,select,textarea")){ e.target.classList.remove("bad"); actualizarProgreso(); }
+});
+document.addEventListener("change", (e) => {
+  if(e.target.matches("input,select,textarea")){
+    if(e.target.type === "checkbox") e.target.closest(".chk")?.classList.remove("bad");
+    $$('[name="'+e.target.name+'"]').forEach(g => g.classList.remove("bad"));
+    actualizarProgreso();
+  }
+});
+$("#nac").addEventListener("change", chequearEdad);
+/* --- Foto para el carnet (opcional) --- */
+let FOTO = null, FOTO_NOMBRE = '';
+$("#foto").addEventListener("change", (e) => {
+  const f = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if(!f) return;
+  if(!/^image\//.test(f.type)){ alert("Elegí un archivo de imagen (JPG o PNG)."); return; }
+  const fr = new FileReader();
+  fr.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const AN = 360, AL = 450;
+      const c = document.createElement("canvas");
+      c.width = AN; c.height = AL;
+      const k = Math.max(AN / img.width, AL / img.height);
+      const w = img.width * k, h = img.height * k;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, AN, AL);
+      ctx.drawImage(img, (AN - w) / 2, (AL - h) / 2, w, h);
+      FOTO = c.toDataURL("image/jpeg", 0.82);
+      FOTO_NOMBRE = "OW-foto-carnet.jpg";
+      $("#fc-slot").innerHTML = '<img src="' + FOTO + '" alt="Foto del socio">';
+      $("#fc-quitar").style.display = "";
+    };
+    img.src = fr.result;
+  };
+  fr.readAsDataURL(f);
+});
+$("#fc-quitar").addEventListener("click", () => {
+  FOTO = null; FOTO_NOMBRE = "";
+  $("#fc-slot").innerHTML = "FOTO<br>CARNET";
+  $("#fc-quitar").style.display = "none";
+});
+
+function datos(){
+  const o = {};
+  visibles().forEach(n => { o[ETIQUETAS[n] || n] = valorDe(n); });
+  o["Membresía"] = "Socio Local · $40.000/mes";
+  o["Enviada"] = new Date().toLocaleString("es-AR");
+  o["_csv"] = csvTexto();
+  o["_csv_nombre"] = nombreArchivo();
+  if(FOTO){
+    o["_foto"] = FOTO;
+    o["_foto_nombre"] = "OW-foto-" + (nombreArchivo().replace(/^OW-/, "").replace(/\.csv$/, "")) + ".jpg";
+  }
+  return o;
+}
+$("#btn-enviar").addEventListener("click", async () => {
+  if(!validar()) return;
+  const btn = $("#btn-enviar");
+  btn.disabled = true; btn.textContent = "Enviando…";
+  $("#estado").textContent = ""; $("#estado").classList.remove("ok");
+  const cuerpo = JSON.stringify(datos());
+  try{
+    await fetch(CONTACTO.endpoint, {method:"POST", body:cuerpo});
+    exito(); descargarRegistro();
+  }catch(err){
+    try{ await fetch(CONTACTO.endpoint, {method:"POST", mode:"no-cors", body:cuerpo}); exito(); }
+    catch(e2){
+      btn.disabled = false; btn.textContent = "Enviar la ficha";
+      $("#estado").textContent = "No pudimos enviar la ficha. Revisá tu conexión o mandala por WhatsApp.";
+      $("#estado").classList.remove("ok");
+    }
+  }
+});
+function exito(){
+  const btn = $("#btn-enviar");
+  btn.textContent = "Ficha enviada";
+  $("#estado").textContent = "Listo: recibimos tu ficha de Socio Local. Te escribimos por WhatsApp dentro de las 72 horas con los datos de pago y el horario del primer entrenamiento.";
+  $("#estado").classList.add("ok");
+}
+$("#btn-wa").addEventListener("click", () => {
+  if(!validar()) return;
+  window.open("https://wa.me/" + CONTACTO.whatsapp + "?text=" + encodeURIComponent(resumen()), "_blank");
+  $("#estado").textContent = "Se abrió WhatsApp con tu ficha lista para enviar.";
+  $("#estado").classList.add("ok");
+});
+$("#btn-mail").addEventListener("click", () => {
+  if(!validar()) return;
+  const archivo = descargarRegistro();
+  const asunto = "Ficha de asociación — Socio Local — " + ($("#nombre").value || "nuevo socio");
+  let extra = archivo;
+  if(FOTO){
+    const a = document.createElement("a");
+    a.href = FOTO; a.download = "OW-foto-carnet.jpg";
+    document.body.appendChild(a); a.click(); a.remove();
+    extra += " y la foto OW-foto-carnet.jpg";
+  }
+  const cuerpo = resumen() + "\n\n----------\nADJUNTAR: el archivo " + extra + " que se acaba de descargar en este dispositivo.";
+  setTimeout(() => {
+    window.location.href = "mailto:" + CONTACTO.email + "?subject=" + encodeURIComponent(asunto) + "&body=" + encodeURIComponent(cuerpo);
+  }, 700);
+  $("#estado").innerHTML = "Descargamos <b>" + extra + "</b> y abrimos tu correo. <b>Adjuntá esos archivos al mail</b> antes de enviarlo.";
+  $("#estado").classList.add("ok");
+});
+$("#btn-print").addEventListener("click", () => window.print());
+function edadHoy(){
+  const v = $("#nac").value;
+  if(!v) return "";
+  const hoy = new Date(), n = new Date(v);
+  let e = hoy.getFullYear() - n.getFullYear();
+  const m = hoy.getMonth() - n.getMonth();
+  if(m < 0 || (m === 0 && hoy.getDate() < n.getDate())) e--;
+  return e >= 0 ? String(e) : "";
+}
+function fechaAR(iso){
+  if(!iso) return "";
+  const p = iso.split("-");
+  return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0] : iso;
+}
+function filaRegistro(){
+  return {
+    "Fecha de alta":        new Date().toLocaleDateString("es-AR"),
+    "Nombre y apellido":    valorDe("nombre"),
+    "DNI":                  valorDe("dni"),
+    "Edad":                 edadHoy(),
+    "Fecha de nacimiento":  fechaAR(valorDe("nacimiento")),
+    "Género":               valorDe("genero"),
+    "Domicilio":            valorDe("domicilio"),
+    "Localidad":            valorDe("localidad"),
+    "Teléfono":             valorDe("telefono"),
+    "Email":                valorDe("email"),
+    "Plan":                 "Socio Local",
+    "Cuota mensual":        "$40.000",
+    "Forma de pago":        valorDe("pago"),
+    "Alta deseada":         fechaAR(valorDe("inicio")),
+    "Nivel de nado":        valorDe("nivel"),
+    "Experiencia aguas abiertas": valorDe("aa"),
+    "Talle":                valorDe("talle"),
+    "Adulto responsable":   valorDe("tutor_nombre"),
+    "Declaración aceptada": valorDe("dj_todo") ? "Sí" : "No"
+  };
+}
+function csvTexto(){
+  const fila = filaRegistro();
+  const esc  = (t) => '"' + String(t == null ? "" : t).replace(/"/g, '""') + '"';
+  return "\uFEFF" + Object.keys(fila).map(esc).join(";") + "\r\n" + Object.values(fila).map(esc).join(";") + "\r\n";
+}
+function nombreArchivo(){
+  const fila = filaRegistro();
+  const slug = (fila["Nombre y apellido"] || "socio").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase();
+  return "OW-socio-local-" + slug + (fila.DNI ? "-" + fila.DNI : "") + ".csv";
+}
+function descargarRegistro(){
+  const fila = filaRegistro();
+  const csv = csvTexto();
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"}));
+  a.download = nombreArchivo();
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  return a.download;
+}
+$("#btn-csv").addEventListener("click", () => {
+  if(!validar()) return;
+  descargarRegistro();
+  $("#estado").textContent = "Descargamos el registro del socio en CSV. Adjuntalo al mail o sumalo a la planilla de socios OW.";
+  $("#estado").classList.add("ok");
+});
+actualizarProgreso();
+
+</script>
+</body>
+</html>
