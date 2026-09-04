@@ -76,9 +76,8 @@
       <div class="bebas" style="font-size:14px;letter-spacing:5px;color:#c9a24d;">BASE DE DATOS · USO INTERNO</div>
       <h1 style="font-size:36px;line-height:.95;color:#fff;margin:8px 0 6px;">SOCIOS ACTIVOS</h1>
     </div>
-    <button class="btn btn-oro" id="admin" style="font-size:15px;padding:14px 20px;flex:1 1 100%;">🔒 Editar padrón</button>
   </div>
-  <p style="max-width:760px;font-size:14.5px;line-height:1.7;color:#cfe4ee;margin:0;">Padrón de socios con su modalidad, cuota y estado de pago. Se carga con los archivos CSV que genera la ficha de asociación: cada CSV nuevo se suma al padrón y los repetidos se actualizan por DNI. Los datos quedan guardados en este navegador. Para marcar pagos, cargar fichas o borrar socios hay que activar el <strong style="color:#c9a24d;">modo administrador</strong> con la clave.</p>
+  <p style="max-width:760px;font-size:14.5px;line-height:1.7;color:#cfe4ee;margin:0;">Padrón de socios con su modalidad, cuota y estado de pago. Se carga con los archivos CSV que genera la ficha de asociación: cada CSV nuevo se suma al padrón y los repetidos se actualizan por DNI. Los datos quedan guardados en este navegador. El acceso a esta página requiere la <strong style="color:#c9a24d;">clave de la comisión</strong>; una vez dentro se pueden marcar pagos, cargar fichas y borrar socios.</p>
 
   <div class="kpis" id="kpis"></div>
 
@@ -121,7 +120,17 @@ const CLAVE = 'ow-socios-activos-v1';
 const PIN = '129430';
 /* Días del ciclo de cuota: a los 30 días del último pago se recuerda */
 const CICLO = 30;
-let admin = sessionStorage.getItem('ow-admin') === '1';
+let admin = false;
+/* PUERTA DE ACCESO: el padron completo solo se ve con la clave */
+{
+  const _c = prompt('Clave de acceso al padrón de socios:');
+  if(_c === null || _c.trim() !== PIN){
+    document.body.innerHTML = '';
+    location.replace('contacto-movil.html');
+    throw new Error('acceso sin clave');
+  }
+  admin = true; sessionStorage.setItem('ow-admin','1');
+}
 const COLORES = {
   'Socio Base':   {bg:'rgba(63,191,111,.16)', c:'#7ee0a4'},
   'Socio Digital':{bg:'rgba(27,204,206,.14)', c:'#7fe3e4'},
@@ -322,11 +331,6 @@ function pintar(){
     cont.style.display = admin ? '' : 'none';
   });
   $('#drop').style.display = admin ? '' : 'none';
-  const ba = $('#admin');
-  ba.textContent = admin ? '🔓 Edición activa · salir' : '🔒 Editar padrón';
-  ba.className = 'btn btn-oro';
-  ba.style.background = admin ? '#3fbf6f' : '#c9a24d';
-  ba.style.borderColor = admin ? '#3fbf6f' : '#c9a24d';
 
   $('#vacio').style.display = lista.length ? 'none' : 'block';
   if(!socios.length) $('#vacio').innerHTML = 'Todavía no hay socios cargados.<br>Cargá uno o varios CSV generados por la <a href="ficha-asociacion.html">ficha de asociación</a>.';
@@ -345,7 +349,7 @@ function pintar(){
       '<td><span class="plan-tag" style="background:' + col.bg + ';color:' + col.c + ';">' + esc(s.plan || '—') + '</span></td>' +
       '<td style="font-weight:700;color:#fff;">' + esc(s.cuota || '—') + '</td>' +
       '<td>' + esc(s.pago || '—') + '</td>' +
-      '<td><button class="pago ' + s.estado + '" data-i="' + i + '"' + (admin ? '' : ' disabled style="cursor:default;opacity:.85" title="Activá el modo administrador para editar"') + '>' + (s.estado === 'al-dia' ? 'AL DÍA' : 'DEBE') + '</button></td>' +
+      '<td><button class="pago ' + s.estado + '" data-i="' + i + '"' + (admin ? '' : ' disabled style="cursor:default;opacity:.85" ') + '>' + (s.estado === 'al-dia' ? 'AL DÍA' : 'DEBE') + '</button></td>' +
       '<td>' + (refPago(s)
         ? fechaAR(refPago(s)) + '<div style="font-size:12px;color:' + (vencida(s) ? '#ff9b9b' : '#8fb2c6') + ';">hace ' + diasDesde(refPago(s)) + ' días' + (s.ultimoPago ? '' : ' (desde el alta)') + '</div>'
         : '<span style="color:#8fb2c6;">sin registro</span>') + '</td>' +
@@ -503,14 +507,6 @@ $('#exportar').addEventListener('click', () => {
   a.download = 'OW-padron-socios-' + new Date().toISOString().slice(0, 10) + '.csv';
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-});
-
-$('#admin').addEventListener('click', () => {
-  if(admin){ admin = false; sessionStorage.removeItem('ow-admin'); pintar(); return; }
-  const c = prompt('Clave de administrador para editar el padrón:');
-  if(c === null) return;
-  if(c.trim() === PIN){ admin = true; sessionStorage.setItem('ow-admin','1'); pintar(); }
-  else alert('Clave incorrecta.');
 });
 
 pintar();
