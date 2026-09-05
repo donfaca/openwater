@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inscripción 2ª Summer Open Water 2027 · Open Water Río Negro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Barlow',system-ui,sans-serif;background:#F4F9FC;color:#0a2438;line-height:1.55;}
+  a{color:#12688f;}
+  a:hover{color:#0a2438;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px;}
+  .hero{background:linear-gradient(140deg,#0a2438,#12688f 55%,#1BCCCE);color:#fff;padding:48px 0 44px;}
+  .eyebrow{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;color:#EDC264;}
+  h1{font-family:'Bebas Neue',Impact,sans-serif;text-transform:uppercase;font-size:clamp(2.1rem,6vw,3.4rem);line-height:1;margin:.35rem 0 .5rem;letter-spacing:.01em;}
+  .sub{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;color:rgba(255,255,255,.92);}
+  section.card{background:#fff;border:1px solid rgba(10,36,56,.14);border-radius:16px;padding:26px 26px 28px;margin:22px 0;}
+  .snum{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#12688f;color:#fff;font-family:'Bebas Neue';font-size:1.05rem;margin-right:.6rem;}
+  h2{font-family:'Bebas Neue',Impact,sans-serif;text-transform:uppercase;font-size:1.5rem;letter-spacing:.02em;margin:0 0 1.1rem;display:flex;align-items:center;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+  label.f{display:flex;flex-direction:column;gap:5px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.78rem;color:#12688f;}
+  input,select,textarea{font-family:'Barlow',sans-serif;font-size:.98rem;color:#0a2438;background:#F4F9FC;border:1px solid rgba(10,36,56,.24);border-radius:9px;padding:11px 12px;width:100%;min-height:44px;}
+  input:focus,select:focus,textarea:focus{outline:2px solid #1BCCCE;outline-offset:1px;}
+  .chk{display:flex;gap:10px;align-items:flex-start;font-size:.93rem;line-height:1.5;margin:10px 0;color:#20415a;}
+  .chk input{width:20px;height:20px;min-height:20px;margin-top:2px;flex:0 0 auto;}
+  .hint{font-size:.88rem;color:#12688f;}
+  .pay{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .opt{border:2px solid rgba(10,36,56,.16);border-radius:14px;padding:18px;cursor:pointer;display:flex;flex-direction:column;gap:6px;background:#F4F9FC;position:relative;}
+  .opt.on{border-color:#12688f;background:#fff;box-shadow:0 8px 22px rgba(18,104,143,.16);}
+  .opt .t{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.84rem;font-weight:700;color:#12688f;}
+  .opt .m{font-family:'Bebas Neue';font-size:2.1rem;line-height:1;}
+  .opt .d{font-size:.88rem;color:#3c5a70;}
+  .tag{position:absolute;top:-10px;right:14px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:700;background:#EDC264;color:#0a2438;padding:.15rem .6rem;border-radius:999px;}
+  .btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.95rem;padding:15px 26px;border-radius:999px;border:0;cursor:pointer;background:#12688f;color:#fff;min-height:48px;}
+  .btn:disabled{background:#c3d3dd;color:#6b7d89;cursor:not-allowed;}
+  .btn.ghost{background:transparent;color:#12688f;border:2px solid #12688f;}
+  .estado{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.86rem;padding:12px 16px;border-radius:10px;margin-top:14px;}
+  .e-esp{background:#FFF3D6;color:#8A5B00;}
+  .e-ok{background:#DFF5E2;color:#1B6B2C;}
+  .e-no{background:#FBE3E0;color:#9B2118;}
+  .qrbox{display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:16px;padding:18px;border:1px dashed rgba(10,36,56,.3);border-radius:14px;background:#F4F9FC;}
+  .qrbox img{width:190px;height:190px;background:#fff;border-radius:10px;padding:8px;}
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+  .tab{font-family:'Barlow Condensed';font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.84rem;padding:11px 18px;border-radius:999px;border:2px solid rgba(10,36,56,.22);background:#fff;color:#12688f;cursor:pointer;min-height:44px;}
+  .tab.on{background:#0a2438;color:#fff;border-color:#0a2438;}
+  .total{display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1rem;margin-top:18px;padding:14px 18px;border-radius:12px;background:#0a2438;color:#fff;}
+  .total .n{font-family:'Bebas Neue';font-size:2rem;line-height:1;color:#EDC264;}
+  footer{background:#08202f;color:#a9c6d6;padding:28px 0;margin-top:40px;font-size:.9rem;}
+  .req::after{content:' *';color:#c0271a;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Inscripción oficial</div>
+    <h1>2ª Summer Open Water 2027</h1>
+    <div class="sub">5K · 10K · 2K Travel Night Fest · 23 y 24 de enero de 2027 · Patagones – Viedma, Río Negro</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="card">
+    <h2><span class="snum">1</span> Datos del nadador</h2>
+    <div class="grid">
+      <label class="f"><span class="req">Nombre y apellido</span><input name="Nombre y apellido" data-req></label>
+      <label class="f"><span class="req">DNI o pasaporte</span><input name="DNI" data-req></label>
+      <label class="f"><span class="req">CUIL</span><input name="CUIL" inputmode="numeric" placeholder="20-12345678-3" data-req></label>
+      <label class="f"><span class="req">Fecha de nacimiento</span><input class="fecha" id="nac" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" name="Fecha de nacimiento" data-req></label>
+      <label class="f"><span class="req">Nacionalidad</span><input name="Nacionalidad" value="Argentina" data-req></label>
+      <label class="f"><span class="req">Ciudad</span><input name="Ciudad" data-req></label>
+      <label class="f">Club o equipo<input name="Club o equipo"></label>
+      <label class="f"><span class="req">Email</span><input type="email" name="Email" data-req></label>
+      <label class="f"><span class="req">WhatsApp</span><input name="Teléfono" placeholder="+54 9 ..." data-req></label>
+      <label class="f"><span class="req">Talle del poncho</span><select name="Talle" data-req><option value="">Elegir…</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="snum">2</span> Prueba y premiación</h2>
+    <div class="pay" id="pruebas">
+      <div class="opt on" data-prueba="Campeonato 5K + 10K · Copa Challenguer" data-contado="200000" data-cuota="50000" data-cuotas="4" data-kit="1">
+        <div class="tag">Recomendado</div>
+        <div class="t">Campeonato 5K + 10K</div>
+        <div class="m">$200.000</div>
+        <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 4 cuotas de $50.000.</div>
+      </div>
+      <div class="opt" data-prueba="Solo 5K" data-contado="140000" data-cuota="50000" data-cuotas="3" data-kit="1">
+        <div class="t">Solo 5K</div>
+        <div class="m">$140.000</div>
+        <div class="d">Sábado 23 de enero. Financiado: 2 cuotas de $50.000 + 1 de $40.000.</div>
+      </div>
+      <div class="opt" data-prueba="Solo 10K" data-contado="160000" data-cuota="50000" data-cuotas="3" data-kit="1">
+        <div class="t">Solo 10K</div>
+        <div class="m">$160.000</div>
+        <div class="d">Domingo 24 de enero. Financiado: 2 cuotas de $50.000 + 1 de $60.000.</div>
+      </div>
+      <div class="opt" data-prueba="Solo 2K Travel Night Fest" data-contado="60000" data-cuota="0" data-cuotas="0" data-kit="0">
+        <div class="t">Solo 2K Nocturno</div>
+        <div class="m">$60.000</div>
+        <div class="d">Sábado 23 a las 21:00 · Swimming Fest + pizza libre. No incluye poncho ni financiación.</div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:18px;">
+      <label class="f"><span class="req">Género para la premiación</span><select name="Género" data-req><option value="">Elegir…</option><option>Mujer</option><option>Hombre</option></select></label>
+      <label class="f">Categoría de edad<input name="Categoría de edad" id="cat" readonly placeholder="Se calcula con tu fecha de nacimiento"></label>
+      <label class="f"><span class="req">Experiencia en aguas abiertas</span><select name="Experiencia" data-req><option value="">Elegir…</option><option>Primera vez en aguas abiertas</option><option>Hasta 3 competencias</option><option>Más de 3 competencias</option><option>Nadador federado</option></select></label>
+      <label class="f">Mejor marca previa<input name="Mejor marca" placeholder="hh:mm:ss"></label>
+    </div>
+    <p class="hint" style="margin:12px 0 0;">Las medallas de podio se entregan por género en categorías de edad de 10 en 10 años, según el reglamento. Nadando 5K y 10K entrás automáticamente al Campeonato por la Copa Challenguer.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="snum">3</span> Salud y emergencia</h2>
+    <div class="grid">
+      <label class="f">Fecha del apto médico<input class="fecha" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" name="Apto médico"></label>
+      <label class="f">Obra social o prepaga<input name="Obra social"></label>
+      <label class="f">Grupo sanguíneo<input name="Grupo sanguíneo"></label>
+      <label class="f"><span class="req">Contacto de emergencia (nombre)</span><input name="Contacto de emergencia" data-req></label>
+      <label class="f"><span class="req">Teléfono de emergencia</span><input name="Teléfono de emergencia" data-req></label>
+      <label class="f">Alergias, medicación o condición a informar<input name="Observaciones médicas"></label>
+    </div>
+    <p class="hint" style="margin:12px 0 0;">El apto médico se presenta en la acreditación. Si todavía no lo tenés, podés dejar la fecha en blanco.</p>
+  </section>
+
+  <section class="card" id="s-pago">
+    <h2><span class="snum">4</span> Pago de la inscripción</h2>
+
+    <label class="chk" id="wrap-sinkit"><input type="checkbox" id="sinkit" name="Nada sin kit"><span><b>Nadar sin kit del nadador: −$30.000.</b> Si no querés el kit (poncho, gorro, mochila de red), descontamos $30.000 de tu inscripción.</span></label>
+
+    <div class="pay" id="planes" style="margin-top:6px;">
+      <div class="opt on" data-plan="contado">
+        <div class="t">Contado</div>
+        <div class="m" id="m-contado">$200.000</div>
+        <div class="d">Pago único. Valor vigente hasta el 10 de septiembre de 2026.</div>
+      </div>
+      <div class="opt" data-plan="cuota" id="opt-cuota">
+        <div class="t">Financiado · 1ª cuota</div>
+        <div class="m" id="m-cuota">$50.000</div>
+        <div class="d" id="d-cuota">Cuotas mensuales desde el mes de inscripción. Con la 1ª cuota se congela el valor.</div>
+      </div>
+    </div>
+
+    <div class="total">
+      <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;font-weight:700;">A pagar ahora</div>
+      <div class="n" id="total">$200.000</div>
+      <div style="font-size:.92rem;color:rgba(255,255,255,.82);" id="detalle"></div>
+    </div>
+
+    <p class="hint" style="margin:14px 0 0;">Grupos de 5 nadadores o más tienen 15% de descuento sobre el total del grupo (contado, sin financiación): escribinos a <a href="mailto:openwaterrionegro@gmail.com">openwaterrionegro@gmail.com</a> antes de pagar.</p>
+
+    <div class="tabs" style="margin-top:20px;">
+      <button type="button" class="tab on" data-metodo="mp">Pagar con Mercado Pago</button>
+      <button type="button" class="tab" data-metodo="transf">Ya pagué por transferencia</button>
+    </div>
+
+    <div id="via-mp">
+      <p class="hint" style="margin:0 0 12px;">Generá el QR, pagalo desde tu celular y esta página confirma sola el pago. No hace falta subir ningún comprobante. Se puede pagar con dinero en cuenta, tarjeta de débito o crédito.</p>
+      <button type="button" class="btn" id="gen">Generar QR de pago</button>
+      <div class="qrbox" id="qrbox" style="display:none;">
+        <img id="qr" alt="QR de pago Mercado Pago">
+        <div style="flex:1 1 220px;min-width:220px;display:flex;flex-direction:column;gap:10px;">
+          <div style="font-family:'Bebas Neue';font-size:1.7rem;" id="qr-monto"></div>
+          <div class="hint">Escaneá el QR con la <b>cámara del celular</b> (no con el escáner de la app de Mercado Pago) y tocá el link que aparece. Si ya estás en el celular, usá el botón de abajo.</div>
+          <a class="btn ghost" id="link" href="#" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;display:inline-block;">Abrir link de pago</a>
+          <button type="button" class="btn ghost" id="verificar">Ya pagué · verificar ahora</button>
+        </div>
+      </div>
+      <div class="estado e-esp" id="estado" style="display:none;">Esperando la confirmación del pago…</div>
+    </div>
+
+    <div id="via-transf" style="display:none;">
+      <p class="hint" style="margin:0 0 12px;">Transferí al alias <b>OW.RIO</b> (Banco Nación · Asociación Civil y Deportiva Open Water) y cargá el número de operación. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
+      <div class="grid">
+        <label class="f">Número de operación / comprobante<input id="oper" name="Número de operación" placeholder="Ej. 0012345678"></label>
+        <label class="f">Titular de la cuenta que transfiere<input name="Titular de la transferencia"></label>
+        <label class="f">Fecha de la transferencia<input class="fecha" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" name="Fecha de transferencia"></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2><span class="snum">5</span> Declaración jurada</h2>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-2027.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Aptitud física" data-req><span>Declaro estar en condiciones físicas para nadar la distancia elegida en aguas abiertas y contar con apto médico vigente.</span></label>
+    <label class="chk"><input type="checkbox" name="Dispositivo de seguridad" data-req><span>Entiendo que la prueba se nada sobre el Río Negro, con corriente y condiciones naturales variables, y que debo respetar las indicaciones del dispositivo de seguridad.</span></label>
+    <label class="chk"><input type="checkbox" name="Uso de imagen" data-req><span>Autorizo el uso de imágenes y videos del evento en los que aparezca, con fines de difusión.</span></label>
+    <label class="chk"><input type="checkbox" name="No reembolsable"><span>Entiendo que la inscripción no es transferible ni reembolsable.</span></label>
+  </section>
+
+  <section class="card" style="text-align:center;">
+    <button type="button" class="btn" id="enviar" disabled style="font-size:1rem;padding:18px 40px;">Enviar inscripción</button>
+    <div class="hint" id="motivo" style="margin-top:12px;">El envío se habilita cuando el pago está confirmado.</div>
+    <div class="estado e-ok" id="ok" style="display:none;justify-content:center;"></div>
+  </section>
+</div>
+
+<footer><div class="wrap">Open Water Río Negro · openwaterrionegro@gmail.com · +54 9 2920 650486</div></footer>
+
+<script>
+/* URL /exec del Apps Script de Summer (ver summer-a-planilla-apps-script.gs) */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwO3qQk7I48o9zYdr1Is4Kt5yePMq8oZH_0NvmrNPpL5xRlzK9t_4kp0tOHtO2T3g/exec';
+
+const $ = (s) => document.querySelector(s);
+const pesos = (n) => '$' + n.toLocaleString('es-AR');
+
+let prueba = 'Campeonato 5K + 10K · Copa Challenguer', contado = 200000, cuota = 50000, cuotas = 4, conKit = true;
+let plan = 'contado', monto = 200000, metodo = 'mp', ref = '', pagado = false, timer = null;
+
+function descuento(){ return (conKit && $('#sinkit').checked) ? 30000 : 0; }
+
+function marcarPlan(){
+  document.querySelectorAll('#planes .opt').forEach(x => x.classList.toggle('on', x.dataset.plan === plan));
+}
+
+function resetPago(){
+  ref = ''; pagado = false; clearInterval(timer);
+  $('#qrbox').style.display = 'none'; $('#estado').style.display = 'none';
+}
+
+function recalcular(){
+  const c = contado - descuento();
+  $('#m-contado').textContent = pesos(c);
+  const financiable = cuotas > 0;
+  $('#opt-cuota').style.display = financiable ? '' : 'none';
+  $('#wrap-sinkit').style.display = conKit ? '' : 'none';
+  if(!financiable && plan === 'cuota'){ plan = 'contado'; marcarPlan(); }
+  if(financiable){
+    const resto = c - cuota * (cuotas - 1);
+    $('#m-cuota').textContent = pesos(cuota);
+    $('#d-cuota').textContent = cuotas + ' cuotas mensuales: ' + (cuotas - 1) + ' de ' + pesos(cuota) + ' + 1 de ' + pesos(resto) + '. Con la 1ª cuota se congela el valor.';
+  }
+  monto = plan === 'contado' ? c : cuota;
+  $('#total').textContent = pesos(monto);
+  $('#detalle').textContent = nombrePlan();
+  resetPago();
+  revisar();
+}
+
+document.querySelectorAll('#pruebas .opt').forEach(o => o.addEventListener('click', () => {
+  document.querySelectorAll('#pruebas .opt').forEach(x => x.classList.remove('on'));
+  o.classList.add('on');
+  prueba = o.dataset.prueba;
+  contado = +o.dataset.contado;
+  cuota = +o.dataset.cuota;
+  cuotas = +o.dataset.cuotas;
+  conKit = o.dataset.kit === '1';
+  recalcular();
+}));
+
+document.querySelectorAll('#planes .opt').forEach(o => o.addEventListener('click', () => {
+  plan = o.dataset.plan; marcarPlan(); recalcular();
+}));
+
+$('#sinkit').addEventListener('change', recalcular);
+
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+  t.classList.add('on');
+  metodo = t.dataset.metodo;
+  $('#via-mp').style.display = metodo === 'mp' ? '' : 'none';
+  $('#via-transf').style.display = metodo === 'transf' ? '' : 'none';
+  revisar();
+}));
+
+$('#oper').addEventListener('input', revisar);
+
+/* Fechas en formato DD/MM/AAAA */
+document.querySelectorAll('.fecha').forEach(el => el.addEventListener('input', () => {
+  let v = el.value.replace(/\D/g, '').slice(0, 8);
+  if(v.length > 4) v = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
+  else if(v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+  el.value = v;
+  if(el.id === 'nac') categoria();
+}));
+document.querySelectorAll('[data-req]').forEach(el => el.addEventListener('input', revisar));
+document.querySelectorAll('select[data-req]').forEach(el => el.addEventListener('change', revisar));
+
+function categoria(){
+  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec($('#nac').value);
+  if(!m){ $('#cat').value = ''; return; }
+  const edad = 2027 - (+m[3]);
+  $('#cat').value = edad <= 20 ? 'Categoría 1 · hasta 20 años'
+    : edad <= 30 ? 'Categoría 2 · 21 a 30 años'
+    : edad <= 40 ? 'Categoría 3 · 31 a 40 años'
+    : edad <= 50 ? 'Categoría 4 · 41 a 50 años'
+    : edad <= 60 ? 'Categoría 5 · 51 a 60 años'
+    : 'Categoría 6 · 61 años en adelante';
+}
+
+function faltantes(){
+  const f = [];
+  document.querySelectorAll('[data-req]').forEach(el => {
+    const ok = el.type === 'checkbox' ? el.checked : String(el.value || '').trim() !== '';
+    if(!ok) f.push(el);
+  });
+  return f;
+}
+
+function revisar(){
+  const datos = faltantes().length === 0;
+  const pago = metodo === 'mp' ? pagado : String($('#oper').value || '').trim().length >= 6;
+  $('#enviar').disabled = !(datos && pago);
+  $('#motivo').textContent = !datos
+    ? 'Faltan datos obligatorios del formulario.'
+    : (pago ? 'Todo listo: podés enviar la inscripción.'
+            : (metodo === 'mp' ? 'El envío se habilita cuando Mercado Pago confirma el pago.'
+                               : 'Cargá el número de operación de la transferencia para habilitar el envío.'));
+}
+
+function pedir(cuerpo){
+  return fetch(ENDPOINT, {method:'POST', body: JSON.stringify(cuerpo)}).then(r => r.json());
+}
+
+function nombrePlan(){
+  return prueba + ' · ' + (plan === 'contado' ? 'contado' : '1ª de ' + cuotas + ' cuotas') + (descuento() ? ' · sin kit' : '');
+}
+
+$('#gen').addEventListener('click', () => {
+  if(!ENDPOINT){ alert('Falta configurar el endpoint de pagos. Avisale a la organización.'); return; }
+  const nombre = document.querySelector('[name="Nombre y apellido"]').value.trim();
+  const dni = document.querySelector('[name="DNI"]').value.trim();
+  const email = document.querySelector('[name="Email"]').value.trim();
+  if(!nombre || !dni || !email){ alert('Completá nombre, DNI y email antes de generar el pago.'); return; }
+  $('#gen').disabled = true; $('#gen').textContent = 'Generando…';
+  pedir({accion:'crear', monto, plan: nombrePlan(), prueba, nombre, dni, email}).then(r => {
+    $('#gen').disabled = false; $('#gen').textContent = 'Generar QR de pago';
+    if(!r.ok){ alert('No se pudo generar el pago: ' + (r.error || '')); return; }
+    ref = r.ref;
+    $('#qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=380x380&margin=8&data=' + encodeURIComponent(r.link);
+    $('#link').href = r.link;
+    $('#qr-monto').textContent = pesos(monto) + ' · ' + nombrePlan();
+    $('#qrbox').style.display = 'flex';
+    $('#estado').style.display = 'flex';
+    $('#estado').className = 'estado e-esp';
+    $('#estado').textContent = 'Esperando la confirmación del pago…';
+    clearInterval(timer); timer = setInterval(consultar, 6000);
+  }).catch(() => { $('#gen').disabled = false; $('#gen').textContent = 'Generar QR de pago'; alert('No hay conexión con el sistema de pagos.'); });
+});
+
+$('#verificar').addEventListener('click', consultar);
+
+function consultar(){
+  if(!ref) return;
+  pedir({accion:'estado', ref}).then(r => {
+    if(r.estado === 'approved'){
+      pagado = true; clearInterval(timer);
+      $('#estado').className = 'estado e-ok';
+      $('#estado').textContent = '✓ Pago confirmado · ' + pesos(monto);
+    } else if(r.estado === 'rejected'){
+      $('#estado').className = 'estado e-no';
+      $('#estado').textContent = 'El pago fue rechazado. Probá de nuevo o pagá por transferencia.';
+    }
+    revisar();
+  }).catch(() => {});
+}
+
+$('#enviar').addEventListener('click', () => {
+  const d = {};
+  document.querySelectorAll('[name]').forEach(el => {
+    d[el.name] = el.type === 'checkbox' ? (el.checked ? 'Sí' : 'No') : el.value;
+  });
+  d['Competencia'] = '2ª Summer Open Water 2027';
+  d['Prueba'] = prueba;
+  d['Plan de pago'] = nombrePlan();
+  d['Monto'] = pesos(monto);
+  d['Forma de pago'] = metodo === 'mp' ? 'Mercado Pago' : 'Transferencia bancaria';
+  d['Estado de pago'] = metodo === 'mp' ? 'Pagado' : 'Pendiente de verificación';
+  d['Referencia de pago'] = ref;
+  d['Fecha de envío'] = new Date().toLocaleString('es-AR');
+  $('#enviar').disabled = true; $('#enviar').textContent = 'Enviando…';
+  pedir(Object.assign({accion:'ficha'}, d)).then(r => {
+    if(!r.ok) throw 0;
+    $('#ok').style.display = 'flex';
+    $('#ok').textContent = '✓ Inscripción registrada. Te llega la confirmación por email.';
+    $('#enviar').textContent = 'Inscripción enviada';
+    $('#motivo').textContent = '';
+  }).catch(() => {
+    $('#enviar').disabled = false; $('#enviar').textContent = 'Enviar inscripción';
+    alert('No se pudo enviar la ficha. Escribinos a openwaterrionegro@gmail.com.');
+  });
+});
+
+recalcular();
+</script>
+</body>
+</html>
