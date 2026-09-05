@@ -33,6 +33,10 @@
   .opt .t{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.84rem;font-weight:700;color:#12688f;}
   .opt .m{font-family:'Bebas Neue';font-size:2.1rem;line-height:1;}
   .opt .d{font-size:.88rem;color:#3c5a70;}
+  #pruebas .opt{padding-right:52px;}
+  #pruebas .opt::after{content:'';position:absolute;top:18px;right:16px;width:22px;height:22px;border-radius:50%;border:2px solid rgba(10,36,56,.28);background:#fff;}
+  #pruebas .opt.on::after{border-color:#12688f;background:#12688f;box-shadow:inset 0 0 0 4px #fff;}
+  .elegida{margin:0 0 14px;padding:12px 16px;border-radius:12px;background:#F4F9FC;border:1px solid rgba(18,104,143,.24);font-size:.95rem;color:#0a2438;}
   .tag{position:absolute;top:-10px;right:14px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:700;background:#EDC264;color:#0a2438;padding:.15rem .6rem;border-radius:999px;}
   .btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.95rem;padding:15px 26px;border-radius:999px;border:0;cursor:pointer;background:#12688f;color:#fff;min-height:48px;}
   .btn:disabled{background:#c3d3dd;color:#6b7d89;cursor:not-allowed;}
@@ -80,8 +84,9 @@
     </div>
   </section>
 
-  <section class="card">
-    <h2><span class="snum">2</span> Prueba y premiación</h2>
+  <section class="card" id="s-prueba">
+    <h2><span class="snum">2</span> Elegí tu prueba</h2>
+    <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
     <div class="pay" id="pruebas">
       <div class="opt on" data-prueba="Campeonato 5K + 10K · Copa Challenguer" data-contado="200000" data-cuota="50000" data-cuotas="4" data-kit="1">
         <div class="tag">Recomendado</div>
@@ -130,6 +135,8 @@
 
   <section class="card" id="s-pago">
     <h2><span class="snum">4</span> Pago de la inscripción</h2>
+
+    <div class="elegida" id="elegida"></div>
 
     <label class="chk" id="wrap-sinkit"><input type="checkbox" id="sinkit" name="Nada sin kit"><span><b>Nadar sin kit del nadador: −$30.000.</b> Si no querés el kit (poncho, gorro, mochila de red), descontamos $30.000 de tu inscripción.</span></label>
 
@@ -235,6 +242,7 @@ function recalcular(){
     $('#m-cuota').textContent = pesos(cuota);
     $('#d-cuota').textContent = cuotas + ' cuotas mensuales: ' + (cuotas - 1) + ' de ' + pesos(cuota) + ' + 1 de ' + pesos(resto) + '. Con la 1ª cuota se congela el valor.';
   }
+  $('#elegida').innerHTML = 'Prueba elegida: <b>' + prueba + '</b> · <a href="#s-prueba">cambiar</a>';
   monto = plan === 'contado' ? c : cuota;
   $('#total').textContent = pesos(monto);
   $('#detalle').textContent = nombrePlan();
