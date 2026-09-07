@@ -88,10 +88,10 @@
             <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#EBA022;">23-24 ENERO 2027</div>
             <a href="summer-open-water-2027-movil.html" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1.1;">2ª SUMMER OW</a>
           </div>
-          <a href="inscriptos-movil.html" style="margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:8px;background:rgba(6,26,40,.72);border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:8px;text-decoration:none;">
+          <div onClick="{{ openSummerList }}" style="margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:8px;background:rgba(6,26,40,.72);border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:8px;cursor:pointer;">
             <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;line-height:1;" ref="{{ siRef }}">—</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#eaf3f8;text-transform:uppercase;font-weight:700;line-height:1.2;">Inscriptos<br>ver lista →</span>
-          </a>
+            <span style="font-size:10px;letter-spacing:1px;color:#eaf3f8;text-transform:uppercase;font-weight:700;line-height:1.2;">Inscriptos<br><span style="font-size:9px;letter-spacing:.5px;opacity:.8;" ref="{{ spRef }}">—</span></span>
+          </div>
         </div>
         <div style="padding:14px 20px 20px;font-size:14px;color:#a9c6d6;line-height:1.6;">Segunda edición del clásico de verano en Viedma — <b>10K y 5K</b> (Campeonato) sobre el Río Negro. Evento de carácter nacional/internacional.</div>
         <div style="padding:0 20px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -123,10 +123,10 @@
             <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#c9a24d;">6 FEBRERO 2027</div>
             <a href="oweclipse-2027-movil.html" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;line-height:1.1;">OPEN WATER ECLIPSE</a>
           </div>
-          <a href="inscriptos-eclipse-movil.html" style="margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:8px;background:rgba(6,5,7,.72);border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:8px;text-decoration:none;">
+          <div onClick="{{ openEclipseList }}" style="margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:8px;background:rgba(6,5,7,.72);border:1px solid rgba(255,255,255,.28);padding:7px 13px;border-radius:8px;cursor:pointer;">
             <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;line-height:1;" ref="{{ eiRef }}">—</span>
-            <span style="font-size:10px;letter-spacing:1px;color:#fff;text-transform:uppercase;font-weight:700;line-height:1.2;">Inscriptos<br>ver lista →</span>
-          </a>
+            <span style="font-size:10px;letter-spacing:1px;color:#fff;text-transform:uppercase;font-weight:700;line-height:1.2;">Inscriptos<br><span style="font-size:9px;letter-spacing:.5px;opacity:.8;" ref="{{ epRef }}">—</span></span>
+          </div>
         </div>
         <div style="padding:14px 20px 20px;font-size:14px;color:#a9c6d6;line-height:1.6;">Edición especial en Las Grutas (Río Negro): <b>2.5K</b> de nado en el mar mientras ocurre un eclipse solar anular. Una experiencia exclusiva, llena de emociones sin igual.</div>
         <div style="padding:0 20px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -452,8 +452,25 @@ class Component extends DCLogic {
     if(text.length && text[text.length-1]!=='\n') rows++;
     return Math.max(0, rows-1);
   }
-  setInsc(n){ if(this.si && this.si.current) this.si.current.textContent = String(Math.max(0,n|0)); }
-  setInscE(n){ if(this.eiv && this.eiv.current) this.eiv.current.textContent = String(Math.max(0,n|0)); }
+  static CUPO_SUMMER = 110;
+  static CUPO_ECLIPSE = 120;
+  static BASE_SUMMER = 52;
+  static BASE_ECLIPSE = 53;
+  static PIN = '129430';
+  showCount(vRef,pRef,n,base,cupo){
+    var tot = Math.max(0,n|0) + base;
+    if(vRef && vRef.current) vRef.current.textContent = String(tot);
+    var pct = Math.min(100, Math.round(tot/cupo*100));
+    if(pRef && pRef.current) pRef.current.textContent = pct+'% del cupo';
+  }
+  askList(url){
+    var c = window.prompt('Lista privada. Ingresá el código de acceso:');
+    if(c===null) return;
+    if(String(c).trim()===Component.PIN) window.location.href = url;
+    else window.alert('Código incorrecto.');
+  }
+  setInsc(n){ this.showCount(this.si, this.sp, n, Component.BASE_SUMMER, Component.CUPO_SUMMER); }
+  setInscE(n){ this.showCount(this.eiv, this.ep, n, Component.BASE_ECLIPSE, Component.CUPO_ECLIPSE); }
   renderVals(){
     var R = function(){ return React.createRef(); };
     this.sd=this.sd||R(); this.sh=this.sh||R(); this.sm=this.sm||R(); this.ss=this.ss||R();
@@ -469,6 +486,10 @@ class Component extends DCLogic {
       comboBtnRef:(this.cib=this.cib||R()), comboLblRef:(this.cil=this.cil||R()), comboInscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },
       siRef: (this.si=this.si||R()),
       eiRef: (this.eiv=this.eiv||R()),
+      spRef: (this.sp=this.sp||R()),
+      epRef: (this.ep=this.ep||R()),
+      openSummerList:function(){ self.askList('inscriptos-movil.html'); },
+      openEclipseList:function(){ self.askList('inscriptos-eclipse-movil.html'); },
       toggleMenu: () => this.setState(s=>({ menuOpen: !s.menuOpen })),
       menuStyle: { position:'sticky', top:'73px', zIndex:999, background:'#08202f', borderBottom:'1px solid #16455f', overflow:'hidden', transition:'max-height .28s ease', maxHeight: open?'420px':'0px' },
       bar1Style: Object.assign({}, bar, open?{ transform:'translateY(7px) rotate(45deg)' }:{}),
