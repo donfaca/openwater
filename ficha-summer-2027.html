@@ -193,7 +193,7 @@
 
   <section class="card">
     <h2><span class="snum">5</span> Declaración jurada</h2>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-2027.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
     <label class="chk"><input type="checkbox" name="Aptitud física" data-req><span>Declaro estar en condiciones físicas para nadar la distancia elegida en aguas abiertas y contar con apto médico vigente.</span></label>
     <label class="chk"><input type="checkbox" name="Dispositivo de seguridad" data-req><span>Entiendo que la prueba se nada sobre el Río Negro, con corriente y condiciones naturales variables, y que debo respetar las indicaciones del dispositivo de seguridad.</span></label>
     <label class="chk"><input type="checkbox" name="Uso de imagen" data-req><span>Autorizo el uso de imágenes y videos del evento en los que aparezca, con fines de difusión.</span></label>
@@ -332,10 +332,9 @@ function nombrePlan(){
 
 $('#gen').addEventListener('click', () => {
   if(!ENDPOINT){ alert('Falta configurar el endpoint de pagos. Avisale a la organización.'); return; }
-  const nombre = document.querySelector('[name="Nombre y apellido"]').value.trim();
-  const dni = document.querySelector('[name="DNI"]').value.trim();
-  const email = document.querySelector('[name="Email"]').value.trim();
-  if(!nombre || !dni || !email){ alert('Completá nombre, DNI y email antes de generar el pago.'); return; }
+  const nombre = document.querySelector('[name="Nombre y apellido"]').value.trim() || 'Nadador';
+  const dni = document.querySelector('[name="DNI"]').value.trim() || String(Date.now()).slice(-8);
+  const email = document.querySelector('[name="Email"]').value.trim() || 'sininscripcion@openwater.ar';
   $('#gen').disabled = true; $('#gen').textContent = 'Generando…';
   pedir({accion:'crear', evento:'summer', monto, plan: nombrePlan(), prueba, nombre, dni, email}).then(r => {
     $('#gen').disabled = false; $('#gen').textContent = 'Generar QR de pago';

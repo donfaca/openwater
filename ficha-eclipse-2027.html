@@ -136,7 +136,7 @@
     </div>
 
     <div id="via-transf" style="display:none;">
-      <p class="hint" style="margin:0 0 12px;">Transferí a la cuenta de la organización y cargá el número de operación. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
+      <p class="hint" style="margin:0 0 12px;">Transferí al alias <b>OWeclipse</b> y cargá el número de operación. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
       <div class="grid">
         <label class="f">Número de operación / comprobante<input id="oper" name="Número de operación" placeholder="Ej. 0012345678"></label>
         <label class="f">Titular de la cuenta que transfiere<input name="Titular de la transferencia"></label>
@@ -147,7 +147,7 @@
 
   <section class="card">
     <h2><span class="snum">5</span> Declaración jurada</h2>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
     <label class="chk"><input type="checkbox" name="Aptitud física" data-req><span>Declaro estar en condiciones físicas para nadar 2.500 m en mar abierto y contar con apto médico vigente.</span></label>
     <label class="chk"><input type="checkbox" name="Riesgo solar" data-req><span>Comprendo que mirar el Sol sin protección homologada ISO 12312-2 puede causar daños oculares graves e irreversibles.</span></label>
     <label class="chk"><input type="checkbox" name="Uso de imagen" data-req><span>Autorizo el uso de imágenes y videos del evento en los que aparezca, con fines de difusión.</span></label>
@@ -227,10 +227,9 @@ function pedir(cuerpo){
 
 $('#gen').addEventListener('click', () => {
   if(!ENDPOINT){ alert('Falta configurar el endpoint de pagos. Avisale a la organización.'); return; }
-  const nombre = document.querySelector('[name="Nombre y apellido"]').value.trim();
-  const dni = document.querySelector('[name="DNI"]').value.trim();
-  const email = document.querySelector('[name="Email"]').value.trim();
-  if(!nombre || !dni || !email){ alert('Completá nombre, DNI y email antes de generar el pago.'); return; }
+  const nombre = document.querySelector('[name="Nombre y apellido"]').value.trim() || 'Nadador';
+  const dni = document.querySelector('[name="DNI"]').value.trim() || String(Date.now()).slice(-8);
+  const email = document.querySelector('[name="Email"]').value.trim() || 'sininscripcion@openwater.ar';
   $('#gen').disabled = true; $('#gen').textContent = 'Generando…';
   pedir({accion:'crear', evento:'eclipse', monto, plan, nombre, dni, email}).then(r => {
     $('#gen').disabled = false; $('#gen').textContent = 'Generar QR de pago';

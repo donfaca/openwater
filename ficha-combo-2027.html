@@ -168,7 +168,7 @@
       <div style="font-size:.92rem;color:rgba(255,255,255,.82);" id="detalle"></div>
     </div>
 
-    <p class="hint" style="margin:14px 0 0;">El combo se abona en un único pago (o en las cuotas del combo): no se divide entre las dos competencias. Alias para transferir: <b>OW.RIO</b> · Banco Nación · Asociación Civil y Deportiva Open Water.</p>
+    <p class="hint" style="margin:14px 0 0;">El combo se abona en un único pago (o en las cuotas del combo): no se divide entre las dos competencias. Alias para transferir: <b>OWeclipse</b>.</p>
 
     <div class="tabs" style="margin-top:20px;">
       <button type="button" class="tab on" data-metodo="mp">Pagar con Mercado Pago</button>
@@ -191,7 +191,7 @@
     </div>
 
     <div id="via-transf" style="display:none;">
-      <p class="hint" style="margin:0 0 12px;">Transferí al alias <b>OW.RIO</b> (Banco Nación · Asociación Civil y Deportiva Open Water) y cargá el número de operación. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
+      <p class="hint" style="margin:0 0 12px;">Transferí al alias <b>OWeclipse</b> y cargá el número de operación. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
       <div class="grid">
         <label class="f">Número de operación / comprobante<input id="oper" name="Número de operación" placeholder="Ej. 0012345678"></label>
         <label class="f">Titular de la cuenta que transfiere<input name="Titular de la transferencia"></label>
@@ -202,8 +202,8 @@
 
   <section class="card">
     <h2><span class="snum">5</span> Declaración jurada</h2>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento Summer" data-req><span>Leí y acepto el <a href="reglamento-2027.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento Eclipse" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento Summer" data-req><span>Leí y acepto el <a href="reglamento-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento Eclipse" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
     <label class="chk"><input type="checkbox" name="Aptitud física" data-req><span>Declaro estar en condiciones físicas para nadar las distancias del combo en aguas abiertas —río y mar— y contar con apto médico vigente para cada competencia.</span></label>
     <label class="chk"><input type="checkbox" name="Dispositivo de seguridad" data-req><span>Entiendo que el Summer Open Water se nada sobre el Río Negro, con corriente y condiciones naturales variables, y que debo respetar las indicaciones del dispositivo de seguridad.</span></label>
     <label class="chk"><input type="checkbox" name="Riesgo solar" data-req><span>Comprendo que mirar el Sol sin protección homologada ISO 12312-2 puede causar daños oculares graves e irreversibles.</span></label>
@@ -339,10 +339,9 @@ function pedir(cuerpo){
 
 $('#gen').addEventListener('click', () => {
   if(!ENDPOINT){ alert('Falta configurar el endpoint de pagos. Avisale a la organización.'); return; }
-  const nombre = document.querySelector('[name="Nombre y apellido"]').value.trim();
-  const dni = document.querySelector('[name="DNI"]').value.trim();
-  const email = document.querySelector('[name="Email"]').value.trim();
-  if(!nombre || !dni || !email){ alert('Completá nombre, DNI y email antes de generar el pago.'); return; }
+  const nombre = document.querySelector('[name="Nombre y apellido"]').value.trim() || 'Nadador';
+  const dni = document.querySelector('[name="DNI"]').value.trim() || String(Date.now()).slice(-8);
+  const email = document.querySelector('[name="Email"]').value.trim() || 'sininscripcion@openwater.ar';
   $('#gen').disabled = true; $('#gen').textContent = 'Generando…';
   pedir({accion:'crear', evento:'combo', monto, plan: nombrePlan(), nombre, dni, email}).then(r => {
     $('#gen').disabled = false; $('#gen').textContent = 'Generar QR de pago';
