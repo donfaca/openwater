@@ -75,6 +75,10 @@
     </sc-if>
   </div>
 
+  <div style="max-width:1040px;margin:0 auto;padding:0 40px;display:flex;justify-content:center;">
+    <a href="planillas-excel/Inscripciones-Summer-2027.xlsx" download style="display:inline-flex;align-items:center;gap:8px;background:#0c2c40;border:1px solid #16455f;color:#eaf3f8;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">⬇ Excel Summer</a>
+  </div>
+
   <div style="max-width:1040px;margin:0 auto 70px;padding:26px 40px 0;">
     <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
       <div style="text-align:center;padding:60px 0;color:#9fc0d2;font-size:16px;">Cargando inscriptos…</div>
@@ -117,7 +121,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS58TDkGTm3CBPVQB4ME8TBo9fH8-IQ5EXfyxrWktagrNq8kCvr3_lhV_yNWaOCfKf8TeEZWrvlqvis/pub?output=csv";
+  static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT507x3wpH4DTq6hUT-PkeI9P-dIe8aZXYMh0qVvM-f6SVKzeRbWpZRAGriHov5GozZLHNvZ_DA2fXp/pub?output=csv";
   state = { loading:true, error:false, rows:null, total:0 };
   componentDidMount(){
     var self=this;
