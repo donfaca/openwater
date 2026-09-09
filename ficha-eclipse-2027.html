@@ -115,7 +115,12 @@
       </div>
     </div>
 
-    <p class="hint" style="margin:0 0 12px;">Transferí al alias <b>OWeclipse</b> (titular Albacete Colombo Juan Facundo) y cargá el número de operación. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
+    <div style="background:#FFF3EE;border:2px solid #C0271A;border-radius:14px;padding:18px 20px;margin:0 0 16px;">
+      <div style="font-family:'Archivo Narrow';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:#7A1610;margin-bottom:6px;">Transferí a este alias</div>
+      <div style="font-family:'Anton';font-size:2.1rem;line-height:1;color:#1A0B08;">OWeclipse</div>
+      <div style="font-size:.92rem;color:#4A2C26;margin-top:6px;">Titular: <b>Albacete Colombo Juan Facundo</b></div>
+    </div>
+    <p class="hint" style="margin:0 0 12px;">Cargá el número de operación de la transferencia. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
     <div class="grid">
       <label class="f"><span class="req">Número de operación / comprobante</span><input id="oper" name="Número de operación" placeholder="Ej. 0012345678" data-req></label>
       <label class="f">Titular de la cuenta que transfiere<input name="Titular de la transferencia"></label>
@@ -134,7 +139,7 @@
 
   <section class="card" style="text-align:center;">
     <button type="button" class="btn" id="enviar" disabled style="font-size:1rem;padding:18px 40px;">Enviar inscripción</button>
-    <div class="hint" id="motivo" style="margin-top:12px;">El envío se habilita cuando el pago está confirmado.</div>
+    <div class="hint" id="motivo" style="margin-top:12px;">El envío se habilita al completar todos los datos obligatorios, incluido el número de operación de la transferencia.</div>
     <div class="estado e-ok" id="ok" style="display:none;justify-content:center;"></div>
   </section>
 </div>

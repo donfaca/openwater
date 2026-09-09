@@ -115,7 +115,7 @@
     <div class="grid">
       <label class="f"><span class="req">Categoría de premiación</span><select name="Categoría Eclipse" data-req><option value="">Elegir…</option><option>Mujer cuero</option><option>Mujer neopreno</option><option>Hombre cuero</option><option>Hombre neopreno</option><option>Adaptado mujer</option><option>Adaptado hombre</option></select></label>
       <label class="f"><span class="req">Experiencia en aguas abiertas</span><select name="Experiencia" data-req><option value="">Elegir…</option><option>Primera vez en aguas abiertas</option><option>Hasta 3 competencias</option><option>Más de 3 competencias</option><option>Nadador federado</option></select></label>
-      <label class="f">Mejor marca previa<input name="Mejor marca" placeholder="hh:mm:ss"></label>
+      <label class="f">Mejor marca en 2.5K o similar<input name="Mejor marca" placeholder="mm:ss"></label>
     </div>
     <p class="hint" style="margin:10px 0 0;">En Adaptado mujer y Adaptado hombre no se distingue cuero de neopreno: es una clasificación única por género.</p>
   </section>
@@ -168,9 +168,14 @@
       <div style="font-size:.92rem;color:rgba(255,255,255,.82);" id="detalle"></div>
     </div>
 
-    <p class="hint" style="margin:14px 0 0;">El combo se abona en un único pago (o en las cuotas del combo): no se divide entre las dos competencias. Alias para transferir: <b>OWeclipse</b> (titular Albacete Colombo Juan Facundo).</p>
+    <p class="hint" style="margin:14px 0 0;">El combo se abona en un único pago (o en las cuotas del combo): no se divide entre las dos competencias.</p>
 
-    <p class="hint" style="margin:16px 0 12px;">Transferí al alias <b>OWeclipse</b> (titular Albacete Colombo Juan Facundo) y cargá el número de operación. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
+    <div style="background:#FFF8E8;border:2px solid #c9a24d;border-radius:14px;padding:18px 20px;margin:16px 0;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#8A6416;margin-bottom:6px;">Transferí a este alias</div>
+      <div style="font-family:'Bebas Neue';font-size:2.2rem;line-height:1;color:#0a2438;">OWeclipse</div>
+      <div style="font-size:.95rem;color:#3c5a70;margin-top:6px;">Titular: <b>Albacete Colombo Juan Facundo</b></div>
+    </div>
+    <p class="hint" style="margin:0 0 12px;">Cargá el número de operación de la transferencia. La inscripción queda pendiente de verificación hasta que la controlemos.</p>
     <div class="grid">
       <label class="f"><span class="req">Número de operación / comprobante</span><input id="oper" name="Número de operación" placeholder="Ej. 0012345678" data-req></label>
       <label class="f">Titular de la cuenta que transfiere<input name="Titular de la transferencia"></label>
@@ -191,7 +196,7 @@
 
   <section class="card" style="text-align:center;">
     <button type="button" class="btn" id="enviar" disabled style="font-size:1rem;padding:18px 40px;">Enviar inscripción del combo</button>
-    <div class="hint" id="motivo" style="margin-top:12px;">El envío se habilita cuando el pago está confirmado.</div>
+    <div class="hint" id="motivo" style="margin-top:12px;">El envío se habilita al completar todos los datos obligatorios, incluido el número de operación de la transferencia.</div>
     <div class="estado e-ok" id="ok" style="display:none;justify-content:center;"></div>
     <p class="hint" style="margin:14px 0 0;">Con esta ficha quedás inscripto en las dos competencias: no hace falta completar los formularios individuales de Summer ni de Eclipse.</p>
   </section>
