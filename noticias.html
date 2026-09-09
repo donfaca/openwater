@@ -8,6 +8,17 @@
 <body>
 <x-dc>
 <helmet>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  if(sessionStorage.getItem('ow-force-desktop')==='1') return;
+  var ismobile = window.innerWidth < 820 || /Mobi|Android|iPhone|iPod/i.test(navigator.userAgent);
+  if(!ismobile) return;
+  var file = location.pathname.split('/').pop();
+  if(/-movil\.(dc\.)?html$/.test(file)) return;
+  var _t=file.replace(/(\.dc)?\.html$/,'-movil$1.html'); if(_t!==file) location.replace(_t);
+}catch(e){}})();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>

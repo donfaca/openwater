@@ -164,8 +164,9 @@
 <footer><div class="wrap">Open Water Río Negro · openwaterrionegro@gmail.com · +54 9 2920 650486</div></footer>
 
 <script>
-/* URL /exec del Apps Script de OWeclipse (ver eclipse-a-planilla-apps-script.gs) */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzUD3gdaFh074QgOUCh_iqPmYtNE_2e54hfmugaJ9LOknhLGRjfLB_sGtfNuzgqX9u4UA/exec';
+/* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
+   Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwah5SDG7fQeOufgziI9_QIq4uJj7L75WKuBAHCbi4qyT8wP2MBiJxt3mj-ZiefR2PbSQ/exec';
 
 let monto = 150000, plan = 'Individual contado', metodo = 'mp', ref = '', pagado = false, timer = null;
 const $ = (s) => document.querySelector(s);
@@ -231,7 +232,7 @@ $('#gen').addEventListener('click', () => {
   const email = document.querySelector('[name="Email"]').value.trim();
   if(!nombre || !dni || !email){ alert('Completá nombre, DNI y email antes de generar el pago.'); return; }
   $('#gen').disabled = true; $('#gen').textContent = 'Generando…';
-  pedir({accion:'crear', monto, plan, nombre, dni, email}).then(r => {
+  pedir({accion:'crear', evento:'eclipse', monto, plan, nombre, dni, email}).then(r => {
     $('#gen').disabled = false; $('#gen').textContent = 'Generar QR de pago';
     if(!r.ok){ alert('No se pudo generar el pago: ' + (r.error || '')); return; }
     ref = r.ref;
@@ -250,7 +251,7 @@ $('#verificar').addEventListener('click', consultar);
 
 function consultar(){
   if(!ref) return;
-  pedir({accion:'estado', ref}).then(r => {
+  pedir({accion:'estado', evento:'eclipse', ref}).then(r => {
     if(r.estado === 'approved'){
       pagado = true; clearInterval(timer);
       $('#estado').className = 'estado e-ok';
@@ -276,7 +277,7 @@ $('#enviar').addEventListener('click', () => {
   d['Referencia de pago'] = ref;
   d['Fecha de envío'] = new Date().toLocaleString('es-AR');
   $('#enviar').disabled = true; $('#enviar').textContent = 'Enviando…';
-  pedir(Object.assign({accion:'ficha'}, d)).then(r => {
+  pedir(Object.assign({accion:'ficha', evento:'eclipse'}, d)).then(r => {
     if(!r.ok) throw 0;
     $('#ok').style.display = 'flex';
     $('#ok').textContent = '✓ Inscripción registrada. Te llega la confirmación por email.';

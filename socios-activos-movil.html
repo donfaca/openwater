@@ -48,6 +48,20 @@
   .quitar:hover{color:#ff9b9b}
   @media(max-width:720px){nav.ow{padding:14px 18px}.wrap{padding:20px 16px 60px}}
 </style>
+<script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop();
+    var desk = file.replace(/-movil\.(dc\.)?html$/, '.html');
+    var a = document.createElement('a');
+    a.href = desk; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+</script>
 </head>
 <body>
 <script>
@@ -399,7 +413,21 @@ function carnetHTML(s){
   '.aviso{font-family:Barlow,sans-serif;font-size:13px;color:#25455c;text-align:center;padding:18px 16px 0}' +
   '.aviso b{color:#0a2438}' +
   '@media print{.aviso{display:none}body{background:#fff}}' +
-  '</style></head><body>' +
+  '</style><script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop();
+    var desk = file.replace(/-movil\.(dc\.)?html$/, '.html');
+    var a = document.createElement('a');
+    a.href = desk; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+</script>
+</head><body>' +
   '<p class="aviso">Se abrirá el diálogo de impresión: elegí <b>Guardar como PDF</b>. El tamaño ya está fijado al de un carnet (88 × 56 mm).<br>El recuadro punteado es el espacio para pegar la foto.</p>' +
   '<div class="carnet">' +
     '<div class="izq">' +

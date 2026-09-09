@@ -14,6 +14,8 @@
     body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
     a { color:#4db8e8; text-decoration:none; }
     a:hover { color:#8fd4f5; }
+    @keyframes owpulse { 0%,100% { background:#16a34a; } 50% { background:#4ade80; } }
+    @keyframes owpulsedark { 0%,100% { background:#0b0b0b; border-color:#333; } 50% { background:#3f3f3f; border-color:#c9a24d; } }
   </style>
   <script>
 (function(){try{
@@ -63,7 +65,7 @@
   </div>
 
   <!-- PROXIMOS EVENTOS -->
-  <div style="max-width:1100px;margin:0 auto;padding:36px 40px 8px;">
+  <div style="max-width:1320px;margin:0 auto;padding:36px 40px 8px;">
     <div style="position:relative;text-align:center;margin-bottom:20px;">
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#fff;margin:0;">PRÓXIMAS EDICIONES</h2>
       <div style="position:absolute;right:0;top:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#c9a24d;">
@@ -74,23 +76,20 @@
         </button>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:start;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:24px;align-items:start;">
 
-      <div style="background:#0f3350;border-radius:14px;border:1px solid #1a5678;overflow:hidden;display:flex;flex-direction:column;">
-        <div style="padding: 18px 26px 0; display: flex; align-items: center; gap: 16px; background: linear-gradient(270deg, #D08231, #1BCCCE)">
-          <div style="width:72px;height:72px;flex:0 0 72px;">
+      <div style="background:linear-gradient(160deg,#0f3350,#0a2438);border-radius:14px;border:1px solid #1a5678;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:18px 26px 0;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(90deg,#5ACBE0,#EDC264);">
+          <div style="width:104px;height:104px;flex:0 0 104px;">
             <img src="SummerOW_logo-opt.webp" alt="Summer OW" style="width:100%;height:100%;object-fit:contain;display:block;">
           </div>
-          <div>
-            <div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; letter-spacing: 3px; color: #EBA022">23-24 ENERO 2027</div>
-            <a href="summer-open-water-2027.html" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1.1;">2ª SUMMER OW</a>
+          <div style="flex:1 1 140px;min-width:0;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:#052537;white-space:nowrap;">23-24 ENERO 2027</div>
+            <a href="summer-open-water-2027.html" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#052537;line-height:1.1;">2ª SUMMER OW</a>
           </div>
-          <div onClick="{{ openSummerList }}" style="margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:9px;background:rgba(6,26,40,.72);border:1px solid rgba(255,255,255,.28);padding:8px 15px;border-radius:8px;cursor:pointer;">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;" ref="{{ siRef }}">—</span>
-            <span style="font-size:11px;letter-spacing:1px;color:#eaf3f8;text-transform:uppercase;font-weight:700;line-height:1.25;">Inscriptos<br><span style="font-size:10px;letter-spacing:.5px;opacity:.8;" ref="{{ spRef }}">—</span></span>
-          </div>
+          
         </div>
-        <div style="padding:12px 26px 18px;font-size:14px;color:#a9c6d6;line-height:1.6;">Segunda edición del clásico de verano en Viedma — <b>10K y 5K</b>&nbsp; (Campeonato) sobre el Río Negro. Evento de carácter nacional/internacional.</div>
+        <div style="padding:14px 26px 18px;font-size:15.5px;color:#a9c6d6;line-height:1.65;">Segunda edición del clásico de verano en Viedma — <b>10K y 5K</b>&nbsp; (Campeonato) sobre el Río Negro. Evento de carácter nacional/internacional.</div>
         <div style="padding:0 26px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
           <span style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:#EBA022;">FALTAn</span>
           <div style="display:flex;gap:14px;">
@@ -99,35 +98,47 @@
             <div style="text-align:center;min-width:34px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;" ref="{{ smRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">MIN</div></div>
             <div style="text-align:center;min-width:34px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;" ref="{{ ssRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">SEG</div></div>
           </div>
-        </div>
+                  </div>
         <div style="padding:0 26px 18px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:stretch;gap:10px;flex-wrap:nowrap;">
             <a href="summer-open-water-2027.html" style="flex:1 1 0;min-width:0;justify-content:center;background:#1f8fd6;color:#fff;padding:12px 20px;border-radius:6px;font-weight:700;font-size:15px;white-space:nowrap;display:inline-flex;align-items:center;">Página del evento →</a>
-            <a href="ficha-summer-2027.html" target="_blank" rel="noopener" style="flex:1 1 0;min-width:0;justify-content:center;gap:10px;background:linear-gradient(90deg,#16a34a,#22c55e);color:#fff;padding:12px 20px;border-radius:6px;font-weight:800;font-size:15px;white-space:nowrap;display:inline-flex;align-items:center;text-decoration:none;box-shadow:0 8px 22px rgba(34,197,94,.4);"><span style="background:#fff;color:#16a34a;font-size:11px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:999px;">NEW</span>Inscripción abierta →</a>
+            
           </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <a href="reglamento-2027.html" style="flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#8a1a1a;color:#fff;padding:11px 10px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M8 13h8"></path><path d="M8 17h8"></path></svg>Reglamento oficial</a>
-            <a href="deslinde-2027.html" style="flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#7cc576;color:#0b2e12;padding:11px 10px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M9 15l2 2 4-4"></path></svg>Deslinde de responsabilidad</a>
-          </div>
+          
           <div style="font-size:12px;color:#a9c6d6;">Al completar el formulario de inscripción aceptás el reglamento oficial. El deslinde de responsabilidad es obligatorio firmarlo en la acreditación.</div>
+          <div style="margin-top:2px;border-top:1px solid #1a5678;padding-top:14px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+              <img src="medalla-summer-t.png" alt="Medalla finisher Summer Open Water 2027" style="flex:0 0 auto;height:74px;width:auto;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
+              <div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;color:#5ACBE0;">VALORES DE INSCRIPCIÓN</div><div style="font-size:12px;color:#a9c6d6;line-height:1.5;">Medalla finisher incluida. Los valores aumentan a partir del 10/9.</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;"><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#5ACBE0;">Prueba</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#5ACBE0;text-align:right;">Hasta 10/9</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#5ACBE0;text-align:right;min-width:64px;">Desde 10/9</div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">2K Nocturno</div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$60.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">$65.000</div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">5K</div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$140.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">$155.000</div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">10K</div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$160.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">$175.000</div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">5K + 10K<br><span style="font-size:11px;font-weight:400;color:#a9c6d6;">Campeonato + bonificación 2K</span></div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$200.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">$220.000</div></div>
+            <div style="margin-top:10px;font-size:13px;line-height:1.65;color:#bcd6e4;"><b style="color:#5ACBE0;">Financiación:</b> 5K en 3 cuotas de $50.000 o 2 pagos de $50.000 + 1 de $60.000 · 10K en 4 pagos de $40.000 o 4 de $45.000 · 5K + 10K en 4 cuotas de $50.000 o 4 pagos de $60.000.</div>
+            <div style="margin-top:10px;font-size:13px;line-height:1.65;color:#bcd6e4;"><b style="color:#5ACBE0;">Kit:</b> poncho largo, gorros Aquom (uno por prueba), mochila de red, calcos, números de sorteo y descuentos en hoteles y restaurantes. Medalla finisher, medalla de podio, Copa Challenger y copas absolutas de 5K y 10K.</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;">
+            <a href="ficha-summer-2027.html" target="_blank" rel="noopener" style="flex:1 1 auto;justify-content:center;display:flex;align-items:center;gap:10px;background:#0b0b0b;border:1px solid #333;animation:owpulsedark 1.3s ease-in-out infinite;color:#fff;padding:15px 18px;border-radius:8px;font-weight:800;font-size:17px;white-space:nowrap;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);">Inscripción abierta →</a>
+            <div onClick="{{ openSummerList }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;background:rgba(6,26,40,.72);border:1px solid rgba(255,255,255,.28);padding:8px 15px;border-radius:8px;cursor:pointer;"><span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;" ref="{{ siRef }}">—</span><span style="font-size:12px;letter-spacing:1px;color:#fff;text-transform:uppercase;font-weight:700;line-height:1.25;">Cupo<br><span style="font-size:10px;letter-spacing:.5px;opacity:.8;">ocupado</span></span></div>
+          </div>
         </div>
       </div>
 
-      <div style="background:#0f3350;border-radius:14px;border:1px solid #1a5678;overflow:hidden;display:flex;flex-direction:column;">
-        <div style="padding: 18px 26px 0; display: flex; align-items: center; gap: 16px; background: linear-gradient(90deg, #050500, #F2D51D)">
-          <div style="width:72px;height:72px;flex:0 0 72px;">
+      <div style="min-width:0;display:flex;flex-direction:column;gap:24px;">
+      <div style="background:linear-gradient(160deg,#1A0B08,#0B0507);border-radius:14px;border:1px solid rgba(244,161,27,.45);overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:18px 26px 0;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(90deg,#C0271A,#1A0B08);">
+          <div style="width:104px;height:104px;flex:0 0 104px;">
             <img src="OWE_logo-opt.webp" alt="OW Eclipse" style="width:100%;height:100%;object-fit:contain;display:block;">
           </div>
-          <div>
-            <div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; letter-spacing: 3px; color: #c9a24d">6 FEBRERO 2027</div>
+          <div style="flex:1 1 140px;min-width:0;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:#F4A11B;white-space:nowrap;">6 FEBRERO 2027</div>
             <a href="oweclipse-2027.html" style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1.1;">OPEN WATER ECLIPSE</a>
           </div>
-          <div onClick="{{ openEclipseList }}" style="margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:9px;background:rgba(6,5,7,.72);border:1px solid rgba(255,255,255,.28);padding:8px 15px;border-radius:8px;cursor:pointer;">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;" ref="{{ eiRef }}">—</span>
-            <span style="font-size:11px;letter-spacing:1px;color:#fff;text-transform:uppercase;font-weight:700;line-height:1.25;">Inscriptos<br><span style="font-size:10px;letter-spacing:.5px;opacity:.8;" ref="{{ epRef }}">—</span></span>
-          </div>
+          
         </div>
-        <div style="padding:12px 26px 18px;font-size:14px;color:#a9c6d6;line-height:1.6;">Edición especial en Las Grutas (Río Negro): <b>2.5K</b> de nado en el mar&nbsp; mientras ocurre un eclipse solar anular. <br>Una experiencia exclusiva, llena de emociones sin igual.</div>
+        <div style="padding:14px 26px 18px;font-size:15.5px;color:#a9c6d6;line-height:1.65;">Edición especial en Las Grutas (Río Negro): <b>2.5K</b> de nado en el mar&nbsp; mientras ocurre un eclipse solar anular. <br>Una experiencia exclusiva, llena de emociones sin igual.</div>
         <div style="padding:0 26px 12px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
           <span style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;color:#c9a24d;">FALTAn</span>
           <div style="display:flex;gap:14px;">
@@ -136,161 +147,85 @@
             <div style="text-align:center;min-width:34px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;" ref="{{ emRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">MIN</div></div>
             <div style="text-align:center;min-width:34px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;line-height:1;" ref="{{ esRef }}">—</div><div style="font-size:10px;letter-spacing:1px;color:#8bb0c4;">SEG</div></div>
           </div>
-        </div>
+                  </div>
         <div style="padding:0 26px 18px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;flex-wrap:nowrap;gap:10px;">
             <a href="oweclipse-2027.html" style="flex:1 1 0;min-width:0;justify-content:center;background:#1f8fd6;color:#fff;padding:12px 20px;border-radius:6px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;white-space:nowrap;">Página del evento →</a>
-            <a href="ficha-eclipse-2027.html" target="_blank" rel="noopener" onClick="{{ eclipseInscClick }}" ref="{{ eclipseBtnRef }}" style="flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(90deg,#16a34a,#22c55e);color:#fff;padding:12px 20px;border-radius:6px;font-weight:800;font-size:15px;white-space:nowrap;text-decoration:none;box-shadow:0 8px 22px rgba(34,197,94,.4);"><span style="background:#fff;color:#16a34a;font-size:11px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:999px;">NEW</span><span ref="{{ eclipseLblRef }}">Inscripción abierta →</span></a>
+            
           </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <a href="reglamento-eclipse-2027.html" style="flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#8a1a1a;color:#fff;padding:11px 10px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M8 13h8"></path><path d="M8 17h8"></path></svg>Reglamento oficial</a>
-            <a href="deslinde-eclipse-2027.html" style="flex:1 1 0;min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#7cc576;color:#0b2e12;padding:11px 10px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M9 15l2 2 4-4"></path></svg>Deslinde de responsabilidad</a>
-          </div>
-          <a href="record-guinness.html" style="justify-content:center;background:#F4A11B;color:#0B0507;padding:12px 20px;border-radius:6px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;white-space:nowrap;text-decoration:none;">★ Posible Récord Guinness</a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- TABLA DE PRECIOS -->
-    <div style="margin-top:28px;">
-      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:14px;">
-        <div>
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:3px;color:#c9a24d;font-size:15px;">INSCRIPCIONES 2027</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;">TABLA DE PRECIOS</div>
-          <div style="font-size:14px;color:#a9c6d6;margin-top:6px;">Los valores aumentan a partir del 10/9. Precios en pesos argentinos; las cuotas incluyen el recargo de financiación.</div>
-        </div>
-        <a href="OW-2027-Tabla-de-Costos.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#c9a24d;color:#1b1405;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;padding:11px 20px;border-radius:999px;text-decoration:none;white-space:nowrap;">Tabla de costos en PDF</a>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;align-items:stretch;">
-
-        <div style="display:flex;flex-direction:column;border-radius:16px;overflow:hidden;border:1px solid #1a5678;background:linear-gradient(160deg,#0f3350,#0a2438);">
-          <div style="padding:16px 20px;background:linear-gradient(90deg,#5ACBE0,#EDC264);color:#052537;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;">SUMMER OPEN WATER</div>
-            <div style="font-size:13px;font-weight:700;">23 y 24 de enero · Patagones – Viedma</div>
-          </div>
-          <div style="padding:6px 20px 18px;color:#eaf3f8;">
-            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 14px;">
-              <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#5ACBE0;">Prueba</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#5ACBE0;text-align:right;">Hasta 10/9</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#5ACBE0;text-align:right;">Desde 10/9</div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;">2K Nocturno</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#EDC264;font-weight:800;">$60.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;">$65.000</div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;">5K</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#EDC264;font-weight:800;">$140.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;">$155.000</div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;">10K</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#EDC264;font-weight:800;">$160.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;">$175.000</div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;">5K + 10K<br><span style="font-size:12px;font-weight:400;color:#a9c6d6;">Campeonato + bonificación 2K</span></div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#EDC264;font-weight:800;">$200.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;">$220.000</div>
+          
+          
+          <div style="margin-top:2px;border-top:1px solid rgba(244,161,27,.35);padding-top:14px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:8px;">
+              <img src="medalla-eclipse-t.png" alt="Medalla finisher Open Water Eclipse" style="flex:0 0 auto;height:74px;width:auto;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
+              <div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;color:#F4A11B;">VALORES DE INSCRIPCIÓN</div><div style="font-size:12px;color:#a9c6d6;line-height:1.5;">Cupos limitados por la logística de la edición especial.</div></div>
             </div>
-            <div style="margin-top:14px;font-size:13px;line-height:1.6;color:#bcd6e4;">
-              <b style="color:#5ACBE0;">Financiación:</b> 5K en 3 cuotas de $50.000 o 2 pagos de $50.000 + 1 de $60.000 · 10K en 4 pagos de $40.000 o 4 de $45.000 · 5K + 10K en 4 cuotas de $50.000 o 4 pagos de $60.000.
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;"><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#F4A11B;">Categoría</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#F4A11B;text-align:right;">Actual</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#F4A11B;text-align:right;min-width:64px;">Desde 10/9</div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">Individual 2.5K<br><span style="font-size:11px;font-weight:400;color:#a9c6d6;">Valor vigente hasta el 10/10</span></div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$150.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">—</div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">Equipos<br><span style="font-size:11px;font-weight:400;color:#a9c6d6;">Grupos de 5 nadadores o más</span></div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$115.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">$130.000</div></div>
+            <div style="margin-top:10px;font-size:13px;line-height:1.65;color:#c8ab86;"><b style="color:#F4A11B;">Kit:</b> remera, gorro Aquom, mochila de red, calcos, números de sorteo, pulseras del nadador OW y lentes de observación solar con norma ISO 12312-2. Medalla finisher y premiación por categoría con medalla de podio.</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;">
+            <a href="ficha-eclipse-2027.html" target="_blank" rel="noopener" onClick="{{ eclipseInscClick }}" ref="{{ eclipseBtnRef }}" style="flex:1 1 auto;justify-content:center;display:flex;align-items:center;gap:10px;background:#0b0b0b;border:1px solid #333;animation:owpulsedark 1.3s ease-in-out infinite;color:#fff;padding:15px 18px;border-radius:8px;font-weight:800;font-size:17px;white-space:nowrap;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);"><span ref="{{ eclipseLblRef }}">Inscripción abierta →</span></a>
+            <div onClick="{{ openEclipseList }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;background:rgba(6,5,7,.72);border:1px solid rgba(255,255,255,.28);padding:8px 15px;border-radius:8px;cursor:pointer;"><span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;" ref="{{ eiRef }}">—</span><span style="font-size:12px;letter-spacing:1px;color:#fff;text-transform:uppercase;font-weight:700;line-height:1.25;">Cupo<br><span style="font-size:10px;letter-spacing:.5px;opacity:.8;">ocupado</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#5f6165;border:1px solid #1a5678;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:12px;">
+        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#5ACBE0,#EDC264);display:flex;align-items:center;gap:14px;">
+          <div style="flex:1 1 auto;min-width:0;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D43B25;letter-spacing:2px;">23-24 ENERO 2027</div>
+          <a href="summer-open-water-2027.html" style="font-size:15px;font-weight:700;color:#fff;margin-top:6px;display:block;text-decoration:none;">2ª Summer Open Water<br>Patagones - Viedma (RN)<br>Evento Nacional / Internacional</a>
+          </div>
+          <img src="medalla-summer-t.png" alt="Medalla finisher Summer Open Water 2027" style="flex:0 0 auto;width:auto;height:auto;max-height:76px;max-width:32%;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
+        </div>
+        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#EF7129,#000000);display:flex;align-items:center;gap:14px;">
+          <div style="flex:1 1 auto;min-width:0;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#E00A0A;letter-spacing:2px;">6 FEBRERO 2027</div>
+          <a href="oweclipse-2027.html" style="font-size:15px;font-weight:700;color:#fff;margin-top:6px;display:block;text-decoration:none;">Open Water Eclipse<br>Las Grutas (RN)<br>Evento exclusivo</a>
+          </div>
+          <img src="medalla-eclipse-t.png" alt="Medalla finisher Open Water Eclipse" style="flex:0 0 auto;width:auto;height:auto;max-height:76px;max-width:32%;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
+        </div>
+        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#D7DDE2,#31467C);display:flex;align-items:center;gap:14px;">
+          <div style="flex:1 1 auto;min-width:0;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#020201;letter-spacing:2px;">18-20 de JUNIO 2027</div>
+          <div style="font-size:15px;font-weight:700;color:#fff;margin-top:6px;">2ª Winter Open Water<br>Patagones - Viedma (RN)<br>Fecha NAF - Nacional</div>
+          </div>
+          <img src="medalla-winter-t.png" alt="Medalla finisher Winter Open Water 2027" style="flex:0 0 auto;width:auto;height:auto;max-height:76px;max-width:32%;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
+        </div>
+      </div>
+      </div>
+
+      <div style="min-width:0;display:flex;flex-direction:column;gap:24px;">
+      <div style="background:linear-gradient(160deg,#123a52,#1A0B08);border-radius:14px;border:1px solid #c9a24d;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:18px 26px 0;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(90deg,#c9a24d,#8a6a20);">
+          <div style="position:relative;width:104px;height:72px;flex:0 0 104px;">
+            <img src="SummerOW_logo-opt.webp" alt="Summer OW" style="position:absolute;left:0;top:0;width:66px;height:66px;object-fit:contain;border-radius:50%;background:#02121d;padding:4px;border:2px solid #1b1405;">
+            <img src="OWE_logo-opt.webp" alt="OW Eclipse" style="position:absolute;left:40px;top:0;width:66px;height:66px;object-fit:contain;border-radius:50%;background:#02121d;padding:4px;border:2px solid #1b1405;">
+          </div>
+          <div style="flex:1 1 140px;min-width:0;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#1b1405;white-space:nowrap;">23-24 ENE + 6 FEB 2027</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1.1;">COMBO SUMMER + ECLIPSE</div>
+          </div>
+          
+        </div>
+        <div style="padding:14px 26px 18px;font-size:15.5px;color:#a9c6d6;line-height:1.65;">Un único pase para las <b>tres pruebas de Summer Open Water</b> (23 y 24 de enero) más la edición especial <b>OW Eclipse</b> (6 de febrero), con ambos kits y las dos medallas finisher incluidas.</div>
+        <div style="padding:0 26px 18px;display:flex;flex-direction:column;gap:10px;">
+          <div style="border-top:1px solid rgba(201,162,77,.45);padding-top:14px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <img src="medalla-summer-t.png" alt="Medalla finisher Summer Open Water 2027" style="flex:0 0 auto;height:74px;width:auto;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
+              <img src="medalla-eclipse-t.png" alt="Medalla finisher Open Water Eclipse" style="flex:0 0 auto;height:74px;width:auto;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
+              <div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;color:#c9a24d;">VALORES DEL COMBO</div><div style="font-size:12px;color:#a9c6d6;line-height:1.5;">Las dos medallas finisher, una por competencia.</div></div>
             </div>
-            <div style="margin-top:10px;font-size:13px;line-height:1.6;color:#bcd6e4;">
-              <b style="color:#5ACBE0;">Kit:</b> poncho largo, gorros Aquom (uno por prueba), mochila de red, calcos, números de sorteo y descuentos en hoteles y restaurantes. Medalla finisher, medalla de podio, Copa Challenger y copas absolutas de 5K y 10K.
-            </div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;"><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#c9a24d;">Período</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#c9a24d;text-align:right;">Contado</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#c9a24d;text-align:right;min-width:64px;">En cuotas</div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">Hasta el 10/9</div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$310.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">4 de $82.000<br><span style="font-size:11px;color:#a9c6d6;">Total $328.000</span></div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">Desde el 10/9</div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$340.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">4 de $90.000<br><span style="font-size:11px;color:#a9c6d6;">Total $360.000</span></div></div>
+            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">Combo equipo<br><span style="font-size:11px;font-weight:400;color:#a9c6d6;">Grupos de 5 nadadores o más</span></div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$300.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">—</div></div>
+            <div style="margin-top:10px;font-size:13px;line-height:1.65;color:#bcd6e4;">Inscribiéndote por separado pagarías $330.000 (individual) o $315.000 (equipo): con el combo ahorrás $20.000 y $15.000.</div>
           </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;border-radius:16px;overflow:hidden;border:1px solid rgba(244,161,27,.45);background:linear-gradient(160deg,#1A0B08,#0B0507);">
-          <div style="padding:16px 20px;background:linear-gradient(90deg,#C0271A,#1A0B08);color:#FFE7B0;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:#F4A11B;">OW ECLIPSE</div>
-            <div style="font-size:13px;font-weight:700;">6 de febrero · Las Grutas, Río Negro</div>
-          </div>
-          <div style="padding:6px 20px 18px;color:#f3e2c8;">
-            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 14px;">
-              <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#F4A11B;">Categoría</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#F4A11B;text-align:right;">Actual</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#F4A11B;text-align:right;">Desde 10/9</div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;border-color:rgba(244,161,27,.25);">Individual 2.5K<br><span style="font-size:12px;font-weight:400;color:#c8ab86;">Valor vigente hasta el 10/10</span></div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#F4A11B;font-weight:800;border-color:rgba(244,161,27,.25);">$150.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#c8ab86;border-color:rgba(244,161,27,.25);">—</div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;border-color:rgba(244,161,27,.25);">Equipos<br><span style="font-size:12px;font-weight:400;color:#c8ab86;">Grupos de 5 nadadores o más</span></div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#F4A11B;font-weight:800;border-color:rgba(244,161,27,.25);">$115.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;border-color:rgba(244,161,27,.25);">$130.000</div>
-            </div>
-            <div style="margin-top:14px;font-size:13px;line-height:1.6;color:#c8ab86;">
-              <b style="color:#F4A11B;">Kit:</b> remera, gorro Aquom, mochila de red, calcos, números de sorteo, pulseras del nadador OW y lentes de observación solar con norma ISO 12312-2. Medalla finisher y premiación por categoría con medalla de podio.
-            </div>
-            <div style="margin-top:10px;font-size:13px;line-height:1.6;color:#c8ab86;">Cupos limitados por la logística de la edición especial.</div>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;border-radius:16px;overflow:hidden;border:1px solid #c9a24d;background:linear-gradient(160deg,#123a52,#1A0B08);">
-          <div style="padding:16px 20px;background:linear-gradient(90deg,#c9a24d,#8a6a20);color:#1b1405;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;">COMBO SUMMER + ECLIPSE</div>
-            <div style="font-size:13px;font-weight:700;">Todas las pruebas 2027</div>
-          </div>
-          <div style="padding:6px 20px 18px;color:#eaf3f8;">
-            <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 14px;">
-              <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#c9a24d;">Período</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#c9a24d;text-align:right;">Contado</div><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:13px;padding:8px 0;text-align:left;color:#c9a24d;text-align:right;">En cuotas</div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;">Hasta el 10/9</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;color:#c9a24d;font-weight:800;">$310.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;">4 de $82.000<br><span style="font-size:12px;color:#a9c6d6;">Total $328.000</span></div>
-              <div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);font-weight:700;">Desde el 10/9</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;font-weight:800;">$340.000</div><div style="padding:9px 0;font-size:15px;border-top:1px solid rgba(255,255,255,.12);text-align:right;">4 de $90.000<br><span style="font-size:12px;color:#a9c6d6;">Total $360.000</span></div>
-            </div>
-            <div style="margin-top:14px;font-size:13px;line-height:1.6;color:#bcd6e4;">Un único pase para las tres pruebas de Summer Open Water (23 y 24 de enero) más la edición especial OW Eclipse (6 de febrero), con ambos kits incluidos.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- COMBO 2+2 + TRILOGIA -->
-    <div style="margin-top:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:start;">
-    <div style="min-width:0;background:linear-gradient(135deg,#0a2438,#0f3350);border:1px solid #1a5678;border-radius:16px;overflow:hidden;">
-      <div style="padding:20px 26px;display:flex;flex-wrap:wrap;align-items:center;gap:24px 32px;justify-content:space-between;background:linear-gradient(90deg,#08202f,#0f3350);border-bottom:1px solid #1a5678;">
-        <div style="min-width:240px;flex:1;">
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:3px;color:#c9a24d;font-size:16px;">COMBO 2 EVENTOS OW</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;color:#fff;line-height:.92;">3 + 1 NO ES 4</div>
-          <div style="font-size:18px;color:#a9c6d6;margin-top:8px;">4 distancias a menor valor.</div>
-        </div>
-        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:12px;">
-          <img src="SummerOW_logo-opt.webp" alt="OW Summer" style="width:86px;height:86px;object-fit:contain;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#c9a24d;line-height:1;">+</span>
-          <img src="OWE_logo-opt.webp" alt="OW Eclipse" style="width:86px;height:86px;object-fit:contain;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#c9a24d;line-height:1;">=</span>
-          <div style="position:relative;width:126px;height:80px;flex:0 0 auto;" title="Combo OW Summer + OW Eclipse">
-            <img src="SummerOW_logo-opt.webp" alt="" style="position:absolute;left:0;top:2px;width:74px;height:74px;object-fit:contain;border-radius:50%;background:#02121d;padding:5px;border:3px solid #0f3350;">
-            <img src="OWE_logo-opt.webp" alt="" style="position:absolute;left:50px;top:2px;width:74px;height:74px;object-fit:contain;border-radius:50%;background:#02121d;padding:5px;border:3px solid #0f3350;">
-          </div>
+          <a href="ficha-combo-2027.html" target="_blank" rel="noopener" onClick="{{ combo2InscClick }}" ref="{{ combo2BtnRef }}" style="justify-content:center;display:inline-flex;align-items:center;gap:10px;background:#0b0b0b;border:1px solid #333;animation:owpulsedark 1.3s ease-in-out infinite;color:#fff;padding:12px 20px;border-radius:6px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);"><span ref="{{ combo2LblRef }}">Inscripción combo abierta →</span></a>
         </div>
       </div>
-
-      <div style="padding:18px 26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
-        <div style="background:#0c2c40;border:1px solid #1a5678;border-left:4px solid #1BCCCE;border-radius:12px;padding:14px 18px;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">OW SUMMER</div>
-          <div style="font-size:15px;color:#1BCCCE;font-weight:700;margin:2px 0 10px;">23 y 24 de enero de 2027 · Patagones – Viedma</div>
-          <div style="font-size:16px;color:#cfe0ea;line-height:1.6;">5K (sáb) + 10K (dom) + 2K Nocturno con pizza libre.</div>
-          <div style="font-size:14px;color:#a9c6d6;line-height:1.6;margin-top:8px;"><b style="color:#eaf3f8;">Kit:</b> poncho largo, gorros Aquom (1 por prueba), mochila de red, calcos, números de sorteo y descuentos en hoteles y restaurantes.</div>
-          <div style="font-size:14px;color:#a9c6d6;line-height:1.6;margin-top:8px;"><b style="color:#eaf3f8;">Premios:</b> medalla finisher, medalla de podio, Copa Challenger y medalla de participación.</div>
-        </div>
-        <div style="background:#0c2c40;border:1px solid #1a5678;border-left:4px solid #F4A11B;border-radius:12px;padding:14px 18px;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:1px;">OW ECLIPSE</div>
-          <div style="font-size:15px;color:#F4A11B;font-weight:700;margin:2px 0 10px;">6 de febrero de 2027 · Las Grutas</div>
-          <div style="font-size:16px;color:#cfe0ea;line-height:1.6;">2.5K bajo el eclipse solar anular sobre el Golfo San Matías.</div>
-          <div style="font-size:14px;color:#a9c6d6;line-height:1.6;margin-top:8px;"><b style="color:#eaf3f8;">Kit:</b> remera, gorro Aquom, mochila de red, calcos, números de sorteo y pulseras del nadador OW.</div>
-          <div style="font-size:14px;color:#a9c6d6;line-height:1.6;margin-top:8px;"><b style="color:#eaf3f8;">Premios:</b> medalla finisher y premiación por categoría con medalla de podio.</div>
-        </div>
-      </div>
-
-      <div style="padding:0 26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
-        <div style="border:1px solid #c9a24d;border-radius:12px;padding:14px 18px;background:linear-gradient(135deg,#12324a,#0c2c40);position:relative;">
-          <div style="position:absolute;top:14px;right:16px;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:11px;color:#0a2438;background:#c9a24d;padding:2px 9px;border-radius:999px;">MEJOR PRECIO</div>
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:17px;color:#c9a24d;">COMBO INDIVIDUAL</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#fff;line-height:1;margin-top:4px;">$310.000</div>
-          <div style="font-size:13px;color:#a9c6d6;">Valor contado.</div>
-          <div style="font-size:14px;color:#eaf3f8;margin-top:4px;">Financiado: 4 cuotas de $82.000 (total $328.000).</div>
-        </div>
-        <div style="border:1px solid #1a5678;border-radius:12px;padding:14px 18px;background:#0c2c40;">
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:17px;color:#1BCCCE;">COMBO EQUIPO</div>
-          <div style="font-size:12px;color:#a9c6d6;">Grupos de 5 nadadores o más</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:#fff;line-height:1;margin-top:4px;">$300.000</div>
-          <div style="font-size:14px;color:#eaf3f8;margin-top:4px;">Precio de contado, sin financiación.</div>
-        </div>
-      </div>
-
-      <div style="margin:12px 26px 0;background:linear-gradient(120deg,#0e5a3a,#127a4e);border-radius:12px;padding:14px 18px;color:#eafff4;font-size:14px;line-height:1.6;">Inscribiéndote por separado pagarías <b>$330.000</b> (individual) o <b>$315.000</b> (equipo): con el combo ahorrás <b>$20.000</b> y <b>$15.000</b> respectivamente. Ambas inscripciones incluyen alimentación post-competencia estilo OW, cronometraje y tiempos instantáneos, seguro del nadador, servicio de ambulancia y sanitarios. La remera del Eclipse se incluye inscribiéndote hasta el 15 de diciembre inclusive. Incluye además lentes de observación solar con certificación ISO 12312-2 para mirar el eclipse de forma segura.</div>
-
-      <div style="margin:12px 26px 0;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px 20px;display:flex;flex-wrap:wrap;gap:6px 26px;align-items:center;">
-        <div style="flex:0 0 auto;"><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#c9a24d;">ALIAS PARA TRANSFERIR</div><div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;line-height:1;">OW.RIO</div></div>
-        <div style="flex:1;min-width:220px;font-size:13px;color:#a9c6d6;line-height:1.55;">Banco Nación · <b style="color:#eaf3f8;">El combo se abona en un único pago a este alias</b> (no dividir entre cuentas). Enviá el comprobante a <a href="mailto:openwaterrionegro@gmail.com" style="color:#4db8e8;font-weight:700;">openwaterrionegro@gmail.com</a> indicando ambas pruebas, apellido y nombre.</div>
-      </div>
-
-      <div style="padding:16px 26px 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
-        <a href="ficha-eclipse-2027.html" target="_blank" rel="noopener" onClick="{{ comboInscClick }}" ref="{{ comboBtnRef }}" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#0b0b0b;border:1px solid #333;color:#fff;padding:13px 24px;border-radius:8px;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);"><span style="background:#fff;color:#0b0b0b;font-size:11px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:999px;">NEW</span><span ref="{{ comboLblRef }}">Inscripción combo abierta →</span></a>
-      </div>
-    </div>
-
-      <!-- TRILOGIA -->
-      <div style="min-width:0;display:flex;flex-direction:column;gap:20px;">
       <div style="padding:13px;border-radius:8px;background:linear-gradient(135deg,#8a6b28,#e8cf95 18%,#c9a24d 38%,#7d5f22 52%,#c9a24d 66%,#e8cf95 84%,#8a6b28);box-shadow:0 22px 45px rgba(0,0,0,.55),0 3px 0 rgba(0,0,0,.35),inset 0 0 0 2px rgba(0,0,0,.28),inset 0 0 0 3px rgba(255,255,255,.18);"><div style="padding:5px;background:#1b1b1d;border-radius:3px;box-shadow:inset 0 2px 8px rgba(0,0,0,.6);"><div style="position:relative;border-radius:2px;overflow:hidden;background:#5f6165;">
         <img src="trilogia.jpeg" alt="Medalla trilogía OW Summer + Eclipse + Winter 2027" style="display:block;width:100%;height:auto;">
         <div style="position:absolute;left:0;right:0;top:0;padding:22px 22px 26px;background:linear-gradient(180deg,rgba(20,20,22,.55),rgba(20,20,22,0));">
@@ -306,32 +241,10 @@
           <div style="margin-top:8px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;line-height:1.15;color:#f0d089;text-shadow:0 2px 8px rgba(0,0,0,.6);">ARMÁ TU ROMPECABEZAS PARA ENMARCAR EN LA PARED (23 CM DE DIÁMETRO)</div>
         </div>
       </div></div></div>
+      </div>
 
-      <div style="background:#5f6165;border:1px solid #1a5678;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;">
-        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#5ACBE0,#EDC264);display:flex;align-items:center;gap:14px;">
-          <div style="flex:1 1 auto;min-width:0;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D43B25;letter-spacing:2px;">23-24 ENERO 2027</div>
-          <a href="summer-open-water-2027.html" style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;display:block;text-decoration:none;">2ª Summer Open Water<br>Patagones - Viedma (RN)<br>Evento Nacional / Internacional</a>
-          </div>
-          <img src="medalla-summer-t.png" alt="Medalla finisher Summer Open Water 2027" style="flex:0 0 auto;width:auto;height:auto;max-height:88px;max-width:32%;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
-        </div>
-        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#EF7129,#000000);display:flex;align-items:center;gap:14px;">
-          <div style="flex:1 1 auto;min-width:0;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#E00A0A;letter-spacing:2px;">6 FEBRERO 2027</div>
-          <a href="oweclipse-2027.html" style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;display:block;text-decoration:none;">Open Water Eclipse<br>Las Grutas (RN)<br>Evento exclusivo</a>
-          </div>
-          <img src="medalla-eclipse-t.png" alt="Medalla finisher Open Water Eclipse" style="flex:0 0 auto;width:auto;height:auto;max-height:88px;max-width:32%;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
-        </div>
-        <div style="border-radius:10px;padding:14px 16px;border:1px solid #1a5678;background:linear-gradient(270deg,#D7DDE2,#31467C);display:flex;align-items:center;gap:14px;">
-          <div style="flex:1 1 auto;min-width:0;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#020201;letter-spacing:2px;">18-20 de JUNIO 2027</div>
-          <div style="font-size:17px;font-weight:700;color:#fff;margin-top:6px;">2ª Winter Open Water<br>Patagones - Viedma (RN)<br>Fecha NAF - Nacional</div>
-          </div>
-          <img src="medalla-winter-t.png" alt="Medalla finisher Winter Open Water 2027" style="flex:0 0 auto;width:auto;height:auto;max-height:88px;max-width:32%;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.45));">
-        </div>
-      </div>
-      </div>
     </div>
+
   </div>
 
   <!-- QUICK RACE STRIP -->
@@ -450,6 +363,9 @@ class Component extends DCLogic {
       this._eclipseLocked=locked; this._comboLocked=locked;
       var eL=this.eil&&this.eil.current, eB=this.eib&&this.eib.current;
       var cL=this.cil&&this.cil.current, cB=this.cib&&this.cib.current;
+      var cL2=this.cil2&&this.cil2.current, cB2=this.cib2&&this.cib2.current;
+      if(cL2) cL2.textContent = locked ? 'Abre en '+txt : 'Inscripción combo abierta →';
+      if(cB2){ cB2.style.opacity = locked?'.92':''; cB2.style.cursor = locked?'not-allowed':''; }
       if(eL) eL.textContent = locked ? 'Abre en '+txt : 'Inscripción abierta →';
       if(eB){ eB.style.opacity = locked?'.92':''; eB.style.cursor = locked?'not-allowed':''; }
       if(cL) cL.textContent = locked ? 'Abre en '+txt : 'Inscripción combo abierta →';
@@ -469,6 +385,7 @@ class Component extends DCLogic {
     var load=function(url,cb){ if(!url) return; fetch(url,{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(t){ cb(self.countCsvRows(t)); }).catch(function(){}); };
     load(Component.CSV_URL, function(n){ self.setInsc(n); });
     load(Component.ECLIPSE_CSV_URL, function(n){ self.setInscE(n); });
+    load(Component.COMBO_CSV_URL, function(n){ self.setInscC(n); });
   }
   countCsvRows(text){
     text=String(text).replace(/\r/g,'');
@@ -480,16 +397,16 @@ class Component extends DCLogic {
     if(text.length && text[text.length-1]!=='\n') rows++;
     return Math.max(0, rows-1);
   }
-  static CUPO_SUMMER = 110;
-  static CUPO_ECLIPSE = 120;
-  static BASE_SUMMER = 52;
-  static BASE_ECLIPSE = 53;
+  static CUPO_SUMMER = 25;
+  static CUPO_ECLIPSE = 29;
+  static BASE_SUMMER = 0;
+  static BASE_ECLIPSE = 0;
+  static COMBO_CSV_URL = "";
   static PIN = '129430';
   showCount(vRef,pRef,n,base,cupo){
     var tot = Math.max(0,n|0) + base;
-    if(vRef && vRef.current) vRef.current.textContent = String(tot);
     var pct = Math.min(100, Math.round(tot/cupo*100));
-    if(pRef && pRef.current) pRef.current.textContent = pct+'% del cupo';
+    if(vRef && vRef.current) vRef.current.textContent = pct+'%';
   }
   askList(url){
     var c = window.prompt('Lista privada. Ingresá el código de acceso:');
@@ -499,6 +416,7 @@ class Component extends DCLogic {
   }
   setInsc(n){ this.showCount(this.si, this.sp, n, Component.BASE_SUMMER, Component.CUPO_SUMMER); }
   setInscE(n){ this.showCount(this.eiv, this.ep, n, Component.BASE_ECLIPSE, Component.CUPO_ECLIPSE); }
+  setInscC(n){ if(this.ci && this.ci.current) this.ci.current.textContent = String(Math.max(0,n|0)); }
   renderVals(){
     var R = function(){ return React.createRef(); };
     this.sd=this.sd||R(); this.sh=this.sh||R(); this.sm=this.sm||R(); this.ss=this.ss||R();
@@ -507,11 +425,13 @@ class Component extends DCLogic {
     this.sp=this.sp||R(); this.ep=this.ep||R();
     this.eib=this.eib||R(); this.eil=this.eil||R();
     this.cib=this.cib||R(); this.cil=this.cil||R();
+    this.ci=this.ci||R(); this.cib2=this.cib2||R(); this.cil2=this.cil2||R();
     var self=this;
     return { visitsRef:this.vr, siRef:this.si, eiRef:this.eiv, spRef:this.sp, epRef:this.ep,
       openSummerList:function(){ self.askList('inscriptos.html'); }, openEclipseList:function(){ self.askList('inscriptos-eclipse.html'); }, openStats:function(){ if(window.OWStats) window.OWStats.openPanel(); },
       eclipseBtnRef:this.eib, eclipseLblRef:this.eil, eclipseInscClick:function(e){ if(self._eclipseLocked){ e.preventDefault(); } },
       comboBtnRef:this.cib, comboLblRef:this.cil, comboInscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },
+      ciRef:this.ci, combo2BtnRef:this.cib2, combo2LblRef:this.cil2, combo2InscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },
       sdRef:this.sd, shRef:this.sh, smRef:this.sm, ssRef:this.ss,
       edRef:this.ed, ehRef:this.eh, emRef:this.em, esRef:this.es };
   }
