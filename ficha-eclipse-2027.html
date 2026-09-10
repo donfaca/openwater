@@ -73,20 +73,20 @@
       <label class="f"><span class="req">Email</span><input type="email" name="Email" data-req></label>
       <label class="f"><span class="req">WhatsApp</span><input name="Teléfono" placeholder="+54 9 ..." data-req></label>
       <label class="f"><span class="req">Talle de remera</span><select name="Talle" data-req><option value="">Elegir…</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></label>
-      <label class="f" style="grid-column:1/-1;background:#FFF3EE;border:2px solid #C0271A;border-radius:12px;padding:12px 14px 14px;">Club o equipo<input name="Club o equipo" style="border-color:#C0271A;"><span style="text-transform:none;font-weight:600;letter-spacing:normal;font-size:.82rem;color:#C0271A;margin-top:4px;line-height:1.4;">¿No tenés club? Representanos: uníte al equipo de OW Río Negro y contá con asesoramiento técnico durante toda la competencia.</span></label>
+      <label class="f"><span class="req">Género</span><select name="Género" data-req><option value="">Elegir…</option><option>Mujer</option><option>Hombre</option></select></label>
     </div>
+    <div style="background:#FFF3EE;border:2px solid #C0271A;border-radius:12px;padding:14px 16px;margin-top:14px;">
+      <label class="chk" style="margin:0;"><input type="checkbox" name="Categoría adaptada"><span style="font-weight:700;color:#1A0B08;">Nado en categoría adaptada</span></label>
+      <p class="hint" style="margin:6px 0 0;font-weight:600;color:#C0271A;">Marcar solo si el nadador o la nadadora tiene alguna discapacidad motriz o reducción sensorial.</p>
+    </div>
+    <label class="f" style="margin-top:14px;background:#FFF3EE;border:2px solid #C0271A;border-radius:12px;padding:12px 14px 14px;">Club o equipo<input name="Club o equipo" style="border-color:#C0271A;"><span style="text-transform:none;font-weight:600;letter-spacing:normal;font-size:.82rem;color:#C0271A;margin-top:4px;line-height:1.4;">¿No tenés club? Representanos: uníte al equipo de OW Río Negro y contá con asesoramiento técnico durante toda la competencia.</span></label>
   </section>
 
   <section class="card">
     <h2><span class="snum">2</span> Categoría</h2>
     <div class="grid">
-      <label class="f"><span class="req">Género</span><select name="Género" data-req><option value="">Elegir…</option><option>Mujer</option><option>Hombre</option></select></label>
       <label class="f"><span class="req">Categoría de premiación</span><select name="Categoría" data-req><option value="">Elegir…</option><option>Cuero</option><option>Neopreno</option></select></label>
       <label class="f"><span class="req">Experiencia en aguas abiertas</span><select name="Experiencia" data-req><option value="">Elegir…</option><option>Primera vez en aguas abiertas</option><option>Hasta 3 competencias</option><option>Más de 3 competencias</option><option>Nadador federado</option></select></label>
-    </div>
-    <div style="background:#FFF3EE;border:2px solid #C0271A;border-radius:12px;padding:14px 16px;margin-top:10px;">
-      <label class="chk" style="margin:0;"><input type="checkbox" name="Categoría adaptada"><span style="font-weight:700;color:#1A0B08;">Nado en categoría adaptada</span></label>
-      <p class="hint" style="margin:6px 0 0;font-weight:600;color:#C0271A;">Marcar solo si el nadador o la nadadora tiene alguna discapacidad motriz o reducción sensorial.</p>
     </div>
   </section>
 
@@ -152,7 +152,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwnVOpON2zDM9oh_M_Cdzt8aXEYYFo19T6UdbuLCgbkaC67HNXHekD-Rn_MXOufoGg8/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyc2KOONMxieTm3pdgMnaQIf7sfRVj62h7AcF2cXbM4CxGH_PH5o9kHemRwP3_WozK_/exec';
 
 let monto = 135000, plan = 'Individual contado';
 const $ = (s) => document.querySelector(s);

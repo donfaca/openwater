@@ -92,8 +92,13 @@
       <label class="f"><span class="req">WhatsApp</span><input name="Teléfono" placeholder="+54 9 ..." data-req></label>
       <label class="f"><span class="req">Talle del poncho (Summer)</span><select name="Talle poncho Summer" data-req><option value="">Elegir…</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></label>
       <label class="f"><span class="req">Talle de remera (Eclipse)</span><select name="Talle remera Eclipse" data-req><option value="">Elegir…</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></label>
-      <label class="f" style="grid-column:1/-1;background:#FFF8E8;border:2px solid #c9a24d;border-radius:12px;padding:12px 14px 14px;">Club o equipo<input name="Club o equipo" style="border-color:#c9a24d;"><span style="text-transform:none;font-weight:600;letter-spacing:normal;font-size:.82rem;color:#8A6416;margin-top:4px;line-height:1.4;">¿No tenés club? Representanos: uníte al equipo de OW Río Negro y contá con asesoramiento técnico durante toda la competencia.</span></label>
+      <label class="f"><span class="req">Género</span><select name="Género" data-req><option value="">Elegir…</option><option>Mujer</option><option>Hombre</option></select></label>
     </div>
+    <div style="background:#FFF8E8;border:2px solid #c9a24d;border-radius:12px;padding:14px 16px;margin-top:14px;">
+      <label class="chk" style="margin:0;"><input type="checkbox" name="Categoría adaptada"><span style="font-weight:700;color:#0a2438;">Nado en categoría adaptada</span></label>
+      <p class="hint" style="margin:6px 0 0;font-weight:600;color:#8A6416;">Marcar solo si el nadador o la nadadora tiene alguna discapacidad motriz o reducción sensorial. Aplica a la premiación de Summer y de OWeclipse.</p>
+    </div>
+    <label class="f" style="margin-top:14px;background:#FFF8E8;border:2px solid #c9a24d;border-radius:12px;padding:12px 14px 14px;">Club o equipo<input name="Club o equipo" style="border-color:#c9a24d;"><span style="text-transform:none;font-weight:600;letter-spacing:normal;font-size:.82rem;color:#8A6416;margin-top:4px;line-height:1.4;">¿No tenés club? Representanos: uníte al equipo de OW Río Negro y contá con asesoramiento técnico durante toda la competencia.</span></label>
   </section>
 
   <section class="card">
@@ -106,7 +111,7 @@
 
     <h3>Premiación en Summer Open Water</h3>
     <div class="grid">
-      <label class="f"><span class="req">Género para la premiación</span><select name="Género" data-req><option value="">Elegir…</option><option>Mujer</option><option>Hombre</option></select></label>
+    <div class="grid">
       <label class="f">Categoría de edad<input name="Categoría de edad" id="cat" readonly placeholder="Se calcula con tu fecha de nacimiento"></label>
     </div>
     <p class="hint" style="margin:10px 0 0;">Las medallas de podio se entregan por género en categorías de edad de 10 en 10 años, según el reglamento.</p>
@@ -115,10 +120,6 @@
     <div class="grid">
       <label class="f"><span class="req">Categoría de premiación</span><select name="Categoría Eclipse" data-req><option value="">Elegir…</option><option>Cuero</option><option>Neopreno</option></select></label>
       <label class="f"><span class="req">Experiencia en aguas abiertas</span><select name="Experiencia" data-req><option value="">Elegir…</option><option>Primera vez en aguas abiertas</option><option>Hasta 3 competencias</option><option>Más de 3 competencias</option><option>Nadador federado</option></select></label>
-    </div>
-    <div style="background:#FFF8E8;border:2px solid #c9a24d;border-radius:12px;padding:14px 16px;margin-top:10px;">
-      <label class="chk" style="margin:0;"><input type="checkbox" name="Categoría adaptada"><span style="font-weight:700;color:#0a2438;">Nado en categoría adaptada</span></label>
-      <p class="hint" style="margin:6px 0 0;font-weight:600;color:#8A6416;">Marcar solo si el nadador o la nadadora tiene alguna discapacidad motriz o reducción sensorial. Aplica a la premiación de Summer y de OWeclipse.</p>
     </div>
   </section>
 
@@ -209,7 +210,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwnVOpON2zDM9oh_M_Cdzt8aXEYYFo19T6UdbuLCgbkaC67HNXHekD-Rn_MXOufoGg8/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyc2KOONMxieTm3pdgMnaQIf7sfRVj62h7AcF2cXbM4CxGH_PH5o9kHemRwP3_WozK_/exec';
 
 /* VALORES DEL COMBO — actualizar acá si cambian.
    El período se elige solo por la fecha de CAMBIO; si querés forzar uno,
