@@ -51,7 +51,7 @@
   </nav>
 
   <!-- HERO -->
-  <div style="position: relative; min-height: 560px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; background: url(&quot;./fondo_ow2026-opt_cut.jpg&quot;) center / cover no-repeat">
+  <div style="position: relative; min-height: 360px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; background: url(&quot;./fondo_ow2026-opt_cut.jpg&quot;) center / cover no-repeat">
     
     <div style="position:relative;z-index:2;padding:34px 20px 60px;max-width:820px;">
       <h1 style="font-family:'Bebas Neue',sans-serif;font-size:88px;line-height:0.95;margin:0 0 18px;color:#fff;">OPEN WATER<br><span style="display:inline-block;">RÍO NEGRO<span style="display:block;font-size:38px;letter-spacing:0;color:#fff;text-align:justify;text-align-last:justify;line-height:1;margin-top:4px;">PATAGONIA ARGENTINA</span></span></h1><p style="font-size: 22px; line-height: 1.6; color: #EEEFF2; max-width: 640px; margin: 0 auto 32px; font-weight: 800; font-family: Bebas Neue">En la vida hay experiencias que no se olvidan. Y esta es una de ellas.</p><div style="font-family: 'Bebas Neue',sans-serif; font-size: 18px; letter-spacing: 6px; color: #322201; margin-bottom: 14px; font-weight: 600"><br></div>
@@ -64,9 +64,27 @@
     </div>
   </div>
 
+  <!-- CYBERFEST -->
+  <div style="max-width:1320px;margin:26px auto 0;padding:0 40px;">
+    <div style="border-radius:14px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.4);">
+      <div style="position:relative;">
+        <img src="cyberfest-banner.jpg" alt="Cyber Fest Open Water Río Negro · 10% OFF en todas las competencias · 9, 10 y 11 de septiembre" style="display:block;width:100%;height:auto;">
+        <div style="position:absolute;top:16px;right:16px;background:rgba(6,6,14,.72);border:1px solid rgba(90,203,224,.55);border-radius:12px;padding:12px 20px;text-align:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;color:#fff;">OFERTA FINALIZA EN</div>
+          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:30px;color:#5ACBE0;line-height:1.1;"><span ref="{{ cfdRef }}">—</span>D <span ref="{{ cfhRef }}">—</span>:<span ref="{{ cfmRef }}">—</span>:<span ref="{{ cfsRef }}">—</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px;padding:14px 5%;background:#0b0b14;">
+        <a href="ficha-summer-2027.html" target="_blank" rel="noopener" style="background:#5ACBE0;color:#052537;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">SUMMER →</a>
+        <a href="ficha-eclipse-2027.html" target="_blank" rel="noopener" style="background:#EDC264;color:#052537;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">ECLIPSE →</a>
+        <a href="ficha-combo-2027.html" target="_blank" rel="noopener" style="background:#E85DA0;color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">COMBO →</a>
+      </div>
+    </div>
+  </div>
+
   <!-- PROXIMOS EVENTOS -->
   <div style="max-width:1320px;margin:0 auto;padding:36px 40px 8px;">
-    <div style="position:relative;text-align:center;margin-bottom:20px;">
+    <div style="position:relative;text-align:center;margin-bottom:20px;padding-top:34px;">
       <h2 style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#fff;margin:0;">PRÓXIMAS EDICIONES</h2>
       <div style="position:absolute;right:0;top:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#c9a24d;">
         <span>VISITAS AL SITIO: <span ref="{{ visitsRef }}" style="color:#fff;">—</span></span>
@@ -223,7 +241,10 @@
             <div style="display:grid;grid-template-columns:1fr auto auto;gap:0 12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);"><div style="font-size:15px;font-weight:700;color:#eaf3f8;">Combo equipo<br><span style="font-size:11px;font-weight:400;color:#a9c6d6;">Grupos de 5 nadadores o más</span></div><div style="font-size:15px;font-weight:800;text-align:right;color:#EDC264;">$300.000</div><div style="font-size:15px;text-align:right;color:#cfe0ea;min-width:70px;">—</div></div>
             <div style="margin-top:10px;font-size:13px;line-height:1.65;color:#bcd6e4;">Inscribiéndote por separado pagarías $330.000 (individual) o $315.000 (equipo): con el combo ahorrás $20.000 y $15.000.</div>
           </div>
-          <a href="ficha-combo-2027.html" target="_blank" rel="noopener" onClick="{{ combo2InscClick }}" ref="{{ combo2BtnRef }}" style="justify-content:center;display:inline-flex;align-items:center;gap:10px;background:#0b0b0b;border:1px solid #333;animation:owpulsedark 1.3s ease-in-out infinite;color:#fff;padding:12px 20px;border-radius:6px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);"><span ref="{{ combo2LblRef }}">Inscripción combo abierta →</span></a>
+          <div style="display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;">
+            <a href="ficha-combo-2027.html" target="_blank" rel="noopener" onClick="{{ combo2InscClick }}" ref="{{ combo2BtnRef }}" style="flex:1 1 auto;justify-content:center;display:inline-flex;align-items:center;gap:10px;background:#0b0b0b;border:1px solid #333;animation:owpulsedark 1.3s ease-in-out infinite;color:#fff;padding:12px 20px;border-radius:6px;font-weight:800;font-size:15px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);"><span ref="{{ combo2LblRef }}">Inscripción combo abierta →</span></a>
+            <div onClick="{{ openComboList }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;background:rgba(6,26,40,.72);border:1px solid rgba(255,255,255,.28);padding:8px 15px;border-radius:6px;cursor:pointer;color:#eaf3f8;font-size:13px;font-weight:700;">📋 Inscriptos</div>
+          </div>
         </div>
       </div>
       <div style="padding:13px;border-radius:8px;background:linear-gradient(135deg,#8a6b28,#e8cf95 18%,#c9a24d 38%,#7d5f22 52%,#c9a24d 66%,#e8cf95 84%,#8a6b28);box-shadow:0 22px 45px rgba(0,0,0,.55),0 3px 0 rgba(0,0,0,.35),inset 0 0 0 2px rgba(0,0,0,.28),inset 0 0 0 3px rgba(255,255,255,.18);"><div style="padding:5px;background:#1b1b1d;border-radius:3px;box-shadow:inset 0 2px 8px rgba(0,0,0,.6);"><div style="position:relative;border-radius:2px;overflow:hidden;background:#5f6165;">
@@ -354,10 +375,12 @@ class Component extends DCLogic {
     };
     var set = function(ref,val){ if(ref && ref.current) ref.current.textContent=val; };
     var iT = new Date('2026-08-16T23:00:00-03:00').getTime();
+    var cfT = new Date('2026-09-12T00:00:00-03:00').getTime();
     var tick = () => {
-      var a=parts(sT), b=parts(eT);
+      var a=parts(sT), b=parts(eT), c=parts(cfT);
       set(this.sd,a.d); set(this.sh,a.h); set(this.sm,a.m); set(this.ss,a.s);
       set(this.ed,b.d); set(this.eh,b.h); set(this.em,b.m); set(this.es,b.s);
+      set(this.cfd,c.d); set(this.cfh,c.h); set(this.cfm,c.m); set(this.cfs,c.s);
       var locked = Date.now() < iT;
       var p=parts(iT), txt=(p.d>0?p.d+'d ':'')+p.h+':'+p.m+':'+p.s;
       this._eclipseLocked=locked; this._comboLocked=locked;
@@ -422,13 +445,15 @@ class Component extends DCLogic {
     this.sd=this.sd||R(); this.sh=this.sh||R(); this.sm=this.sm||R(); this.ss=this.ss||R();
     this.ed=this.ed||R(); this.eh=this.eh||R(); this.em=this.em||R(); this.es=this.es||R();
     this.si=this.si||R(); this.vr=this.vr||R(); this.eiv=this.eiv||R();
+    this.cfd=this.cfd||R(); this.cfh=this.cfh||R(); this.cfm=this.cfm||R(); this.cfs=this.cfs||R();
     this.sp=this.sp||R(); this.ep=this.ep||R();
     this.eib=this.eib||R(); this.eil=this.eil||R();
     this.cib=this.cib||R(); this.cil=this.cil||R();
     this.ci=this.ci||R(); this.cib2=this.cib2||R(); this.cil2=this.cil2||R();
     var self=this;
     return { visitsRef:this.vr, siRef:this.si, eiRef:this.eiv, spRef:this.sp, epRef:this.ep,
-      openSummerList:function(){ self.askList('inscriptos.html'); }, openEclipseList:function(){ self.askList('inscriptos-eclipse.html'); }, openStats:function(){ if(window.OWStats) window.OWStats.openPanel(); },
+      cfdRef:this.cfd, cfhRef:this.cfh, cfmRef:this.cfm, cfsRef:this.cfs,
+      openSummerList:function(){ self.askList('inscriptos.html'); }, openEclipseList:function(){ self.askList('inscriptos-eclipse.html'); }, openComboList:function(){ self.askList('inscriptos-combo.html'); }, openStats:function(){ if(window.OWStats) window.OWStats.openPanel(); },
       eclipseBtnRef:this.eib, eclipseLblRef:this.eil, eclipseInscClick:function(e){ if(self._eclipseLocked){ e.preventDefault(); } },
       comboBtnRef:this.cib, comboLblRef:this.cil, comboInscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },
       ciRef:this.ci, combo2BtnRef:this.cib2, combo2LblRef:this.cil2, combo2InscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },

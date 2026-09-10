@@ -88,25 +88,25 @@
     <h2><span class="snum">2</span> Elegí tu prueba</h2>
     <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
     <div class="pay" id="pruebas">
-      <div class="opt on" data-prueba="5K+10K" data-contado="200000" data-cuota="50000" data-cuotas="4" data-kit="1">
+      <div class="opt on" data-prueba="5K+10K" data-contado="180000" data-cuota="45000" data-cuotas="4" data-kit="1">
         <div class="tag">Recomendado</div>
         <div class="t">Campeonato 5K + 10K</div>
-        <div class="m">$200.000</div>
-        <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 4 cuotas de $50.000.</div>
+        <div class="m">$180.000</div>
+        <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 4 cuotas de $45.000.</div>
       </div>
-      <div class="opt" data-prueba="5K" data-contado="140000" data-cuota="50000" data-cuotas="3" data-kit="1">
+      <div class="opt" data-prueba="5K" data-contado="126000" data-cuota="45000" data-cuotas="3" data-kit="1">
         <div class="t">Solo 5K</div>
-        <div class="m">$140.000</div>
-        <div class="d">Sábado 23 de enero. Financiado: 2 cuotas de $50.000 + 1 de $40.000.</div>
+        <div class="m">$126.000</div>
+        <div class="d">Sábado 23 de enero. Financiado: 2 cuotas de $45.000 + 1 de $36.000.</div>
       </div>
-      <div class="opt" data-prueba="10K" data-contado="160000" data-cuota="50000" data-cuotas="3" data-kit="1">
+      <div class="opt" data-prueba="10K" data-contado="144000" data-cuota="45000" data-cuotas="3" data-kit="1">
         <div class="t">Solo 10K</div>
-        <div class="m">$160.000</div>
-        <div class="d">Domingo 24 de enero. Financiado: 2 cuotas de $50.000 + 1 de $60.000.</div>
+        <div class="m">$144.000</div>
+        <div class="d">Domingo 24 de enero. Financiado: 2 cuotas de $45.000 + 1 de $54.000.</div>
       </div>
-      <div class="opt" data-prueba="2K" data-contado="60000" data-cuota="0" data-cuotas="0" data-kit="0">
+      <div class="opt" data-prueba="2K" data-contado="54000" data-cuota="0" data-cuotas="0" data-kit="0">
         <div class="t">Solo 2K Nocturno</div>
-        <div class="m">$60.000</div>
+        <div class="m">$54.000</div>
         <div class="d">Sábado 23 a las 21:00 · Swimming Fest + pizza libre. No incluye poncho ni financiación.</div>
       </div>
     </div>
@@ -138,24 +138,24 @@
 
     <div class="elegida" id="elegida"></div>
 
-    <label class="chk" id="wrap-sinkit"><input type="checkbox" id="sinkit" name="Nada sin kit"><span><b>Nadar sin kit del nadador: −$30.000.</b> Si no querés el kit (poncho, gorro, mochila de red), descontamos $30.000 de tu inscripción.</span></label>
+    <label class="chk" id="wrap-sinkit"><input type="checkbox" id="sinkit" name="Nada sin kit"><span><b>Nadar sin kit del nadador: −$27.000.</b> Si no querés el kit (poncho, gorro, mochila de red), descontamos $27.000 de tu inscripción.</span></label>
 
     <div class="pay" id="planes" style="margin-top:6px;">
       <div class="opt on" data-plan="contado">
         <div class="t">Contado</div>
-        <div class="m" id="m-contado">$200.000</div>
+        <div class="m" id="m-contado">$180.000</div>
         <div class="d">Pago único. Valor vigente hasta el 10 de septiembre de 2026.</div>
       </div>
       <div class="opt" data-plan="cuota" id="opt-cuota">
         <div class="t">Financiado · 1ª cuota</div>
-        <div class="m" id="m-cuota">$50.000</div>
+        <div class="m" id="m-cuota">$45.000</div>
         <div class="d" id="d-cuota">Cuotas mensuales desde el mes de inscripción. Con la 1ª cuota se congela el valor.</div>
       </div>
     </div>
 
     <div class="total">
       <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;font-weight:700;">A pagar ahora</div>
-      <div class="n" id="total">$200.000</div>
+      <div class="n" id="total">$180.000</div>
       <div style="font-size:.92rem;color:rgba(255,255,255,.82);" id="detalle"></div>
     </div>
 
@@ -200,10 +200,10 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbx_T6z-5iwXSe-1CJo9ju5
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');
 
-let prueba = '5K+10K', contado = 200000, cuota = 50000, cuotas = 4, conKit = true;
-let plan = 'contado', monto = 200000;
+let prueba = '5K+10K', contado = 180000, cuota = 45000, cuotas = 4, conKit = true;
+let plan = 'contado', monto = 180000;
 
-function descuento(){ return (conKit && $('#sinkit').checked) ? 30000 : 0; }
+function descuento(){ return (conKit && $('#sinkit').checked) ? 27000 : 0; }
 
 function marcarPlan(){
   document.querySelectorAll('#planes .opt').forEach(x => x.classList.toggle('on', x.dataset.plan === plan));
