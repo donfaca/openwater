@@ -88,23 +88,23 @@
     <h2><span class="snum">2</span> Elegí tu prueba</h2>
     <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
     <div class="pay" id="pruebas">
-      <div class="opt on" data-prueba="Campeonato 5K + 10K · Copa Challenguer" data-contado="200000" data-cuota="50000" data-cuotas="4" data-kit="1">
+      <div class="opt on" data-prueba="5K+10K" data-contado="200000" data-cuota="50000" data-cuotas="4" data-kit="1">
         <div class="tag">Recomendado</div>
         <div class="t">Campeonato 5K + 10K</div>
         <div class="m">$200.000</div>
         <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 4 cuotas de $50.000.</div>
       </div>
-      <div class="opt" data-prueba="Solo 5K" data-contado="140000" data-cuota="50000" data-cuotas="3" data-kit="1">
+      <div class="opt" data-prueba="5K" data-contado="140000" data-cuota="50000" data-cuotas="3" data-kit="1">
         <div class="t">Solo 5K</div>
         <div class="m">$140.000</div>
         <div class="d">Sábado 23 de enero. Financiado: 2 cuotas de $50.000 + 1 de $40.000.</div>
       </div>
-      <div class="opt" data-prueba="Solo 10K" data-contado="160000" data-cuota="50000" data-cuotas="3" data-kit="1">
+      <div class="opt" data-prueba="10K" data-contado="160000" data-cuota="50000" data-cuotas="3" data-kit="1">
         <div class="t">Solo 10K</div>
         <div class="m">$160.000</div>
         <div class="d">Domingo 24 de enero. Financiado: 2 cuotas de $50.000 + 1 de $60.000.</div>
       </div>
-      <div class="opt" data-prueba="Solo 2K Travel Night Fest" data-contado="60000" data-cuota="0" data-cuotas="0" data-kit="0">
+      <div class="opt" data-prueba="2K" data-contado="60000" data-cuota="0" data-cuotas="0" data-kit="0">
         <div class="t">Solo 2K Nocturno</div>
         <div class="m">$60.000</div>
         <div class="d">Sábado 23 a las 21:00 · Swimming Fest + pizza libre. No incluye poncho ni financiación.</div>
@@ -195,12 +195,12 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxObMiDDU1KaXBn0JZqLR5HkdhCP_147pTCi0REf0zHlLfnh_LgoM2ZXzKpr7iZPCE4/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbx_T6z-5iwXSe-1CJo9ju5ULU41zt0bjUzGx-CqCH6EvZBokeG40gTY_9ssbcqSfWqP/exec';
 
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');
 
-let prueba = 'Campeonato 5K + 10K · Copa Challenguer', contado = 200000, cuota = 50000, cuotas = 4, conKit = true;
+let prueba = '5K+10K', contado = 200000, cuota = 50000, cuotas = 4, conKit = true;
 let plan = 'contado', monto = 200000;
 
 function descuento(){ return (conKit && $('#sinkit').checked) ? 30000 : 0; }
