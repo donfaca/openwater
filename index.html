@@ -64,24 +64,6 @@
     </div>
   </div>
 
-  <!-- CYBERFEST -->
-  <div style="max-width:1320px;margin:26px auto 0;padding:0 40px;">
-    <div style="border-radius:14px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.4);">
-      <div style="position:relative;">
-        <img src="cyberfest-banner.jpg" alt="Cyber Fest Open Water Río Negro · 10% OFF en todas las competencias · 9, 10 y 11 de septiembre" style="display:block;width:100%;height:auto;">
-        <div style="position:absolute;top:16px;right:16px;background:rgba(6,6,14,.72);border:1px solid rgba(90,203,224,.55);border-radius:12px;padding:12px 20px;text-align:center;">
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:14px;color:#fff;">OFERTA FINALIZA EN</div>
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:30px;color:#5ACBE0;line-height:1.1;"><span ref="{{ cfdRef }}">—</span>D <span ref="{{ cfhRef }}">—</span>:<span ref="{{ cfmRef }}">—</span>:<span ref="{{ cfsRef }}">—</span></div>
-        </div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px;padding:14px 5%;background:#0b0b14;">
-        <a href="ficha-summer-2027.html" target="_blank" rel="noopener" style="background:#5ACBE0;color:#052537;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">SUMMER →</a>
-        <a href="ficha-eclipse-2027.html" target="_blank" rel="noopener" style="background:#EDC264;color:#052537;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">ECLIPSE →</a>
-        <a href="ficha-combo-2027.html" target="_blank" rel="noopener" style="background:#E85DA0;color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:14px;padding:10px 18px;border-radius:6px;text-decoration:none;">COMBO →</a>
-      </div>
-    </div>
-  </div>
-
   <!-- PROXIMOS EVENTOS -->
   <div style="max-width:1320px;margin:0 auto;padding:36px 40px 8px;">
     <div style="position:relative;text-align:center;margin-bottom:20px;padding-top:34px;">
@@ -96,6 +78,7 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:24px;align-items:start;">
 
+      <div style="min-width:0;display:flex;flex-direction:column;gap:24px;">
       <div style="background:linear-gradient(160deg,#0f3350,#0a2438);border-radius:14px;border:1px solid #1a5678;overflow:hidden;display:flex;flex-direction:column;">
         <div style="padding:18px 26px 0;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(90deg,#5ACBE0,#EDC264);">
           <div style="width:104px;height:104px;flex:0 0 104px;">
@@ -142,6 +125,8 @@
             <div onClick="{{ openSummerList }}" style="flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;background:rgba(6,26,40,.72);border:1px solid rgba(255,255,255,.28);padding:8px 15px;border-radius:8px;cursor:pointer;"><span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;line-height:1;" ref="{{ siRef }}">—</span><span style="font-size:12px;letter-spacing:1px;color:#fff;text-transform:uppercase;font-weight:700;line-height:1.25;">Cupo<br><span style="font-size:10px;letter-spacing:.5px;opacity:.8;">ocupado</span></span></div>
           </div>
         </div>
+      </div>
+      <img src="disfruta-la-vida-es-hoy.jpg" alt="Disfruta la vida es hoy — Open Water Río Negro" style="width:100%;height:auto;border-radius:14px;display:block;">
       </div>
 
       <div style="min-width:0;display:flex;flex-direction:column;gap:24px;">
@@ -374,12 +359,10 @@ class Component extends DCLogic {
     };
     var set = function(ref,val){ if(ref && ref.current) ref.current.textContent=val; };
     var iT = new Date('2026-08-16T23:00:00-03:00').getTime();
-    var cfT = new Date('2026-09-12T00:00:00-03:00').getTime();
     var tick = () => {
-      var a=parts(sT), b=parts(eT), c=parts(cfT);
+      var a=parts(sT), b=parts(eT);
       set(this.sd,a.d); set(this.sh,a.h); set(this.sm,a.m); set(this.ss,a.s);
       set(this.ed,b.d); set(this.eh,b.h); set(this.em,b.m); set(this.es,b.s);
-      set(this.cfd,c.d); set(this.cfh,c.h); set(this.cfm,c.m); set(this.cfs,c.s);
       var locked = Date.now() < iT;
       var p=parts(iT), txt=(p.d>0?p.d+'d ':'')+p.h+':'+p.m+':'+p.s;
       this._eclipseLocked=locked; this._comboLocked=locked;
@@ -444,14 +427,12 @@ class Component extends DCLogic {
     this.sd=this.sd||R(); this.sh=this.sh||R(); this.sm=this.sm||R(); this.ss=this.ss||R();
     this.ed=this.ed||R(); this.eh=this.eh||R(); this.em=this.em||R(); this.es=this.es||R();
     this.si=this.si||R(); this.vr=this.vr||R(); this.eiv=this.eiv||R();
-    this.cfd=this.cfd||R(); this.cfh=this.cfh||R(); this.cfm=this.cfm||R(); this.cfs=this.cfs||R();
     this.sp=this.sp||R(); this.ep=this.ep||R();
     this.eib=this.eib||R(); this.eil=this.eil||R();
     this.cib=this.cib||R(); this.cil=this.cil||R();
     this.ci=this.ci||R(); this.cib2=this.cib2||R(); this.cil2=this.cil2||R();
     var self=this;
     return { visitsRef:this.vr, siRef:this.si, eiRef:this.eiv, spRef:this.sp, epRef:this.ep,
-      cfdRef:this.cfd, cfhRef:this.cfh, cfmRef:this.cfm, cfsRef:this.cfs,
       openSummerList:function(){ self.askList('inscriptos.html'); }, openEclipseList:function(){ self.askList('inscriptos-eclipse.html'); }, openComboList:function(){ self.askList('inscriptos-combo.html'); }, openStats:function(){ if(window.OWStats) window.OWStats.openPanel(); },
       eclipseBtnRef:this.eib, eclipseLblRef:this.eil, eclipseInscClick:function(e){ if(self._eclipseLocked){ e.preventDefault(); } },
       comboBtnRef:this.cib, comboLblRef:this.cil, comboInscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },

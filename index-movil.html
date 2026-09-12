@@ -67,21 +67,6 @@
     </div>
   </div>
 
-  <!-- CYBERFEST -->
-  <div style="padding:0 18px;margin-top:18px;">
-    <div style="border-radius:12px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.4);">
-      <img src="cyberfest-banner.jpg" alt="Cyber Fest Open Water Río Negro · 10% OFF en todas las competencias · 9, 10 y 11 de septiembre" style="display:block;width:100%;height:auto;">
-      <div style="padding:12px 5%;background:#0b0b14;">
-        <div style="text-align:center;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:13px;color:#fff;margin-bottom:10px;">OFERTA FINALIZA EN: <span style="color:#5ACBE0;"><span ref="{{ cfdRef }}">—</span>D <span ref="{{ cfhRef }}">—</span>:<span ref="{{ cfmRef }}">—</span>:<span ref="{{ cfsRef }}">—</span></span></div>
-        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-          <a href="ficha-summer-2027.html" target="_blank" rel="noopener" style="background:#5ACBE0;color:#052537;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:13px;padding:10px 16px;border-radius:6px;text-decoration:none;">SUMMER →</a>
-          <a href="ficha-eclipse-2027.html" target="_blank" rel="noopener" style="background:#EDC264;color:#052537;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:13px;padding:10px 16px;border-radius:6px;text-decoration:none;">ECLIPSE →</a>
-          <a href="ficha-combo-2027.html" target="_blank" rel="noopener" style="background:#E85DA0;color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;font-size:13px;padding:10px 16px;border-radius:6px;text-decoration:none;">COMBO →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- PROXIMOS EVENTOS -->
   <div style="padding:44px 18px 6px;">
     <div style="text-align:center;margin-bottom:24px;">
@@ -141,6 +126,7 @@
           </div>
         </div>
       </div>
+      <img src="disfruta-la-vida-es-hoy.jpg" alt="Disfruta la vida es hoy — Open Water Río Negro" style="width:100%;height:auto;border-radius:14px;display:block;">
 
       <div style="background:linear-gradient(160deg,#1A0B08,#0B0507);border-radius:14px;border:1px solid rgba(244,161,27,.45);overflow:hidden;display:flex;flex-direction:column;">
         <div style="padding:20px 20px 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:linear-gradient(90deg,#C0271A,#1A0B08);">
@@ -362,12 +348,10 @@ class Component extends DCLogic {
     };
     var set = function(ref,val){ if(ref && ref.current) ref.current.textContent=val; };
     var iT = new Date('2026-08-16T23:00:00-03:00').getTime();
-    var cfT = new Date('2026-09-12T00:00:00-03:00').getTime();
     var tick = () => {
-      var a=parts(sT), b=parts(eT), c=parts(cfT);
+      var a=parts(sT), b=parts(eT);
       set(this.sd,a.d); set(this.sh,a.h); set(this.sm,a.m); set(this.ss,a.s);
       set(this.ed,b.d); set(this.eh,b.h); set(this.em,b.m); set(this.es,b.s);
-      set(this.cfd,c.d); set(this.cfh,c.h); set(this.cfm,c.m); set(this.cfs,c.s);
       var locked = Date.now() < iT;
       var p=parts(iT), txt=(p.d>0?p.d+'d ':'')+p.h+':'+p.m+':'+p.s;
       this._eclipseLocked=locked; this._comboLocked=locked;
@@ -434,7 +418,6 @@ class Component extends DCLogic {
     var open = this.state.menuOpen;
     var bar = { display:'block', width:'22px', height:'2px', background:'#eaf3f8', transition:'transform .2s, opacity .2s' };
     this.vr=this.vr||R();
-    this.cfd=this.cfd||R(); this.cfh=this.cfh||R(); this.cfm=this.cfm||R(); this.cfs=this.cfs||R();
     this.eib=this.eib||R(); this.eil=this.eil||R();
     var self=this;
     return {
@@ -449,7 +432,6 @@ class Component extends DCLogic {
       combo2InscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },
       spRef: (this.sp=this.sp||R()),
       epRef: (this.ep=this.ep||R()),
-      cfdRef:this.cfd, cfhRef:this.cfh, cfmRef:this.cfm, cfsRef:this.cfs,
       openSummerList:function(){ self.askList('inscriptos-movil.html'); },
       openEclipseList:function(){ self.askList('inscriptos-eclipse-movil.html'); },
       toggleMenu: () => this.setState(s=>({ menuOpen: !s.menuOpen })),
