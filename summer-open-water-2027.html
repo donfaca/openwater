@@ -39,20 +39,20 @@ img{max-width:100%;display:block}
 .hero-bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transform:scale(1.05);animation:slowzoom 18s ease-out forwards}
 @keyframes slowzoom{to{transform:scale(1)}}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,36,54,.35) 0%,rgba(5,36,54,.55) 45%,rgba(5,36,54,.92) 100%)}
-.hero-inner{padding:1.8rem 0 1.6rem}
+.hero-inner{padding:1.4rem 0 1.2rem}
 @keyframes rise{to{opacity:1;transform:none}}
 .hero .kicker{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.26em;text-transform:uppercase;font-size:clamp(.78rem,2.2vw,1rem);color:var(--aqua)}
 .hero h1{font-size:clamp(2.2rem,6vw,4.6rem);line-height:.92;margin:.2rem 0 .2rem;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.4)}
 .hero h1 span{display:block;color:var(--sand)}
 .hero .place{font-family:'Barlow Condensed';font-weight:600;font-size:clamp(.92rem,2.2vw,1.15rem);letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.9)}
-.hero .tag{max-width:52ch;margin-top:.6rem;color:rgba(255,255,255,.82);font-size:.95rem;line-height:1.5}
+.hero .tag{max-width:none;margin-top:.6rem;color:rgba(255,255,255,.82);font-size:.95rem;line-height:1.5}
 .hero-meta{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.7rem 2rem}
 .hero-meta div{display:flex;flex-direction:column;gap:.1rem}
 .hero-meta .n{font-family:'Barlow Condensed';font-weight:800;font-size:clamp(1.25rem,3vw,1.75rem);color:#fff;line-height:1}
 .hero-meta .l{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--aqua);font-weight:600}
 
 /* ============ COUNTDOWN ============ */
-.strip{background:var(--river-deep);color:var(--paper);padding:1.1rem 0}
+.strip{background:var(--river-deep);color:var(--paper);padding:.7rem 0}
 .strip .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:center;text-align:center}
 .strip .lbl{font-family:'Barlow Condensed';letter-spacing:.24em;text-transform:uppercase;font-size:.8rem;color:var(--aqua);font-weight:600}
 .cd{display:flex;gap:1.3rem}
@@ -61,32 +61,32 @@ img{max-width:100%;display:block}
 .cd .t{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6)}
 
 /* ============ SECTIONS ============ */
-section.block{padding:2.3rem 0}
-.section-head{max-width:56ch;margin-bottom:1.1rem}
-.section-head h2{font-size:clamp(2.1rem,5.5vw,3.6rem);margin:.6rem 0 .5rem;color:var(--river)}
-.section-head p{color:var(--ink-soft);font-size:1.06rem}
+section.block{padding:1.5rem 0}
+.section-head{max-width:none;margin-bottom:.7rem}
+.section-head h2{font-size:clamp(2.1rem,5.5vw,3.6rem);margin:.3rem 0 .3rem;color:var(--river)}
+.section-head p{color:var(--ink-soft);font-size:.98rem;line-height:1.5}
 
 .lead{background:var(--tint)}
-.lead .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:2.6rem;align-items:start}
-.lead .callout{border-left:5px solid var(--teal);background:#fff;border-radius:0 14px 14px 0;padding:1.4rem 1.6rem;box-shadow:0 12px 30px rgba(10,61,92,.08)}
+.lead .grid{display:grid;grid-template-columns:1.2fr 1fr;gap:1.4rem;align-items:start}
+.lead .callout{border-left:5px solid var(--teal);background:#fff;border-radius:0 14px 14px 0;padding:.9rem 1.2rem;box-shadow:0 8px 20px rgba(10,61,92,.08)}
 .lead .callout b{color:var(--teal)}
-.obj{display:flex;flex-direction:column;gap:1rem}
-.obj .o{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.3rem}
+.obj{display:flex;flex-direction:column;gap:.6rem}
+.obj .o{background:#fff;border:1px solid var(--line);border-radius:12px;padding:.7rem 1rem}
 .obj .o b{font-family:'Barlow Condensed';font-size:1.15rem;color:var(--river);text-transform:uppercase;letter-spacing:.02em;display:block;margin-bottom:.2rem}
 .obj .o span{font-size:.92rem;color:var(--ink-soft)}
 
 /* ============ MODALIDADES ============ */
-.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
-.mod{position:relative;border-radius:20px;overflow:hidden;padding:2rem 1.7rem;color:#fff;min-height:340px;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+.mod{position:relative;border-radius:20px;overflow:hidden;padding:1.2rem 1.3rem;color:#fff;min-height:0;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
 .mod:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(8,34,46,.28)}
 .mod.m5{background:linear-gradient(160deg,var(--teal),var(--river))}
 .mod.m10{background:linear-gradient(160deg,var(--river),var(--river-deep))}
 .mod.mnight{background:linear-gradient(160deg,#1a2b45,#0a1526)}
-.mod .dist{font-family:'Barlow Condensed';font-weight:800;font-size:3.4rem;line-height:.9}
+.mod .dist{font-family:'Barlow Condensed';font-weight:800;font-size:2.6rem;line-height:.9}
 .mod.mnight .dist{color:var(--sand)}
-.mod .name{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:1rem;margin:.3rem 0 1rem;color:rgba(255,255,255,.85)}
-.mod .when{font-size:.9rem;color:rgba(255,255,255,.75);margin-bottom:1rem}
-.mod ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-top:auto}
+.mod .name{font-family:'Barlow Condensed';font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:.95rem;margin:.2rem 0 .5rem;color:rgba(255,255,255,.85)}
+.mod .when{font-size:.9rem;color:rgba(255,255,255,.75);margin-bottom:.6rem}
+.mod ul{list-style:none;display:flex;flex-direction:column;gap:.3rem;margin-top:auto}
 .mod li{font-size:.9rem;display:flex;gap:.5rem;color:rgba(255,255,255,.9)}
 .mod li::before{content:"";flex:none;width:6px;height:6px;margin-top:.5rem;border-radius:50%;background:var(--aqua)}
 .mod.mnight li::before{background:var(--sand)}
@@ -97,38 +97,38 @@ section.block{padding:2.3rem 0}
 .sched{background:var(--river-deep);color:var(--paper)}
 .sched .section-head h2{color:#fff}
 .sched .section-head p{color:rgba(255,255,255,.72)}
-.days{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.day h3{font-family:'Barlow Condensed';font-size:1.6rem;color:var(--aqua);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.15)}
-.day .row{display:grid;grid-template-columns:auto 1fr;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.day h3{font-family:'Barlow Condensed';font-size:1.6rem;color:var(--aqua);margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:1px solid rgba(255,255,255,.15)}
+.day .row{display:grid;grid-template-columns:auto 1fr;gap:.8rem;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
 .day .row:last-child{border-bottom:none}
 .day .row .dot{font-family:'Barlow Condensed';font-weight:800;color:var(--sand);font-size:1.05rem;white-space:nowrap}
 .day .row b{display:block;font-weight:700}
 .day .row span{font-size:.86rem;color:rgba(255,255,255,.6)}
 
 /* ============ COPA ============ */
-.copa{background:linear-gradient(120deg,var(--teal),var(--river));color:#fff;text-align:center;padding:2.2rem 0;position:relative;overflow:hidden}
+.copa{background:linear-gradient(120deg,var(--teal),var(--river));color:#fff;text-align:center;padding:1.4rem 0;position:relative;overflow:hidden}
 .copa::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 50% -10%,rgba(63,197,197,.35),transparent)}
 .copa .wrap{position:relative}
-.copa h2{font-size:clamp(1.9rem,5.5vw,3.2rem);margin-bottom:1rem}
-.copa p{max-width:56ch;margin:0 auto 1.6rem;color:rgba(255,255,255,.88)}
-.copa .rules{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:720px;margin:0 auto;text-align:left}
-.copa .rule{background:rgba(255,255,255,.12);border-radius:14px;padding:1.2rem 1.4rem;backdrop-filter:blur(4px)}
+.copa h2{font-size:clamp(1.7rem,4.5vw,2.6rem);margin-bottom:.5rem}
+.copa p{max-width:none;margin:0 auto 1rem;color:rgba(255,255,255,.88)}
+.copa .rules{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;max-width:820px;margin:0 auto;text-align:left}
+.copa .rule{background:rgba(255,255,255,.12);border-radius:14px;padding:.8rem 1.1rem;backdrop-filter:blur(4px)}
 .copa .rule b{font-family:'Barlow Condensed';font-size:1.2rem;display:block;margin-bottom:.3rem}
-.copa .champ{margin-top:1.6rem;font-family:'Barlow Condensed';font-size:1.1rem;letter-spacing:.05em;color:var(--sand-soft)}
+.copa .champ{margin-top:.9rem;font-family:'Barlow Condensed';font-size:1.1rem;letter-spacing:.05em;color:var(--sand-soft)}
 
 /* ============ NIGHT FEST ============ */
-.fest{background:var(--river-deep);color:#fff;text-align:center;padding:2.3rem 0;position:relative;overflow:hidden}
+.fest{background:var(--river-deep);color:#fff;text-align:center;padding:1.4rem 0;position:relative;overflow:hidden}
 .fest .stars{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 20% 30%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 70% 20%,rgba(255,255,255,.5),transparent),radial-gradient(1.5px 1.5px at 40% 70%,rgba(246,217,160,.6),transparent),radial-gradient(1px 1px at 85% 60%,rgba(255,255,255,.5),transparent),radial-gradient(2px 2px at 60% 45%,rgba(255,255,255,.4),transparent);animation:twinkle 4s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.6}50%{opacity:1}}
 .fest .wrap{position:relative}
 .fest .eyebrow{color:var(--sand);justify-content:center}
 .fest .eyebrow::before{background:var(--sand)}
-.fest h2{font-size:clamp(2.2rem,6.5vw,4rem);color:var(--sand);margin:.6rem 0}
-.fest p{max-width:52ch;margin:0 auto;color:rgba(255,255,255,.82)}
+.fest h2{font-size:clamp(1.9rem,5vw,3rem);color:var(--sand);margin:.3rem 0}
+.fest p{max-width:none;margin:0 auto;color:rgba(255,255,255,.82)}
 
 /* ============ INFO / SEGURIDAD ============ */
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.1rem}
-.fact{border:1px solid var(--line);border-radius:16px;padding:1.4rem 1.5rem;background:#fff;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.facts{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:.7rem}
+.fact{border:1px solid var(--line);border-radius:14px;padding:.8rem 1.1rem;background:#fff;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
 .fact:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(10,61,92,.12)}
 .fact::after{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(var(--teal),var(--aqua))}
 .fact .k{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;color:var(--teal);font-weight:700}
@@ -136,32 +136,32 @@ section.block{padding:2.3rem 0}
 .fact .s{font-size:.86rem;color:var(--ink-soft);margin-top:.3rem}
 
 .safety{background:var(--tint)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem}
-.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:2rem}
-.card h3{font-family:'Barlow Condensed';font-size:1.5rem;color:var(--river);margin-bottom:1rem}
-.card ul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
-.card li{display:flex;gap:.7rem;font-size:.98rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.4rem}
+.card h3{font-family:'Barlow Condensed';font-size:1.5rem;color:var(--river);margin-bottom:.6rem}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.card li{display:flex;gap:.6rem;font-size:.93rem;line-height:1.5}
 .card li::before{content:"";flex:none;width:8px;height:8px;margin-top:.55rem;border-radius:50%;background:var(--teal)}
-.buoy{margin-top:1.4rem;background:var(--sand-soft);border-radius:12px;padding:1rem 1.2rem;font-size:.95rem;color:#5a3d0a;border-left:4px solid var(--sand)}
+.buoy{margin-top:.8rem;background:var(--sand-soft);border-radius:12px;padding:.7rem 1rem;font-size:.9rem;color:#5a3d0a;border-left:4px solid var(--sand)}
 .buoy b{color:#5a3d0a}
 
 /* ============ TURISMO ============ */
-.tour-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:center}
+.tour-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;align-items:center}
 .tour-img{border-radius:20px;overflow:hidden;box-shadow:0 18px 40px rgba(8,34,46,.2)}
-.tour-cities{display:flex;flex-direction:column;gap:1.4rem}
+.tour-cities{display:flex;flex-direction:column;gap:.8rem}
 .city b{font-family:'Barlow Condensed';font-size:1.5rem;color:var(--teal);text-transform:uppercase;letter-spacing:.03em;display:block;margin-bottom:.3rem}
 .city span{color:var(--ink-soft)}
 
 /* ============ CTA / CONTACTO ============ */
-.cta{background:var(--river-deep);color:#fff;text-align:center;padding:2.3rem 0}
-.cta h2{font-size:clamp(2rem,6vw,3.6rem);color:#fff;margin-bottom:.6rem}
-.cta p{color:rgba(255,255,255,.72);max-width:46ch;margin:0 auto 2rem}
-.btn{display:inline-block;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:1rem;padding:1rem 2.6rem;border-radius:999px;background:linear-gradient(120deg,#a8e6a1,#5bc98a);color:#0c4a2e;text-decoration:none;border:2px solid #ffffff;box-shadow:0 12px 30px rgba(91,201,138,.4),0 0 0 2px rgba(91,201,138,.35);transition:transform .2s,box-shadow .2s}
+.cta{background:var(--river-deep);color:#fff;text-align:center;padding:1.5rem 0}
+.cta h2{font-size:clamp(1.8rem,5vw,2.8rem);color:#fff;margin-bottom:.4rem}
+.cta p{color:rgba(255,255,255,.72);max-width:none;margin:0 auto 1rem}
+.btn{display:inline-block;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:1rem;padding:.8rem 2.2rem;border-radius:999px;background:linear-gradient(120deg,#a8e6a1,#5bc98a);color:#0c4a2e;text-decoration:none;border:2px solid #ffffff;box-shadow:0 12px 30px rgba(91,201,138,.4),0 0 0 2px rgba(91,201,138,.35);transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(91,201,138,.55),0 0 0 2px rgba(91,201,138,.5)}
-.contact{margin-top:2.4rem;display:flex;flex-wrap:wrap;gap:1rem 2.5rem;justify-content:center;font-size:.95rem;color:rgba(255,255,255,.8)}
+.contact{margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:1rem 2.5rem;justify-content:center;font-size:.95rem;color:rgba(255,255,255,.8)}
 .contact a{color:var(--aqua);text-decoration:none}
 
-footer{background:#041a26;color:rgba(255,255,255,.55);padding:2.4rem 0;font-size:.85rem}
+footer{background:#041a26;color:rgba(255,255,255,.55);padding:1.3rem 0;font-size:.85rem}
 footer .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1.5rem;justify-content:space-between;align-items:center}
 footer b{color:var(--aqua)}
 
@@ -247,7 +247,7 @@ footer b{color:var(--aqua)}
     </div>
     <div style="margin-top:.7rem;">
       <a href="reglamento-2027.html" style="display:inline-flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.85rem;padding:.7rem 1.4rem;border-radius:999px;background:#8a1a1a;border:1px solid #b23a3a;color:#fff;text-decoration:none;box-shadow:0 10px 26px rgba(138,26,26,.45);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M8 13h8"></path><path d="M8 17h8"></path></svg>Ver reglamento oficial</a><a href="deslinde-2027.html" style="display:inline-flex;align-items:center;gap:.6rem;margin-left:.8rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.85rem;padding:.7rem 1.4rem;border-radius:999px;background:#7cc576;border:1px solid #9ad894;color:#0b2e12;text-decoration:none;box-shadow:0 10px 26px rgba(124,197,118,.4);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>Deslinde de responsabilidad</a>
-      <div style="margin-top:.55rem;font-size:.82rem;color:rgba(255,255,255,.82);max-width:42ch;">Al completar el formulario de inscripción aceptás el reglamento oficial. El deslinde de responsabilidad es obligatorio firmarlo en la acreditación.</div>
+      <div style="margin-top:.55rem;font-size:.82rem;color:rgba(255,255,255,.82);max-width:none;">Al completar el formulario de inscripción aceptás el reglamento oficial. El deslinde de responsabilidad es obligatorio firmarlo en la acreditación.</div>
     </div>
   </div>
 </header>
@@ -299,7 +299,7 @@ footer b{color:var(--aqua)}
       <div class="mod m5 reveal">
         <span class="badge">Campeonato</span>
         <div class="dist">5K</div>
-        <div class="name">Summer Open Water PV</div>
+        <div class="name">Summer Open Water Río Negro</div>
         <div class="when">Sábado 23 de enero · mañana</div>
         <ul>
           <li>Largada: Club Náutico Piedra Buena, Patagones</li>
@@ -311,7 +311,7 @@ footer b{color:var(--aqua)}
       <div class="mod m10 reveal">
         <span class="badge">Campeonato</span>
         <div class="dist">10K</div>
-        <div class="name">Summer Open Water PV</div>
+        <div class="name">Summer Open Water Río Negro</div>
         <div class="when">Domingo 24 de enero · mediodía</div>
         <ul>
           <li>Largada: Club Náutico Piedra Buena, Patagones</li>
@@ -344,10 +344,10 @@ footer b{color:var(--aqua)}
       <h2>Los mismos trazados de 2026</h2>
       <p>Los recorridos de 5K y 10K mantienen el trazado, largadas y llegadas ya validados en la edición anterior, garantizando condiciones de seguridad conocidas por los nadadores.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.4rem;align-items:start;">
+    <div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1.4rem;align-items:start;">
 
       <div class="card reveal">
-        <h3>5K — Summer Open Water PV</h3>
+        <h3>5K — Summer Open Water Río Negro</h3>
         <div style="display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.92rem;color:var(--ink-soft);margin-bottom:1rem;">
           <b style="color:var(--teal);">Fecha</b><span>Sábado 23 de enero de 2027 · mañana</span>
           <b style="color:var(--teal);">Largada</b><span>Club Náutico Piedra Buena, Carmen de Patagones (Buenos Aires)</span>
@@ -363,7 +363,7 @@ footer b{color:var(--aqua)}
       </div>
 
       <div class="card reveal">
-        <h3>10K — Summer Open Water PV</h3>
+        <h3>10K — Summer Open Water Río Negro</h3>
         <div style="display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.92rem;color:var(--ink-soft);margin-bottom:1rem;">
           <b style="color:var(--teal);">Fecha</b><span>Domingo 24 de enero de 2027 · mediodía</span>
           <b style="color:var(--teal);">Largada</b><span>Club Náutico Piedra Buena, Carmen de Patagones (Buenos Aires)</span>
@@ -386,7 +386,7 @@ footer b{color:var(--aqua)}
           <b style="color:var(--sand);">Modalidad</b><span>Carrera recreativa. No integra el Campeonato Copa Challenguer</span>
         </div>
         <p style="font-size:.95rem;color:rgba(255,255,255,.9);line-height:1.65;">Es la gran novedad de esta edición: una prueba de 2 kilómetros pensada como experiencia recreativa y social, para disfrutar del río de noche. La jornada incluye fiesta en la zona de largada y en la llegada, que se realizará en el Parador Roma Costero de Viedma, convirtiendo la noche del sábado en un verdadero festival náutico abierto a nadadores de todos los niveles y a sus acompañantes.</p>
-        <div class="buoy" style="background:rgba(255,255,255,.1);border-left:4px solid var(--sand);color:rgba(255,255,255,.9);"><b style="color:var(--sand-soft);">Perfil del atleta.</b> Ideal para nadadores amateurs, familias, grupos de amigos y quienes buscan vivir la experiencia del Open Water PV en un formato distendido, sin la exigencia competitiva de las distancias de 5K y 10K.</div>
+        <div class="buoy" style="background:rgba(255,255,255,.1);border-left:4px solid var(--sand);color:rgba(255,255,255,.9);"><b style="color:var(--sand-soft);">Perfil del atleta.</b> Ideal para nadadores amateurs, familias, grupos de amigos y quienes buscan vivir la experiencia del Open Water Río Negro en un formato distendido, sin la exigencia competitiva de las distancias de 5K y 10K.</div>
       </div>
 
     </div>
@@ -397,14 +397,14 @@ footer b{color:var(--aqua)}
 <section class="block lead" id="costos">
   <div class="wrap">
     <div class="section-head reveal" style="max-width:none;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1rem 1.4rem;">
-      <div style="max-width:56ch;">
+      <div style="max-width:none;">
         <span class="eyebrow">Inscripción</span>
         <h2>Costo de la inscripción</h2>
         <p>Valores vigentes hasta el 10 de septiembre de 2026. Podés abonar en cuotas mensuales desde el mes de inscripción.</p>
       </div>
       <a class="btn" href="ficha-summer-2027.html" style="flex:0 0 auto;">Quiero inscribirme</a>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;align-items:stretch;">
+    <div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1.1rem;align-items:stretch;">
 
       <div class="reveal" style="border:1px solid var(--river);border-radius:16px;padding:1.6rem 1.5rem;background:var(--river-deep);color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.55rem;">
         <div style="position:absolute;top:.9rem;right:1rem;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.68rem;font-weight:700;color:var(--river-deep);background:var(--sand);padding:.2rem .6rem;border-radius:999px;">Recomendado</div>
@@ -412,7 +412,7 @@ footer b{color:var(--aqua)}
         <div style="font-size:.86rem;color:rgba(255,255,255,.75);">Sábado 5K + Domingo 10K</div>
         <div style="font-family:'Barlow Condensed';font-weight:700;font-size:2.4rem;line-height:1;color:#fff;margin-top:.2rem;">$220.000</div>
         <div style="font-size:.9rem;color:rgba(255,255,255,.82);">Valor hasta el 10 de septiembre de 2026.</div>
-        <div style="font-size:.92rem;color:#fff;">4 cuotas mensuales de $55000 desde el mes de inscripción.</div>
+        <div style="font-size:.92rem;color:#fff;">4 cuotas mensuales de $55.000 desde el mes de inscripción.</div>
         <div style="margin-top:auto;padding-top:.6rem;font-size:.86rem;color:var(--sand);font-weight:600;border-top:1px solid rgba(255,255,255,.18);">Incluye kit full. Competís en el campeonato y el 2K Nocturno te sale gratis (100% off).</div>
       </div>
 
@@ -444,7 +444,7 @@ footer b{color:var(--aqua)}
 
     <div class="reveal" style="margin-top:1.1rem;border-radius:16px;padding:1.6rem 1.7rem;background:linear-gradient(120deg,#d94b1f,#c0271a);color:#fff;box-shadow:0 14px 34px rgba(192,39,26,.28);">
       <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:1rem;font-weight:700;color:#ffe0b3;margin-bottom:1rem;">Descuentos especiales</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+      <div style="display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1rem;">
         <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:1.1rem 1.2rem;">
           <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.08em;font-size:.92rem;font-weight:700;color:#fff;margin-bottom:.35rem;">🏊‍♂️ Nadar sin kit</div>
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:1.8rem;line-height:1;color:#ffe0b3;margin-bottom:.35rem;">− $30.000</div>
@@ -453,7 +453,7 @@ footer b{color:var(--aqua)}
         <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:1.1rem 1.2rem;">
           <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.08em;font-size:.92rem;font-weight:700;color:#fff;margin-bottom:.35rem;">👥 Inscripción grupal</div>
           <div style="font-family:'Barlow Condensed';font-weight:700;font-size:1.8rem;line-height:1;color:#ffe0b3;margin-bottom:.35rem;">− 15%</div>
-          <div style="font-size:.94rem;color:rgba(255,255,255,.9);">Grupos de 5 o más nadadores: 15% de descuento sobre el monto total del grupo. Precio de contado, sin financiación.</div>
+          <div style="font-size:.94rem;color:rgba(255,255,255,.9);">Grupos de 4 o más nadadores: 15% de descuento sobre el monto total del grupo. Precio de contado, sin financiación.</div>
         </div>
       </div>
       <a href="mailto:openwaterrionegro@gmail.com" style="margin-top:1.2rem;display:inline-flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed';font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.95rem;padding:.85rem 1.8rem;border-radius:999px;background:#fff;color:#c0271a;text-decoration:none;">
@@ -463,7 +463,7 @@ footer b{color:var(--aqua)}
     </div>
   </div>
 
-    <div class="reveal" style="margin-top:1.1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.1rem;">
+    <div class="reveal" style="margin-top:1.1rem;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1.1rem;">
       <div style="border:1px solid var(--line);border-radius:16px;padding:1.5rem;background:#fff;display:flex;flex-direction:column;gap:.5rem;">
         <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.9rem;color:var(--teal);font-weight:700;">Toda inscripción incluye</div>
         <ul style="margin:.3rem 0 0;padding-left:1.1rem;font-size:.95rem;color:var(--ink);line-height:1.7;">
@@ -495,7 +495,7 @@ footer b{color:var(--aqua)}
       </div>
     </div>
 
-    <div class="reveal" style="margin-top:1.1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;align-items:start;">
+    <div class="reveal" style="margin-top:1.1rem;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1.1rem;align-items:start;">
       <div style="border:1px solid var(--line);border-radius:16px;padding:1.6rem;background:linear-gradient(135deg,#0a2438,#0f3350);color:#fff;display:flex;flex-direction:column;gap:.6rem;">
         <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.9rem;color:var(--sand);font-weight:700;">Alias para transferir</div>
         <div style="font-family:'Barlow Condensed';font-weight:700;font-size:2rem;line-height:1;color:#fff;letter-spacing:.04em;">OW.RIO</div>
@@ -582,8 +582,8 @@ footer b{color:var(--aqua)}
     <div class="facts">
       <div class="fact reveal"><div class="k">Todos</div><div class="v">Medalla Finisher</div><div class="s">5K, 10K y 2K Night Fest</div></div>
       <div class="fact reveal"><div class="k">Podio 5K y 10K</div><div class="v">1° · 2° · 3°</div><div class="s">Por género y categoría de edad</div></div>
-      <div class="fact reveal"><div class="k">Categorías</div><div class="v">9 franjas</div><div class="s">Tramos de 5 años · Categoría 9 (60+) unificada</div></div>
-      <div class="fact reveal"><div class="k">En disputa</div><div class="v">60 medallas</div><div class="s">54 por categoría + 6 de la General Adaptada</div></div>
+      <div class="fact reveal"><div class="k">Categorías</div><div class="v">6 franjas</div><div class="s">Tramos de 10 años · Categoría 6 (61+) unificada</div></div>
+      <div class="fact reveal"><div class="k">En disputa</div><div class="v">42 medallas</div><div class="s">36 por categoría + 6 de la General Adaptada</div></div>
       <div class="fact reveal"><div class="k">Campeonato</div><div class="v">Copa Challenguer</div><div class="s">Suma de tiempos 5K + 10K</div></div>
     </div>
 
@@ -591,17 +591,14 @@ footer b{color:var(--aqua)}
       <div class="card">
         <h3>Categorías de edad</h3>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.45rem 1.4rem;font-size:.95rem;">
-          <span style="color:var(--ink-soft);">Categoría 1</span><b>20 a 24 años</b>
-          <span style="color:var(--ink-soft);">Categoría 2</span><b>25 a 29 años</b>
-          <span style="color:var(--ink-soft);">Categoría 3</span><b>30 a 34 años</b>
-          <span style="color:var(--ink-soft);">Categoría 4</span><b>35 a 39 años</b>
-          <span style="color:var(--ink-soft);">Categoría 5</span><b>40 a 44 años</b>
-          <span style="color:var(--ink-soft);">Categoría 6</span><b>45 a 49 años</b>
-          <span style="color:var(--ink-soft);">Categoría 7</span><b>50 a 54 años</b>
-          <span style="color:var(--ink-soft);">Categoría 8</span><b>55 a 59 años</b>
-          <span style="color:var(--ink-soft);">Categoría 9</span><b>60+ años (unificada)</b>
+          <span style="color:var(--ink-soft);">Categoría 1</span><b>Hasta 20 años</b>
+           <span style="color:var(--ink-soft);">Categoría 2</span><b>21 a 30 años</b>
+           <span style="color:var(--ink-soft);">Categoría 3</span><b>31 a 40 años</b>
+           <span style="color:var(--ink-soft);">Categoría 4</span><b>41 a 50 años</b>
+           <span style="color:var(--ink-soft);">Categoría 5</span><b>51 a 60 años</b>
+           <span style="color:var(--ink-soft);">Categoría 6</span><b>61+ años (unificada)</b>
         </div>
-        <div class="buoy" style="background:#fff;border-left:4px solid var(--teal);color:var(--ink-soft);font-size:.88rem;">La Categoría 9 (60+) es unificada y sin límite superior de edad; el resto se agrupa en tramos de 5 años.</div>
+        <div class="buoy" style="background:#fff;border-left:4px solid var(--teal);color:var(--ink-soft);font-size:.88rem;">La Categoría 6 (61+) es unificada y sin límite superior de edad; el resto se agrupa en tramos de 10 años.</div>
       </div>
       <div class="card">
         <h3>Campeonato — Copa Challenguer</h3>
@@ -617,15 +614,15 @@ footer b{color:var(--aqua)}
     <div class="reveal" style="margin-top:1.4rem;border:1px solid var(--line);border-radius:18px;padding:2rem;background:#fff;">
       <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;color:var(--teal);font-weight:700;">Nadadores adaptados</div>
       <h3 style="font-family:'Barlow Condensed';font-size:1.6rem;color:var(--river);margin:.3rem 0 .8rem;">Doble clasificación</h3>
-      <p style="font-size:.98rem;color:var(--ink-soft);max-width:70ch;">Los nadadores inscriptos bajo la condición de Nadador Adaptado participan y puntúan simultáneamente en dos instancias de clasificación, sumando una vía adicional de reconocimiento dentro de la Summer Open Water 2027.</p>
-      <div style="margin-top:1.1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;">
+      <p style="font-size:.98rem;color:var(--ink-soft);max-width:none;">Los nadadores inscriptos bajo la condición de Nadador Adaptado participan y puntúan simultáneamente en dos instancias de clasificación, sumando una vía adicional de reconocimiento dentro de la Summer Open Water 2027.</p>
+      <div style="margin-top:1.1rem;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:1.1rem;">
         <div style="border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.3rem;">
           <b style="font-family:'Barlow Condensed';font-size:1.15rem;color:var(--river);text-transform:uppercase;display:block;margin-bottom:.2rem;">A · Por categoría de edad y género</b>
-          <span style="font-size:.92rem;color:var(--ink-soft);">Compiten en su categoría de edad correspondiente —tramos de 5 en 5 años, hasta la Categoría 9 (60+, unificada)— junto al resto de los competidores de su rama.</span>
+          <span style="font-size:.92rem;color:var(--ink-soft);">Compiten en su categoría de edad correspondiente —tramos de 10 en 10 años, hasta la Categoría 6 (61+, unificada)— junto al resto de los competidores de su rama.</span>
         </div>
         <div style="border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.3rem;">
           <b style="font-family:'Barlow Condensed';font-size:1.15rem;color:var(--river);text-transform:uppercase;display:block;margin-bottom:.2rem;">B · Clasificación General Adaptada</b>
-          <span style="font-size:.92rem;color:var(--ink-soft);">Tabla general exclusiva para nadadores adaptados, dividida en rama Masculina y rama Femenina, con podio de 1°, 2° y 3° puesto en cada una (6 medallas).</span>
+          <span style="font-size:.92rem;color:var(--ink-soft);">Tabla general exclusiva para nadadores adaptados, sin distinción de género, con podio de 6 medallas (1° a 6° puesto).</span>
         </div>
       </div>
       <div class="buoy" style="margin-top:1.1rem;"><b>Podio doble, doble medalla.</b> Un nadador adaptado que logra podio en su categoría de edad recibe esa medalla y, si además logra podio en la Clasificación General Adaptada, recibe una segunda medalla por esa instancia: hasta dos medallas de podio en la misma edición.</div>
@@ -688,7 +685,7 @@ footer b{color:var(--aqua)}
     <div class="section-head reveal">
       <span class="eyebrow">Institucional</span>
       <h2>Entidad organizadora</h2>
-      <p>La Summer Open Water PV 2027 es organizada por la Asociación Civil y Deportiva Open Water, responsable del diseño, la producción y la ejecución integral del evento.</p>
+      <p>La Summer Open Water Río Negro 2027 es organizada por la Asociación Civil y Deportiva Open Water, responsable del diseño, la producción y la ejecución integral del evento.</p>
     </div>
     <div class="facts">
       <div class="fact reveal"><div class="k">Asociación Civil y Deportiva Open Water</div><div class="v">CUIT 33-71944168-9</div><div class="s">Entidad organizadora</div></div>
@@ -716,7 +713,7 @@ footer b{color:var(--aqua)}
 
 <footer>
   <div class="wrap">
-    <div><b>Summer Open Water PV 2027</b> · Comarca Patagones–Viedma · Río Negro</div>
+    <div><b>Summer Open Water Río Negro 2027</b> · Comarca Patagones–Viedma · Río Negro</div>
     <div>Organiza: Asociación Civil y Deportiva Open Water · Decreto N.° 666/26</div>
   </div>
 </footer>

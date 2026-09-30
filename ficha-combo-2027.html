@@ -157,12 +157,12 @@
       <div class="opt" data-plan="equipo">
         <div class="t">Combo equipo · contado</div>
         <div class="m" id="m-equipo">$300.000</div>
-        <div class="d">Grupos de 5 nadadores o más, sin financiación. Cada nadador completa su ficha con el mismo nombre de grupo.</div>
+        <div class="d">Grupos de 4 nadadores o más, sin financiación. Cada nadador completa su ficha con el mismo nombre de grupo.</div>
       </div>
     </div>
 
     <div class="grid" id="wrap-grupo" style="margin-top:14px;display:none;">
-      <label class="f"><span class="req">Nombre del grupo o equipo</span><input id="grupo" name="Grupo" placeholder="Como lo van a cargar los 5 nadadores"></label>
+      <label class="f"><span class="req">Nombre del grupo o equipo</span><input id="grupo" name="Grupo" placeholder="Como lo van a cargar los nadadores"></label>
       <label class="f">Responsable del grupo<input name="Responsable del grupo" placeholder="Nombre y WhatsApp"></label>
     </div>
 
@@ -211,7 +211,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyc2KOONMxieTm3pdgMnaQIf7sfRVj62h7AcF2cXbM4CxGH_PH5o9kHemRwP3_WozK_/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwY7iZ5QnUcyEtv6M4-KhVkkxn5_l5KNaXzO_-bROZVa8H-tbviSUlQwQnudIUKMsV5jQ/exec';
 
 /* VALORES DEL COMBO — actualizar acá si cambian.
    El período se elige solo por la fecha de CAMBIO; si querés forzar uno,

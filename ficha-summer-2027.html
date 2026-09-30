@@ -94,11 +94,11 @@
     <h2><span class="snum">2</span> Elegí tu prueba</h2>
     <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
     <div class="pay" id="pruebas">
-      <div class="opt on" data-prueba="5K+10K" data-contado="200000" data-cuota="50000" data-cuotas="4" data-kit="1">
+      <div class="opt on" data-prueba="5K+10K" data-contado="220000" data-cuota="55000" data-cuotas="4" data-kit="1">
         <div class="tag">Recomendado</div>
         <div class="t">Campeonato 5K + 10K</div>
         <div class="m">$220.000</div>
-        <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 4 cuotas de $50.000.</div>
+        <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 4 cuotas de $55.000.</div>
       </div>
       <div class="opt" data-prueba="5K" data-contado="140000" data-cuota="50000" data-cuotas="3" data-kit="1">
         <div class="t">Solo 5K</div>
@@ -142,7 +142,7 @@
 
     <div class="elegida" id="elegida"></div>
 
-    <label class="chk" id="wrap-sinkit"><input type="checkbox" id="sinkit" name="Nada sin kit"><span><b>Nadar sin kit del nadador: −$27.000.</b> Si no querés el kit (poncho, gorro, mochila de red), descontamos $27.000 de tu inscripción.</span></label>
+    <label class="chk" id="wrap-sinkit"><input type="checkbox" id="sinkit" name="Nada sin kit"><span><b>Nadar sin kit del nadador: −$30.000.</b> Si no querés el kit (poncho, gorro, mochila de red), descontamos $30.000 de tu inscripción.</span></label>
 
     <div class="pay" id="planes" style="margin-top:6px;">
       <div class="opt on" data-plan="contado">
@@ -163,7 +163,7 @@
       <div style="font-size:.92rem;color:rgba(255,255,255,.82);" id="detalle"></div>
     </div>
 
-    <p class="hint" style="margin:14px 0 0;">Grupos de 5 nadadores o más tienen 15% de descuento sobre el total del grupo (contado, sin financiación): escribinos a <a href="mailto:openwaterrionegro@gmail.com">openwaterrionegro@gmail.com</a> antes de pagar.</p>
+    <p class="hint" style="margin:14px 0 0;">Grupos de 4 nadadores o más tienen 15% de descuento sobre el total del grupo (contado, sin financiación): escribinos a <a href="mailto:openwaterrionegro@gmail.com">openwaterrionegro@gmail.com</a> antes de pagar.</p>
 
     <div style="background:#EAF6FB;border:2px solid #12688f;border-radius:14px;padding:18px 20px;margin:0 0 16px;">
       <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#12688f;margin-bottom:6px;">Transferí a este alias</div>
@@ -199,15 +199,15 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbyc2KOONMxieTm3pdgMnaQIf7sfRVj62h7AcF2cXbM4CxGH_PH5o9kHemRwP3_WozK_/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwY7iZ5QnUcyEtv6M4-KhVkkxn5_l5KNaXzO_-bROZVa8H-tbviSUlQwQnudIUKMsV5jQ/exec';
 
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');
 
 let prueba = '5K+10K', contado = 220000, cuota = 55000, cuotas = 4, conKit = true;
-let plan = 'contado', monto = 200000;
+let plan = 'contado', monto = 220000;
 
-function descuento(){ return (conKit && $('#sinkit').checked) ? 27000 : 0; }
+function descuento(){ return (conKit && $('#sinkit').checked) ? 30000 : 0; }
 
 function marcarPlan(){
   document.querySelectorAll('#planes .opt').forEach(x => x.classList.toggle('on', x.dataset.plan === plan));
