@@ -79,6 +79,7 @@
     </sc-if>
   </div>
 
+  <div style="display:flex;justify-content:center;padding:6px 16px 0;"><a href="https://docs.google.com/spreadsheets/d/18u_DigYqYoMp0vNZF96zJJyL254n-bL1MraNeXS-2sg/edit" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#0c2c40;border:1px solid #16455f;color:#eaf3f8;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Abrir planilla Summer ↗</a></div>
   <div style="max-width:1040px;margin:0 auto 70px;padding:22px 18px 0;">
     <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
       <div style="text-align:center;padding:50px 0;color:#9fc0d2;font-size:15px;">Cargando inscriptos…</div>
@@ -89,15 +90,18 @@
     <sc-if value="{{ showEmpty }}">
       <div style="text-align:center;padding:50px 0;color:#9fc0d2;font-size:15px;">Todavía no hay inscriptos cargados.</div>
     </sc-if>
+    <sc-if value="{{ showTable }}"><div style="max-width:1040px;margin:0 auto;padding:18px 40px 0;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;align-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px;"><span style="color:#7fe3a2;">Presentes: {{ cntOk }}</span><span style="color:#f0a3a3;">No se presentaron: {{ cntNo }}</span><span style="color:#cfe4ee;">Pendientes: {{ cntPend }}</span></div>
+  <div style="max-width:1040px;margin:0 auto;padding:6px 40px 0;text-align:center;font-size:12px;color:#9fc0d2;">El monto abonado y la acreditación se guardan en la planilla de Google. {{ syncMsg }}</div>
+  </sc-if>
     <sc-if value="{{ showTable }}">
       <div class="tbl-scroll">
         <table class="insc">
           <thead>
-            <tr><th style="width:1%;white-space:nowrap;">ID</th><th>Nombre</th><th>Género</th><th>Distancia</th><th>Origen</th><th>Total abonado</th></tr>
+            <tr><th style="width:1%;white-space:nowrap;">ID</th><th>Nombre</th><th>Género</th><th>Distancia</th><th>Origen</th><th>Total abonado</th><th>Acreditación</th></tr>
           </thead>
           <tbody>
             <sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
-              <tr><td style="font-weight:800;">{{ r.dorsal }}</td><td>{{ r.nombre }}</td><td>{{ r.sexo }}</td><td>{{ r.distancia }}</td><td>{{ r.origen }}</td><td>{{ r.abonado }}</td></tr>
+              <tr style="{{ r.rowStyle }}"><td style="font-weight:800;">{{ r.dorsal }}</td><td>{{ r.nombre }}</td><td>{{ r.sexo }}</td><td>{{ r.distancia }}</td><td>{{ r.origen }}</td><td><input defaultValue="{{ r.montoVal }}" onBlur="{{ r.onMonto }}" onKeyDown="{{ r.onKey }}" placeholder="$ monto" inputmode="numeric" style="width:104px;box-sizing:border-box;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.28);border-radius:6px;color:inherit;font:inherit;font-weight:700;padding:6px 8px;"></td><td style="white-space:nowrap;"><button onClick="{{ r.onOk }}" style="{{ r.okStyle }}">{{ r.okLbl }}</button> <button onClick="{{ r.onNo }}" style="{{ r.noStyle }}">{{ r.noLbl }}</button></td></tr>
             </sc-for>
           </tbody>
         </table>
@@ -120,8 +124,16 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT507x3wpH4DTq6hUT-PkeI9P-dIe8aZXYMh0qVvM-f6SVKzeRbWpZRAGriHov5GozZLHNvZ_DA2fXp/pub?output=csv";
+  static ACRED_KEY = 'ow-acred-summer';
+  static PIN = '129430';
+  static ENDPOINT = 'https://script.google.com/macros/s/AKfycbxg8xoFZBMhGsmpjUnrz7hCIEgqNWuBKwtqQv0DpM9ZGcYhymsV3vSsmk_r-gdQTOm3VQ/exec';
+  loadAcred(){ try{ this._ac = JSON.parse(localStorage.getItem(Component.ACRED_KEY)||'{}')||{}; }catch(e){ this._ac={}; } }
+  saveAcred(){ try{ localStorage.setItem(Component.ACRED_KEY, JSON.stringify(this._ac||{})); }catch(e){} this.forceUpdate(); }
+  setMonto(key,val,r){ this._ac=this._ac||{}; var o=this._ac[key]||{}; var v=String(val||'').trim(); if(v){ var n=Number(v.replace(/[^0-9]/g,'')); o.monto = n ? ('$'+n.toLocaleString('es-AR')) : v; } else delete o.monto; this._ac[key]=o; this.saveAcred(); this.enviar(r,{monto:String(o.monto||'').replace(/[^0-9]/g,'')}); return o.monto||''; }
+  setEstado(key,est,r){ this._ac=this._ac||{}; var o=this._ac[key]||{}; var cur=(o.estado!==undefined)?o.estado:(r.estadoSheet||''); if(cur==='no') return; if(est==='no' && !window.confirm('¿Eliminar a '+r.nombre+' de la planilla? Esta acción no se puede deshacer y no renumera al resto.')) return; o.estado=(cur===est)?'':est; this._ac[key]=o; this.saveAcred(); this.enviar(r,{estado:o.estado}); }
+  enviar(r,extra){ var self=this; var dni=String(r.key||'').split('|')[1]||''; var body=Object.assign({accion:'acreditar',evento:'summer',clave:Component.PIN,dni:dni,nombre:r.nombre},extra); self._msg='Guardando en la planilla…'; self.forceUpdate(); fetch(Component.ENDPOINT,{method:'POST',body:JSON.stringify(body)}).then(function(x){return x.json();}).then(function(j){ self._msg=(j&&j.ok)?'✓ Guardado en la planilla':('No se pudo guardar en la planilla'+(j&&j.error?': '+j.error:'')); self.forceUpdate(); }).catch(function(){ self._msg='No se pudo guardar en la planilla (sin conexión)'; self.forceUpdate(); }); }
   state = { loading:true, error:false, rows:null, total:0 };
-  componentDidMount(){
+  componentDidMount(){ this.loadAcred();
     var self=this;
     fetch(Component.CSV_URL, {cache:'no-store'})
       .then(function(r){ if(!r.ok) throw 0; return r.text(); })
@@ -166,6 +178,8 @@ class Component extends DCLogic {
     var oIdx=this.findCol(hn,['ciudad','origen','localidad','procedencia','provincia','pais','residencia','domicilio','de donde']);
     var pIdx=this.findCol(hn,['dinero entregado','monto abonado','total abonado','monto']);
     var out=[];
+    var dniIdx=this.findCol(hn,['dni','documento']);
+    var notIdx=this.findCol(hn,['notas']);
     for(var i=1;i<all.length;i++){
       var r=all[i]; if(!r) continue;
       if(!r.join('').trim()) continue;
@@ -175,6 +189,8 @@ class Component extends DCLogic {
       var pagoNum = Number(pago.replace(/[^0-9.-]/g,''));
       out.push({
         dorsal: out.length+1,
+        estadoSheet: notIdx>=0 ? (/NO SE PRESENT/i.test(r[notIdx]||"")?"no":(/\[ACREDITADO\]/i.test(r[notIdx]||"")?"ok":"")) : "",
+        key: self.norm(nombre)+"|"+(dniIdx>=0?String(r[dniIdx]||"").replace(/\D/g,""):""),
         nombre: nombre,
         sexo: sIdx>=0?(r[sIdx]||''):'',
         distancia: dIdx>=0?(r[dIdx]||''):'',
@@ -186,12 +202,30 @@ class Component extends DCLogic {
   }
   renderVals(){
     var s=this.state, rows=s.rows;
+    var self=this, ac=this._ac||{}, ok=0, no=0;
+    var rowsV=(rows||[]).map(function(r){
+      var o=ac[r.key]||{}; var est=(o.estado!==undefined)?o.estado:r.estadoSheet;
+      if(est==='ok') ok++; else if(est==='no') no++;
+      return Object.assign({}, r, {
+        montoVal: o.monto || (r.abonado==='—' ? '' : r.abonado),
+        onMonto: function(e){ e.target.value = self.setMonto(r.key, e.target.value, r) || (r.abonado==='—'?'':r.abonado); },
+        onKey: function(e){ if(e.key==='Enter') e.target.blur(); },
+        onOk: function(){ if(est!=='no') self.setEstado(r.key,'ok',r); },
+        onNo: function(){ self.setEstado(r.key,'no',r); },
+        okLbl: est==='ok' ? '✓ Presente' : '✓ Confirmar',
+        noLbl: est==='no' ? 'Eliminado' : '✕ Eliminar',
+        okStyle: 'cursor:pointer;font-family:Barlow Condensed,sans-serif;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:12px;padding:7px 11px;border-radius:6px;background:#1f6f43;color:#fff;border:1px solid #2f9e62;' + (est==='ok' ? 'box-shadow:0 0 0 2px #7fe3a2;' : ''),
+        noStyle: 'cursor:pointer;font-family:Barlow Condensed,sans-serif;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:12px;padding:7px 11px;border-radius:6px;background:#7a1f1f;color:#fff;border:1px solid #b23a3a;' + (est==='no' ? 'box-shadow:0 0 0 2px #f0a3a3;' : ''),
+        rowStyle: est==='ok' ? 'background:rgba(60,180,100,.16);' : (est==='no' ? 'opacity:.45;text-decoration:line-through;' : '')
+      });
+    });
     return {
+      syncMsg: self._msg||"", cntOk: ok, cntNo: no, cntPend: (rows||[]).length-ok-no,
       loading: !!s.loading,
       showError: !!s.error,
       showEmpty: !s.loading && !s.error && !!rows && rows.length===0,
       showTable: !s.loading && !s.error && !!rows && rows.length>0,
-      rows: rows||[],
+      rows: rowsV,
       total: s.total||0
     };
   }
