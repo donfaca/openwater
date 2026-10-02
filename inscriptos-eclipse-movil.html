@@ -97,11 +97,11 @@
       <div class="tbl-scroll">
         <table class="insc">
           <thead>
-            <tr><th style="width:1%;white-space:nowrap;">ID</th><th>Nombre</th><th>Género</th><th>Distancia</th><th>Origen</th><th>Total abonado</th><th>Acreditación</th></tr>
+            <tr><th style="width:1%;white-space:nowrap;">ID</th><th>Nombre</th><th>Género</th><th>Distancia</th><th>Origen</th><th>Total abonado</th><th>Lentes</th><th>Acreditación</th></tr>
           </thead>
           <tbody>
             <sc-for list="{{ rows }}" as="r" hint-placeholder-count="8">
-              <tr style="{{ r.rowStyle }}"><td style="font-weight:800;">{{ r.dorsal }}</td><td>{{ r.nombre }}</td><td>{{ r.sexo }}</td><td>{{ r.distancia }}</td><td>{{ r.origen }}</td><td><input defaultValue="{{ r.montoVal }}" onBlur="{{ r.onMonto }}" onKeyDown="{{ r.onKey }}" placeholder="$ monto" inputmode="numeric" style="width:104px;box-sizing:border-box;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.28);border-radius:6px;color:inherit;font:inherit;font-weight:700;padding:6px 8px;"></td><td style="white-space:nowrap;"><button onClick="{{ r.onOk }}" style="{{ r.okStyle }}">{{ r.okLbl }}</button> <button onClick="{{ r.onNo }}" style="{{ r.noStyle }}">{{ r.noLbl }}</button></td></tr>
+              <tr style="{{ r.rowStyle }}"><td style="font-weight:800;">{{ r.dorsal }}</td><td>{{ r.nombre }}</td><td>{{ r.sexo }}</td><td>{{ r.distancia }}</td><td>{{ r.origen }}</td><td><input defaultValue="{{ r.montoVal }}" onBlur="{{ r.onMonto }}" onKeyDown="{{ r.onKey }}" placeholder="$ monto" inputmode="numeric" style="width:104px;box-sizing:border-box;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.28);border-radius:6px;color:inherit;font:inherit;font-weight:700;padding:6px 8px;"></td><td style="white-space:nowrap;"><button onClick="{{ r.onLSi }}" style="{{ r.lSiStyle }}">Sí</button> <button onClick="{{ r.onLNo }}" style="{{ r.lNoStyle }}">No</button></td><td style="white-space:nowrap;"><button onClick="{{ r.onOk }}" style="{{ r.okStyle }}">{{ r.okLbl }}</button> <button onClick="{{ r.onNo }}" style="{{ r.noStyle }}">{{ r.noLbl }}</button></td></tr>
             </sc-for>
           </tbody>
         </table>
@@ -131,6 +131,7 @@ class Component extends DCLogic {
   saveAcred(){ try{ localStorage.setItem(Component.ACRED_KEY, JSON.stringify(this._ac||{})); }catch(e){} this.forceUpdate(); }
   setMonto(key,val,r){ this._ac=this._ac||{}; var o=this._ac[key]||{}; var v=String(val||'').trim(); if(v){ var n=Number(v.replace(/[^0-9]/g,'')); o.monto = n ? ('$'+n.toLocaleString('es-AR')) : v; } else delete o.monto; this._ac[key]=o; this.saveAcred(); this.enviar(r,{monto:String(o.monto||'').replace(/[^0-9]/g,'')}); return o.monto||''; }
   setEstado(key,est,r){ this._ac=this._ac||{}; var o=this._ac[key]||{}; var cur=(o.estado!==undefined)?o.estado:(r.estadoSheet||''); if(cur==='no') return; if(est==='no' && !window.confirm('¿Eliminar a '+r.nombre+' de la planilla? Esta acción no se puede deshacer y no renumera al resto.')) return; o.estado=(cur===est)?'':est; this._ac[key]=o; this.saveAcred(); this.enviar(r,{estado:o.estado}); }
+  setLentes(key,val,r){ this._ac=this._ac||{}; var o=this._ac[key]||{}; var cur=(o.lentes!==undefined)?o.lentes:(r.lentesSheet||''); o.lentes=(cur===val)?'':val; this._ac[key]=o; this.saveAcred(); }
   enviar(r,extra){ var self=this; var dni=String(r.key||'').split('|')[1]||''; var body=Object.assign({accion:'acreditar',evento:'eclipse',clave:Component.PIN,dni:dni,nombre:r.nombre},extra); self._msg='Guardando en la planilla…'; self.forceUpdate(); fetch(Component.ENDPOINT,{method:'POST',body:JSON.stringify(body)}).then(function(x){return x.json();}).then(function(j){ self._msg=(j&&j.ok)?'✓ Guardado en la planilla':('No se pudo guardar en la planilla'+(j&&j.error?': '+j.error:'')); self.forceUpdate(); }).catch(function(){ self._msg='No se pudo guardar en la planilla (sin conexión)'; self.forceUpdate(); }); }
   state = { loading:true, error:false, rows:null, total:0 };
   componentDidMount(){ this.loadAcred();
@@ -189,6 +190,7 @@ class Component extends DCLogic {
       var pagoNum = Number(pago.replace(/[^0-9.-]/g,''));
       out.push({
         dorsal: out.length+1,
+        lentesSheet: notIdx>=0 ? (/\[SIN LENTES\]/i.test(r[notIdx]||"")?"no":(/\[LENTES\]/i.test(r[notIdx]||"")?"si":"")) : "",
         estadoSheet: notIdx>=0 ? (/NO SE PRESENT/i.test(r[notIdx]||"")?"no":(/\[ACREDITADO\]/i.test(r[notIdx]||"")?"ok":"")) : "",
         key: self.norm(nombre)+"|"+(dniIdx>=0?String(r[dniIdx]||"").replace(/\D/g,""):""),
         nombre: nombre,
@@ -206,7 +208,13 @@ class Component extends DCLogic {
     var rowsV=(rows||[]).map(function(r){
       var o=ac[r.key]||{}; var est=(o.estado!==undefined)?o.estado:r.estadoSheet;
       if(est==='ok') ok++; else if(est==='no') no++;
+      var len=(o.lentes!==undefined)?o.lentes:r.lentesSheet;
+      var lb='cursor:pointer;font-family:Barlow Condensed,sans-serif;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:12px;padding:7px 12px;border-radius:6px;border:1px solid rgba(255,255,255,.3);';
       return Object.assign({}, r, {
+        onLSi: function(){ self.setLentes(r.key,'si',r); },
+        onLNo: function(){ self.setLentes(r.key,'no',r); },
+        lSiStyle: lb + (len==='si' ? 'background:#1f6f43;color:#fff;box-shadow:0 0 0 2px #7fe3a2;' : 'background:rgba(255,255,255,.07);color:#cfe4ee;'),
+        lNoStyle: lb + (len==='no' ? 'background:#7a1f1f;color:#fff;box-shadow:0 0 0 2px #f0a3a3;' : 'background:rgba(255,255,255,.07);color:#cfe4ee;'),
         montoVal: o.monto || (r.abonado==='—' ? '' : r.abonado),
         onMonto: function(e){ e.target.value = self.setMonto(r.key, e.target.value, r) || (r.abonado==='—'?'':r.abonado); },
         onKey: function(e){ if(e.key==='Enter') e.target.blur(); },
