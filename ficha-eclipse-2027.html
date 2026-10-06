@@ -116,12 +116,12 @@
     <div class="pay">
       <div class="opt on" data-monto="150000" data-plan="Individual contado">
         <div class="t">Individual · contado</div>
-        <div class="m">$150.000</div>
+        <div class="m" data-b="150000">$150.000</div>
         <div class="d">Pago único. Remera incluida inscribiéndote hasta el 15 de diciembre.</div>
       </div>
       <div class="opt" data-monto="55000" data-plan="Financiado · 1ª cuota">
         <div class="t">Financiado · 1ª cuota</div>
-        <div class="m">$55.000</div>
+        <div class="m" data-b="55000">$55.000</div>
         <div class="d">3 cuotas de $55.000 (total $165.000). Con la 1ª cuota se congela el valor.</div>
       </div>
     </div>
@@ -185,6 +185,7 @@ document.querySelectorAll('[data-req]').forEach(el => el.addEventListener('input
 function recalc(){
   monto = base + ($('#lentes').checked ? 15000 : 0);
   $('#tot').textContent = pesos(monto);
+  document.querySelectorAll('.opt .m[data-b]').forEach(m => m.textContent = pesos(+m.dataset.b + ($('#lentes').checked ? 15000 : 0)));
   revisar();
 }
 $('#lentes').addEventListener('change', recalc);
