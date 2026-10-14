@@ -73,6 +73,12 @@
         <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:#9fc0d2;">inscriptos</span>
       </div>
     </sc-if>
+    <sc-if value="{{ showTable }}">
+      <div style="max-width:1040px;margin:18px auto 40px;padding:0 40px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+        <div style="flex:1 1 260px;max-width:340px;background:#12467a;border:1px solid #3f86c9;border-radius:12px;padding:16px 22px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px;color:#cfe6fb;">Total cobrado</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:#fff;line-height:1.15;">{{ totCobrado }}</div></div>
+        <div style="flex:1 1 260px;max-width:340px;background:#12467a;border:1px solid #3f86c9;border-radius:12px;padding:16px 22px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px;color:#cfe6fb;">Total por abonar</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:#fff;line-height:1.15;">{{ totPorAbonar }}</div></div>
+      </div>
+    </sc-if>
   </div>
 
   <div style="max-width:1040px;margin:0 auto;padding:0 40px;display:flex;justify-content:center;">
@@ -216,11 +222,12 @@ class Component extends DCLogic {
   }
   renderVals(){
     var s=this.state, rows=s.rows;
-    var self=this, ac=this._ac||{}, ok=0, no=0;
+    var self=this, ac=this._ac||{}, ok=0, no=0, sumC=0, sumF=0;
     var rowsV=(rows||[]).map(function(r){
       var o=ac[r.key]||{}; var est=(o.estado!==undefined)?o.estado:r.estadoSheet;
       if(est==='ok') ok++; else if(est==='no') no++;
       var fn=(o.falta!==undefined)?o.falta:self.faltaNum(r,o,'');
+      if(est!=='no'){ sumC+=Number(String(o.monto||(r.abonado==='—'?'':r.abonado)).replace(/[^0-9]/g,''))||0; sumF+=fn; }
       return Object.assign({}, r, {
         falta: '$'+fn.toLocaleString('es-AR'), faltaKey: r.key+'|'+fn, montoStyle: 'width:104px;box-sizing:border-box;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.28);border-radius:6px;color:inherit;font:inherit;font-weight:700;padding:6px 8px;'+(fn===0?'background:#1f6f43;border:1px solid rgba(255,255,255,.35);color:#fff;':'background:#f2c230;border:1px solid #c9a24d;color:#1b1405;'), onFalta: function(e){ self.setFalta(r.key,e.target.value); },
         faltaStyle: 'width:104px;box-sizing:border-box;font:inherit;text-align:center;font-weight:800;padding:6px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.35);color:#fff;background:'+(fn===0?'#1f6f43':'#b3261e')+';',
@@ -242,6 +249,7 @@ class Component extends DCLogic {
       showError: !!s.error,
       showEmpty: !s.loading && !s.error && !!rows && rows.length===0,
       showTable: !s.loading && !s.error && !!rows && rows.length>0,
+      totCobrado: '$'+sumC.toLocaleString('es-AR'), totPorAbonar: '$'+sumF.toLocaleString('es-AR'),
       rows: rowsV,
       total: s.total||0
     };
