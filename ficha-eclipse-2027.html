@@ -78,7 +78,7 @@
     <div style="background:#FFF8F0;border:1px solid #F4A11B;border-radius:14px;padding:16px 18px;margin:0 0 16px;">
       <div style="font-family:'Archivo Narrow';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:#7A1610;margin-bottom:6px;">Opcional · Lentes de eclipse</div>
       <label class="chk" style="margin:0;"><input type="checkbox" id="lentes" name="Lentes de eclipse"><span>Quiero sumar los lentes de observación solar ISO 12312-2 por <b>$15.000</b>.</span></label>
-      <p class="hint" style="margin:8px 0 0;">El kit del nadador no incluye lentes: se compran por separado a precio promocional de $15.000, muy por debajo de su valor. Los $15.000 no se pagan en cuotas: se abonan junto con el total de la inscripción.</p>
+      <p class="hint" style="margin:8px 0 0;">Los lentes tienen un costo adicional de $15.000 para que estén en el kit. Quien paga en cuotas abona los lentes junto con la 1ª cuota.</p>
       <div style="margin-top:10px;font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1A0B08;">Total a transferir ahora: <span id="tot" style="font-family:'Anton';font-size:1.3rem;color:#C0271A;">$150.000</span></div>
     </div>
 
@@ -122,7 +122,7 @@
       <div class="opt" data-monto="55000" data-plan="Financiado · 1ª cuota">
         <div class="t">Financiado · 1ª cuota</div>
         <div class="m" data-b="55000">$55.000</div>
-        <div class="d">3 cuotas de $55.000 (total $165.000). Con la 1ª cuota se congela el valor.</div>
+        <div class="d" id="d-cuota">3 cuotas de $55.000 (total $165.000). Con la 1ª cuota se congela el valor.</div>
       </div>
     </div>
 
@@ -186,6 +186,8 @@ function recalc(){
   monto = base + ($('#lentes').checked ? 15000 : 0);
   $('#tot').textContent = pesos(monto);
   document.querySelectorAll('.opt .m[data-b]').forEach(m => m.textContent = pesos(+m.dataset.b + ($('#lentes').checked ? 15000 : 0)));
+  const L = $('#lentes').checked;
+  $('#d-cuota').textContent = L ? '3 cuotas: 1ª de $70.000 + 2 de $55.000 (total $180.000). Los lentes se pagan junto con la 1ª cuota. Con la 1ª cuota se congela el valor.' : '3 cuotas de $55.000 (total $165.000). Con la 1ª cuota se congela el valor.';
   revisar();
 }
 $('#lentes').addEventListener('change', recalc);

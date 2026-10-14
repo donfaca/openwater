@@ -94,11 +94,11 @@
     <h2><span class="snum">2</span> Elegí tu prueba</h2>
     <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
     <div class="pay" id="pruebas">
-      <div class="opt on" data-prueba="5K+10K" data-contado="220000" data-cuota="55000" data-cuotas="4" data-kit="1">
+      <div class="opt on" data-prueba="5K+10K" data-contado="220000" data-cuota="75000" data-cuotas="3" data-fin="225000" data-kit="1">
         <div class="tag">Recomendado</div>
         <div class="t">Campeonato 5K + 10K</div>
         <div class="m">$220.000</div>
-        <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 4 cuotas de $55.000.</div>
+        <div class="d">Sábado 5K + domingo 10K. Incluye kit full y el 2K Nocturno gratis. Financiado: 3 cuotas de $75.000.</div>
       </div>
       <div class="opt" data-prueba="5K" data-contado="140000" data-cuota="50000" data-cuotas="3" data-kit="1">
         <div class="t">Solo 5K</div>
@@ -148,7 +148,7 @@
       <div class="opt on" data-plan="contado">
         <div class="t">Contado</div>
         <div class="m" id="m-contado">$220.000</div>
-        <div class="d">Pago único. Valor vigente hasta el 10 de septiembre de 2026.</div>
+        <div class="d">Pago único. Valor vigente hasta el 10 de noviembre de 2026.</div>
       </div>
       <div class="opt" data-plan="cuota" id="opt-cuota">
         <div class="t">Financiado · 1ª cuota</div>
@@ -204,7 +204,8 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxg8xoFZBMhGsmpjUnrz7h
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');
 
-let prueba = '5K+10K', contado = 220000, cuota = 55000, cuotas = 4, conKit = true;
+let fin = 225000;
+let prueba = '5K+10K', contado = 220000, cuota = 75000, cuotas = 3, conKit = true;
 let plan = 'contado', monto = 220000;
 
 function descuento(){ return (conKit && $('#sinkit').checked) ? 30000 : 0; }
@@ -221,7 +222,7 @@ function recalcular(){
   $('#wrap-sinkit').style.display = conKit ? '' : 'none';
   if(!financiable && plan === 'cuota'){ plan = 'contado'; marcarPlan(); }
   if(financiable){
-    const resto = c - cuota * (cuotas - 1);
+    const resto = (fin ? fin - descuento() : c) - cuota * (cuotas - 1);
     $('#m-cuota').textContent = pesos(cuota);
     $('#d-cuota').textContent = cuotas + ' cuotas mensuales: ' + (cuotas - 1) + ' de ' + pesos(cuota) + ' + 1 de ' + pesos(resto) + '. Con la 1ª cuota se congela el valor.';
   }
@@ -239,6 +240,7 @@ document.querySelectorAll('#pruebas .opt').forEach(o => o.addEventListener('clic
   contado = +o.dataset.contado;
   cuota = +o.dataset.cuota;
   cuotas = +o.dataset.cuotas;
+  fin = +o.dataset.fin || 0;
   conKit = o.dataset.kit === '1';
   recalcular();
 }));
