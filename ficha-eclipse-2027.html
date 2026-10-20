@@ -79,7 +79,7 @@
       <div style="font-family:'Archivo Narrow';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:#7A1610;margin-bottom:6px;">Opcional · Lentes de eclipse</div>
       <label class="chk" style="margin:0;"><input type="checkbox" id="lentes" name="Lentes de eclipse"><span>Quiero sumar los lentes de observación solar ISO 12312-2 por <b>$15.000</b>.</span></label>
       <p class="hint" style="margin:8px 0 0;">Los lentes tienen un costo adicional de $15.000 para que estén en el kit. Quien paga en cuotas abona los lentes junto con la 1ª cuota.</p>
-      <div style="margin-top:10px;font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1A0B08;">Total a transferir ahora: <span id="tot" style="font-family:'Anton';font-size:1.3rem;color:#C0271A;">$150.000</span></div>
+      <div style="margin-top:10px;font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1A0B08;">Total a transferir ahora: <span id="tot" style="font-family:'Anton';font-size:1.3rem;color:#C0271A;">$170.000</span></div>
     </div>
 
     <div style="background:#FFF3EE;border:2px solid #C0271A;border-radius:12px;padding:14px 16px;margin-top:14px;">
@@ -114,15 +114,15 @@
   <section class="card" id="s-pago">
     <h2><span class="snum">4</span> Pago de la inscripción</h2>
     <div class="pay">
-      <div class="opt on" data-monto="150000" data-plan="Individual contado">
+      <div class="opt on" data-monto="170000" data-plan="Individual contado">
         <div class="t">Individual · contado</div>
-        <div class="m" data-b="150000">$150.000</div>
+        <div class="m" data-b="170000">$170.000</div>
         <div class="d">Pago único. Remera incluida inscribiéndote hasta el 15 de diciembre.</div>
       </div>
-      <div class="opt" data-monto="55000" data-plan="Financiado · 1ª cuota">
+      <div class="opt" data-monto="65000" data-plan="Financiado · 1ª cuota">
         <div class="t">Financiado · 1ª cuota</div>
-        <div class="m" data-b="55000">$55.000</div>
-        <div class="d" id="d-cuota">3 cuotas de $55.000 (total $165.000). Con la 1ª cuota se congela el valor.</div>
+        <div class="m" data-b="65000">$65.000</div>
+        <div class="d" id="d-cuota">3 cuotas: 1ª de $65.000 + 2 de $60.000 (total $185.000). Con la 1ª cuota se congela el valor.</div>
       </div>
     </div>
 
@@ -162,7 +162,7 @@
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
 const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxg8xoFZBMhGsmpjUnrz7hCIEgqNWuBKwtqQv0DpM9ZGcYhymsV3vSsmk_r-gdQTOm3VQ/exec';
 
-let base = 150000, monto = 150000, plan = 'Individual contado';
+let base = 170000, monto = 170000, plan = 'Individual contado';
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');
 
@@ -187,7 +187,7 @@ function recalc(){
   $('#tot').textContent = pesos(monto);
   document.querySelectorAll('.opt .m[data-b]').forEach(m => m.textContent = pesos(+m.dataset.b + ($('#lentes').checked ? 15000 : 0)));
   const L = $('#lentes').checked;
-  $('#d-cuota').textContent = L ? '3 cuotas: 1ª de $70.000 + 2 de $55.000 (total $180.000). Los lentes se pagan junto con la 1ª cuota. Con la 1ª cuota se congela el valor.' : '3 cuotas de $55.000 (total $165.000). Con la 1ª cuota se congela el valor.';
+  $('#d-cuota').textContent = L ? '3 cuotas: 1ª de $80.000 + 2 de $60.000 (total $200.000). Los lentes se pagan junto con la 1ª cuota. Con la 1ª cuota se congela el valor.' : '3 cuotas: 1ª de $65.000 + 2 de $60.000 (total $185.000). Con la 1ª cuota se congela el valor.';
   revisar();
 }
 $('#lentes').addEventListener('change', recalc);

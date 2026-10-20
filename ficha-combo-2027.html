@@ -146,7 +146,7 @@
       <div class="opt on" data-plan="contado">
         <div class="tag">Recomendado</div>
         <div class="t">Combo individual · contado</div>
-        <div class="m" id="m-contado">$310.000</div>
+        <div class="m" id="m-contado">$390.000</div>
         <div class="d" id="d-contado">Pago único por las cuatro distancias y los dos kits.</div>
       </div>
       <div class="opt" data-plan="cuotas">
@@ -156,7 +156,7 @@
       </div>
       <div class="opt" data-plan="equipo">
         <div class="t">Combo equipo · contado</div>
-        <div class="m" id="m-equipo">$300.000</div>
+        <div class="m" id="m-equipo">$350.000</div>
         <div class="d">Grupos de 4 nadadores o más, sin financiación. Cada nadador completa su ficha con el mismo nombre de grupo.</div>
       </div>
     </div>
@@ -168,7 +168,7 @@
 
     <div class="total">
       <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;font-weight:700;">A pagar ahora</div>
-      <div class="n" id="total">$310.000</div>
+      <div class="n" id="total">$390.000</div>
       <div style="font-size:.92rem;color:rgba(255,255,255,.82);" id="detalle"></div>
     </div>
 
@@ -218,11 +218,11 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxg8xoFZBMhGsmpjUnrz7h
    escribí PERIODO_FIJO = 'actual' o 'desde'. */
 const PRECIOS = {
   cambio: '2026-09-10',
-  actual: {contado: 310000, cuota: 110000, cuotas: 3, total: 330000, etiqueta: 'Valores vigentes hasta el 10 de noviembre de 2026'},
-  desde:  {contado: 340000, cuota: 120000, cuotas: 3, total: 360000, etiqueta: 'Valores vigentes desde el 10 de noviembre de 2026'},
-  equipo: 300000
+  actual: {contado: 390000, cuota: 130000, cuotas: 3, total: 390000, etiqueta: 'Valores del combo'},
+  desde:  {contado: 390000, cuota: 130000, cuotas: 3, total: 390000, etiqueta: 'Valores del combo'},
+  equipo: 350000
 };
-const PERIODO_FIJO = '';
+const PERIODO_FIJO = 'actual';
 
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');

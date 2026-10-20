@@ -215,7 +215,7 @@ class Component extends DCLogic {
     if(f){ var d=+f[1], m=+f[2], y=+f[3]; if(y<100) y+=2000; t2=y*10000+m*100+d; }
     var t=0;
     var p=this.norm(r.distancia).replace(/\s/g,''), k = p.indexOf('5k+10k')>=0 ? 3 : (p.indexOf('10k')>=0 ? 2 : (p.indexOf('5k')>=0 ? 1 : (p.indexOf('2k')>=0 ? 0 : 3)));
-    var T = (t2!==null && t2>20261110) ? [75000,165000,185000,230000] : ((t2!==null && t2>=20260912) ? [65000,155000,175000,220000] : [60000,140000,160000,220000]);
+    var T = [65000,175000,175000,250000];
     t = T[k];
     var pagado=Number(String(o.monto||(r.abonado==='—'?'':r.abonado)).replace(/[^0-9]/g,''))||0;
     return Math.max(0, t-pagado);
