@@ -107,7 +107,7 @@ class Component extends DCLogic {
   static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSGUKYPyvROauLf2Oe71Li7tWQlBon3wh0DnG5GFESiewIxtjjnTa_SYC1mDqP5Xm8teRtim_yAgQ2O/pub?output=csv";
   static ACRED_KEY = 'ow-acred-combo';
   static PIN = '129430';
-  static ENDPOINT = 'https://script.google.com/macros/s/AKfycbxg8xoFZBMhGsmpjUnrz7hCIEgqNWuBKwtqQv0DpM9ZGcYhymsV3vSsmk_r-gdQTOm3VQ/exec';
+  static ENDPOINT = 'https://script.google.com/macros/s/AKfycbzb6IeCxDqL4qFjBWNXBj55gpxA0uVA4fVrHm6-Fa9SqG1zDzR6n1BNI49kQn78gwAUBw/exec';
   loadAcred(){ try{ this._ac = JSON.parse(localStorage.getItem(Component.ACRED_KEY)||'{}')||{}; }catch(e){ this._ac={}; } }
   saveAcred(){ try{ localStorage.setItem(Component.ACRED_KEY, JSON.stringify(this._ac||{})); }catch(e){} this.forceUpdate(); }
   setMonto(key,val,r){ this._ac=this._ac||{}; var o=this._ac[key]||{}; var v=String(val||'').trim(); if(v){ var n=Number(v.replace(/[^0-9]/g,'')); o.monto = n ? ('$'+n.toLocaleString('es-AR')) : v; } else delete o.monto; this._ac[key]=o; this.saveAcred(); this.enviar(r,{monto:String(o.monto||'').replace(/[^0-9]/g,'')}); return o.monto||''; }

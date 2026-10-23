@@ -157,14 +157,22 @@
       </div>
     </div>
 
+    <div id="cupon-box" style="background:#E9FBEF;border:2px solid #4ade80;border-radius:14px;padding:16px 20px;margin:0 0 16px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#14532d;margin-bottom:6px;">Cupón de equipo · valor por equipo</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <input id="cupon" maxlength="6" placeholder="Código de 6 caracteres" autocomplete="off" style="flex:1 1 180px;min-width:0;padding:11px 12px;border:1px solid #86efac;border-radius:10px;font:700 1rem 'Barlow Condensed',sans-serif;letter-spacing:.2em;text-transform:uppercase;">
+        <button type="button" id="cupon-ok" class="btn" style="background:#16a34a;">Aplicar</button>
+      </div>
+      <div id="cupon-msg" style="font-size:.9rem;color:#14532d;margin-top:8px;"></div>
+      <p class="hint" style="margin:8px 0 0;">Vale solo para grupos que nadan Campeonato 5K + 10K. Pago total y sin cuotas. Cada nadador del grupo ingresa el cupón en su ficha. ¿No tenés cupón? Pedilo desde el botón verde de la página de inicio.</p>
+    </div>
     <div class="total">
       <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;font-weight:700;">A pagar ahora</div>
       <div class="n" id="total">$250.000</div>
       <div style="font-size:.92rem;color:rgba(255,255,255,.82);" id="detalle"></div>
     </div>
 
-    <p class="hint" style="margin:14px 0 0;">Grupos de 4 nadadores o más tienen 15% de descuento sobre el total del grupo (contado, sin financiación): escribinos a <a href="mailto:openwaterrionegro@gmail.com">openwaterrionegro@gmail.com</a> antes de pagar.</p>
-
+    
     <div style="background:#EAF6FB;border:2px solid #12688f;border-radius:14px;padding:18px 20px;margin:0 0 16px;">
       <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#12688f;margin-bottom:6px;">Transferí a este alias</div>
       <div style="font-family:'Bebas Neue';font-size:2.2rem;line-height:1;color:#0a2438;">OW.RIO</div>
@@ -199,7 +207,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxg8xoFZBMhGsmpjUnrz7hCIEgqNWuBKwtqQv0DpM9ZGcYhymsV3vSsmk_r-gdQTOm3VQ/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzb6IeCxDqL4qFjBWNXBj55gpxA0uVA4fVrHm6-Fa9SqG1zDzR6n1BNI49kQn78gwAUBw/exec';
 
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');
@@ -215,10 +223,13 @@ function marcarPlan(){
 }
 
 function recalcular(){
-  const c = contado - descuento();
+  const aplica = !!cup && prueba === '5K+10K';
+  const c = aplica ? 212500 - descuento() : contado - descuento();
+  if(cup) $('#cupon-msg').textContent = aplica ? '✓ Cupón aplicado: valor por equipo, pago contado.' : 'El cupón solo vale para Campeonato 5K + 10K. Elegí esa prueba para usarlo.';
+  if(aplica && plan === 'cuota'){ plan = 'contado'; marcarPlan(); }
   $('#m-contado').textContent = pesos(c);
   const financiable = cuotas > 0;
-  $('#opt-cuota').style.display = financiable ? '' : 'none';
+  $('#opt-cuota').style.display = (financiable && !aplica) ? '' : 'none';
   $('#wrap-sinkit').style.display = conKit ? '' : 'none';
   if(!financiable && plan === 'cuota'){ plan = 'contado'; marcarPlan(); }
   if(financiable){
@@ -250,6 +261,23 @@ document.querySelectorAll('#planes .opt').forEach(o => o.addEventListener('click
 }));
 
 $('#sinkit').addEventListener('change', recalcular);
+const recal = recalcular;
+let cup = '', cupClub = '';
+$('[name="Club o equipo"]').addEventListener('input', e => { if(cup && e.target.value.trim() !== cupClub){ cup = ''; $('#cupon-msg').textContent = 'Cambiaste el equipo: volvé a aplicar el cupón.'; recal(); } });
+$('#cupon').addEventListener('input', e => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,''); });
+$('#cupon-ok').addEventListener('click', () => {
+  const c = $('#cupon').value.trim().toUpperCase();
+  if(c.length !== 6){ $('#cupon-msg').textContent = 'El cupón tiene 6 letras y números.'; return; }
+  const club = ($('[name="Club o equipo"]').value || '').trim();
+  if(!club){ $('#cupon-msg').textContent = 'Primero completá «Club o equipo» (arriba), con el nombre del equipo que pidió el cupón.'; return; }
+  $('#cupon-msg').textContent = 'Verificando…';
+  pedir({accion:'validarCupon', evento:'summer', codigo:c, club:club}).then(r => {
+    if(r.ok){ cup = c; cupClub = club; $('#cupon-msg').textContent = '✓ Cupón aplicado: valor por equipo, pago contado.'; }
+    else { cup = ''; $('#cupon-msg').textContent = r.error || 'Cupón inválido.'; }
+    recal();
+  }).catch(() => { $('#cupon-msg').textContent = 'No se pudo verificar. Probá de nuevo.'; });
+});
+
 
 /* Fechas en formato DD/MM/AAAA */
 document.querySelectorAll('.fecha').forEach(el => el.addEventListener('input', () => {
@@ -294,7 +322,7 @@ function pedir(cuerpo){
 }
 
 function nombrePlan(){
-  return prueba + ' · ' + (plan === 'contado' ? 'contado' : '1ª de ' + cuotas + ' cuotas') + (descuento() ? ' · sin kit' : '');
+  return prueba + ' · ' + (plan === 'contado' ? 'contado' : '1ª de ' + cuotas + ' cuotas') + (descuento() ? ' · sin kit' : '') + ((cup && prueba === '5K+10K') ? ' · cupón equipo' : '');
 }
 
 $('#enviar').addEventListener('click', () => {
@@ -304,6 +332,7 @@ $('#enviar').addEventListener('click', () => {
   });
   d['Competencia'] = '2ª Summer Open Water 2027';
   d['Prueba'] = prueba;
+  d['Cupón'] = (cup && prueba === '5K+10K') ? cup : '';
   d['Plan de pago'] = nombrePlan();
   d['Monto'] = pesos(monto);
   d['Forma de pago'] = 'Transferencia bancaria';
@@ -311,7 +340,7 @@ $('#enviar').addEventListener('click', () => {
   d['Fecha de envío'] = new Date().toLocaleString('es-AR');
   $('#enviar').disabled = true; $('#enviar').textContent = 'Enviando…';
   pedir(Object.assign({accion:'ficha', evento:'summer'}, d)).then(r => {
-    if(!r.ok) throw 0;
+    if(!r.ok){ if(r.error) alert(r.error); throw 0; }
     $('#ok').style.display = 'flex';
     $('#ok').textContent = '✓ Inscripción registrada. Te llega la confirmación por email.';
     $('#enviar').textContent = 'Inscripción enviada';

@@ -82,6 +82,15 @@
       <div style="margin-top:10px;font-family:'Archivo Narrow';font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#1A0B08;">Total a transferir ahora: <span id="tot" style="font-family:'Anton';font-size:1.3rem;color:#C0271A;">$170.000</span></div>
     </div>
 
+    <div id="cupon-box" style="background:#E9FBEF;border:2px solid #4ade80;border-radius:14px;padding:16px 20px;margin:0 0 16px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#14532d;margin-bottom:6px;">Cupón de equipo · valor por equipo</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <input id="cupon" maxlength="6" placeholder="Código de 6 caracteres" autocomplete="off" style="flex:1 1 180px;min-width:0;padding:11px 12px;border:1px solid #86efac;border-radius:10px;font:700 1rem 'Barlow Condensed',sans-serif;letter-spacing:.2em;text-transform:uppercase;">
+        <button type="button" id="cupon-ok" class="btn" style="background:#16a34a;">Aplicar</button>
+      </div>
+      <div id="cupon-msg" style="font-size:.9rem;color:#14532d;margin-top:8px;"></div>
+      <p class="hint" style="margin:8px 0 0;">Vale para grupos que nadan OWeclipse 2.5K. Pago total y sin cuotas. Cada nadador del grupo ingresa el cupón en su ficha. ¿No tenés cupón? Pedilo desde el botón verde de la página de inicio.</p>
+    </div>
     <div style="background:#FFF3EE;border:2px solid #C0271A;border-radius:12px;padding:14px 16px;margin-top:14px;">
       <label class="chk" style="margin:0;"><input type="checkbox" name="Categoría adaptada"><span style="font-weight:700;color:#1A0B08;">Nado en categoría adaptada</span></label>
       <p class="hint" style="margin:6px 0 0;font-weight:600;color:#C0271A;">Marcar solo si el nadador o la nadadora tiene alguna discapacidad motriz o reducción sensorial.</p>
@@ -160,7 +169,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxg8xoFZBMhGsmpjUnrz7hCIEgqNWuBKwtqQv0DpM9ZGcYhymsV3vSsmk_r-gdQTOm3VQ/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzb6IeCxDqL4qFjBWNXBj55gpxA0uVA4fVrHm6-Fa9SqG1zDzR6n1BNI49kQn78gwAUBw/exec';
 
 let base = 170000, monto = 170000, plan = 'Individual contado';
 const $ = (s) => document.querySelector(s);
@@ -183,14 +192,34 @@ document.querySelectorAll('.fecha').forEach(el => el.addEventListener('input', (
 document.querySelectorAll('[data-req]').forEach(el => el.addEventListener('input', revisar));
 
 function recalc(){
-  monto = base + ($('#lentes').checked ? 15000 : 0);
+  if(cup && plan !== 'Individual contado'){ base = 170000; plan = 'Individual contado'; document.querySelectorAll('.opt').forEach((x,i) => x.classList.toggle('on', i === 0)); }
+  const optF = document.querySelectorAll('.opt')[1]; if(optF) optF.style.display = cup ? 'none' : '';
+  const baseEf = cup ? 150000 : base;
+  monto = baseEf + ($('#lentes').checked ? 15000 : 0);
   $('#tot').textContent = pesos(monto);
-  document.querySelectorAll('.opt .m[data-b]').forEach(m => m.textContent = pesos(+m.dataset.b + ($('#lentes').checked ? 15000 : 0)));
+  document.querySelectorAll('.opt .m[data-b]').forEach(m => m.textContent = pesos((cup && +m.dataset.b === 170000 ? 150000 : +m.dataset.b) + ($('#lentes').checked ? 15000 : 0)));
   const L = $('#lentes').checked;
   $('#d-cuota').textContent = L ? '3 cuotas: 1ª de $80.000 + 2 de $60.000 (total $200.000). Los lentes se pagan junto con la 1ª cuota. Con la 1ª cuota se congela el valor.' : '3 cuotas: 1ª de $65.000 + 2 de $60.000 (total $185.000). Con la 1ª cuota se congela el valor.';
   revisar();
 }
 $('#lentes').addEventListener('change', recalc);
+const recal = recalc;
+let cup = '', cupClub = '';
+$('[name="Club o equipo"]').addEventListener('input', e => { if(cup && e.target.value.trim() !== cupClub){ cup = ''; $('#cupon-msg').textContent = 'Cambiaste el equipo: volvé a aplicar el cupón.'; recal(); } });
+$('#cupon').addEventListener('input', e => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,''); });
+$('#cupon-ok').addEventListener('click', () => {
+  const c = $('#cupon').value.trim().toUpperCase();
+  if(c.length !== 6){ $('#cupon-msg').textContent = 'El cupón tiene 6 letras y números.'; return; }
+  const club = ($('[name="Club o equipo"]').value || '').trim();
+  if(!club){ $('#cupon-msg').textContent = 'Primero completá «Club o equipo» (arriba), con el nombre del equipo que pidió el cupón.'; return; }
+  $('#cupon-msg').textContent = 'Verificando…';
+  pedir({accion:'validarCupon', evento:'eclipse', codigo:c, club:club}).then(r => {
+    if(r.ok){ cup = c; cupClub = club; $('#cupon-msg').textContent = '✓ Cupón aplicado: valor por equipo, pago contado.'; }
+    else { cup = ''; $('#cupon-msg').textContent = r.error || 'Cupón inválido.'; }
+    recal();
+  }).catch(() => { $('#cupon-msg').textContent = 'No se pudo verificar. Probá de nuevo.'; });
+});
+
 
 function faltantes(){
   const f = [];
@@ -217,7 +246,8 @@ $('#enviar').addEventListener('click', () => {
     d[el.name] = el.type === 'checkbox' ? (el.checked ? 'Sí' : 'No') : el.value;
   });
   d['Competencia'] = 'OWeclipse 2027 · 2.5K';
-  d['Plan de pago'] = plan;
+  d['Plan de pago'] = plan + (cup ? ' · cupón equipo' : '');
+  d['Cupón'] = cup;
   d['Monto'] = pesos(monto);
   d['Monto lentes'] = $('#lentes').checked ? pesos(15000) : '$0';
   d['Forma de pago'] = 'Transferencia bancaria';
@@ -225,7 +255,7 @@ $('#enviar').addEventListener('click', () => {
   d['Fecha de envío'] = new Date().toLocaleString('es-AR');
   $('#enviar').disabled = true; $('#enviar').textContent = 'Enviando…';
   pedir(Object.assign({accion:'ficha', evento:'eclipse'}, d)).then(r => {
-    if(!r.ok) throw 0;
+    if(!r.ok){ if(r.error) alert(r.error); throw 0; }
     $('#ok').style.display = 'flex';
     $('#ok').textContent = '✓ Inscripción registrada. Te llega la confirmación por email.';
     $('#enviar').textContent = 'Inscripción enviada';
