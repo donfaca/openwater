@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>PRIVADO · Open Water</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#08202f;}a{color:#c9a24d;}a:hover{color:#e6c677;}</style>
+</helmet>
+<div style="font-family:'Barlow',system-ui,sans-serif;color:#fff;min-height:100vh;background:#08202f;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 24px;background:#0a2438;border-bottom:1px solid #16455f;">
+    <a href="index-movil.html" style="color:#fff;text-decoration:none;font-weight:700;">← Volver a la página</a>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.12em;color:#ff6b5e;">PRIVADO · ORGANIZADORES</span>
+  </nav>
+
+  <sc-if value="{{ locked }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:420px;margin:90px auto;padding:0 24px;text-align:center;">
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:.06em;margin:0 0 8px;">ÁREA PRIVADA</h1>
+      <p style="color:#a9c6d6;margin:0 0 20px;">Solo para organizadores. Ingresá el código de acceso.</p>
+      <input type="password" value="{{ pin }}" onInput="{{ onPin }}" onKeyDown="{{ onPinKey }}" placeholder="Código" style="width:100%;box-sizing:border-box;padding:13px 14px;border-radius:10px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 18px 'Barlow',sans-serif;letter-spacing:.2em;text-align:center;">
+      <button onClick="{{ unlock }}" style="width:100%;margin-top:12px;background:#ff6b5e;color:#2a0603;border:0;border-radius:10px;padding:13px;font:800 16px 'Barlow',sans-serif;cursor:pointer;">Entrar</button>
+      <div style="color:#ff9a90;margin-top:12px;min-height:20px;">{{ pinErr }}</div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ unlocked }}">
+    <div style="max-width:1100px;margin:0 auto;padding:28px 24px 60px;">
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:.05em;margin:0;">CLASIFICACIÓN · OWECLIPSE 2027</h1>
+      <p style="color:#a9c6d6;margin:4px 0 20px;max-width:760px;">Seguí los 3 pasos en orden. Salen 4 tablas: Mujeres y Hombres, cada uno en Cuero y Neopreno, con las medallas del 1.º al 8.º resaltadas.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">
+        <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">1</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Cargar inscriptos</span></div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Trae la lista actual de la planilla de inscriptos, con su número ID.</div>
+          <button onClick="{{ cargarReal }}" style="background:#ff6b5e;color:#2a0603;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Cargar inscriptos</button>
+        </div>
+        <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">2</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Cargar tiempos</span></div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Solo para pruebas: sortea tiempos entre 1:30 y 2:20 y Cuero o Neopreno a los que no tengan. Con resultados reales, escribilos en «Ver y editar datos».</div>
+          <button onClick="{{ simular }}" style="background:transparent;color:#ff9a90;border:1px dashed #ff6b5e;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Sortear tiempos de prueba</button>
+        </div>
+        <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">3</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Calcular</span></div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Ordena a todos por tiempo y arma las 4 tablas. Se recalcula solo al sortear tiempos.</div>
+          <button onClick="{{ run }}" style="background:#c9a24d;color:#1b1405;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Calcular clasificación</button>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;min-height:22px;color:#ffd58a;font-weight:600;">{{ msg }}</div>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px;">
+        <button onClick="{{ pdf }}" style="background:transparent;color:#c9a24d;border:1px solid #c9a24d;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar PDF</button>
+        <button onClick="{{ download }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar Excel (CSV)</button>
+        <button onClick="{{ lock }}" style="margin-left:auto;background:transparent;color:#ff9a90;border:1px solid #ff6b5e;border-radius:9px;padding:12px 18px;font:700 14px 'Barlow',sans-serif;cursor:pointer;">Cerrar sesión</button>
+      </div>
+
+      <details style="margin-top:18px;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:12px 16px;">
+        <summary style="cursor:pointer;font-weight:700;color:#cfe4ee;">Ver y editar datos (avanzado)</summary>
+        <p style="color:#a9c6d6;font-size:13px;margin:10px 0 8px;">Una fila por nadador: id;nombre;sexo;traje;prueba;tiempo;estado. Podés corregir tiempos a mano o pegar los reales (h:mm:ss). En estado: DNF, DSQ o DNS.</p>
+        <textarea value="{{ text }}" onInput="{{ onText }}" style="width:100%;box-sizing:border-box;height:200px;padding:12px;border-radius:10px;border:1px solid #3b5a6b;background:#08202f;color:#fff;font:13px ui-monospace,Menlo,monospace;resize:vertical;"></textarea>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px;">
+          <label style="display:block;font-size:13px;color:#a9c6d6;">Evento
+            <select value="{{ ev }}" onChange="{{ onEv }}" style="display:block;width:100%;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="Summer Open Water 2027">Summer Open Water 2027</option>
+              <option value="OWeclipse 2027 · 2.5K">OWeclipse 2027 · 2.5K</option>
+            </select>
+          </label>
+          <label style="display:block;font-size:13px;color:#a9c6d6;">Tipo de clasificación
+            <select value="{{ modo }}" onChange="{{ onModo }}" style="display:block;width:100%;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="eclipse">Eclipse · género × traje (medallas 1.º a 8.º)</option>
+              <option value="general">General (por prueba)</option>
+              <option value="sexo">Por sexo (por prueba)</option>
+              <option value="categoria">Por categoría y sexo</option>
+              <option value="campeonato">Campeonato 5K + 10K (suma)</option>
+            </select>
+          </label>
+          <label style="display:block;font-size:13px;color:#a9c6d6;">Subir archivo CSV
+            <input type="file" accept=".csv,.txt,.tsv" onChange="{{ onFile }}" style="display:block;width:100%;margin-top:5px;padding:8px;border-radius:8px;border:1px dashed #3b5a6b;background:#08202f;color:#cfe4ee;font:600 13px 'Barlow',sans-serif;box-sizing:border-box;">
+          </label>
+        </div>
+      </details>
+
+
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
+        <div style="margin-top:26px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c9a24d;">{{ g.title }}</div>
+          <div style="overflow-x:auto;border:1px solid #16455f;border-radius:10px;margin-top:6px;">
+            <table style="width:100%;border-collapse:collapse;font-size:15px;min-width:680px;">
+              <thead><tr style="background:#0a2438;color:#a9c6d6;text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;">
+                <th style="padding:9px 12px;width:56px;">Pos.</th><th style="padding:9px 12px;width:56px;">ID</th><th style="padding:9px 12px;">Nadador/a</th><th style="padding:9px 12px;">Sexo</th><th style="padding:9px 12px;">Categoría</th><th style="padding:9px 12px;">Tiempo</th><th style="padding:9px 12px;">Dif.</th><th style="padding:9px 12px;">Premio</th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="0">
+                  <tr style="border-top:1px solid #16455f;background:{{ r.bg }};{{ r.line }}">
+                    <td style="padding:8px 12px;font-weight:800;color:#c9a24d;">{{ r.pos }}</td>
+                    <td style="padding:8px 12px;color:#a9c6d6;font-variant-numeric:tabular-nums;">{{ r.id }}</td>
+                    <td style="padding:8px 12px;font-weight:600;">{{ r.nombre }}</td>
+                    <td style="padding:8px 12px;">{{ r.sexo }}</td>
+                    <td style="padding:8px 12px;">{{ r.cat }}</td>
+                    <td style="padding:8px 12px;font-variant-numeric:tabular-nums;">{{ r.tiempo }}</td>
+                    <td style="padding:8px 12px;color:#a9c6d6;font-variant-numeric:tabular-nums;">{{ r.dif }}</td>
+                    <td style="padding:8px 12px;font-weight:800;color:#e6c677;letter-spacing:.08em;text-transform:uppercase;font-size:12px;">{{ r.premio }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
+  componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
+  norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
+  tsec(v) {
+    v = String(v || '').trim().replace(',', '.'); if (!v) return null;
+    if (/^\d+(\.\d+)?$/.test(v)) return parseFloat(v);
+    const p = v.split(':').map(parseFloat); if (p.some(isNaN)) return null;
+    return p.reduce((a, x) => a * 60 + x, 0);
+  }
+  fmt(s) {
+    if (s == null) return '';
+    const c = Math.round((s % 1) * 100), t = Math.floor(s), h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), x = t % 60, z = n => String(n).padStart(2, '0');
+    return (h ? h + ':' + z(m) : m) + ':' + z(x) + (c ? '.' + z(c) : '');
+  }
+  parse() {
+    const lines = this.state.text.split(/\r?\n/).filter(l => l.trim()); if (lines.length < 2) return [];
+    const d = [';', '\t', ','].find(x => lines[0].indexOf(x) > -1) || ';';
+    const H = lines[0].split(d).map(h => this.norm(h));
+    const col = re => H.findIndex(h => re.test(h));
+    const i = { n: col(/nombre|nadador|apellido/), s: col(/^(sexo|genero|gen)/), c: col(/cat/), j: col(/traje|condicion|neopreno|cuero/), id: col(/^(id|n°|nº|nro|num)/), p: col(/prueba|distancia/), t: col(/tiempo|time/), e: col(/estado|status/) };
+    if (i.n < 0 || i.t < 0) { this.setState({ msg: 'Faltan las columnas «nombre» y «tiempo» en la primera fila.' }); return null; }
+    return lines.slice(1).map(l => {
+      const c = l.split(d).map(x => x.trim()), g = k => (i[k] >= 0 ? c[i[k]] || '' : '');
+      const est = g('e').toUpperCase(), sec = this.tsec(g('t'));
+      return { id: g('id'), nombre: g('n'), sexo: this.gen(g('s')), traje: this.traje(g('j') || g('c')), cat: g('c'), prueba: g('p').toUpperCase().replace(/\s/g, '') || 'General', sec, est, ok: sec != null && !/DNF|DSQ|DNS|DESC|ABAN/.test(est) };
+    }).filter(r => r.nombre);
+  }
+  gen(s) { const n = this.norm(s); if (/^(f|muj|dam)/.test(n)) return 'F'; if (/^(m$|masc|h|var)/.test(n)) return 'M'; return ''; }
+  traje(s) { const n = this.norm(s); return /neo/.test(n) ? 'Neopreno' : /cuero|sin traje|sin neo/.test(n) ? 'Cuero' : ''; }
+  rank(rows, title, extra) {
+    const med = this.state.modo === 'eclipse';
+    const ok = rows.filter(r => r.ok).sort((a, b) => a.sec - b.sec), no = rows.filter(r => !r.ok);
+    const best = ok.length ? ok[0].sec : 0;
+    const out = ok.map((r, k) => ({ pos: k + 1 + '°', id: r.id, nombre: r.nombre, sexo: r.sexo, cat: med ? (r.traje || r.cat) : r.cat, tiempo: this.fmt(r.sec), dif: k ? '+' + this.fmt(r.sec - best) : '', premio: med && k < 8 ? 'Medalla' : '', bg: med && k < 3 ? 'rgba(201,162,77,.30)' : med && k < 8 ? 'rgba(201,162,77,.14)' : 'transparent', line: med && k === 7 ? 'border-bottom:2px solid #c9a24d;' : '' }));
+    no.forEach(r => out.push({ pos: '—', id: r.id, nombre: r.nombre, sexo: r.sexo, cat: med ? (r.traje || r.cat) : r.cat, tiempo: r.est || 'Sin tiempo', dif: '', premio: '', bg: 'transparent', line: '' }));
+    return { title: title + ' · ' + out.filter(x => x.pos !== '—').length + ' clasificados', rows: out };
+  }
+  group(rows, keyf, titf) {
+    const m = new Map(); rows.forEach(r => { const k = keyf(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); });
+    return [...m.keys()].sort().map(k => this.rank(m.get(k), titf(k)));
+  }
+  run = () => {
+    const rows = this.parse(); if (!rows) return;
+    if (!rows.length) { this.setState({ msg: 'No hay datos para calcular.', groups: [] }); return; }
+    const mo = this.state.modo, ev = this.state.ev; let groups;
+    if (mo === 'general') groups = this.group(rows, r => r.prueba, k => ev + ' · ' + k + ' · General');
+    else if (mo === 'sexo') groups = this.group(rows, r => r.prueba + '|' + (r.sexo || '?'), k => ev + ' · ' + k.split('|')[0] + ' · ' + ({ F: 'Femenino', M: 'Masculino' }[k.split('|')[1]] || 'Sin sexo'));
+    else if (mo === 'eclipse') groups = this.group(rows, r => (r.sexo === 'F' ? '1' : '2') + (r.traje === 'Neopreno' ? 'b' : r.traje === 'Cuero' ? 'a' : 'c'), k => ev + ' · ' + (k[0] === '1' ? 'Mujeres' : 'Hombres') + ' · ' + (k[1] === 'b' ? 'Neopreno' : k[1] === 'a' ? 'Cuero' : 'Traje sin definir'));
+    else if (mo === 'categoria') groups = this.group(rows, r => r.prueba + '|' + (r.sexo || '?') + '|' + (r.cat || 'Sin categoría'), k => { const p = k.split('|'); return ev + ' · ' + p[0] + ' · ' + ({ F: 'Femenino', M: 'Masculino' }[p[1]] || 'Sin sexo') + ' · ' + p[2]; });
+    else {
+      const by = new Map();
+      rows.forEach(r => { const k = this.norm(r.nombre); if (!by.has(k)) by.set(k, { nombre: r.nombre, sexo: r.sexo, cat: med ? (r.traje || r.cat) : r.cat, t: {} }); by.get(k).t[r.prueba] = r; });
+      const comb = [], inc = [];
+      by.forEach(v => { const a = v.t['5K'], b = v.t['10K'];
+        if (a && b && a.ok && b.ok) comb.push({ nombre: v.nombre, sexo: v.sexo, cat: v.cat, sec: a.sec + b.sec, est: '', ok: true });
+        else inc.push({ nombre: v.nombre, sexo: v.sexo, cat: v.cat, sec: null, est: 'Incompleto', ok: false }); });
+      groups = this.group(comb.concat(inc), r => r.sexo || '?', k => ev + ' · Campeonato 5K + 10K · ' + ({ F: 'Femenino', M: 'Masculino' }[k] || 'Sin sexo'));
+    }
+    this.setState({ groups, msg: rows.length + ' filas leídas. ' + groups.length + ' tabla(s) generada(s).' });
+  };
+  download = () => {
+    const g = this.state.groups; if (!g.length) { this.setState({ msg: 'Primero calculá la clasificación.' }); return; }
+    const L = ['Tabla;Pos;ID;Nombre;Sexo;Categoria;Tiempo;Diferencia'];
+    g.forEach(t => t.rows.forEach(r => L.push([t.title, r.pos, r.id, r.nombre, r.sexo, r.cat, r.tiempo, r.dif].join(';'))));
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + L.join('\n')], { type: 'text/csv' }));
+    a.download = 'clasificacion.csv'; a.click();
+  };
+  pdf = () => {
+    const g = this.state.groups; if (!g.length) { this.setState({ msg: 'Primero calculá la clasificación.' }); return; }
+    const e = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const tb = g.map(t => '<h2>' + e(t.title) + '</h2><table><tr><th>Pos.</th><th>ID</th><th>Nadador/a</th><th>Sexo</th><th>Categoría</th><th>Tiempo</th><th>Dif.</th><th>Premio</th></tr>' + t.rows.map(r => '<tr' + (r.premio ? ' class="m' + (parseInt(r.pos) <= 3 ? ' t' : '') + '"' : '') + '><td>' + e(r.pos) + '</td><td>' + e(r.id) + '</td><td>' + e(r.nombre) + '</td><td>' + e(r.sexo) + '</td><td>' + e(r.cat) + '</td><td>' + e(r.tiempo) + '</td><td>' + e(r.dif) + '</td><td>' + e(r.premio) + '</td></tr>').join('') + '</table>').join('');
+    const w = window.open('', '_blank'); if (!w) { this.setState({ msg: 'El navegador bloqueó la ventana. Permití ventanas emergentes.' }); return; }
+    w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Clasificación · ' + e(this.state.ev) + '</title><style>body{font:13px Arial,sans-serif;color:#111;margin:24px}h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;margin:22px 0 6px;color:#0a2438}table{width:100%;border-collapse:collapse;page-break-inside:auto}tr{page-break-inside:avoid}th,td{border:1px solid #ccc;padding:5px 8px;text-align:left}th{background:#0a2438;color:#fff;font-size:11px;text-transform:uppercase}tr.m td{background:#f6ebc8}tr.t td{background:#ecd48c;font-weight:bold}@page{margin:14mm}</style></head><body><h1>' + e(this.state.ev) + ' · Clasificación</h1><div style="color:#555">Filas resaltadas: medallas del 1.º al 8.º puesto.</div>' + tb + '</body></html>');
+    w.document.close(); setTimeout(() => w.print(), 400);
+  };
+  cargarReal = () => {
+    this.setState({ msg: 'Leyendo la planilla de Eclipse…' });
+    fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT6PpFGvP5HHCktrrDjaYKx8AxydwYwHjrume788p1RP0ptp5PgH6OZd0EmXoR6jnJo3e_ZITA-cBtr/pub?output=csv', { cache: 'no-store' }).then(r => { if (!r.ok) throw 0; return r.text(); }).then(t => {
+      const rows = []; let row = [], f = '', q = false; t = t.replace(/\r\n?/g, '\n');
+      for (let i = 0; i < t.length; i++) { const c = t[i];
+        if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+        else if (c === '"') q = true; else if (c === ',') { row.push(f); f = ''; } else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; } else f += c; }
+      if (f || row.length) { row.push(f); rows.push(row); }
+      const H = rows[0].map(h => this.norm(h)), ix = re => H.findIndex(h => re.test(h));
+      const iN = ix(/nombre/), iG = ix(/genero|sexo/), iI = ix(/numero de inscripto/), iNo = ix(/^notas/);
+      if (iN < 0) { this.setState({ msg: 'No encontré la columna de nombres en la planilla.' }); return; }
+      const L = ['id;nombre;sexo;traje;prueba;tiempo;estado']; let k = 0;
+      rows.slice(1).filter(r => r.join('').trim()).forEach(r => { k++;
+        const dns = iNo >= 0 && /NO SE PRESENT/i.test(r[iNo] || '');
+        L.push([(iI >= 0 && r[iI]) || k, (r[iN] || '').replace(/;/g, ' '), this.gen(r[iG] || ''), '', '2.5K', '', dns ? 'DNS' : ''].join(';')); });
+      this.setState({ ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: L.join('\n'), groups: [], msg: k + ' inscriptos cargados. Siguiente: paso 2.' });
+    }).catch(() => this.setState({ msg: 'No se pudo leer la planilla. Revisá la conexión.' }));
+  };
+  simular = () => {
+    const z = n => String(n).padStart(2, '0');
+    const L = this.state.text.split(/\r?\n/); if (L.length < 2) { this.setState({ msg: 'Primero cargá los inscriptos.' }); return; }
+    const out = [L[0]].concat(L.slice(1).filter(l => l.trim()).map(l => { const c = l.split(';'); if (!c[3]) c[3] = Math.random() < .5 ? 'Cuero' : 'Neopreno'; if (!c[5]) { const s = 5400 + Math.floor(Math.random() * 3001); c[5] = Math.floor(s / 3600) + ':' + z(Math.floor(s % 3600 / 60)) + ':' + z(s % 60); } return c.join(';'); }));
+    this.setState({ text: out.join('\n'), msg: (out.length - 1) + ' nadadores con tiempos (1:30 a 2:20) y trajes de PRUEBA. Cuando tengas resultados reales, reemplazalos en «Ver y editar datos».' }, this.run);
+  };
+  example = () => this.setState({ text: 'nombre;sexo;categoria;prueba;tiempo;estado\nAna Pérez;F;30-34;5K;1:10:20;\nLaura Gómez;F;30-34;5K;1:15:05;\nMarcos Díaz;M;35-39;5K;1:02:11;\nJuan Soto;M;35-39;5K;1:05:40;DNF\nAna Pérez;F;30-34;10K;2:31:00;\nMarcos Díaz;M;35-39;10K;2:12:30;\nLaura Gómez;F;30-34;10K;2:40:10;' });
+  onFile = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => this.setState({ text: String(r.result) }); r.readAsText(f); };
+  unlock = () => { if (this.state.pin.trim() === '129430') { this.setState({ unlocked: true, pin: '', pinErr: '' }); } else this.setState({ pinErr: 'Código incorrecto.' }); };
+  lock = () => { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} this.setState({ unlocked: false }); };
+  renderVals() {
+    const s = this.state;
+    return {
+      locked: !s.unlocked, unlocked: s.unlocked, pin: s.pin, pinErr: s.pinErr, ev: s.ev, modo: s.modo, text: s.text, msg: s.msg, groups: s.groups,
+      onPin: e => this.setState({ pin: e.target.value }), onPinKey: e => { if (e.key === 'Enter') this.unlock(); },
+      onEv: e => this.setState({ ev: e.target.value }), onModo: e => this.setState({ modo: e.target.value }), onText: e => this.setState({ text: e.target.value }),
+      unlock: this.unlock, lock: this.lock, run: this.run, download: this.download, example: this.example, pdf: this.pdf, cargarReal: this.cargarReal, simular: this.simular, onFile: this.onFile
+    };
+  }
+}
+</script>
+</body>
+</html>

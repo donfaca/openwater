@@ -99,10 +99,9 @@
   </section>
 
   <section class="card">
-    <h2><span class="snum">2</span> Categoría</h2>
+    <h2><span class="snum">2</span> Condición de nado</h2>
     <div class="grid">
       <label class="f" style="flex-direction:row;flex-wrap:wrap;align-items:center;gap:5px 10px;"><span class="req" style="width:100%;">Condición de nado</span><select name="Categoría" data-req style="flex:1 1 180px;"><option value="">Elegir…</option><option>Cuero</option><option>Neopreno</option></select></label>
-      <label class="f" style="flex-direction:row;flex-wrap:wrap;align-items:center;gap:5px 10px;"><span class="req" style="width:100%;">Experiencia en aguas abiertas</span><select name="Experiencia" data-req style="flex:1 1 180px;"><option value="">Elegir…</option><option>Primera vez en aguas abiertas</option><option>Hasta 3 competencias</option><option>Más de 3 competencias</option><option>Nadador federado</option></select><span style="text-transform:none;font-weight:400;letter-spacing:normal;font-size:.78rem;color:#c8ab86;flex:1 1 140px;">No es necesaria experiencia previa: es solo a modo informativo.</span></label>
     </div>
     <p class="hint" style="margin:10px 0 0;">La temperatura del agua está entre 22 y 25 °C, muy cómoda para nadar. No es necesario usar neopreno; si preferís usarlo, está permitido, pero no participa de la Copa Challenger.</p>
   </section>
@@ -169,7 +168,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzb6IeCxDqL4qFjBWNXBj55gpxA0uVA4fVrHm6-Fa9SqG1zDzR6n1BNI49kQn78gwAUBw/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzPY2Sxc2IkxuRycdSF5l3NFYAwzt7dzdXZfUHASxZbRqN35TWAU3TRwCQe0KKULrAH/exec';
 
 let base = 170000, monto = 170000, plan = 'Individual contado';
 const $ = (s) => document.querySelector(s);
@@ -214,8 +213,8 @@ $('#cupon-ok').addEventListener('click', () => {
   if(!club){ $('#cupon-msg').textContent = 'Primero completá «Club o equipo» (arriba), con el nombre del equipo que pidió el cupón.'; return; }
   $('#cupon-msg').textContent = 'Verificando…';
   pedir({accion:'validarCupon', evento:'eclipse', codigo:c, club:club}).then(r => {
-    if(r.ok){ cup = c; cupClub = club; $('#cupon-msg').textContent = '✓ Cupón aplicado: valor por equipo, pago contado.'; }
-    else { cup = ''; $('#cupon-msg').textContent = r.error || 'Cupón inválido.'; }
+    if(r.ok && r.tipo !== 'winter'){ cup = c; cupClub = club; $('#cupon-msg').textContent = '✓ Cupón aplicado: valor por equipo, pago contado.'; }
+    else { cup = ''; $('#cupon-msg').textContent = r.ok ? 'Cupón inválido para Eclipse.' : (r.error || 'Cupón inválido.'); }
     recal();
   }).catch(() => { $('#cupon-msg').textContent = 'No se pudo verificar. Probá de nuevo.'; });
 });

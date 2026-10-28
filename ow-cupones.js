@@ -1,6 +1,6 @@
 /* Panel privado de cupones de equipo (se muestra solo en las listas de inscriptos, que ya piden código). */
 (function(){
-  var ENDPOINT='https://script.google.com/macros/s/AKfycbzb6IeCxDqL4qFjBWNXBj55gpxA0uVA4fVrHm6-Fa9SqG1zDzR6n1BNI49kQn78gwAUBw/exec';
+  var ENDPOINT='https://script.google.com/macros/s/AKfycbzPY2Sxc2IkxuRycdSF5l3NFYAwzt7dzdXZfUHASxZbRqN35TWAU3TRwCQe0KKULrAH/exec';
   var CLAVE='129430';
   var EV=/eclipse/i.test(location.pathname)?'eclipse':'summer';
   var NOM=EV==='eclipse'?'OWeclipse 2.5K':'Summer · Campeonato 5K+10K';

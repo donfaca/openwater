@@ -34,6 +34,15 @@
   .opt .m{font-family:'Bebas Neue';font-size:2.1rem;line-height:1;}
   .opt .d{font-size:.88rem;color:#3c5a70;}
   #pruebas .opt{padding-right:52px;}
+@media(max-width:760px){.grid[style*="repeat(4"]{grid-template-columns:repeat(2,minmax(0,1fr))!important;}}
+#pruebas{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+#pruebas .opt{padding:12px 12px 12px;gap:4px;}
+#pruebas .opt::after{top:10px;right:10px;width:16px;height:16px;}
+#pruebas .opt .t{font-size:.74rem;letter-spacing:.08em;padding-right:22px;}
+#pruebas .opt .m{font-size:1.6rem;}
+#pruebas .opt .d{font-size:.74rem;line-height:1.35;}
+#pruebas .opt .tag{font-size:.6rem;}
+@media(max-width:760px){#pruebas{grid-template-columns:repeat(2,minmax(0,1fr));}}
   #pruebas .opt::after{content:'';position:absolute;top:18px;right:16px;width:22px;height:22px;border-radius:50%;border:2px solid rgba(10,36,56,.28);background:#fff;}
   #pruebas .opt.on::after{border-color:#12688f;background:#12688f;box-shadow:inset 0 0 0 4px #fff;}
   .elegida{margin:0 0 14px;padding:12px 16px;border-radius:12px;background:#F4F9FC;border:1px solid rgba(18,104,143,.24);font-size:.95rem;color:#0a2438;}
@@ -117,24 +126,20 @@
       </div>
     </div>
 
-    <div class="grid" style="margin-top:18px;">
-      <label class="f">Categoría de edad<input name="Categoría de edad" id="cat" readonly placeholder="Se calcula con tu fecha de nacimiento"></label>
-      <label class="f" style="flex-direction:row;flex-wrap:wrap;align-items:center;gap:5px 10px;"><span class="req" style="width:100%;">Experiencia en aguas abiertas</span><select name="Experiencia" data-req style="flex:1 1 180px;"><option value="">Elegir…</option><option>Primera vez en aguas abiertas</option><option>Hasta 3 competencias</option><option>Más de 3 competencias</option><option>Nadador federado</option></select><span style="text-transform:none;font-weight:400;letter-spacing:normal;font-size:.78rem;color:#7a95a6;flex:1 1 140px;">No es necesaria experiencia previa: es solo a modo informativo.</span></label>
-    </div>
+    <input type="hidden" name="Categoría de edad" id="cat">
+
     <p class="hint" style="margin:12px 0 0;">Las medallas de podio se entregan por género en categorías de edad de 10 en 10 años, según el reglamento. Nadando 5K y 10K entrás automáticamente al Campeonato por la Copa Challenguer.</p>
   </section>
 
   <section class="card">
     <h2><span class="snum">3</span> Salud y emergencia</h2>
-    <div class="grid">
-      <label class="f">Fecha del apto médico<input class="fecha" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" name="Apto médico"></label>
-      <label class="f">Obra social o prepaga<input name="Obra social"></label>
+    <div class="grid" style="grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;">
       <label class="f">Grupo sanguíneo<input name="Grupo sanguíneo"></label>
       <label class="f"><span class="req">Contacto de emergencia (nombre)</span><input name="Contacto de emergencia" data-req></label>
       <label class="f"><span class="req">Teléfono de emergencia</span><input name="Teléfono de emergencia" data-req></label>
       <label class="f">Alergias, medicación o condición a informar<input name="Observaciones médicas"></label>
     </div>
-    <p class="hint" style="margin:12px 0 0;">El apto médico se presenta en la acreditación. Si todavía no lo tenés, podés dejar la fecha en blanco.</p>
+    <p class="hint" style="margin:12px 0 0;">El apto médico se presenta en la acreditación.</p>
   </section>
 
   <section class="card" id="s-pago">
@@ -157,14 +162,26 @@
       </div>
     </div>
 
-    <div id="cupon-box" style="background:#E9FBEF;border:2px solid #4ade80;border-radius:14px;padding:16px 20px;margin:0 0 16px;">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin:0 0 16px;align-items:stretch;">
+    <div id="cupon-box" style="flex:1 1 300px;min-width:0;background:#E9FBEF;border:2px solid #4ade80;border-radius:14px;padding:12px 14px;">
       <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#14532d;margin-bottom:6px;">Cupón de equipo · valor por equipo</div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         <input id="cupon" maxlength="6" placeholder="Código de 6 caracteres" autocomplete="off" style="flex:1 1 180px;min-width:0;padding:11px 12px;border:1px solid #86efac;border-radius:10px;font:700 1rem 'Barlow Condensed',sans-serif;letter-spacing:.2em;text-transform:uppercase;">
         <button type="button" id="cupon-ok" class="btn" style="background:#16a34a;">Aplicar</button>
       </div>
       <div id="cupon-msg" style="font-size:.9rem;color:#14532d;margin-top:8px;"></div>
-      <p class="hint" style="margin:8px 0 0;">Vale solo para grupos que nadan Campeonato 5K + 10K. Pago total y sin cuotas. Cada nadador del grupo ingresa el cupón en su ficha. ¿No tenés cupón? Pedilo desde el botón verde de la página de inicio.</p>
+      <p class="hint" style="margin:6px 0 0;font-size:.78rem;line-height:1.35;">Vale solo para grupos que nadan Campeonato 5K + 10K. Pago total y sin cuotas. Cada nadador del grupo ingresa el cupón en su ficha. ¿No tenés cupón? Pedilo desde el botón verde de la página de inicio.</p>
+    </div>
+
+    <div id="wcupon-box" style="flex:1 1 300px;min-width:0;background:#16256b;border:2px solid #3b5bdb;border-radius:14px;padding:12px 14px;">
+      <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#c7d4ff;margin-bottom:6px;">Cupón Winter Open Water 2026 · 10% de descuento</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <input id="wcupon" maxlength="6" placeholder="Código de 6 caracteres" autocomplete="off" style="flex:1 1 180px;min-width:0;padding:11px 12px;border:1px solid #6f8bf0;border-radius:10px;font:700 1rem 'Barlow Condensed',sans-serif;letter-spacing:.2em;text-transform:uppercase;">
+        <button type="button" id="wcupon-ok" class="btn" style="background:#3b5bdb;">Aplicar</button>
+      </div>
+    </div>
+      <div id="wcupon-msg" style="font-size:.9rem;color:#fff;margin-top:8px;"></div>
+      <p class="hint" style="margin:6px 0 0;font-size:.78rem;line-height:1.35;color:#c7d4ff;">Para quienes nadaron Winter Open Water 2026. Personal, de un solo uso, pago total y sin cuotas. No se acumula con el cupón de equipo. ¿No tenés cupón? Pedilo desde el botón azul de la página de inicio.</p>
     </div>
     <div class="total">
       <div style="font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;font-weight:700;">A pagar ahora</div>
@@ -207,7 +224,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzb6IeCxDqL4qFjBWNXBj55gpxA0uVA4fVrHm6-Fa9SqG1zDzR6n1BNI49kQn78gwAUBw/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbzPY2Sxc2IkxuRycdSF5l3NFYAwzt7dzdXZfUHASxZbRqN35TWAU3TRwCQe0KKULrAH/exec';
 
 const $ = (s) => document.querySelector(s);
 const pesos = (n) => '$' + n.toLocaleString('es-AR');
@@ -223,9 +240,9 @@ function marcarPlan(){
 }
 
 function recalcular(){
-  const aplica = !!cup && prueba === '5K+10K';
-  const c = aplica ? 212500 - descuento() : contado - descuento();
-  if(cup) $('#cupon-msg').textContent = aplica ? '✓ Cupón aplicado: valor por equipo, pago contado.' : 'El cupón solo vale para Campeonato 5K + 10K. Elegí esa prueba para usarlo.';
+  const wa = !!wcup, aplica = (!!cup && prueba === '5K+10K') || wa;
+  const c = wa ? Math.round((contado - descuento()) * 0.9) : (aplica ? 212500 - descuento() : contado - descuento());
+  if(cup) $('#cupon-msg').textContent = !wa && aplica ? '✓ Cupón aplicado: valor por equipo, pago contado.' : 'El cupón solo vale para Campeonato 5K + 10K. Elegí esa prueba para usarlo.';
   if(aplica && plan === 'cuota'){ plan = 'contado'; marcarPlan(); }
   $('#m-contado').textContent = pesos(c);
   const financiable = cuotas > 0;
@@ -272,12 +289,25 @@ $('#cupon-ok').addEventListener('click', () => {
   if(!club){ $('#cupon-msg').textContent = 'Primero completá «Club o equipo» (arriba), con el nombre del equipo que pidió el cupón.'; return; }
   $('#cupon-msg').textContent = 'Verificando…';
   pedir({accion:'validarCupon', evento:'summer', codigo:c, club:club}).then(r => {
-    if(r.ok){ cup = c; cupClub = club; $('#cupon-msg').textContent = '✓ Cupón aplicado: valor por equipo, pago contado.'; }
+    if(r.ok && r.tipo === 'winter'){ cup = ''; $('#cupon-msg').textContent = 'Ese código es de Winter: ingresalo en el campo de cupón Winter.'; }
+    else if(r.ok){ cup = c; cupClub = club; wcup = ''; $('#wcupon-msg').textContent = ''; $('#cupon-msg').textContent = '✓ Cupón aplicado: valor por equipo, pago contado.'; }
     else { cup = ''; $('#cupon-msg').textContent = r.error || 'Cupón inválido.'; }
     recal();
   }).catch(() => { $('#cupon-msg').textContent = 'No se pudo verificar. Probá de nuevo.'; });
 });
 
+let wcup = '';
+$('#wcupon').addEventListener('input', e => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,''); });
+$('#wcupon-ok').addEventListener('click', () => {
+  const c = $('#wcupon').value.trim().toUpperCase();
+  if(c.length !== 6){ $('#wcupon-msg').textContent = 'El cupón tiene 6 letras y números.'; return; }
+  $('#wcupon-msg').textContent = 'Verificando…';
+  pedir({accion:'validarCupon', evento:'summer', codigo:c, club:''}).then(r => {
+    if(r.ok && r.tipo === 'winter'){ wcup = c; cup = ''; $('#cupon-msg').textContent = ''; $('#wcupon-msg').textContent = '✓ Cupón Winter aplicado: 10% de descuento, pago contado.'; }
+    else { wcup = ''; $('#wcupon-msg').textContent = r.ok ? 'Ese código es un cupón de equipo: ingresalo en el campo de cupón de equipo.' : (r.error || 'Cupón inválido.'); }
+    recal();
+  }).catch(() => { $('#wcupon-msg').textContent = 'No se pudo verificar. Probá de nuevo.'; });
+});
 
 /* Fechas en formato DD/MM/AAAA */
 document.querySelectorAll('.fecha').forEach(el => el.addEventListener('input', () => {
@@ -322,7 +352,7 @@ function pedir(cuerpo){
 }
 
 function nombrePlan(){
-  return prueba + ' · ' + (plan === 'contado' ? 'contado' : '1ª de ' + cuotas + ' cuotas') + (descuento() ? ' · sin kit' : '') + ((cup && prueba === '5K+10K') ? ' · cupón equipo' : '');
+  return prueba + ' · ' + (plan === 'contado' ? 'contado' : '1ª de ' + cuotas + ' cuotas') + (descuento() ? ' · sin kit' : '') + ((cup && prueba === '5K+10K') ? ' · cupón equipo' : '') + (wcup ? ' · cupón Winter 10%' : '');
 }
 
 $('#enviar').addEventListener('click', () => {
@@ -332,7 +362,7 @@ $('#enviar').addEventListener('click', () => {
   });
   d['Competencia'] = '2ª Summer Open Water 2027';
   d['Prueba'] = prueba;
-  d['Cupón'] = (cup && prueba === '5K+10K') ? cup : '';
+  d['Cupón'] = wcup || ((cup && prueba === '5K+10K') ? cup : '');
   d['Plan de pago'] = nombrePlan();
   d['Monto'] = pesos(monto);
   d['Forma de pago'] = 'Transferencia bancaria';
