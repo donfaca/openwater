@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+    *{ box-sizing:border-box; }
+  </style>
+  <script src="./ow-torneo-config.js"></script>
+</helmet>
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 16px;padding:14px 20px;background:#08202f;border-bottom:1px solid #16455f;">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:44px;width:44px;object-fit:cover;border-radius:50%;display:block;"><span style="font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;color:#fff;">OPEN WATER RÍO NEGRO</span>
+    </a>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;font-weight:700;">
+      <a href="noticias.html" style="color:#fff;">Noticias</a>
+      <a href="actividades.html" style="color:#fff;">Actividades</a>
+      <a href="index.html" style="color:#fff;">Inicio</a>
+    </div>
+  </nav>
+  <div style="max-width:1000px;margin:0 auto;padding:30px 20px 70px;">
+    <a href="actividades.html" style="display:inline-flex;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;">← Actividades</a>
+    <div style="text-align:center;padding:34px 0 22px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#4db8e8;">1ER TORNEO DE PILETA OW</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,9vw,76px);line-height:.95;color:#fff;margin:10px 0 0;">CLASIFICACIÓN FINAL</h1>
+    </div>
+    <sc-if value="{{ hayPdf }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+      <sc-if value="{{ sinFilas }}" hint-placeholder-val="{{ false }}"><iframe src="{{ pdfPrev }}" style="width:100%;height:80vh;border:1px solid #1a5678;border-radius:12px;background:#fff;"></iframe></sc-if>
+    </div></sc-if>
+    <sc-if value="{{ hayFilas }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px;">
+      <input type="text" placeholder="Buscar apellido o nombre" value="{{ q }}" onInput="{{ setQ }}" style="flex:2 1 220px;min-width:0;padding:12px 14px;background:#0c2b42;border:1px solid #1a5678;border-radius:10px;color:#fff;font:500 15px 'Barlow',sans-serif;">
+      <select value="{{ prueba }}" onChange="{{ setPrueba }}" style="flex:1 1 220px;min-width:0;padding:12px 14px;background:#0c2b42;border:1px solid #1a5678;border-radius:10px;color:#fff;font:500 15px 'Barlow',sans-serif;">
+        <option value="">Todas las pruebas</option>
+        <sc-for list="{{ opcionesPrueba }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+      </select>
+      <select value="{{ genero }}" onChange="{{ setGenero }}" style="flex:1 1 160px;min-width:0;padding:12px 14px;background:#0c2b42;border:1px solid #1a5678;border-radius:10px;color:#fff;font:500 15px 'Barlow',sans-serif;">
+        <option value="">Todos los géneros</option><option value="f">Mujeres</option><option value="m">Varones</option><option value="x">Mixto</option>
+      </select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:22px;">
+      <sc-for list="{{ secciones }}" as="s" hint-placeholder-count="2">
+        <div style="{{ s.estilo }}">
+          <sc-if value="{{ s.hayTitulo }}" hint-placeholder-val="{{ false }}"><div style="{{ s.estiloTitulo }}">{{ s.titulo }}</div></sc-if>
+          <div style="padding:8px 18px 14px;">
+            <sc-for list="{{ s.filas }}" as="r" hint-placeholder-count="5">
+              <div style="{{ r.estilo }}">
+                <sc-for list="{{ r.celdas }}" as="c" hint-placeholder-count="3"><div style="{{ c.estilo }}">{{ c.t }}</div></sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div></sc-if>
+    <div style="margin-top:22px;font-size:15px;color:#a9c6d6;text-align:center;">{{ vacio }}</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { hojas: null, i: 0, error: '', pdfUrl: '', q: '', prueba: '', genero: '' };
+  async cargarPdf() { try { const j = await (await fetch(window.OW_TORNEO_PDF_URL + '?pdf=1', { cache: 'no-store' })).json(); const bin = atob(j.pdf), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); this.setState({ pdfUrl: URL.createObjectURL(new Blob([u], { type: 'application/pdf' })) }); } catch (e) {} }
+  async cargar() {
+    const u = window.OW_TORNEO_PDF_URL; if (!u) { this.setState({ error: 'sin' }); return; }
+    try { const j = await (await fetch(u, { cache: 'no-store' })).json(); this.setState({ hojas: j.hojas && j.hojas.length ? j.hojas : [], error: '' }); if (j.hayPdf && this._pdfFecha !== j.fecha) { this._pdfFecha = j.fecha; this.cargarPdf(); } else if (!j.hayPdf) this.setState({ pdfUrl: '' }); } catch (e) { this.setState({ error: 'red' }); }
+  }
+  componentDidMount() { this.cargar(); this._p = setInterval(() => this.cargar(), 30000); }
+  componentWillUnmount() { clearInterval(this._p); }
+  genT(g) { return g === 'f' ? { bg: '#d4f3e0', hd: '#7fd8a6', tx: '#06301c', bd: '#4fb383', t1: '#06301c', t2: '#2f5d47', t3: '#3d6b55', ln: '#a8dcc0', sm: '#0b5a3a', num: '#0b5a3a' } : g === 'm' ? { bg: '#fff3b0', hd: '#f2c200', tx: '#3a2e00', bd: '#d9a900', t1: '#3a2e00', t2: '#6b5a10', t3: '#7a6820', ln: '#ecd777', sm: '#7a5a00', num: '#7a5a00' } : { bg: '#0f3350', hd: '#0c2b42', tx: '#fff', bd: '#1a5678', t1: '#fff', t2: '#a9c6d6', t3: '#7fa3b8', ln: '#16455f', sm: '#8fd4f5', num: '#c9a24d' }; }
+  genDe(t) { return /mixto/i.test(t) ? 'x' : /mujer|dama|femen/i.test(t) ? 'f' : /varon|varón|hombre|masc|caballero/i.test(t) ? 'm' : ''; }
+  norm(s) { return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  renderVals() {
+    const H = this.state.hojas || [], i = Math.min(this.state.i, Math.max(H.length - 1, 0)), h = H[i];
+    const tabs = H.map((x, k) => ({ nombre: x.nombre, ir: () => this.setState({ i: k }),
+      estilo: { padding: '10px 24px', borderRadius: '999px', cursor: 'pointer', font: "400 20px 'Bebas Neue',sans-serif", letterSpacing: '2px', border: '1px solid #4db8e8', background: k === i ? '#4db8e8' : 'transparent', color: k === i ? '#08202f' : '#fff' } }));
+    const q = this.norm(this.state.q.trim()), fp = this.state.prueba, fg = this.state.genero;
+    const esPrueba = t => t.length <= 90 && (/^prueba/i.test(t) || /\b\d+\s*(m|mts|metros)\b|libre|espalda|pecho|mariposa|combinado|relevo|posta/i.test(t)) && !/^categor/i.test(t);
+    const secs = [{ titulo: '', lineas: [] }];
+    (h ? h.filas : []).forEach(r => {
+      const raw = r.map(c => String(c)), xs = raw.map(c => { const m = /^(\d+)§/.exec(c); return m ? +m[1] : null; }), cs = raw.map(c => c.replace(/^\d+§/, '')), ne = cs.filter(c => c.trim() !== '').length, t = cs.find(c => c.trim() !== '') || '';
+      if (ne === 1 && esPrueba(t)) secs.push({ titulo: t, lineas: [] }); else secs[secs.length - 1].lineas.push({ cs, xs, ne, t });
+    });
+    const medal = { 1: '#c9a24d', 2: '#cfd8dc', 3: '#cd7f32' }, vis = [], opciones = [];
+    secs.forEach((S, idx) => {
+      if (!S.titulo && !S.lineas.length) return;
+      let g = this.genDe(S.titulo); if (!g) { const hl = S.lineas.find(l => l.ne === 1 && this.genDe(l.t)); g = hl ? this.genDe(hl.t) : ''; }
+      const key = String(idx); if (S.titulo) opciones.push({ v: key, l: S.titulo });
+      if (fp && key !== fp) return; if (fg && (g || 'x') !== fg) return;
+      const T = this.genT(g), filas = []; let head = true, hit = 0, cols = null, numCols = null;
+      S.lineas.forEach(L => {
+        if (L.ne === 1) { head = true; const t = L.t;
+          const est = t.length > 60 ? { padding: '4px 0', font: "500 14px 'Barlow',sans-serif", color: T.t2, lineHeight: 1.5 } : /^categor/i.test(t) ? { padding: '12px 0 2px', font: "400 20px 'Bebas Neue',sans-serif", letterSpacing: '2px', color: T.num } : { padding: '14px 0 6px', font: "400 24px 'Bebas Neue',sans-serif", letterSpacing: '1px', color: T.t1 };
+          filas.push({ tipo: 'h', estilo: est, celdas: [{ t, estilo: {} }] }); return; }
+        const esH = head; head = false; const cs = L.cs, xs = L.xs, conX = xs.every(v => v !== null);
+        if (!esH && q && !this.norm(cs.join(' ')).includes(q)) return;
+        if (!esH) hit++;
+        if (esH && conX) { cols = xs.slice(); S._num = null; }
+        let celdas, plantilla = '';
+        if (conX && cols) {
+          const n = cols.length; celdas = new Array(n).fill('');
+          cs.forEach((c, k) => { let j = 0; for (let m = 0; m < n; m++) if (cols[m] <= xs[k] + 8) j = m; celdas[j] = celdas[j] ? celdas[j] + ' ' + c : c; });
+          plantilla = cols.map((v, m) => 'minmax(0,' + Math.max(m + 1 < n ? cols[m + 1] - v : 70, 28) + 'fr)').join(' ');
+          if (esH) numCols = cols.map(() => 0); if (esH) celdas.forEach((c, k) => { if (/^(club|edad|tiempo|puntos?|pts\.?)$/i.test(c.trim())) numCols[k] = 1e6; });
+        } else { celdas = cs; plantilla = ''; }
+        const esNum = c => /^[\d.,:'\s+\-−]+$/.test(c.trim()) && c.trim() !== '';
+        if (!esH && conX && numCols) celdas.forEach((c, k) => { if (esNum(c)) numCols[k]++; else if (c.trim()) numCols[k]--; });
+        const m = !esH && /^\d+$/.test((celdas[0] || '').trim()) ? medal[+celdas[0]] : null;
+        const alin = k => k === 0 ? 'center' : (numCols && numCols[k] > 0 ? 'right' : 'left');
+        filas.push({ tipo: esH ? 'c' : 'd', _h: esH, _cells: celdas, estilo: Object.assign({ alignItems: 'baseline', padding: esH ? '6px 0 4px' : '8px 0', borderTop: esH ? 'none' : '1px solid ' + T.ln, borderBottom: esH ? '2px solid ' + T.bd : 'none' }, plantilla ? { display: 'grid', gridTemplateColumns: plantilla, gap: '0 10px' } : { display: 'flex', gap: '10px' }),
+          celdas: celdas.map((c, k) => ({ t: c, estilo: Object.assign({ minWidth: 0, textAlign: plantilla ? 'left' : (k === 0 ? 'center' : 'left'), _k: k }, plantilla ? {} : { flex: k === 0 ? '0 0 48px' : '1 1 0' }, esH ? { font: "700 11px 'Barlow',sans-serif", letterSpacing: '.1em', textTransform: 'uppercase', color: T.t3 } : k === 0 ? { font: "400 24px 'Bebas Neue',sans-serif", color: m || T.t1 } : { font: (k === 1 ? '600 16px' : '500 15px') + " 'Barlow',sans-serif", color: k === 1 ? T.t1 : /^(DQ|NSP|BAJA)$/i.test(c.trim()) ? '#c0262d' : T.t2 }) })) });
+      });
+      filas.forEach(r => { if (r._cells && r.celdas.length && numCols && r.estilo.display === 'grid') r.celdas.forEach((c, k) => { c.estilo.textAlign = k === 0 ? 'center' : (numCols[k] > 0 ? 'right' : 'left'); delete c.estilo._k; }); });
+      if (q && !hit) return;
+      vis.push({ hayTitulo: !!S.titulo, titulo: S.titulo, filas,
+        estilo: { background: T.bg, border: '1px solid ' + T.bd, borderRadius: '12px', overflow: 'hidden' },
+        estiloTitulo: { padding: '12px 18px', background: T.hd, borderBottom: '1px solid ' + T.bd, font: "400 28px 'Bebas Neue',sans-serif", color: T.tx } });
+    });
+    return { tabs, secciones: vis, opcionesPrueba: opciones, q: this.state.q, prueba: fp, genero: fg,
+      setQ: e => this.setState({ q: e.target.value }), setPrueba: e => this.setState({ prueba: e.target.value }), setGenero: e => this.setState({ genero: e.target.value }),
+      hayFilas: !!(h && h.filas.length), sinFilas: !!this.state.pdfUrl && !(h && h.filas.length), hayPdf: !!this.state.pdfUrl, pdfLink: this.state.pdfUrl, pdfPrev: this.state.pdfUrl,
+      vacio: this.state.hojas === null && !this.state.error ? 'Cargando…' : (H.length || this.state.pdfUrl ? (h && h.filas.length && !vis.length ? 'Sin resultados para ese filtro.' : '') : 'La clasificación se publicará al finalizar el torneo.') };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+    *{ box-sizing:border-box; }
+    @keyframes owlive { 0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(34,197,94,.7); } 50% { opacity:.5; box-shadow:0 0 0 7px rgba(34,197,94,0); } }
+  </style>
+  <script src="./torneo-pileta-data.js"></script>
+  <script src="./ow-master.js"></script>
+</helmet>
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 16px;padding:14px 20px;background:#08202f;border-bottom:1px solid #16455f;">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:44px;width:44px;object-fit:cover;border-radius:50%;display:block;"><span style="font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;color:#fff;">OPEN WATER RÍO NEGRO</span>
+    </a>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;font-weight:700;">
+      <a href="noticias.html" style="color:#fff;">Noticias</a>
+      <a href="actividades.html" style="color:#fff;">Actividades</a>
+      <a href="index.html" style="color:#fff;">Inicio</a>
+    </div>
+  </nav>
+  <div style="position:sticky;top:0;z-index:20;background:rgba(8,32,47,.96);border-bottom:1px solid #16455f;backdrop-filter:blur(6px);">
+    <div style="max-width:1000px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;">
+      <span style="flex:none;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#c9a24d;">PRUEBAS</span>
+      <div style="display:flex;gap:6px;overflow-x:auto;padding:2px 0;scrollbar-width:thin;">
+        <sc-for list="{{ chips }}" as="c" hint-placeholder-count="8">
+          <a href="{{ c.href }}" onClick="{{ c.ir }}" title="{{ c.titulo }}" style="flex:none;min-width:40px;text-align:center;padding:6px 12px;border-radius:999px;background:#0f3350;border:1px solid #1a5678;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;line-height:1.1;" style-hover="background:#16587f;">{{ c.n }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1000px;margin:0 auto;padding:30px 20px 70px;">
+    <a href="actividades.html" style="display:inline-flex;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;">← Actividades</a>
+    <div style="text-align:center;padding:34px 0 20px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">1ER TORNEO DE PILETA OW</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,9vw,76px);line-height:.95;color:#fff;margin:10px 0 14px;">RESULTADOS</h1>
+      <div style="display:inline-flex;align-items:center;gap:10px;background:#0f3350;border:1px solid #1a5678;border-radius:999px;padding:8px 18px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#cfe4ee;">
+        <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;animation:owlive 1.4s ease-in-out infinite;"></span>{{ estado }}
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 18px;margin-bottom:22px;font-size:13px;color:#a9c6d6;">
+      <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:3px;background:rgba(34,197,94,.45);border:1px solid #22c55e;"></span>Mejora el sembrado</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;"><span style="width:14px;height:14px;border-radius:3px;background:rgba(239,68,68,.45);border:1px solid #ef4444;"></span>Empeora el sembrado</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:26px;">
+      <sc-for list="{{ pruebas }}" as="p" hint-placeholder-count="2">
+        <div id="{{ p.id }}" style="scroll-margin-top:76px;background:{{ p.g.bg }};border:1px solid {{ p.g.bd }};border-radius:12px;overflow:hidden;">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 18px;background:{{ p.g.hd }};border-bottom:1px solid {{ p.g.bd }};">
+            <span style="background:{{ p.color }};color:#08202f;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;padding:2px 12px;border-radius:6px;">PRUEBA {{ p.n }}</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:{{ p.g.tx }};">{{ p.nombre }}</span>
+            <span style="margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.tx }};">{{ p.avance }}</span>
+          </div>
+          <div style="padding:6px 18px 14px;">
+            <div style="display:grid;grid-template-columns:34px 86px 80px 74px minmax(0,1.5fr) 74px minmax(0,1fr);gap:4px 10px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.t3 }};padding:8px 0 4px;"><div style="text-align:center;">Pos.</div><div style="text-align:center;">Tiempo</div><div style="text-align:right;">{{ p.colSemb }}</div><div style="text-align:right;">Dif.</div><div>{{ p.colNom }}</div><div style="text-align:center;">Estado</div><div>Observaciones</div></div>
+            <sc-for list="{{ p.filas }}" as="f" hint-placeholder-count="4">
+              <div style="display:grid;grid-template-columns:34px 86px 80px 74px minmax(0,1.5fr) 74px minmax(0,1fr);gap:4px 10px;align-items:center;padding:8px 0;border-top:1px solid {{ p.g.ln }};">
+                <div style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;color:{{ f.medalla }};">{{ f.pos }}</div>
+                <div style="{{ f.estiloT }}">{{ f.tiempo }}</div>
+                <div style="text-align:right;font-size:14px;font-weight:700;color:{{ p.g.sm }};white-space:nowrap;">{{ f.sembrado }}</div>
+                <div style="text-align:right;font-size:14px;font-weight:800;white-space:nowrap;color:{{ f.difColor }};">{{ f.dif }}</div>
+                <div style="min-width:0;">
+                  <div style="font-size:16px;font-weight:600;color:{{ p.g.t1 }};">{{ f.nombre }}</div>
+                  <div style="font-size:12.5px;color:{{ p.g.t2 }};">{{ f.club }} · Serie {{ f.serie }} · And. {{ f.c }}</div>
+                  <div style="font-size:12.5px;color:{{ p.g.t2 }};">{{ f.integrantes }}</div>
+                </div>
+                <div style="text-align:center;font-size:13px;font-weight:700;color:{{ f.estColor }};">{{ f.estado }}</div>
+                <div style="font-size:13px;color:{{ p.g.t2 }};">{{ f.obs }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div id="puntaje" style="scroll-margin-top:76px;margin-top:26px;">
+      <sc-if value="{{ hayPuntos }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;overflow:hidden;">
+          <div style="padding:12px 18px;background:#0c2b42;border-bottom:1px solid #1a5678;"><span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">PUNTAJE POR CLUBES</span></div>
+          <div style="padding:6px 18px 12px;">
+            <sc-for list="{{ clubes }}" as="c" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:40px minmax(0,1fr) 80px;gap:4px 12px;align-items:center;padding:9px 0;border-top:1px solid #16455f;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:{{ c.medalla }};text-align:center;">{{ c.pos }}</div>
+                <div><div style="font-size:17px;font-weight:600;color:#fff;">{{ c.club }}</div><div style="font-size:12.5px;color:#a9c6d6;">{{ c.det }}</div></div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#8fd4f5;text-align:right;">{{ c.pts }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sinPuntos }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;padding:14px 18px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;margin-bottom:6px;">CRITERIOS</div>
+          <sc-for list="{{ criterios }}" as="k" hint-placeholder-count="2"><div style="font-size:14px;color:#cfe4ee;padding:3px 0;">{{ k.t }}</div></sc-for>
+        </div>
+      </sc-if>
+    </div>
+    <div style="margin-top:24px;font-size:15px;color:#a9c6d6;text-align:center;">{{ vacio }}</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { ready: !!window.OW_TORNEO, tiempos: {}, hora: '', origen: '' };
+  norm(s) { return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  parseT(s) {
+    s = String(s || '').trim().replace('.', ','); s = s.replace(/^(\d+):(\d{2}):(\d{1,2})$/, '$1:$2,$3'); const m = /^(?:(\d+):)?(\d{1,2}),(\d{1,2})$/.exec(s) || /^(?:(\d+):)?(\d{1,2})$/.exec(s); if (!m) return null;
+    return (+(m[1] || 0)) * 60 + (+m[2]) + (m[3] ? +(('0.' + m[3])) : 0);
+  }
+  fmtT(sec) { const m = Math.floor(sec / 60), r = sec - m * 60, rs = r.toFixed(2).replace('.', ','); return m ? m + ':' + (r < 10 ? '0' : '') + rs : rs; }
+  async leerXlsx(file) {
+    const buf = new Uint8Array(await file.arrayBuffer()), dv = new DataView(buf.buffer);
+    let e = buf.length - 22; while (e > 0 && dv.getUint32(e, true) !== 0x06054b50) e--;
+    const n = dv.getUint16(e + 10, true); let p = dv.getUint32(e + 16, true); const files = {};
+    for (let i = 0; i < n; i++) {
+      const method = dv.getUint16(p + 10, true), csz = dv.getUint32(p + 20, true), nl = dv.getUint16(p + 28, true), el = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), off = dv.getUint32(p + 42, true);
+      const name = new TextDecoder().decode(buf.slice(p + 46, p + 46 + nl)); p += 46 + nl + el + cl;
+      if (!/^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|worksheets\/sheet\d+\.xml)$/.test(name)) continue;
+      const st = off + 30 + dv.getUint16(off + 26, true) + dv.getUint16(off + 28, true); let data = buf.slice(st, st + csz);
+      if (method === 8) { const ds = new DecompressionStream('deflate-raw'), w = ds.writable.getWriter(); w.write(data); w.close(); data = new Uint8Array(await new Response(ds.readable).arrayBuffer()); }
+      files[name] = new TextDecoder().decode(data);
+    }
+    const dec = s => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
+    const sst = files['xl/sharedStrings.xml'] ? [...files['xl/sharedStrings.xml'].matchAll(/<si>([\s\S]*?)<\/si>/g)].map(m => dec([...m[1].matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map(x => x[1]).join(''))) : [];
+    const sheets = [...files['xl/workbook.xml'].matchAll(/<sheet [^>]*name="([^"]*)"[^>]*r:id="([^"]*)"/g)].map(m => ({ name: dec(m[1]), id: m[2] }));
+    const rels = {}; for (const m of files['xl/_rels/workbook.xml.rels'].matchAll(/<Relationship [^>]*>/g)) { const id = /Id="([^"]*)"/.exec(m[0]), t = /Target="([^"]*)"/.exec(m[0]); if (id && t) rels[id[1]] = t[1].replace(/^\/?(xl\/)?/, 'xl/'); }
+    const sh = sheets.find(s => /mesa de control/i.test(s.name)) || sheets.find(s => /cancheo/i.test(s.name)) || sheets[0], x = files[rels[sh.id]];
+    const out = [];
+    for (const r of x.matchAll(/<row [^>]*>([\s\S]*?)<\/row>/g)) {
+      const row = [];
+      for (const c of r[1].matchAll(/<c r="([A-Z]+)\d+"([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)) {
+        const ci = c[1].split('').reduce((a, ch) => a * 26 + ch.charCodeAt(0) - 64, 0) - 1, t = /t="(\w+)"/.exec(c[2]), v = /<v>([\s\S]*?)<\/v>/.exec(c[3] || '');
+        let val = v ? v[1] : ''; if (t && t[1] === 's') val = sst[+val] || ''; else if (t && t[1] === 'inlineStr') val = dec((/<t[^>]*>([\s\S]*?)<\/t>/.exec(c[3]) || [, ''])[1]); else if (t && t[1] === 'str') val = dec(val);
+        else if (val !== '' && !isNaN(+val)) val = +val;
+        row[ci] = val;
+      }
+      out.push(row);
+    }
+    return out;
+  }
+
+  local() { try { return JSON.parse(localStorage.getItem('ow-torneo-pileta-tiempos') || '{}'); } catch (e) { return {}; } }
+  gen(n) { const m = /^(mujer|dama|femen)/i.test(n) ? 'f' : /^(varon|hombre|masc|caballero)/i.test(n) ? 'm' : ''; return m === 'f' ? { bg: '#d4f3e0', hd: '#7fd8a6', tx: '#06301c', bd: '#4fb383', t1: '#06301c', t2: '#2f5d47', t3: '#3d6b55', ln: '#a8dcc0', sm: '#0b5a3a', num: '#0b5a3a' } : m === 'm' ? { bg: '#fff3b0', hd: '#f2c200', tx: '#3a2e00', bd: '#d9a900', t1: '#3a2e00', t2: '#6b5a10', t3: '#7a6820', ln: '#ecd777', sm: '#7a5a00', num: '#7a5a00' } : { bg: '#0f3350', hd: '#0c2b42', tx: '#fff', bd: '#1a5678', t1: '#fff', t2: '#a9c6d6', t3: '#7fa3b8', ln: '#16455f', sm: '#8fd4f5', num: '#c9a24d' }; }
+  componentDidMount() {
+    if (window.OWMaster) { this._f = () => this.forceUpdate(); window.OWMaster.on(this._f); }
+    if (!this.state.ready) this._t = setInterval(() => { if (window.OW_TORNEO) { clearInterval(this._t); this.setState({ ready: true }); } }, 100);
+  }
+  componentWillUnmount() { if (window.OWMaster && this._f) window.OWMaster.off(this._f); clearInterval(this._t); }
+  ir(id) { return e => { const el = document.getElementById(id); if (!el) return; e.preventDefault(); window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }; }
+  renderVals() {
+    const D = window.OW_TORNEO || { pruebas: [] }, M = window.OWMaster || { tiempos: {}, estados: {}, estadosAll: {}, obs: {}, puntos: null, criterios: [] }, T = M.tiempos, club = {}, medal = { 1: '#c9a24d', 2: '#cfd8dc', 3: '#cd7f32' };
+    const acc = ['#4db8e8', '#c9a24d', '#b57edc', '#e8894d', '#3ec9a7', '#9fb3c0', '#e6c84d', '#c08ae0'];
+    let total = 0, con = 0;
+    const pruebas = D.pruebas.map((p, pi) => {
+      const G = this.gen(p.nombre), claro = G.bg !== '#0f3350', rows = [];
+      p.series.forEach(s => s.carriles.forEach(l => { if (l.libre) return; const kk = p.n + '-' + s.n + '-' + l.c, est = M.estados[kk] || '', estA = (M.estadosAll || {})[kk] || '', ob = (M.obs || {})[kk] || '', tm = est ? '' : (T[kk] || ''); rows.push({ s: s.n, l, tm, est, estA, ob, ts: this.parseT(tm), ss: p.relevo ? null : this.parseT(l.sembrado) }); }));
+      const rk = rows.filter(r => r.ts !== null).sort((a, b) => a.ts - b.ts); rk.forEach((r, i) => r.pos = i + 1);
+      const rest = rows.filter(r => r.ts === null).sort((a, b) => a.s - b.s || a.l.c - b.l.c);
+      total += rows.length; con += rk.length;
+      if (M.puntos) { const tab = p.relevo ? M.puntos.rel : M.puntos.ind; rk.forEach(r => { const pt = tab[r.pos]; if (pt) { const c = r.l.club || '—'; club[c] = club[c] || { pts: 0, n: 0 }; club[c].pts += pt; club[c].n++; } }); }
+      const filas = rk.concat(rest).map(r => {
+        const d = r.ts !== null && r.ss !== null ? Math.round((r.ts - r.ss) * 100) / 100 : null;
+        let bg = 'transparent', bd = claro ? G.bd : 'transparent', dc = G.t2;
+        if (d !== null && d < 0) { bg = 'rgba(34,197,94,.35)'; bd = '#22c55e'; dc = claro ? '#0b7a3a' : '#6ee7a0'; } else if (d !== null && d > 0) { bg = 'rgba(239,68,68,.35)'; bd = '#ef4444'; dc = claro ? '#b3261e' : '#ff8a8a'; }
+        return { pos: r.pos || '', medalla: claro ? ({ 1: '#8a6a00', 2: '#5f6b72', 3: '#8a4a12' }[r.pos] || G.t1) : (medal[r.pos] || '#fff'), tiempo: r.est || r.tm || '—', sembrado: p.relevo ? r.l.sembrado : r.l.sembrado || 'NT', dif: d === null ? '' : (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d).toFixed(2).replace('.', ','), difColor: dc,
+          estiloT: { textAlign: 'center', padding: '5px 4px', borderRadius: '6px', background: bg, border: '1px solid ' + bd, font: "800 16px 'Barlow',sans-serif", color: r.tm ? G.t1 : r.est ? (claro ? '#b3261e' : '#ff8a8a') : (claro ? G.t3 : '#5d7e92') },
+          estado: r.estA, estColor: r.est ? (claro ? '#b3261e' : '#ff8a8a') : (claro ? '#0b7a3a' : '#6ee7a0'), obs: r.ob, nombre: r.l.nombre, club: r.l.club, serie: r.s, c: r.l.c, integrantes: r.l.integrantes || '' };
+      });
+      return { g: this.gen(p.nombre), n: p.n, id: 'p' + p.n, nombre: p.nombre, color: acc[pi % 8], colSemb: p.relevo ? 'Cat.' : 'Sembrado', colNom: p.relevo ? 'Equipo' : 'Nadador/a', avance: rk.length + ' de ' + rows.length + ' con tiempo', filas };
+    });
+    return {
+      hayPuntos: !!M.puntos, sinPuntos: !M.puntos && M.criterios.length > 0, criterios: M.criterios.map(t => ({ t })),
+      clubes: Object.keys(club).sort((a, b) => club[b].pts - club[a].pts).map((c, i) => ({ pos: i + 1, medalla: { 1: '#c9a24d', 2: '#cfd8dc', 3: '#cd7f32' }[i + 1] || '#fff', club: c, pts: String(club[c].pts).replace('.', ','), det: club[c].n + (club[c].n === 1 ? ' puesto con puntos' : ' puestos con puntos') })),
+      pruebas, chips: pruebas.map(p => ({ n: p.n, href: '#' + p.id, titulo: p.nombre, ir: this.ir(p.id) })).concat([{ n: 'Puntaje', href: '#puntaje', titulo: 'Puntaje por clubes', ir: this.ir('puntaje') }]),
+      estado: 'En vivo · ' + con + ' de ' + total + ' tiempos' + (M.hora ? ' · act. ' + M.hora : ''),
+      vacio: this.state.ready ? '' : 'Cargando…'
+    };
+  }
+}
+</script>
+</body>
+</html>

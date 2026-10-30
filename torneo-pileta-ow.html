@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+    *{ box-sizing:border-box; }
+  </style>
+  <script src="./torneo-pileta-data.js"></script>
+  <script src="./ow-stats.js"></script>
+  <script src="./ow-master.js"></script>
+  <script src="./ow-torneo-config.js"></script>
+</helmet>
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 16px;padding:14px 20px;background:#08202f;border-bottom:1px solid #16455f;">
+    <a href="index.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:44px;width:44px;object-fit:cover;border-radius:50%;display:block;"><span style="font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;color:#fff;">OPEN WATER RÍO NEGRO</span>
+    </a>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;font-weight:700;">
+      <a href="noticias.html" style="color:#fff;">Noticias</a>
+      <a href="actividades.html" style="color:#fff;">Actividades</a>
+      <a href="index.dc.html" style="color:#fff;">Inicio</a>
+    </div>
+  </nav>
+  <div style="max-width:960px;margin:0 auto;padding:36px 20px 70px;">
+    <a href="actividades.dc.html" style="display:inline-flex;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;">← Actividades</a>
+    <div style="text-align:center;padding:44px 0 30px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">ACTIVIDAD OW · PILETA</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,9vw,76px);line-height:.95;color:#fff;margin:10px 0 0;">1ER TORNEO DE PILETA OW</h1>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <div style="flex:1 1 200px;background:#c9a24d;border-radius:10px;padding:12px 16px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#08202f;opacity:.75;">FECHA</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1.1;color:#08202f;margin-top:2px;">SÁBADO 31 DE OCTUBRE</div>
+      </div>
+      <div style="flex:1 1 200px;background:#4db8e8;border-radius:10px;padding:12px 16px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#08202f;opacity:.75;">HORARIO</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1.1;color:#08202f;margin-top:2px;">DE 13 A 20 HS</div>
+      </div>
+      <div style="flex:1 1 200px;background:#3ec9a7;border-radius:10px;padding:12px 16px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:3px;color:#08202f;opacity:.75;">LUGAR</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1.1;color:#08202f;margin-top:2px;">PILETA DEL NATATORIO MUNICIPAL DE VIEDMA</div>
+      </div>
+    </div>
+
+    <div style="margin-top:44px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:5px;color:#c9a24d;">CANCHEO</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;margin:4px 0 0;">NÓMINA DE NADADORES Y CLUBES</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+        <a href="https://docs.google.com/spreadsheets/d/1T0h58ImuS_XtiDZgCmCoiE5sGZAoGadLqXQsgz_BEsk/edit" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#c9a24d;color:#08202f;border-radius:999px;padding:12px 22px;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;" style-hover="background:#e0bb6a;">Abrir master en Google Drive ↗</a>
+        <label style="display:inline-flex;align-items:center;gap:8px;background:#d62828;color:#fff;border-radius:999px;padding:12px 22px;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;cursor:pointer;">Cargar clasificación final (PDF) ↑<input type="file" accept=".pdf,application/pdf" onChange="{{ subirPdf }}" style="display:none;"></label>
+        <button type="button" onClick="{{ borrarPdf }}" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#ff8a8a;border:1px solid #d62828;border-radius:999px;padding:10px 20px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;cursor:pointer;" style-hover="background:rgba(214,40,40,.18);">Borrar clasificación cargada ✕</button>
+        <span style="font-size:12px;font-weight:600;color:#ffb4b4;">{{ pdfMsg }}</span>
+        <span style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a9c6d6;"><span style="width:9px;height:9px;border-radius:50%;background:{{ syncColor }};"></span>{{ sync }}</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:20px;">
+      <div style="background:#0f3350;border:1px solid #1a5678;border-radius:10px;padding:14px 16px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;line-height:1;">{{ stats.pruebas }}</div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#a9c6d6;margin-top:4px;">Pruebas</div></div>
+      <div style="background:#0f3350;border:1px solid #1a5678;border-radius:10px;padding:14px 16px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;line-height:1;">{{ stats.nadadores }}</div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#a9c6d6;margin-top:4px;">Nadadores</div></div>
+      <div style="background:#0f3350;border:1px solid #1a5678;border-radius:10px;padding:14px 16px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;line-height:1;">{{ stats.clubes }}</div><div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#a9c6d6;margin-top:4px;">Clubes</div></div>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:20px;">
+      <input type="text" placeholder="Buscar nadador" value="{{ q }}" onInput="{{ setQ }}" style="flex:2 1 220px;min-width:0;padding:12px 14px;background:#0c2b42;border:1px solid #1a5678;border-radius:10px;color:#fff;font:500 15px 'Barlow',sans-serif;">
+      <select value="{{ club }}" onChange="{{ setClub }}" style="flex:1 1 200px;min-width:0;padding:12px 14px;background:#0c2b42;border:1px solid #1a5678;border-radius:10px;color:#fff;font:500 15px 'Barlow',sans-serif;">
+        <option value="">Todos los clubes</option>
+        <sc-for list="{{ clubes }}" as="c" hint-placeholder-count="4"><option value="{{ c }}">{{ c }}</option></sc-for>
+      </select>
+      <select value="{{ genero }}" onChange="{{ setGenero }}" style="flex:1 1 160px;min-width:0;padding:12px 14px;background:#0c2b42;border:1px solid #1a5678;border-radius:10px;color:#fff;font:500 15px 'Barlow',sans-serif;">
+        <option value="">Todos los géneros</option><option value="f">Mujeres</option><option value="m">Varones</option><option value="x">Mixto</option>
+      </select>
+      <select value="{{ prueba }}" onChange="{{ setPrueba }}" style="flex:1 1 200px;min-width:0;padding:12px 14px;background:#0c2b42;border:1px solid #1a5678;border-radius:10px;color:#fff;font:500 15px 'Barlow',sans-serif;">
+        <option value="">Todas las pruebas</option>
+        <sc-for list="{{ opcionesPrueba }}" as="o" hint-placeholder-count="4"><option value="{{ o.v }}">{{ o.l }}</option></sc-for>
+      </select>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:22px;margin-top:22px;">
+      <sc-for list="{{ pruebas }}" as="p" hint-placeholder-count="2">
+        <div style="background:{{ p.g.bg }};border:1px solid {{ p.g.bd }};border-radius:12px;overflow:hidden;">
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:14px 18px;background:{{ p.g.hd }};border-bottom:1px solid {{ p.g.bd }};">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:{{ p.g.tx }};">PRUEBA {{ p.n }}</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:{{ p.g.tx }};">{{ p.nombre }}</span>
+          </div>
+          <sc-for list="{{ p.series }}" as="s" hint-placeholder-count="1">
+            <div style="padding:12px 18px 6px;">
+              <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:{{ p.g.t3 }};margin-bottom:6px;">{{ s.titulo }}</div>
+              <div style="display:grid;grid-template-columns:28px minmax(0,1fr) 72px 96px;gap:4px 12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.t3 }};padding-bottom:4px;"><div>And.</div><div>Nadador/a</div><div style="text-align:right;">{{ s.colSemb }}</div><div style="text-align:center;">Tiempo</div></div>
+              <sc-for list="{{ s.filas }}" as="f" hint-placeholder-count="4">
+                <div style="display:grid;grid-template-columns:28px minmax(0,1fr) 72px 96px;gap:4px 12px;align-items:baseline;padding:8px 0;border-top:1px solid {{ p.g.ln }};">
+                  <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:{{ p.g.num }};">{{ f.c }}</div>
+                  <div style="min-width:0;">
+                    <div style="font-size:16px;font-weight:600;color:{{ p.g.t1 }};">{{ f.nombre }}</div>
+                    <div style="font-size:13px;color:{{ p.g.t2 }};">{{ f.club }}</div>
+                    <div style="font-size:13px;color:{{ p.g.t2 }};margin-top:2px;">{{ f.integrantes }}</div>
+                  </div>
+                  <div style="font-size:15px;font-weight:700;color:{{ p.g.sm }};text-align:right;white-space:nowrap;">{{ f.sembrado }}</div>
+                  <input type="text" placeholder="0:00,00" value="{{ f.tiempo }}" readOnly="{{ true }}" style="{{ f.estilo }}">
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+          <sc-if value="{{ p.hayClasif }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:12px 18px 14px;border-top:2px solid #d62828;background:#0c2b42;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:#ff6b6b;margin-bottom:6px;">CLASIFICACIÓN</div>
+              <sc-for list="{{ p.clasif }}" as="r" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:40px minmax(0,1fr) 84px;gap:4px 12px;align-items:baseline;padding:7px 0;border-top:1px solid #16455f;">
+                  <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:{{ r.color }};">{{ r.puesto }}</div>
+                  <div style="min-width:0;"><span style="font-size:16px;font-weight:600;color:#fff;">{{ r.nombre }}</span> <span style="font-size:13px;color:#a9c6d6;">{{ r.club }}</span></div>
+                  <div style="font-size:15px;font-weight:700;color:#8fd4f5;text-align:right;">{{ r.tiempo }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="margin-top:18px;font-size:14px;color:#a9c6d6;text-align:center;">{{ vacio }}</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { genero: '', pdfMsg: '', q: '', club: '', prueba: '', msg: '', ready: !!window.OW_TORNEO, tiempos: this.load('ow-torneo-pileta-tiempos'), clasif: this.load('ow-torneo-pileta-clasif'), sembrados: this.load('ow-torneo-pileta-sembrado') };
+  ver() { const D = window.OW_TORNEO; if (!D || !D.version) return false; try { if (localStorage.getItem('ow-torneo-pileta-ver') === D.version) return false; ['tiempos', 'sembrado', 'cancheo', 'clasif'].forEach(k => localStorage.removeItem('ow-torneo-pileta-' + k)); localStorage.setItem('ow-torneo-pileta-ver', D.version); } catch (e) {} return true; }
+  load(k) { this.ver(); try { return JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) { return {}; } }
+  save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  parseT(s) {
+    s = String(s || '').trim().replace('.', ','); s = s.replace(/^(\d+):(\d{2}):(\d{1,2})$/, '$1:$2,$3'); const m = /^(?:(\d+):)?(\d{1,2}),(\d{1,2})$/.exec(s) || /^(?:(\d+):)?(\d{1,2})$/.exec(s); if (!m) return null;
+    return (+(m[1] || 0)) * 60 + (+m[2]) + (m[3] ? +(('0.' + m[3])) : 0);
+  }
+  fmtT(sec) { const m = Math.floor(sec / 60), r = sec - m * 60, rs = r.toFixed(2).replace('.', ','); return m ? m + ':' + (r < 10 ? '0' : '') + rs : rs; }
+  async leerXlsx(file, pick) {
+    const buf = new Uint8Array(await file.arrayBuffer()), dv = new DataView(buf.buffer);
+    let e = buf.length - 22; while (e > 0 && dv.getUint32(e, true) !== 0x06054b50) e--;
+    const n = dv.getUint16(e + 10, true); let p = dv.getUint32(e + 16, true); const files = {};
+    for (let i = 0; i < n; i++) {
+      const method = dv.getUint16(p + 10, true), csz = dv.getUint32(p + 20, true), nl = dv.getUint16(p + 28, true), el = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), off = dv.getUint32(p + 42, true);
+      const name = new TextDecoder().decode(buf.slice(p + 46, p + 46 + nl)); p += 46 + nl + el + cl;
+      if (!/^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|worksheets\/sheet\d+\.xml)$/.test(name)) continue;
+      const st = off + 30 + dv.getUint16(off + 26, true) + dv.getUint16(off + 28, true); let data = buf.slice(st, st + csz);
+      if (method === 8) { const ds = new DecompressionStream('deflate-raw'), w = ds.writable.getWriter(); w.write(data); w.close(); data = new Uint8Array(await new Response(ds.readable).arrayBuffer()); }
+      files[name] = new TextDecoder().decode(data);
+    }
+    const dec = s => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, '&');
+    const sst = files['xl/sharedStrings.xml'] ? [...files['xl/sharedStrings.xml'].matchAll(/<si>([\s\S]*?)<\/si>/g)].map(m => dec([...m[1].matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map(x => x[1]).join(''))) : [];
+    const sheets = [...files['xl/workbook.xml'].matchAll(/<sheet [^>]*name="([^"]*)"[^>]*r:id="([^"]*)"/g)].map(m => ({ name: dec(m[1]), id: m[2] }));
+    const rels = {}; for (const m of files['xl/_rels/workbook.xml.rels'].matchAll(/<Relationship [^>]*>/g)) { const id = /Id="([^"]*)"/.exec(m[0]), t = /Target="([^"]*)"/.exec(m[0]); if (id && t) rels[id[1]] = t[1].replace(/^\/?(xl\/)?/, 'xl/'); }
+    const sh = typeof pick === 'number' ? sheets[pick] : (sheets.find(s => /mesa de control/i.test(s.name)) || sheets.find(s => /cancheo/i.test(s.name)) || sheets[0]); this._nom = sh.name; const x = files[rels[sh.id]];
+    const out = [];
+    for (const r of x.matchAll(/<row [^>]*>([\s\S]*?)<\/row>/g)) {
+      const row = [];
+      for (const c of r[1].matchAll(/<c r="([A-Z]+)\d+"([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)) {
+        const ci = c[1].split('').reduce((a, ch) => a * 26 + ch.charCodeAt(0) - 64, 0) - 1, t = /t="(\w+)"/.exec(c[2]), v = /<v>([\s\S]*?)<\/v>/.exec(c[3] || '');
+        let val = v ? v[1] : ''; if (t && t[1] === 's') val = sst[+val] || ''; else if (t && t[1] === 'inlineStr') val = dec((/<t[^>]*>([\s\S]*?)<\/t>/.exec(c[3]) || [, ''])[1]); else if (t && t[1] === 'str') val = dec(val);
+        else if (val !== '' && !isNaN(+val)) val = +val;
+        row[ci] = val;
+      }
+      out.push(row);
+    }
+    return out;
+  }
+  importar(kind) { return async e => { const file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return; await this.procesar(file, kind); }; }
+  async procesar(file, kind, live) {
+    {
+      try {
+        const rows = await this.leerXlsx(file), D = window.OW_TORNEO;
+        const hdr = (rows[0] || []).map(h => this.norm(h || ''));
+        const ix = f => hdr.findIndex(f);
+        const cP = ix(h => h === 'prueba' || h === 'n prueba' || h === 'n° prueba' || h === 'prueba n°' || h === 'prueba n'), cS = ix(h => h.startsWith('serie')), cA = ix(h => h.startsWith('andarivel') || h === 'and.' || h === 'and' || h === 'carril');
+        const cN = ix(h => /nadador|equipo/.test(h) && !/prueba/.test(h)), cV = ix(kind === 'sembrado' ? h => h.includes('sembr') : h => h.includes('tiempo'));
+        if (cV < 0 || cP < 0) throw new Error('No encuentro las columnas «Prueba» y «' + (kind === 'sembrado' ? 'Sembrado' : 'Tiempo registrado') + '».');
+        const idx = {}, byName = {};
+        D.pruebas.forEach(p => p.series.forEach(s => s.carriles.forEach(l => { if (l.libre) return; idx[p.n + '-' + s.n + '-' + l.c] = { p, l }; byName[p.n + '|' + this.norm(l.nombre)] = p.n + '-' + s.n + '-' + l.c; })));
+        const dest = Object.assign({}, kind === 'sembrado' ? this.state.sembrados : this.state.tiempos); let ok = 0, no = 0;
+        rows.slice(1).forEach(r => {
+          if (!r || r[cV] === undefined || r[cV] === '') return;
+          const pn = parseInt(String(r[cP]).replace(/\D/g, ''), 10); let key = null;
+          if (cS >= 0 && cA >= 0 && r[cS] !== undefined && r[cA] !== undefined) key = pn + '-' + parseInt(r[cS], 10) + '-' + parseInt(r[cA], 10);
+          if ((!key || !idx[key]) && cN >= 0) key = byName[pn + '|' + this.norm(r[cN] || '')];
+          if (!key || !idx[key]) { no++; return; }
+          let v = r[cV]; if (typeof v === 'number') v = v < 1 ? this.fmtT(Math.round(v * 8640000) / 100) : this.fmtT(v); v = String(v).trim().replace('.', ',').replace(/^(\d+):(\d{2}):(\d{1,2})$/, '$1:$2,$3');
+          if (/^nt$/i.test(v)) v = 'NT'; else if (!/^\d+:\d{2},\d{1,2}$|^\d{1,2},\d{1,2}$|^\d+:\d{2}$|^\d{1,2}$/.test(v)) { no++; return; }
+          if (idx[key].p.relevo && kind === 'sembrado') { no++; return; }
+          dest[key] = v; ok++;
+        });
+        if (kind === 'sembrado') { this.save('ow-torneo-pileta-sembrado', dest); this.setState({ sembrados: dest, msg: 'Sembrado: ' + ok + ' actualizados' + (no ? ' · ' + no + ' filas sin coincidencia' : '') }); }
+        else { this.save('ow-torneo-pileta-tiempos', dest); this.setState({ tiempos: dest, msg: 'Tiempos: ' + ok + ' cargados' + (no ? ' · ' + no + ' filas sin coincidencia' : '') }); }
+      } catch (err) { if (!live) this.setState({ msg: 'No se pudo leer el archivo: ' + (err.message || err) }); }
+    };
+  }
+  async sondear() {
+    if (!/^https?:/.test(location.protocol)) return;
+    try {
+      const r = await fetch('./Tiempos_1er_torneo2026.xlsx?t=' + Date.now(), { cache: 'no-store' }); if (!r.ok || /html/i.test(r.headers.get('content-type') || '')) return;
+      const b = await r.blob(), sig = (r.headers.get('etag') || r.headers.get('last-modified') || '') + '|' + b.size;
+      if (localStorage.getItem('ow-tiempos-sig') === sig) return; localStorage.setItem('ow-tiempos-sig', sig); await this.procesar(b, 'tiempos', true);
+    } catch (e) {}
+  }
+  async leerPdf(file) {
+    if (!window.pdfjsLib) await new Promise((ok, ko) => { const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js'; sc.onload = ok; sc.onerror = ko; document.head.appendChild(sc); });
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const doc = await pdfjsLib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise, filas = [];
+    for (let n = 1; n <= doc.numPages; n++) {
+      const items = (await (await doc.getPage(n)).getTextContent()).items.filter(i => i.str.trim() !== ''), lines = [];
+      items.sort((a, b) => b.transform[5] - a.transform[5] || a.transform[4] - b.transform[4]);
+      items.forEach(i => { const y = i.transform[5], L = lines.find(l => Math.abs(l.y - y) < 3); if (L) L.it.push(i); else lines.push({ y, it: [i] }); });
+      lines.sort((a, b) => b.y - a.y).forEach(L => {
+        L.it.sort((a, b) => a.transform[4] - b.transform[4]);
+        const cells = []; let last = null;
+        L.it.forEach(i => { const x = i.transform[4], fs = Math.abs(i.transform[0]) || 10; if (last !== null && x - last < fs * 0.9) cells[cells.length - 1] += (x - last > fs * 0.15 ? ' ' : '') + i.str.trim(); else cells.push(Math.round(x) + '§' + i.str.trim()); last = x + i.width; });
+        filas.push(cells);
+      });
+    }
+    return [{ nombre: 'Clasificación final', filas }];
+  }
+  borrarPdf = async () => {
+    const url = window.OW_TORNEO_PDF_URL; if (!url) { this.setState({ pdfMsg: 'Falta conectar el servicio de carga.' }); return; }
+    if (!confirm('¿Borrar la clasificación final cargada? Dejará de verse en Actividades.')) return;
+    this.setState({ pdfMsg: 'Borrando…' });
+    try { const j = await (await fetch(url, { method: 'POST', body: JSON.stringify({ accion: 'quitar', clave: '129430' }) })).json(); this.setState({ pdfMsg: j.ok ? 'Clasificación borrada.' : (j.error || 'No se pudo borrar.') }); }
+    catch (err) { this.setState({ pdfMsg: 'No se pudo borrar: ' + (err.message || err) }); }
+  };
+  subirPdf = async e => {
+    const file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
+    const url = window.OW_TORNEO_PDF_URL; if (!url) { this.setState({ pdfMsg: 'Falta conectar el servicio de carga (ver INSTRUCCIONES-PDF-CLASIFICACION.md).' }); return; }
+    const clave = '129430';
+    const esPdf = /\.pdf$/i.test(file.name);
+    this.setState({ pdfMsg: esPdf ? 'Leyendo el PDF…' : 'Leyendo el Excel…' });
+    try {
+      if (esPdf) {
+        const b64 = await new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = ko; r.readAsDataURL(file); });
+        this.setState({ pdfMsg: 'Leyendo la clasificación del PDF…' });
+        let hojas = []; try { hojas = await this.leerPdf(file); } catch (er) {}
+        this.setState({ pdfMsg: 'Subiendo…' });
+        const jp = await (await fetch(url, { method: 'POST', body: JSON.stringify({ accion: 'subir', clave, nombre: file.name, pdf: b64, hojas }) })).json();
+        this.setState({ pdfMsg: jp.ok ? 'Clasificación publicada. Ya se ve en Actividades.' : (jp.error || 'No se pudo subir.') });
+        return;
+      }
+      const hojas = [];
+      for (let i = 0; i < 2; i++) {
+        const rows = await this.leerXlsx(file, i), nombre = this._nom;
+        hojas.push({ nombre, filas: rows.map(r => Array.from(r, c => c === undefined || c === null ? '' : String(c))).filter(r => r.some(c => c !== '')) });
+      }
+      this.setState({ pdfMsg: 'Subiendo…' });
+      const j = await (await fetch(url, { method: 'POST', body: JSON.stringify({ accion: 'subir', clave, nombre: file.name, hojas }) })).json();
+      this.setState({ pdfMsg: j.ok ? 'Clasificación publicada. Ya se ve en Actividades.' : (j.error || 'No se pudo subir.') });
+    } catch (err) { this.setState({ pdfMsg: 'No se pudo cargar: ' + (err.message || err) }); }
+  };
+  gen(n) { const m = /^(mujer|dama|femen)/i.test(n) ? 'f' : /^(varon|hombre|masc|caballero)/i.test(n) ? 'm' : ''; return m === 'f' ? { bg: '#d4f3e0', hd: '#7fd8a6', tx: '#06301c', bd: '#4fb383', t1: '#06301c', t2: '#2f5d47', t3: '#3d6b55', ln: '#a8dcc0', sm: '#0b5a3a', num: '#0b5a3a' } : m === 'm' ? { bg: '#fff3b0', hd: '#f2c200', tx: '#3a2e00', bd: '#d9a900', t1: '#3a2e00', t2: '#6b5a10', t3: '#7a6820', ln: '#ecd777', sm: '#7a5a00', num: '#7a5a00' } : { bg: '#0f3350', hd: '#0c2b42', tx: '#fff', bd: '#1a5678', t1: '#fff', t2: '#a9c6d6', t3: '#7fa3b8', ln: '#16455f', sm: '#8fd4f5', num: '#c9a24d' }; }
+  genKey(n) { return /^(mujer|dama|femen)/i.test(n) ? 'f' : /^(varon|hombre|masc|caballero)/i.test(n) ? 'm' : 'x'; }
+  sync() { const M = window.OWMaster; if (!M) return { t: '', c: '#5d7e92' }; return M.ok ? { t: 'Sincronizado con Google Sheets · ' + M.hora, c: '#22c55e' } : { t: M.error ? 'Sin conexión con el Sheet · usando datos locales' : 'Conectando con Google Sheets…', c: M.error ? '#ef4444' : '#c9a24d' }; }
+  aplicar() {
+    const D = window.OW_TORNEO; if (!D || D._c) return; D._c = 1; D._orig = D.pruebas;
+    const c = this.load('ow-torneo-pileta-cancheo'); if (c && c.pruebas && c.pruebas.length) D.pruebas = c.pruebas;
+  }
+  importarCancheo = async e => {
+    const file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
+    try {
+      const rows = await this.leerXlsx(file), D = window.OW_TORNEO; this.aplicar();
+      const hdr = (rows[0] || []).map(h => this.norm(h || '')), ix = f => hdr.findIndex(f);
+      const cP = ix(h => h === 'prueba' || h === 'n prueba' || h === 'n° prueba' || h === 'prueba n°' || h === 'prueba n'), cNP = hdr.findIndex((h, i) => i !== cP && (h === 'prueba' || h.includes('nombre de la prueba'))), cG = ix(h => h === 'genero' || h === 'sexo'), cTi = ix(h => h === 'tipo'), cF = ix(h => h.includes('tiempo final') || h === 'tiempo registrado'), cS = ix(h => h.startsWith('serie')), cA = ix(h => h.startsWith('andarivel') || h === 'and.' || h === 'and' || h === 'carril');
+      const cN = ix(h => /nadador|equipo/.test(h) && !/prueba/.test(h)), cC = ix(h => h.startsWith('club')), cV = ix(h => h.includes('sembr')), cCat = ix(h => h.startsWith('categor') || h.startsWith('cat.')), cI = ix(h => h.startsWith('integrantes'));
+      if (cP < 0 || cS < 0 || cA < 0 || cN < 0) throw new Error('Faltan columnas «Prueba», «Serie», «Andarivel» y «Nadador / Equipo».');
+      const orig = D._orig || D.pruebas, meta = {}; orig.forEach(p => meta[p.n] = p);
+      const oldT = this.state.tiempos, nameOf = {}; orig.concat(D.pruebas).forEach(p => p.series.forEach(s => s.carriles.forEach(l => { if (!l.libre) nameOf[p.n + '-' + s.n + '-' + l.c] = this.norm(l.nombre); })));
+      const P = {}, T = {}; let ok = 0;
+      rows.slice(1).forEach(r => {
+        if (!r || r[cP] === undefined || r[cP] === '' || r[cN] === undefined || r[cN] === '') return;
+        const pn = parseInt(String(r[cP]).replace(/\D/g, ''), 10), sm = /(\d+)(?:\s*de\s*(\d+))?/i.exec(String(r[cS])), c = parseInt(r[cA], 10); if (!pn || !sm || !c) return;
+        const m = meta[pn], pname = String(((cG >= 0 && r[cG] ? r[cG] + ' ' : '') + (cNP >= 0 && r[cNP] ? r[cNP] : '')).trim()), rel = cTi >= 0 && r[cTi] ? /relevo/i.test(r[cTi]) : (/relevo/i.test(pname) || !!(m && m.relevo && !pname));
+        const p = P[pn] = P[pn] || { n: pn, nombre: pname || (m && m.nombre) || 'Prueba ' + pn, relevo: rel, series: {} };
+        const sn = +sm[1], se = p.series[sn] = p.series[sn] || { n: sn, de: sm[2] ? +sm[2] : 0, carriles: {} };
+        let v = cV >= 0 ? r[cV] : ''; if (typeof v === 'number') v = v < 1 ? this.fmtT(Math.round(v * 8640000) / 100) : this.fmtT(v);
+        v = String(v === undefined ? '' : v).trim().replace('.', ','); if (rel && cCat >= 0 && r[cCat]) v = String(r[cCat]).trim();
+        let nom = String(r[cN]).trim(), integ = cI >= 0 ? String(r[cI] || '').trim() : ''; if (rel && !integ) { const mm = /^(.*?)\s*\((.*)\)\s*$/.exec(nom); if (mm) { nom = mm[1]; integ = mm[2]; } }
+        se.carriles[c] = { c, nombre: nom, club: cC >= 0 ? String(r[cC] || '').trim() : '', sembrado: v, integrantes: integ }; ok++;
+        if (cF >= 0 && r[cF] !== undefined && r[cF] !== '') { let t = r[cF]; if (typeof t === 'number') t = t < 1 ? this.fmtT(Math.round(t * 8640000) / 100) : this.fmtT(t); T[pn + '|' + this.norm(nom)] = String(t).trim().replace('.', ','); }
+      });
+      if (!ok) throw new Error('No encontré filas válidas.');
+      const out = Object.values(P).sort((a, b) => a.n - b.n).map(p => {
+        const ss = Object.values(p.series).sort((a, b) => a.n - b.n);
+        return { n: p.n, nombre: p.nombre, relevo: p.relevo, series: ss.map(s => { const mx = Math.max(6, ...Object.keys(s.carriles).map(Number)), cs = []; for (let i = 1; i <= mx; i++) cs.push(s.carriles[i] || { c: i, libre: true }); return { n: s.n, de: s.de || ss.length, carriles: cs }; }) };
+      });
+      D.pruebas = out; this.save('ow-torneo-pileta-cancheo', { pruebas: out });
+      const byName = {}; out.forEach(p => p.series.forEach(s => s.carriles.forEach(l => { if (!l.libre) byName[p.n + '|' + this.norm(l.nombre)] = p.n + '-' + s.n + '-' + l.c; })));
+      const nt = {}; Object.keys(oldT).forEach(k => { const nk = byName[k.split('-')[0] + '|' + nameOf[k]]; if (nk) nt[nk] = oldT[k]; });
+      const nt2 = {}; Object.keys(T).forEach(k => { if (byName[k]) nt2[byName[k]] = T[k]; });
+      this.save('ow-torneo-pileta-tiempos', nt2); this.save('ow-torneo-pileta-sembrado', {});
+      this.setState({ tiempos: nt2, sembrados: {}, q: '', club: '', prueba: '', msg: 'Cancheo cargado: ' + ok + ' nadadores/equipos en ' + out.length + ' pruebas' });
+    } catch (err) { this.setState({ msg: 'No se pudo leer el archivo: ' + (err.message || err) }); }
+  };
+  importarClasif = async e => {
+    const file = e.target.files && e.target.files[0]; e.target.value = ''; if (!file) return;
+    try {
+      const rows = await this.leerXlsx(file), hdr = (rows[0] || []).map(h => this.norm(h || ''));
+      const ix = f => hdr.findIndex(f), cP = ix(h => h === 'prueba' || h === 'n prueba' || h === 'n° prueba'), cR = ix(h => /^(puesto|lugar|pos|posicion|clasificacion|orden)/.test(h));
+      const cN = ix(h => /nadador|equipo/.test(h) && !/prueba/.test(h)), cC = ix(h => h.startsWith('club')), cT = ix(h => h.includes('tiempo') || h.includes('marca'));
+      if (cP < 0 || cR < 0 || cN < 0) throw new Error('Faltan columnas «Prueba», «Puesto» y «Nadador/Equipo».');
+      const out = {}; let ok = 0;
+      rows.slice(1).forEach(r => {
+        if (!r || r[cP] === undefined || r[cP] === '' || r[cR] === undefined || r[cR] === '') return;
+        const pn = parseInt(String(r[cP]).replace(/\D/g, ''), 10); if (!pn) return;
+        let t = cT >= 0 ? r[cT] : ''; if (typeof t === 'number') t = t < 1 ? this.fmtT(Math.round(t * 8640000) / 100) : this.fmtT(t);
+        (out[pn] = out[pn] || []).push({ puesto: String(r[cR]).trim(), nombre: String(r[cN] || ''), club: cC >= 0 ? String(r[cC] || '') : '', tiempo: String(t || '').replace('.', ',') }); ok++;
+      });
+      Object.values(out).forEach(a => a.sort((x, y) => (parseInt(x.puesto, 10) || 999) - (parseInt(y.puesto, 10) || 999)));
+      this.save('ow-torneo-pileta-clasif', out); this.setState({ clasif: out, msg: 'Clasificación: ' + ok + ' filas en ' + Object.keys(out).length + ' pruebas' });
+    } catch (err) { this.setState({ msg: 'No se pudo leer el archivo: ' + (err.message || err) }); }
+  };
+  restablecer = e => { e.preventDefault(); if (!confirm('¿Borrar los tiempos cargados y volver al sembrado original?')) return; this.save('ow-torneo-pileta-tiempos', {}); this.save('ow-torneo-pileta-sembrado', {}); this.save('ow-torneo-pileta-clasif', {}); this.save('ow-torneo-pileta-cancheo', {}); if (window.OW_TORNEO && window.OW_TORNEO._orig) window.OW_TORNEO.pruebas = window.OW_TORNEO._orig; this.setState({ tiempos: {}, sembrados: {}, clasif: {}, msg: 'Datos restablecidos.' }); };
+  setTiempo(k, v) { const t = Object.assign({}, this.state.tiempos); if (v) t[k] = v; else delete t[k]; try { localStorage.setItem('ow-torneo-pileta-tiempos', JSON.stringify(t)); } catch (e) {} this.setState({ tiempos: t }); }
+  componentDidMount() {
+    if (/openwater\.ar$/.test(location.hostname) && sessionStorage.getItem('ow-torneo-ok') !== '1') { const c = prompt('Acceso privado. Ingresá el código:'); if (String(c).trim() === '129430') sessionStorage.setItem('ow-torneo-ok', '1'); else { location.href = 'actividades.html'; return; } }
+    if (window.OWMaster) { this._f = () => this.forceUpdate(); window.OWMaster.on(this._f); }
+    if (this.ver()) this.setState({ tiempos: {}, sembrados: {}, clasif: {} });
+    if (!this.state.ready) {
+      this._t = setInterval(() => { if (window.OW_TORNEO) { clearInterval(this._t); this.setState({ ready: true }); } }, 100);
+    }
+  }
+  componentWillUnmount() { if (window.OWMaster && this._f) window.OWMaster.off(this._f); clearInterval(this._t); clearInterval(this._p); }
+  alias(n) { return n === 'Camila Parra' ? 'Camila Guadalupe Parra Gutiérrez' : n; }
+  norm(s) { return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  miembros(l) { return (l.integrantes || '').split(/,\s*/).map(x => x.trim()).filter(x => x && x[0] !== '(').map(x => this.alias(x)); }
+  crc(u8) {
+    if (!Component._t) { Component._t = []; for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; Component._t[n] = c >>> 0; } }
+    let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = Component._t[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0;
+  }
+  zip(files) {
+    const enc = new TextEncoder(), parts = [], cen = []; let off = 0;
+    const w16 = (a, v) => a.push(v & 255, (v >> 8) & 255), w32 = (a, v) => a.push(v & 255, (v >> 8) & 255, (v >> 16) & 255, (v >>> 24) & 255);
+    for (const f of files) {
+      const name = enc.encode(f.name), data = enc.encode(f.data), crc = this.crc(data), h = [];
+      w32(h, 0x04034b50); w16(h, 20); w16(h, 0x0800); w16(h, 0); w16(h, 0); w16(h, 0x21); w32(h, crc); w32(h, data.length); w32(h, data.length); w16(h, name.length); w16(h, 0);
+      parts.push(new Uint8Array(h), name, data);
+      const c = []; w32(c, 0x02014b50); w16(c, 20); w16(c, 20); w16(c, 0x0800); w16(c, 0); w16(c, 0); w16(c, 0x21); w32(c, crc); w32(c, data.length); w32(c, data.length); w16(c, name.length); w16(c, 0); w16(c, 0); w16(c, 0); w16(c, 0); w32(c, 0); w32(c, off);
+      cen.push(new Uint8Array(c), name);
+      off += h.length + name.length + data.length;
+    }
+    let cs = 0; cen.forEach(x => cs += x.length);
+    const e = []; w32(e, 0x06054b50); w16(e, 0); w16(e, 0); w16(e, files.length); w16(e, files.length); w32(e, cs); w32(e, off); w16(e, 0);
+    return new Blob([...parts, ...cen, new Uint8Array(e)], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  }
+  sheet(rows, widths, st) {
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const col = i => String.fromCharCode(65 + i);
+    let x = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>';
+    widths.forEach((w, i) => x += `<col min="${i + 1}" max="${i + 1}" width="${w}" customWidth="1"/>`);
+    x += '</cols><sheetData>';
+    rows.forEach((r, ri) => { x += `<row r="${ri + 1}">`; r.forEach((v, ci) => { const s = ri === 0 ? ' s="1"' : (st && st[ri] && st[ri][ci] ? ' s="' + st[ri][ci] + '"' : ''); x += typeof v === 'number' ? `<c r="${col(ci)}${ri + 1}"${s}><v>${v}</v></c>` : `<c r="${col(ci)}${ri + 1}"${s} t="inlineStr"><is><t xml:space="preserve">${esc(v)}</t></is></c>`; }); x += '</row>'; });
+    return x + '</sheetData></worksheet>';
+  }
+  pdf = () => {
+    const D = window.OW_TORNEO; if (!D) return;
+    const esc = t => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const pal = ['#1f6fa8', '#b8860b', '#7d3c98', '#c0642a', '#17806d', '#566573', '#9a7d0a', '#6c3483'];
+    let body = '';
+    D.pruebas.forEach((p, pi) => {
+      const rows = [];
+      p.series.forEach(s => s.carriles.forEach(l => {
+        if (l.libre) return;
+        const key = p.n + '-' + s.n + '-' + l.c, semb = p.relevo ? '' : (this.state.sembrados[key] || l.sembrado || 'NT'), tm = this.state.tiempos[key] || '';
+        rows.push({ s, l, semb, tm, ts: this.parseT(tm), ss: p.relevo ? null : this.parseT(semb) });
+      }));
+      rows.filter(r => r.ts !== null).sort((a, b) => a.ts - b.ts).forEach((r, i) => r.pos = i + 1);
+      const col = pal[pi % 8];
+      let h = '<section class="pr" style="--c:' + col + '"><div class="ph"><span class="pn">PRUEBA ' + p.n + '</span><span class="pt">' + esc(p.nombre) + '</span></div>';
+      p.series.forEach(s => {
+        const rs = rows.filter(r => r.s === s); if (!rs.length) return;
+        h += '<div class="sh">Serie ' + s.n + ' de ' + s.de + '</div><table><thead><tr><th class="c">Pos.</th><th class="c">And.</th><th class="t">Tiempo</th><th class="t">' + (p.relevo ? 'Cat.' : 'Sembrado') + '</th><th class="t">Dif.</th><th>' + (p.relevo ? 'Equipo' : 'Nadador/a') + '</th></tr></thead><tbody>';
+        rs.forEach(r => {
+          const d = r.ts !== null && r.ss !== null ? r.ts - r.ss : null, cls = d === null || d === 0 ? '' : d < 0 ? 'ok' : 'no';
+          h += '<tr><td class="c pos">' + (r.pos || '') + '</td><td class="c and">' + r.l.c + '</td><td class="t tm ' + cls + '">' + esc(r.tm) + '</td><td class="t sm">' + esc(p.relevo ? r.l.sembrado : r.semb) + '</td><td class="t df ' + cls + '">' + (d === null ? '' : (d > 0 ? '+' : '') + d.toFixed(2).replace('.', ',')) + '</td><td><b>' + esc(r.l.nombre) + '</b> <span class="cl">' + esc(r.l.club) + '</span>' + (r.l.integrantes ? '<div class="ig">' + esc(r.l.integrantes) + '</div>' : '') + '</td></tr>';
+        });
+        h += '</tbody></table>';
+      });
+      body += h + '</section>';
+    });
+    const css = '@page{size:A4;margin:12mm}*{box-sizing:border-box}body{margin:0;font-family:Barlow,Arial,sans-serif;color:#10222e;-webkit-print-color-adjust:exact;print-color-adjust:exact}.cov{background:#0a2438;color:#fff;padding:16px 20px;border-bottom:4px solid #c9a24d;margin-bottom:14px}.cov .k{font:15px "Bebas Neue",sans-serif;letter-spacing:5px;color:#c9a24d}.cov h1{font:34px "Bebas Neue",sans-serif;letter-spacing:1px;margin:2px 0}.cov p{margin:0;font-size:12px;color:#cfe4ee}.pr{break-after:page;page-break-after:always}.pr:last-child{break-after:auto;page-break-after:auto}.ph{display:flex;align-items:baseline;gap:14px;background:var(--c);color:#fff;padding:8px 14px;border-radius:6px}.pn{font:16px "Bebas Neue",sans-serif;letter-spacing:3px;opacity:.9}.pt{font:26px "Bebas Neue",sans-serif;letter-spacing:.5px}.sh{margin:12px 0 4px;font:700 11px Barlow,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}table{width:100%;border-collapse:collapse;break-inside:avoid;page-break-inside:avoid}th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#5d7686;text-align:left;border-bottom:2px solid var(--c);padding:3px 6px}td{padding:5px 6px;border-bottom:1px solid #dbe6ec;font-size:12.5px;vertical-align:top}.c{text-align:center;width:38px}.t{text-align:right;width:74px;white-space:nowrap}.pos{font:700 15px Barlow;color:var(--c)}.and{font:18px "Bebas Neue";color:#7a8b95}.tm{font-weight:800;font-size:14px}.sm{color:#5d7686}.df{font-weight:700;font-size:11.5px}td.ok{background:#c6efce;color:#006100}td.no{background:#ffc7ce;color:#9c0006}.cl{color:#5d7686;font-size:11.5px;margin-left:6px}.ig{font-size:11px;color:#5d7686;margin-top:1px}';
+    const w = window.open('', '_blank'); if (!w) { this.setState({ msg: 'Permití las ventanas emergentes para generar el PDF.' }); return; }
+    w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Marcas_1torneo_pileta_OW</title><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>' + css + '</style></head><body><div class="cov"><div class="k">MARCAS DEL TORNEO</div><h1>' + esc(D.titulo) + '</h1><p>' + esc(D.fecha) + ' · ' + esc(D.sede) + '</p></div>' + body + '</body></html>');
+    w.document.close();
+    const go = () => { try { w.focus(); w.print(); } catch (e) {} };
+    setTimeout(() => { (w.document.fonts && w.document.fonts.ready ? w.document.fonts.ready : Promise.resolve()).then(() => setTimeout(go, 200)); }, 300);
+  };
+  descargar = () => {
+    const D = window.OW_TORNEO; if (!D) return;
+    const a = [['Prueba N°', 'Género', 'Prueba', 'Serie', 'Andarivel', 'Nadador/a o Equipo', 'Club', 'Cat. relevo', 'Tiempo final', 'T. sembrado', 'Diferencia (s)', 'Estado', 'Obs.']], st = [null];
+    const map = {};
+    D.pruebas.forEach(p => p.series.forEach(s => s.carriles.forEach(l => {
+      if (l.libre) return;
+      const key = p.n + '-' + s.n + '-' + l.c, semb = p.relevo ? 'NT' : (this.state.sembrados[key] || l.sembrado || 'NT'), tm = this.state.tiempos[key] || '';
+      const m = /^(Mujeres|Varones|Mixto)\s+(.*)$/.exec(p.nombre), gen = m ? m[1] : '', pn = m ? m[2] : p.nombre;
+      const ts = this.parseT(tm), ss = p.relevo ? null : this.parseT(semb), dif = ts !== null && ss !== null ? Math.round((ts - ss) * 100) / 100 : '';
+      a.push([p.n, gen, pn, s.n, l.c, p.relevo && l.integrantes ? l.nombre + ' (' + l.integrantes + ')' : l.nombre, l.club, p.relevo ? l.sembrado : '', tm, semb, dif, '', '']);
+      const row = new Array(13).fill(2 + (p.n - 1) % 8); if (dif !== '' && dif !== 0) row[8] = dif < 0 ? 10 : 11; st.push(row);
+      const nombres = p.relevo ? this.miembros(l) : [this.alias(l.nombre)];
+      nombres.forEach(n => { const k = n + '|' + l.club; (map[k] = map[k] || { n, club: l.club, ind: [], rel: [] })[p.relevo ? 'rel' : 'ind'].push('P' + p.n + ' ' + p.nombre); });
+    })));
+    const b = [['Nadador/a', 'Club', 'Pruebas individuales', 'Relevos', 'Total de pruebas', 'Detalle']];
+    Object.values(map).sort((x, y) => x.club.localeCompare(y.club) || x.n.localeCompare(y.n)).forEach(m => b.push([m.n, m.club, m.ind.length, m.rel.length, m.ind.length + m.rel.length, m.ind.concat(m.rel).join(' · ')]));
+    const hdr = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+    const ns = 'xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"';
+    const files = [
+      { name: '[Content_Types].xml', data: hdr + '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>' },
+      { name: '_rels/.rels', data: hdr + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>' },
+      { name: 'xl/workbook.xml', data: hdr + `<workbook ${ns} xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Mesa de control" sheetId="1" r:id="rId1"/><sheet name="Por nadador" sheetId="2" r:id="rId2"/></sheets></workbook>` },
+      { name: 'xl/_rels/workbook.xml.rels', data: hdr + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>' },
+      { name: 'xl/styles.xml', data: hdr + `<styleSheet ${ns}><fonts count="4"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FF006100"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FF9C0006"/><name val="Calibri"/></font></fonts><fills count="13"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD6EAF8"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFCF3CF"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE8DAEF"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFAE5D3"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD1F2EB"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE5E7E9"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFF9E79F"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFD2B4DE"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFC6EFCE"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFFC7CE"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFBFBFBF"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="12"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="12" borderId="0" xfId="0" applyFont="1" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="2" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="3" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="4" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="5" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="6" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="7" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="8" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="0" fillId="9" borderId="0" xfId="0" applyFill="1"/><xf numFmtId="0" fontId="2" fillId="10" borderId="0" xfId="0" applyFont="1" applyFill="1"/><xf numFmtId="0" fontId="3" fillId="11" borderId="0" xfId="0" applyFont="1" applyFill="1"/></cellXfs></styleSheet>` },
+      { name: 'xl/worksheets/sheet1.xml', data: this.sheet(a, [10, 11, 24, 7, 10, 60, 28, 11, 13, 12, 14, 9, 20], st) },
+      { name: 'xl/worksheets/sheet2.xml', data: this.sheet(b, [34, 28, 20, 10, 16, 90]) }
+    ];
+    const url = URL.createObjectURL(this.zip(files));
+    const el = document.createElement('a'); el.href = url; el.download = 'Marcas_1torneo_pileta_OW.xlsx';
+    document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+  };
+  renderVals() {
+    this.aplicar(); const D = window.OW_TORNEO || { pruebas: [] };
+    const q = this.norm(this.state.q.trim()), club = this.state.club, pr = this.state.prueba, ge = this.state.genero;
+    const clubesSet = new Set(), nad = new Set();
+    D.pruebas.forEach(p => p.series.forEach(s => s.carriles.forEach(l => {
+      if (l.libre) return; clubesSet.add(l.club);
+      (p.relevo ? this.miembros(l) : [this.alias(l.nombre)]).forEach(n => nad.add(n + '|' + l.club));
+    })));
+    const pruebas = [];
+    D.pruebas.forEach(p => {
+      if (pr && String(p.n) !== pr) return;
+      if (ge && this.genKey(p.nombre) !== ge) return;
+      const series = [];
+      p.series.forEach(s => {
+        const filas = [];
+        s.carriles.forEach(l => {
+          const key = p.n + '-' + s.n + '-' + l.c;
+          if (l.libre) { if (!q && !club) filas.push({ c: l.c, nombre: 'Libre', club: '', integrantes: '', sembrado: '', tiempo: '', estilo: { display: 'none' }, onTiempo: () => {} }); return; }
+          if (club && l.club !== club) return;
+          if (q && !this.norm(l.nombre + ' ' + (l.integrantes || '')).includes(q)) return;
+          const semb = p.relevo ? l.sembrado : (this.state.sembrados[key] || l.sembrado), tiempo = (window.OWMaster && window.OWMaster.tiempos[key]) || '';
+          const ts = this.parseT(tiempo), ss = p.relevo ? null : this.parseT(semb); let bg = '#0c2b42', bd = '#1a5678';
+          if (ts !== null && ss !== null && ts < ss) { bg = 'rgba(34,197,94,.35)'; bd = '#22c55e'; } else if (ts !== null && ss !== null && ts > ss) { bg = 'rgba(239,68,68,.35)'; bd = '#ef4444'; }
+          filas.push({ c: l.c, nombre: l.nombre, club: l.club, integrantes: l.integrantes || '', sembrado: semb, tiempo, estilo: { display: 'block', width: '100%', minWidth: 0, padding: '6px 8px', background: bg, border: '1px solid ' + bd, borderRadius: '6px', color: '#fff', font: "600 15px 'Barlow',sans-serif", textAlign: 'center', alignSelf: 'center', boxSizing: 'border-box' }, onTiempo: e => this.setTiempo(key, e.target.value) });
+        });
+        if (filas.some(f => f.club)) series.push({ titulo: 'Serie ' + s.n + ' de ' + s.de, colSemb: p.relevo ? 'Cat.' : 'Sembrado', filas });
+      });
+      if (series.length) { const cl = (this.state.clasif[p.n] || []).map(r => Object.assign({}, r, { color: { 1: '#c9a24d', 2: '#cfd8dc', 3: '#cd7f32' }[parseInt(r.puesto, 10)] || '#fff' })); pruebas.push({ n: p.n, nombre: p.nombre, g: this.gen(p.nombre), series, clasif: cl, hayClasif: cl.length > 0 }); }
+    });
+    return {
+      pdfMsg: this.state.pdfMsg, subirPdf: this.subirPdf, borrarPdf: this.borrarPdf,
+      sync: this.sync().t, syncColor: this.sync().c,
+      stats: { pruebas: D.pruebas.length, nadadores: nad.size, clubes: clubesSet.size },
+      q: this.state.q, club, prueba: pr, genero: ge || '',
+      clubes: [...clubesSet].sort((a, b) => a.localeCompare(b)),
+      opcionesPrueba: D.pruebas.map(p => ({ v: String(p.n), l: p.n + '. ' + p.nombre })),
+      pruebas,
+      vacio: !this.state.ready ? 'Cargando nómina…' : (pruebas.length ? '' : 'Sin resultados para ese filtro.'),
+      setQ: e => this.setState({ q: e.target.value }),
+      setClub: e => this.setState({ club: e.target.value }),
+      setGenero: e => this.setState({ genero: e.target.value }),
+      setPrueba: e => this.setState({ prueba: e.target.value }),
+      msg: this.state.msg, restablecer: this.restablecer,
+      subirSembrado: this.importarCancheo, subirTiempos: this.importar('tiempos'), subirClasif: this.importarClasif,
+      descargar: this.descargar, pdf: this.pdf
+    };
+  }
+}
+</script>
+</body>
+</html>

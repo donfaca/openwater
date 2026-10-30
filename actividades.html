@@ -8,12 +8,14 @@
 <body>
 <x-dc>
 <helmet>
+  <script src="./ow-torneo-config.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
     a { color:#4db8e8; text-decoration:none; }
     a:hover { color:#8fd4f5; }
+    @keyframes owblink { 0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(34,197,94,.7); } 50% { opacity:.55; box-shadow:0 0 0 12px rgba(34,197,94,0); } }
   </style>
   <script>
 (function(){try{
@@ -52,6 +54,17 @@
   <div style="padding:70px 40px 20px;text-align:center;">
     <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">NADAR TODO EL AÑO</div>
     <h1 style="font-family:'Bebas Neue',sans-serif;font-size:58px;color:#fff;margin:10px 0 12px;">ACTIVIDADES</h1>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:14px 16px;margin-top:20px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+        <a href="torneo-pileta-ow.html" onClick="{{ pedirCodigo }}" style="display:inline-flex;align-items:center;gap:10px;background:#c9a24d;color:#08202f;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;box-shadow:0 8px 22px rgba(201,162,77,.35);"><span style="background:#08202f;color:#c9a24d;font-family:'Barlow',sans-serif;font-size:11px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:999px;">NEW</span>1er torneo de pileta OW →</a>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#c9a24d;">(privado)</span>
+      </div>
+      <a href="resultados-torneo-pileta-ow.html" style="display:inline-flex;align-items:center;gap:10px;background:#16a34a;color:#fff;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;animation:owblink 1.3s ease-in-out infinite;">Resultados del torneo (tiempo real) →</a>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 14px;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;"><a href="clasificacion-torneo-pileta-ow.html" style="display:inline-flex;align-items:center;gap:10px;background:#f28c28;color:#08202f;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;" style-hover="background:#f7a85a;">Clasificación final →</a><span style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#f28c28;">(disponible al finalizar)</span></div>
+        <sc-if value="{{ hayMarcas }}" hint-placeholder-val="{{ false }}"><a href="marcas-1er-torneo-pileta-ow.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:transparent;color:#c9a24d;border:1px solid #c9a24d;padding:13px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;" style-hover="background:rgba(201,162,77,.15);">Marcas del torneo (PDF) ↓</a></sc-if>
+      </div>
+    </div>
     <p style="max-width:720px;margin:0 auto;font-size:16px;line-height:1.7;color:#cfe4ee;">Más allá de las competencias, la comunidad Open Water se mueve todo el año: entrenamientos en el río, clínicas abiertas, encuentros sociales y preparación para cada desafío.</p>
   </div>
 
@@ -137,7 +150,15 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  renderVals(){ return {}; }
+  state = { hayClasif: false, hayMarcas: false, urlClasif: 'clasificacion-1er-torneo-pileta-ow.pdf' };
+  componentDidMount() {
+    const q = /[?&]ver=1/.test(location.search); if (q) { this.setState({ hayClasif: true, hayMarcas: true }); return; }
+    if (window.OW_TORNEO_PDF_URL) fetch(window.OW_TORNEO_PDF_URL, { cache: 'no-store' }).then(r => r.json()).then(j => { if (j && j.hojas && j.hojas.length) this.setState({ hayClasif: true }); }).catch(() => {});
+    if (!/^https?:/.test(location.protocol)) return;
+    const chk = (u, k) => fetch(u, { method: 'HEAD', cache: 'no-store' }).then(r => { if (r.ok && /pdf/i.test(r.headers.get('content-type') || '')) this.setState({ [k]: true }); }).catch(() => {});
+    chk('./marcas-1er-torneo-pileta-ow.pdf', 'hayMarcas');
+  }
+  renderVals(){ return { hayClasif: this.state.hayClasif, urlClasif: this.state.urlClasif, hayMarcas: this.state.hayMarcas, pedirCodigo: e => { e.preventDefault(); const c = prompt('Acceso privado. Ingresá el código:'); if (c === null) return; if (String(c).trim() === '129430') { sessionStorage.setItem('ow-torneo-ok', '1'); location.href = e.currentTarget.getAttribute('href'); } else alert('Código incorrecto.'); } }; }
 }
 </script>
 </body>
