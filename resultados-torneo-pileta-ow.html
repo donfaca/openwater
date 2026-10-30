@@ -17,6 +17,7 @@
     a:hover { color:#8fd4f5; }
     *{ box-sizing:border-box; }
     @keyframes owlive { 0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(34,197,94,.7); } 50% { opacity:.5; box-shadow:0 0 0 7px rgba(34,197,94,0); } }
+      @keyframes owact { 0%,100% { opacity:1; } 50% { opacity:.35; } }
   </style>
   <script src="./torneo-pileta-data.js"></script>
   <script src="./ow-master.js"></script>
@@ -28,7 +29,7 @@
     </a>
     <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:14px;font-weight:700;">
       <a href="noticias.html" style="color:#fff;">Noticias</a>
-      <a href="actividades.html" style="color:#fff;">Actividades</a>
+      <a href="actividades.html" style="color:#f5c518;;font-weight:700;animation:owact 1.2s ease-in-out infinite;">Actividades</a>
       <a href="index.html" style="color:#fff;">Inicio</a>
     </div>
   </nav>
@@ -173,7 +174,7 @@ class Component extends DCLogic {
         const d = r.ts !== null && r.ss !== null ? Math.round((r.ts - r.ss) * 100) / 100 : null;
         let bg = 'transparent', bd = claro ? G.bd : 'transparent', dc = G.t2;
         if (d !== null && d < 0) { bg = 'rgba(34,197,94,.35)'; bd = '#22c55e'; dc = claro ? '#0b7a3a' : '#6ee7a0'; } else if (d !== null && d > 0) { bg = 'rgba(239,68,68,.35)'; bd = '#ef4444'; dc = claro ? '#b3261e' : '#ff8a8a'; }
-        return { pos: r.pos || '', medalla: claro ? ({ 1: '#8a6a00', 2: '#5f6b72', 3: '#8a4a12' }[r.pos] || G.t1) : (medal[r.pos] || '#fff'), tiempo: r.est || r.tm || '—', sembrado: p.relevo ? r.l.sembrado : r.l.sembrado || 'NT', dif: d === null ? '' : (d > 0 ? '+' : d < 0 ? '−' : '') + Math.abs(d).toFixed(2).replace('.', ','), difColor: dc,
+        return { pos: r.pos || '', medalla: claro ? ({ 1: '#8a6a00', 2: '#5f6b72', 3: '#8a4a12' }[r.pos] || G.t1) : (medal[r.pos] || '#fff'), tiempo: r.est || r.tm || '—', sembrado: p.relevo ? r.l.sembrado : r.l.sembrado || 'NT', dif: d === null ? '' : (d > 0 ? '+' : d < 0 ? '-' : '') + (Math.abs(d) >= 60 ? Math.floor(Math.abs(d) / 60) + ':' + (Math.abs(d) % 60).toFixed(2).padStart(5, '0') : Math.abs(d).toFixed(2)).replace('.', ','), difColor: dc,
           estiloT: { textAlign: 'center', padding: '5px 4px', borderRadius: '6px', background: bg, border: '1px solid ' + bd, font: "800 16px 'Barlow',sans-serif", color: r.tm ? G.t1 : r.est ? (claro ? '#b3261e' : '#ff8a8a') : (claro ? G.t3 : '#5d7e92') },
           estado: r.estA, estColor: r.est ? (claro ? '#b3261e' : '#ff8a8a') : (claro ? '#0b7a3a' : '#6ee7a0'), obs: r.ob, nombre: r.l.nombre, club: r.l.club, serie: r.s, c: r.l.c, integrantes: r.l.integrantes || '' };
       });
