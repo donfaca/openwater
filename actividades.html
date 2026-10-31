@@ -77,12 +77,10 @@
       <a href="resultados-torneo-pileta-ow.dc.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:#16a34a;color:#fff;animation:owblink 1.3s ease-in-out infinite;">Resultados del torneo (tiempo real) →</a>
       <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 14px;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;"><a href="clasificacion-torneo-pileta-ow.dc.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:#f28c28;color:#08202f;" style-hover="background:#f7a85a;">Clasificación final →</a><span style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#f28c28;">(disponible al finalizar)</span></div>
-        <button onClick="{{ subir }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;border:0;background:#38c3e6;color:#08202f;cursor:pointer;align-self:flex-start;" style-hover="background:#7fdcf3;">Subir fotos ↑</button><a href="#galeria-fotos" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:transparent;color:#38c3e6;border:1px solid #38c3e6;align-self:flex-start;" style-hover="background:rgba(56,195,230,.15);">Ver galería de fotos ↓</a>
+        <a href="galeria-fotos.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;border:0;background:#38c3e6;color:#08202f;align-self:flex-start;">Galería de fotos →</a>
         <sc-if value="{{ hayMarcas }}" hint-placeholder-val="{{ false }}"><a href="marcas-1er-torneo-pileta-ow.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:transparent;color:#c9a24d;border:1px solid #c9a24d;" style-hover="background:rgba(201,162,77,.15);">Marcas del torneo (PDF) ↓</a></sc-if>
       </div>
     </div>
-    <div style="text-align:center;font-size:14px;color:#ffd978;padding:0 20px 16px;" hidden="{{ sinMsg }}">{{ msg }}</div>
-    <input id="ow-foto-input" type="file" accept="image/*" multiple onChange="{{ elegidas }}" style="display:none;">
   </div>
 
   <div style="max-width:1100px;margin:0 auto;padding:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
@@ -139,18 +137,6 @@
 
   </div>
 
-  <div id="galeria-fotos" style="max-width:1100px;margin:0 auto;padding:20px 40px 70px;">
-    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;text-align:center;margin:0 0 8px;">GALERÍA DE FOTOS</h2>
-    <p style="text-align:center;font-size:15px;color:#a9c6d6;max-width:640px;margin:0 auto 18px;">Fotos de las actividades y encuentros.</p>
-    <sc-if value="{{ vacia }}" hint-placeholder-val="{{ false }}">
-      <div style="text-align:center;font-size:14px;color:#7fa3b8;">Todavía no hay fotos.</div>
-    </sc-if>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
-      <sc-for list="{{ fotos }}" as="f" hint-placeholder-count="0">
-        <div style="position:relative;height:200px;border-radius:12px;overflow:hidden;border:1px solid #1a5678;background:#0c2b42;"><a href="{{ f.full }}" target="_blank" rel="noopener" style="display:block;height:100%;"><img src="{{ f.thumb }}" loading="lazy" alt="Foto" style="width:100%;height:100%;object-fit:cover;display:block;"></a><button title="Borrar foto" onClick="{{ f.borrar }}" style="position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(8,32,47,.85);color:#fff;font-size:20px;line-height:1;cursor:pointer;" style-hover="background:#e8483b;">×</button></div>
-      </sc-for>
-    </div>
-  </div>
   <footer style="background:#08202f;border-top:1px solid #16455f;padding:32px 40px;">
     <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
       <div>

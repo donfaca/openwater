@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <script src="./ow-torneo-config.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+  </style>
+  <script src="./ow-stats.js"></script>
+</helmet>
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:16px 40px;background:#08202f;border-bottom:1px solid #16455f;position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;"><img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:50px;width:50px;object-fit:cover;border-radius:50%;display:block;"></span><span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;white-space:nowrap;">OPEN WATER RÍO NEGRO</span>
+    </a>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;font-size:14px;font-weight:700;">
+      <a href="noticias.html" style="color:#fff;text-decoration:none;font-weight:800;">Noticias</a>
+      <a href="proximo-evento.html" style="color:#fff;text-decoration:none;">Próximas Ediciones</a>
+      <a href="pasados.html" style="color:#fff;text-decoration:none;">Ediciones anteriores</a>
+      <a href="actividades.html" style="color:#f5c518;text-decoration:none;;font-weight:700;">Actividades</a>
+      <a href="sponsors.html" style="color:#fff;text-decoration:none;">Sponsors</a>
+      <a href="socios.html" style="color:#fff;text-decoration:none;">Asociate a OW</a>
+      <a href="entrenamiento.html" style="color:#fff;text-decoration:none;font-weight:800;">Entrena en OW</a>
+      <a href="contacto.html" style="color:#fff;text-decoration:none;">Quiénes somos</a><a href="privado.html" style="font-weight:800;letter-spacing:.06em;color:#ff6b5e;text-decoration:none;">PRIVADO</a>
+    </div>
+  </nav>
+  <div style="max-width:1100px;margin:0 auto;padding:18px 40px 0;"><a href="actividades.html" style="display:inline-flex;align-items:center;gap:8px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;text-decoration:none;">← Volver a Actividades</a></div>
+  <div style="max-width:1100px;margin:22px auto 0;border:3px solid #c9a24d;border-radius:14px;overflow:hidden;background:#0c2b42;box-shadow:0 6px 18px rgba(0,0,0,.4);">
+  <div style="display:block;text-decoration:none;color:#fff;position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 30%,rgba(255,255,255,.28),transparent 35%),radial-gradient(ellipse at 75% 70%,rgba(255,255,255,.2),transparent 40%),radial-gradient(ellipse at 55% 20%,rgba(255,255,255,.16),transparent 30%),linear-gradient(180deg,#38c3e6 0%,#1796c4 55%,#0c6f9e 100%);">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0,transparent 58px,#0a2438 58px,#0a2438 62px,transparent 62px,transparent 120px);opacity:.45;"></div>
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0,transparent 60px,#EBA022 60px,#EBA022 61px,transparent 61px,transparent 120px,#e8483b 120px,#e8483b 121px,transparent 121px,transparent 180px);opacity:.0;"></div>
+    <div style="position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-3px;background:repeating-linear-gradient(90deg,#0a2438 0,#0a2438 60px,transparent 60px,transparent 80px);opacity:.35;"></div>
+    <div style="position:relative;z-index:2;max-width:1320px;margin:0 auto;padding:12px 40px;display:flex;align-items:center;justify-content:center;gap:10px 28px;flex-wrap:wrap;text-align:center;text-shadow:0 2px 3px rgba(4,30,48,.75),0 0 14px rgba(4,30,48,.6);">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;color:#fff;">31 DE OCTUBRE DE 2026</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1.05;color:#fff;">1ER ABIERTO DE PILETA 25 MTS <span style="color:#ffd978;">· OPEN WATER RÍO NEGRO</span></span>
+      <span style="flex:0 0 100%;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:#fff;">NATATORIO DEL MINISTERIO DE EDUCACIÓN · INSTITUTO - VIEDMA</span>
+    </div>
+  </div>
+    <div style="padding:34px 24px 28px;text-align:center;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">FOTOS DEL TORNEO Y LAS ACTIVIDADES</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:56px;color:#fff;margin:8px 0 18px;">GALERÍA DE FOTOS</h1>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;">
+        <button onClick="{{ subir }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;cursor:pointer;border:0;background:#38c3e6;color:#08202f;" style-hover="background:#7fdcf3;">Subir fotos ↑</button>
+        <button onClick="{{ alternarBorrar }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;cursor:pointer;background:{{ bgBorrar }};color:{{ colBorrar }};border:1px solid #e8483b;">{{ txtBorrar }}</button>
+      </div>
+      <div style="font-size:15px;color:#ffd978;min-height:20px;margin-top:14px;">{{ msg }}</div>
+      <input id="ow-foto-input" type="file" accept="image/*" multiple onChange="{{ elegidas }}" style="display:none;">
+    </div>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:30px 40px 70px;">
+    <sc-if value="{{ vacia }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;font-size:16px;color:#7fa3b8;padding:40px 0;">Todavía no hay fotos. Subí la primera con el botón de arriba.</div>
+    </sc-if>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
+      <sc-for list="{{ fotos }}" as="f" hint-placeholder-count="0">
+        <div style="position:relative;height:220px;border-radius:12px;overflow:hidden;border:1px solid #1a5678;background:#0c2b42;"><a href="{{ f.full }}" target="_blank" rel="noopener" style="display:block;height:100%;"><img src="{{ f.thumb }}" loading="lazy" alt="Foto" style="width:100%;height:100%;object-fit:cover;display:block;"></a><button title="Eliminar foto" hidden="{{ sinBorrar }}" onClick="{{ f.borrar }}" style="position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;border:0;background:#e8483b;color:#fff;font-size:22px;line-height:1;cursor:pointer;">×</button></div>
+      </sc-for>
+    </div>
+  </div>
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:32px 40px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;">OPEN WATER RÍO NEGRO</div>
+        <div style="font-size:14px;color:#a9c6d6;margin-top:8px;">openwaterrionegro@gmail.com</div>
+        <div style="font-size:14px;color:#a9c6d6;">+54 9 2920 650486<br>+54 9 2920 352579</div>
+      </div>
+      <div style="font-size:14px;color:#a9c6d6;">@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete</div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { fotos: [], cargado: false, msg: '', borrando: false };
+  codigo = '';
+  componentDidMount() { this.cargarFotos(); }
+  cargarFotos(){ const u=window.OW_FOTOS_URL; if(!u){this.setState({cargado:true});return;} fetch(u,{cache:'no-store'}).then(r=>r.json()).then(j=>this.setState({fotos:(j.fotos||[]).map(x=>({borrar:()=>this.borrar(x.id),full:'https://drive.google.com/file/d/'+x.id+'/view',thumb:'https://drive.google.com/thumbnail?id='+x.id+'&sz=w600'})),cargado:true})).catch(()=>this.setState({cargado:true})); }
+  pedirCodigo(){ const c=prompt('Ingresá el código:'); if(c===null) return false; this.codigo=String(c).trim(); return true; }
+  async borrar(id){ if(!confirm('¿Eliminar esta foto de la galería?')) return; try{ const r=await fetch(window.OW_FOTOS_URL,{method:'POST',body:JSON.stringify({accion:'borrar',codigo:this.codigo,id})}); const j=await r.json(); if(j.ok){ this.setState({msg:'Foto eliminada.'}); this.cargarFotos(); } else { this.setState({msg:j.error==='codigo'?'Código incorrecto.':'Error: '+j.error, borrando:j.error==='codigo'?false:this.state.borrando}); } }catch(e){ this.setState({msg:'Error: '+(e&&e.message||e)}); } }
+  reducir(file){ return new Promise((ok,ko)=>{ const im=new Image(); im.onload=()=>{ const k=Math.min(1,1600/Math.max(im.width,im.height)); const c=document.createElement('canvas'); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k); c.getContext('2d').drawImage(im,0,0,c.width,c.height); URL.revokeObjectURL(im.src); ok(c.toDataURL('image/jpeg',0.82).split(',')[1]); }; im.onerror=ko; im.src=URL.createObjectURL(file); }); }
+  async enviar(files){ const u=window.OW_FOTOS_URL; let n=0; for(let i=0;i<files.length;i++){ this.setState({msg:'Subiendo '+(i+1)+' de '+files.length+'...'}); try{ const data=await this.reducir(files[i]); const r=await fetch(u,{method:'POST',body:JSON.stringify({codigo:this.codigo,nombre:'ow-'+Date.now()+'-'+i,data})}); const j=await r.json(); if(j.ok)n++; else if(j.error==='codigo'){this.setState({msg:'Código incorrecto.'});return;} else {this.setState({msg:'Error del servidor: '+j.error});return;} }catch(e){this.setState({msg:'Error: '+(e&&e.message||e)});return;} } this.setState({msg:n+' foto(s) subida(s).'}); this.cargarFotos(); }
+  renderVals(){ const b=this.state.borrando; return {
+    fotos:this.state.fotos, msg:this.state.msg, vacia:this.state.cargado && !this.state.fotos.length, sinBorrar:!b,
+    txtBorrar:b?'Terminar de eliminar':'Eliminar fotos', bgBorrar:b?'#e8483b':'transparent', colBorrar:b?'#fff':'#ff8a7e',
+    subir:()=>{ if(!window.OW_FOTOS_URL){ this.setState({msg:'Galería aún no conectada.'}); return; } const i=document.getElementById('ow-foto-input'); if(i) i.click(); },
+    elegidas:e=>{ const fs=Array.from(e.target.files||[]); e.target.value=''; if(!fs.length) return; if(!this.pedirCodigo()) return; this.enviar(fs); },
+    alternarBorrar:()=>{ if(this.state.borrando){ this.setState({borrando:false,msg:''}); return; } if(!window.OW_FOTOS_URL){ this.setState({msg:'Galería aún no conectada.'}); return; } if(this.pedirCodigo()) this.setState({borrando:true,msg:'Tocá la × de las fotos que quieras eliminar.'}); }
+  }; }
+}
+</script>
+</body>
+</html>
