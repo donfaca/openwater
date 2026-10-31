@@ -5,6 +5,7 @@ function doPost(e){
   try{
     var d=JSON.parse(e.postData.contents);
     if(d.codigo!==CODIGO)return out_({ok:false,error:'codigo'});
+    if(d.accion==='borrar'){DriveApp.getFileById(d.id).setTrashed(true);return out_({ok:true});}
     var b=Utilities.newBlob(Utilities.base64Decode(d.data),'image/jpeg',(d.nombre||'foto')+'.jpg');
     var f=carpeta_().createFile(b);f.setSharing(DriveApp.Access.ANYONE_WITH_LINK,DriveApp.Permission.VIEW);
     return out_({ok:true,id:f.getId()});

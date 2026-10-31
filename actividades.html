@@ -77,7 +77,7 @@
       <a href="resultados-torneo-pileta-ow.dc.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:#16a34a;color:#fff;animation:owblink 1.3s ease-in-out infinite;">Resultados del torneo (tiempo real) →</a>
       <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 14px;">
         <div style="display:flex;flex-direction:column;align-items:center;gap:6px;"><a href="clasificacion-torneo-pileta-ow.dc.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:#f28c28;color:#08202f;" style-hover="background:#f7a85a;">Clasificación final →</a><span style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#f28c28;">(disponible al finalizar)</span></div>
-        <button onClick="{{ subir }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;border:0;background:#38c3e6;color:#08202f;cursor:pointer;align-self:flex-start;" style-hover="background:#7fdcf3;">Subir fotos ↑</button>
+        <button onClick="{{ subir }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;border:0;background:#38c3e6;color:#08202f;cursor:pointer;align-self:flex-start;" style-hover="background:#7fdcf3;">Subir fotos ↑</button><a href="#galeria-fotos" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:transparent;color:#38c3e6;border:1px solid #38c3e6;align-self:flex-start;" style-hover="background:rgba(56,195,230,.15);">Ver galería de fotos ↓</a>
         <sc-if value="{{ hayMarcas }}" hint-placeholder-val="{{ false }}"><a href="marcas-1er-torneo-pileta-ow.pdf" target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;background:transparent;color:#c9a24d;border:1px solid #c9a24d;" style-hover="background:rgba(201,162,77,.15);">Marcas del torneo (PDF) ↓</a></sc-if>
       </div>
     </div>
@@ -139,7 +139,7 @@
 
   </div>
 
-  <div style="max-width:1100px;margin:0 auto;padding:20px 40px 70px;">
+  <div id="galeria-fotos" style="max-width:1100px;margin:0 auto;padding:20px 40px 70px;">
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;text-align:center;margin:0 0 8px;">GALERÍA DE FOTOS</h2>
     <p style="text-align:center;font-size:15px;color:#a9c6d6;max-width:640px;margin:0 auto 18px;">Fotos de las actividades y encuentros.</p>
     <sc-if value="{{ vacia }}" hint-placeholder-val="{{ false }}">
@@ -147,7 +147,7 @@
     </sc-if>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
       <sc-for list="{{ fotos }}" as="f" hint-placeholder-count="0">
-        <a href="{{ f.full }}" target="_blank" rel="noopener" style="display:block;height:200px;border-radius:12px;overflow:hidden;border:1px solid #1a5678;background:#0c2b42;"><img src="{{ f.thumb }}" loading="lazy" alt="Foto" style="width:100%;height:100%;object-fit:cover;display:block;"></a>
+        <div style="position:relative;height:200px;border-radius:12px;overflow:hidden;border:1px solid #1a5678;background:#0c2b42;"><a href="{{ f.full }}" target="_blank" rel="noopener" style="display:block;height:100%;"><img src="{{ f.thumb }}" loading="lazy" alt="Foto" style="width:100%;height:100%;object-fit:cover;display:block;"></a><button title="Borrar foto" onClick="{{ f.borrar }}" style="position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(8,32,47,.85);color:#fff;font-size:20px;line-height:1;cursor:pointer;" style-hover="background:#e8483b;">×</button></div>
       </sc-for>
     </div>
   </div>
@@ -170,7 +170,8 @@
 class Component extends DCLogic {
   state = { fotos: [], cargado: false, msg: '', hayClasif: false, hayMarcas: false, urlClasif: 'clasificacion-1er-torneo-pileta-ow.pdf' };
   inputRef = React.createRef();
-  cargarFotos(){ const u=window.OW_FOTOS_URL; if(!u){this.setState({cargado:true});return;} fetch(u,{cache:'no-store'}).then(r=>r.json()).then(j=>this.setState({fotos:(j.fotos||[]).map(x=>({full:'https://drive.google.com/file/d/'+x.id+'/view',thumb:'https://drive.google.com/thumbnail?id='+x.id+'&sz=w600'})),cargado:true})).catch(()=>this.setState({cargado:true})); }
+  cargarFotos(){ const u=window.OW_FOTOS_URL; if(!u){this.setState({cargado:true});return;} fetch(u,{cache:'no-store'}).then(r=>r.json()).then(j=>this.setState({fotos:(j.fotos||[]).map(x=>({borrar:()=>this.borrar(x.id),full:'https://drive.google.com/file/d/'+x.id+'/view',thumb:'https://drive.google.com/thumbnail?id='+x.id+'&sz=w600'})),cargado:true})).catch(()=>this.setState({cargado:true})); }
+  async borrar(id){ if(!confirm('¿Borrar esta foto de la galería?')) return; const c=prompt('Ingresá el código:'); if(c===null) return; try{ const r=await fetch(window.OW_FOTOS_URL,{method:'POST',body:JSON.stringify({accion:'borrar',codigo:String(c).trim(),id})}); const j=await r.json(); this.setState({msg:j.ok?'Foto borrada.':(j.error==='codigo'?'Código incorrecto.':'Error: '+j.error)}); if(j.ok) this.cargarFotos(); }catch(e){ this.setState({msg:'Error: '+(e&&e.message||e)}); } }
   reducir(file){ return new Promise((ok,ko)=>{ const im=new Image(); im.onload=()=>{ const k=Math.min(1,1600/Math.max(im.width,im.height)); const c=document.createElement('canvas'); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k); c.getContext('2d').drawImage(im,0,0,c.width,c.height); URL.revokeObjectURL(im.src); ok(c.toDataURL('image/jpeg',0.82).split(',')[1]); }; im.onerror=ko; im.src=URL.createObjectURL(file); }); }
   async enviar(files){ const u=window.OW_FOTOS_URL; let n=0; for(let i=0;i<files.length;i++){ this.setState({msg:'Subiendo '+(i+1)+' de '+files.length+'...'}); try{ const data=await this.reducir(files[i]); const r=await fetch(u,{method:'POST',body:JSON.stringify({codigo:this.codigo,nombre:'ow-'+Date.now()+'-'+i,data})}); const j=await r.json(); if(j.ok)n++; else if(j.error==='codigo'){this.setState({msg:'Código incorrecto.'});return;} else {this.setState({msg:'Error del servidor: '+j.error});return;} }catch(e){this.setState({msg:'Error: '+(e&&e.message||e)});return;} } this.setState({msg:n+' foto(s) subida(s).'}); this.cargarFotos(); }
   componentDidMount() {
