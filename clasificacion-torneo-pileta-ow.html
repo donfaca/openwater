@@ -69,14 +69,14 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { hojas: null, i: 0, error: '', pdfUrl: '', q: '', prueba: '', genero: '' };
+  state = { mob: false, hojas: null, i: 0, error: '', pdfUrl: '', q: '', prueba: '', genero: '' };
   async cargarPdf() { try { const j = await (await fetch(window.OW_TORNEO_PDF_URL + '?pdf=1', { cache: 'no-store' })).json(); const bin = atob(j.pdf), u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); this.setState({ pdfUrl: URL.createObjectURL(new Blob([u], { type: 'application/pdf' })) }); } catch (e) {} }
   async cargar() {
     const u = window.OW_TORNEO_PDF_URL; if (!u) { this.setState({ error: 'sin' }); return; }
     try { const j = await (await fetch(u, { cache: 'no-store' })).json(); this.setState({ hojas: j.hojas && j.hojas.length ? j.hojas : [], error: '' }); if (j.hayPdf && this._pdfFecha !== j.fecha) { this._pdfFecha = j.fecha; this.cargarPdf(); } else if (!j.hayPdf) this.setState({ pdfUrl: '' }); } catch (e) { this.setState({ error: 'red' }); }
   }
-  componentDidMount() { this.cargar(); this._p = setInterval(() => this.cargar(), 30000); }
-  componentWillUnmount() { clearInterval(this._p); }
+  componentDidMount() { this._rs = () => { const m = window.innerWidth < 640; if (m !== this.state.mob) this.setState({ mob: m }); }; this._rs(); window.addEventListener('resize', this._rs); this.cargar(); this._p = setInterval(() => this.cargar(), 30000); }
+  componentWillUnmount() { clearInterval(this._p); window.removeEventListener('resize', this._rs); }
   genT(g) { return g === 'f' ? { bg: '#d4f3e0', hd: '#7fd8a6', tx: '#06301c', bd: '#4fb383', t1: '#06301c', t2: '#2f5d47', t3: '#3d6b55', ln: '#a8dcc0', sm: '#0b5a3a', num: '#0b5a3a' } : g === 'm' ? { bg: '#fff3b0', hd: '#f2c200', tx: '#3a2e00', bd: '#d9a900', t1: '#3a2e00', t2: '#6b5a10', t3: '#7a6820', ln: '#ecd777', sm: '#7a5a00', num: '#7a5a00' } : { bg: '#0f3350', hd: '#0c2b42', tx: '#fff', bd: '#1a5678', t1: '#fff', t2: '#a9c6d6', t3: '#7fa3b8', ln: '#16455f', sm: '#8fd4f5', num: '#c9a24d' }; }
   genDe(t) { return /mixto/i.test(t) ? 'x' : /mujer|dama|femen/i.test(t) ? 'f' : /varon|varón|hombre|masc|caballero/i.test(t) ? 'm' : ''; }
   norm(s) { return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
@@ -117,6 +117,14 @@ class Component extends DCLogic {
         if (!esH && conX && numCols) celdas.forEach((c, k) => { if (esNum(c)) numCols[k]++; else if (c.trim()) numCols[k]--; });
         const m = !esH && /^\d+$/.test((celdas[0] || '').trim()) ? medal[+celdas[0]] : null;
         const alin = k => k === 0 ? 'center' : (numCols && numCols[k] > 0 ? 'right' : 'left');
+        if (this.state.mob && plantilla) {
+          if (esH) { S._hd = celdas.slice(); return; }
+          let first = true; const hd = S._hd || [];
+          const mc = [{ t: celdas[0], estilo: { flex: '0 0 34px', textAlign: 'center', font: "400 26px 'Bebas Neue',sans-serif", color: m || T.t1 } }, { t: celdas[1] || '', estilo: { flex: '1 1 calc(100% - 34px)', minWidth: 0, font: "700 18px 'Barlow',sans-serif", color: T.t1, lineHeight: 1.25 } }];
+          celdas.forEach((c, k) => { if (k < 2 || !c.trim()) return; const lb = (hd[k] || '').trim(); const bad = /^(DQ|NSP|BAJA)$/i.test(c.trim());
+            mc.push({ t: lb && !bad ? lb + ': ' + c : c, estilo: { flex: '0 1 auto', marginLeft: first ? '34px' : '0', font: (/tiempo|puntos?|pts/i.test(lb) ? '700' : '500') + " 14px 'Barlow',sans-serif", color: bad ? '#c0262d' : /tiempo|puntos?|pts/i.test(lb) ? T.t1 : T.t2 } }); first = false; });
+          filas.push({ tipo: 'd', estilo: { display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '3px 14px', padding: '11px 0', borderTop: '1px solid ' + T.ln }, celdas: mc }); return;
+        }
         filas.push({ tipo: esH ? 'c' : 'd', _h: esH, _cells: celdas, estilo: Object.assign({ alignItems: 'baseline', padding: esH ? '6px 0 4px' : '8px 0', borderTop: esH ? 'none' : '1px solid ' + T.ln, borderBottom: esH ? '2px solid ' + T.bd : 'none' }, plantilla ? { display: 'grid', gridTemplateColumns: plantilla, gap: '0 10px' } : { display: 'flex', gap: '10px' }),
           celdas: celdas.map((c, k) => ({ t: c, estilo: Object.assign({ minWidth: 0, textAlign: plantilla ? 'left' : (k === 0 ? 'center' : 'left'), _k: k }, plantilla ? {} : { flex: k === 0 ? '0 0 48px' : '1 1 0' }, esH ? { font: "700 11px 'Barlow',sans-serif", letterSpacing: '.1em', textTransform: 'uppercase', color: T.t3 } : k === 0 ? { font: "400 24px 'Bebas Neue',sans-serif", color: m || T.t1 } : { font: (k === 1 ? '600 16px' : '500 15px') + " 'Barlow',sans-serif", color: k === 1 ? T.t1 : /^(DQ|NSP|BAJA)$/i.test(c.trim()) ? '#c0262d' : T.t2 }) })) });
       });
