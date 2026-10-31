@@ -6,14 +6,15 @@ function doPost(e){
     var d=JSON.parse(e.postData.contents);
     if(d.codigo!==CODIGO)return out_({ok:false,error:'codigo'});
     if(d.accion==='borrar'){DriveApp.getFileById(d.id).setTrashed(true);return out_({ok:true});}
-    var b=Utilities.newBlob(Utilities.base64Decode(d.data),'image/jpeg',(d.nombre||'foto')+'.jpg');
+    var mi=d.mime||'image/jpeg',ex=mi.indexOf('video')===0?(mi.split('/')[1]||'mp4').replace('quicktime','mov'):'jpg';
+    var b=Utilities.newBlob(Utilities.base64Decode(d.data),mi,(d.nombre||'foto')+'.'+ex);
     var f=carpeta_().createFile(b);f.setSharing(DriveApp.Access.ANYONE_WITH_LINK,DriveApp.Permission.VIEW);
     return out_({ok:true,id:f.getId()});
   }catch(err){return out_({ok:false,error:String(err)});}
 }
 function doGet(){
   var it=carpeta_().getFiles(),r=[];
-  while(it.hasNext()){var f=it.next();r.push({id:f.getId(),t:f.getDateCreated().getTime()});}
+  while(it.hasNext()){var f=it.next();r.push({id:f.getId(),t:f.getDateCreated().getTime(),v:f.getMimeType().indexOf('video')===0});}
   r.sort(function(a,b){return b.t-a.t;});
   return out_({fotos:r.slice(0,120)});
 }
