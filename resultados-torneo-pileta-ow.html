@@ -65,20 +65,20 @@
             <span style="margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.tx }};">{{ p.avance }}</span>
           </div>
           <div style="padding:6px 18px 14px;">
-            <div style="display:grid;grid-template-columns:34px 86px 80px 74px minmax(0,1.5fr) 74px minmax(0,1fr);gap:4px 10px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.t3 }};padding:8px 0 4px;"><div style="text-align:center;">Pos.</div><div style="text-align:center;">Tiempo</div><div style="text-align:right;">{{ p.colSemb }}</div><div style="text-align:right;">Dif.</div><div>{{ p.colNom }}</div><div style="text-align:center;">Estado</div><div>Observaciones</div></div>
+            <div style="display:{{ headDisp }};grid-template-columns:34px 86px 80px 74px minmax(0,1.5fr) 74px minmax(0,1fr);gap:4px 10px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.t3 }};padding:8px 0 4px;"><div style="text-align:center;">Pos.</div><div style="text-align:center;">Tiempo</div><div style="text-align:right;">{{ p.colSemb }}</div><div style="text-align:right;">Dif.</div><div>{{ p.colNom }}</div><div style="text-align:center;">Estado</div><div>Observaciones</div></div>
             <sc-for list="{{ p.filas }}" as="f" hint-placeholder-count="4">
-              <div style="display:grid;grid-template-columns:34px 86px 80px 74px minmax(0,1.5fr) 74px minmax(0,1fr);gap:4px 10px;align-items:center;padding:8px 0;border-top:1px solid {{ p.g.ln }};">
-                <div style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;color:{{ f.medalla }};">{{ f.pos }}</div>
-                <div style="{{ f.estiloT }}">{{ f.tiempo }}</div>
-                <div style="text-align:right;font-size:14px;font-weight:700;color:{{ p.g.sm }};white-space:nowrap;">{{ f.sembrado }}</div>
-                <div style="text-align:right;font-size:14px;font-weight:800;white-space:nowrap;color:{{ f.difColor }};">{{ f.dif }}</div>
-                <div style="min-width:0;">
+              <div style="display:grid;grid-template-columns:{{ gCols }};gap:{{ gGap }};align-items:center;padding:{{ rowPad }};border-top:1px solid {{ p.g.ln }};">
+                <div style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;color:{{ f.medalla }};grid-area:{{ gaPos }};">{{ f.pos }}</div>
+                <div style="{{ f.estiloT }}" data-ga="t">{{ f.tiempo }}</div>
+                <div style="text-align:{{ txtAl }};font-size:14px;font-weight:700;color:{{ p.g.sm }};white-space:nowrap;grid-area:{{ gaSemb }};"><span style="display:{{ labDisp }};font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:{{ p.g.t3 }};margin-right:5px;">{{ p.colSemb }}</span>{{ f.sembrado }}</div>
+                <div style="text-align:{{ txtAl }};font-size:14px;font-weight:800;white-space:nowrap;color:{{ f.difColor }};grid-area:{{ gaDif }};"><span style="display:{{ labDisp }};font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:{{ p.g.t3 }};margin-right:5px;">Dif.</span>{{ f.dif }}</div>
+                <div style="min-width:0;grid-area:{{ gaNom }};">
                   <div style="font-size:16px;font-weight:600;color:{{ p.g.t1 }};">{{ f.nombre }}</div>
                   <div style="font-size:12.5px;color:{{ p.g.t2 }};">{{ f.club }} · Serie {{ f.serie }} · And. {{ f.c }}</div>
                   <div style="font-size:12.5px;color:{{ p.g.t2 }};">{{ f.integrantes }}</div>
                 </div>
-                <div style="text-align:center;font-size:13px;font-weight:700;color:{{ f.estColor }};">{{ f.estado }}</div>
-                <div style="font-size:13px;color:{{ p.g.t2 }};">{{ f.obs }}</div>
+                <div style="text-align:{{ estAl }};font-size:13px;font-weight:700;color:{{ f.estColor }};grid-area:{{ gaEst }};">{{ f.estado }}</div>
+                <div style="font-size:13px;color:{{ p.g.t2 }};grid-area:{{ gaObs }};">{{ f.obs }}</div>
               </div>
             </sc-for>
           </div>
@@ -113,7 +113,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { ready: !!window.OW_TORNEO, tiempos: {}, hora: '', origen: '' };
+  state = { mob: false, ready: !!window.OW_TORNEO, tiempos: {}, hora: '', origen: '' };
   norm(s) { return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
   parseT(s) {
     s = String(s || '').trim().replace('.', ','); s = s.replace(/^(\d+):(\d{2}):(\d{1,2})$/, '$1:$2,$3'); const m = /^(?:(\d+):)?(\d{1,2}),(\d{1,2})$/.exec(s) || /^(?:(\d+):)?(\d{1,2})$/.exec(s); if (!m) return null;
@@ -154,10 +154,11 @@ class Component extends DCLogic {
   local() { try { return JSON.parse(localStorage.getItem('ow-torneo-pileta-tiempos') || '{}'); } catch (e) { return {}; } }
   gen(n) { const m = /^(mujer|dama|femen)/i.test(n) ? 'f' : /^(varon|hombre|masc|caballero)/i.test(n) ? 'm' : ''; return m === 'f' ? { bg: '#d4f3e0', hd: '#7fd8a6', tx: '#06301c', bd: '#4fb383', t1: '#06301c', t2: '#2f5d47', t3: '#3d6b55', ln: '#a8dcc0', sm: '#0b5a3a', num: '#0b5a3a' } : m === 'm' ? { bg: '#fff3b0', hd: '#f2c200', tx: '#3a2e00', bd: '#d9a900', t1: '#3a2e00', t2: '#6b5a10', t3: '#7a6820', ln: '#ecd777', sm: '#7a5a00', num: '#7a5a00' } : { bg: '#0f3350', hd: '#0c2b42', tx: '#fff', bd: '#1a5678', t1: '#fff', t2: '#a9c6d6', t3: '#7fa3b8', ln: '#16455f', sm: '#8fd4f5', num: '#c9a24d' }; }
   componentDidMount() {
+    this._rs = () => { const m = window.innerWidth < 640; if (m !== this.state.mob) this.setState({ mob: m }); }; this._rs(); window.addEventListener('resize', this._rs);
     if (window.OWMaster) { this._f = () => this.forceUpdate(); window.OWMaster.on(this._f); }
     if (!this.state.ready) this._t = setInterval(() => { if (window.OW_TORNEO) { clearInterval(this._t); this.setState({ ready: true }); } }, 100);
   }
-  componentWillUnmount() { if (window.OWMaster && this._f) window.OWMaster.off(this._f); clearInterval(this._t); }
+  componentWillUnmount() { window.removeEventListener('resize', this._rs); if (window.OWMaster && this._f) window.OWMaster.off(this._f); clearInterval(this._t); }
   ir(id) { return e => { const el = document.getElementById(id); if (!el) return; e.preventDefault(); window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); }; }
   renderVals() {
     const D = window.OW_TORNEO || { pruebas: [] }, M = window.OWMaster || { tiempos: {}, estados: {}, estadosAll: {}, obs: {}, puntos: null, criterios: [] }, T = M.tiempos, club = {}, medal = { 1: '#c9a24d', 2: '#cfd8dc', 3: '#cd7f32' };
@@ -175,12 +176,15 @@ class Component extends DCLogic {
         let bg = 'transparent', bd = claro ? G.bd : 'transparent', dc = G.t2;
         if (d !== null && d < 0) { bg = 'rgba(34,197,94,.35)'; bd = '#22c55e'; dc = claro ? '#0b7a3a' : '#6ee7a0'; } else if (d !== null && d > 0) { bg = 'rgba(239,68,68,.35)'; bd = '#ef4444'; dc = claro ? '#b3261e' : '#ff8a8a'; }
         return { pos: r.pos || '', medalla: claro ? ({ 1: '#8a6a00', 2: '#5f6b72', 3: '#8a4a12' }[r.pos] || G.t1) : (medal[r.pos] || '#fff'), tiempo: r.est || r.tm || '—', sembrado: p.relevo ? r.l.sembrado : r.l.sembrado || 'NT', dif: d === null ? '' : (d > 0 ? '+' : d < 0 ? '-' : '') + (Math.abs(d) >= 60 ? Math.floor(Math.abs(d) / 60) + ':' + (Math.abs(d) % 60).toFixed(2).padStart(5, '0') : Math.abs(d).toFixed(2)).replace('.', ','), difColor: dc,
-          estiloT: { textAlign: 'center', padding: '5px 4px', borderRadius: '6px', background: bg, border: '1px solid ' + bd, font: "800 16px 'Barlow',sans-serif", color: r.tm ? G.t1 : r.est ? (claro ? '#b3261e' : '#ff8a8a') : (claro ? G.t3 : '#5d7e92') },
+          estiloT: { gridArea: this.state.mob ? '2 / 2 / 3 / 3' : 'auto', textAlign: 'center', padding: '5px 4px', borderRadius: '6px', background: bg, border: '1px solid ' + bd, font: "800 16px 'Barlow',sans-serif", color: r.tm ? G.t1 : r.est ? (claro ? '#b3261e' : '#ff8a8a') : (claro ? G.t3 : '#5d7e92') },
           estado: r.estA, estColor: r.est ? (claro ? '#b3261e' : '#ff8a8a') : (claro ? '#0b7a3a' : '#6ee7a0'), obs: r.ob, nombre: r.l.nombre, club: r.l.club, serie: r.s, c: r.l.c, integrantes: r.l.integrantes || '' };
       });
       return { g: this.gen(p.nombre), n: p.n, id: 'p' + p.n, nombre: p.nombre, color: acc[pi % 8], colSemb: p.relevo ? 'Cat.' : 'Sembrado', colNom: p.relevo ? 'Equipo' : 'Nadador/a', avance: rk.length + ' de ' + rows.length + ' con tiempo', filas };
     });
+    const mob = this.state.mob;
     return {
+      headDisp: mob ? 'none' : 'grid', gCols: mob ? '34px minmax(0,1fr) minmax(0,1.1fr) minmax(0,.8fr) minmax(0,.9fr)' : '34px 86px 80px 74px minmax(0,1.5fr) 74px minmax(0,1fr)', gGap: mob ? '6px 8px' : '4px 10px', rowPad: mob ? '12px 0' : '8px 0', txtAl: mob ? 'left' : 'right', estAl: mob ? 'right' : 'center', labDisp: mob ? 'block' : 'none',
+      gaPos: mob ? '1 / 1 / 2 / 2' : 'auto', gaNom: mob ? '1 / 2 / 2 / 6' : 'auto', gaSemb: mob ? '2 / 3 / 3 / 4' : 'auto', gaDif: mob ? '2 / 4 / 3 / 5' : 'auto', gaEst: mob ? '2 / 5 / 3 / 6' : 'auto', gaObs: mob ? '3 / 2 / 4 / 6' : 'auto',
       hayPuntos: !!M.puntos, sinPuntos: !M.puntos && M.criterios.length > 0, criterios: M.criterios.map(t => ({ t })),
       clubes: Object.keys(club).sort((a, b) => club[b].pts - club[a].pts).map((c, i) => ({ pos: i + 1, medalla: { 1: '#c9a24d', 2: '#cfd8dc', 3: '#cd7f32' }[i + 1] || '#fff', club: c, pts: String(club[c].pts).replace('.', ','), det: club[c].n + (club[c].n === 1 ? ' puesto con puntos' : ' puestos con puntos') })),
       pruebas, chips: pruebas.map(p => ({ n: p.n, href: '#' + p.id, titulo: p.nombre, ir: this.ir(p.id) })).concat([{ n: 'Puntaje', href: '#puntaje', titulo: 'Puntaje por clubes', ir: this.ir('puntaje') }]),

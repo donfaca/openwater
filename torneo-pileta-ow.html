@@ -98,16 +98,16 @@
           <sc-for list="{{ p.series }}" as="s" hint-placeholder-count="1">
             <div style="padding:12px 18px 6px;">
               <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:{{ p.g.t3 }};margin-bottom:6px;">{{ s.titulo }}</div>
-              <div style="display:grid;grid-template-columns:28px minmax(0,1fr) 72px 96px;gap:4px 12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.t3 }};padding-bottom:4px;"><div>And.</div><div>Nadador/a</div><div style="text-align:right;">{{ s.colSemb }}</div><div style="text-align:center;">Tiempo</div></div>
+              <div style="display:{{ headDisp }};grid-template-columns:28px minmax(0,1fr) 72px 96px;gap:4px 12px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:{{ p.g.t3 }};padding-bottom:4px;"><div>And.</div><div>Nadador/a</div><div style="text-align:right;">{{ s.colSemb }}</div><div style="text-align:center;">Tiempo</div></div>
               <sc-for list="{{ s.filas }}" as="f" hint-placeholder-count="4">
-                <div style="display:grid;grid-template-columns:28px minmax(0,1fr) 72px 96px;gap:4px 12px;align-items:baseline;padding:8px 0;border-top:1px solid {{ p.g.ln }};">
+                <div style="display:grid;grid-template-columns:{{ gCols }};gap:4px 12px;align-items:baseline;padding:{{ rowPad }};border-top:1px solid {{ p.g.ln }};">
                   <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:{{ p.g.num }};">{{ f.c }}</div>
-                  <div style="min-width:0;">
+                  <div style="min-width:0;grid-column:{{ nomCol }};">
                     <div style="font-size:16px;font-weight:600;color:{{ p.g.t1 }};">{{ f.nombre }}</div>
                     <div style="font-size:13px;color:{{ p.g.t2 }};">{{ f.club }}</div>
                     <div style="font-size:13px;color:{{ p.g.t2 }};margin-top:2px;">{{ f.integrantes }}</div>
                   </div>
-                  <div style="font-size:15px;font-weight:700;color:{{ p.g.sm }};text-align:right;white-space:nowrap;">{{ f.sembrado }}</div>
+                  <div style="font-size:15px;font-weight:700;color:{{ p.g.sm }};text-align:{{ sembAl }};white-space:nowrap;grid-column:{{ sembCol }};"><span style="display:{{ labDisp }};font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:{{ p.g.t3 }};margin-right:6px;">{{ s.colSemb }}</span>{{ f.sembrado }}</div>
                   <input type="text" placeholder="0:00,00" value="{{ f.tiempo }}" readOnly="{{ true }}" style="{{ f.estilo }}">
                 </div>
               </sc-for>
@@ -134,7 +134,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { genero: '', pdfMsg: '', q: '', club: '', prueba: '', msg: '', ready: !!window.OW_TORNEO, tiempos: this.load('ow-torneo-pileta-tiempos'), clasif: this.load('ow-torneo-pileta-clasif'), sembrados: this.load('ow-torneo-pileta-sembrado') };
+  state = { mob: false, genero: '', pdfMsg: '', q: '', club: '', prueba: '', msg: '', ready: !!window.OW_TORNEO, tiempos: this.load('ow-torneo-pileta-tiempos'), clasif: this.load('ow-torneo-pileta-clasif'), sembrados: this.load('ow-torneo-pileta-sembrado') };
   ver() { const D = window.OW_TORNEO; if (!D || !D.version) return false; try { if (localStorage.getItem('ow-torneo-pileta-ver') === D.version) return false; ['tiempos', 'sembrado', 'cancheo', 'clasif'].forEach(k => localStorage.removeItem('ow-torneo-pileta-' + k)); localStorage.setItem('ow-torneo-pileta-ver', D.version); } catch (e) {} return true; }
   load(k) { this.ver(); try { return JSON.parse(localStorage.getItem(k) || '{}'); } catch (e) { return {}; } }
   save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -324,7 +324,8 @@ class Component extends DCLogic {
   restablecer = e => { e.preventDefault(); if (!confirm('¿Borrar los tiempos cargados y volver al sembrado original?')) return; this.save('ow-torneo-pileta-tiempos', {}); this.save('ow-torneo-pileta-sembrado', {}); this.save('ow-torneo-pileta-clasif', {}); this.save('ow-torneo-pileta-cancheo', {}); if (window.OW_TORNEO && window.OW_TORNEO._orig) window.OW_TORNEO.pruebas = window.OW_TORNEO._orig; this.setState({ tiempos: {}, sembrados: {}, clasif: {}, msg: 'Datos restablecidos.' }); };
   setTiempo(k, v) { const t = Object.assign({}, this.state.tiempos); if (v) t[k] = v; else delete t[k]; try { localStorage.setItem('ow-torneo-pileta-tiempos', JSON.stringify(t)); } catch (e) {} this.setState({ tiempos: t }); }
   componentDidMount() {
-    if (/openwater\.ar$/.test(location.hostname) && sessionStorage.getItem('ow-torneo-ok') !== '1') { const c = prompt('Acceso privado. Ingresá el código:'); if (String(c).trim() === '129430') sessionStorage.setItem('ow-torneo-ok', '1'); else { location.href = 'actividades.html'; return; } }
+    this._rs = () => { const m = window.innerWidth < 640; if (m !== this.state.mob) this.setState({ mob: m }); }; this._rs(); window.addEventListener('resize', this._rs);
+    if (/openwater\.ar$/.test(location.hostname) && sessionStorage.getItem('ow-torneo-ok') !== '1') { const c = prompt('Acceso privado. Ingresá el código:'); if (String(c).trim() === '129430') sessionStorage.setItem('ow-torneo-ok', '1'); else { location.href = 'actividades.dc.html'; return; } }
     if (window.OWMaster) { this._f = () => this.forceUpdate(); window.OWMaster.on(this._f); }
     if (this.ver()) this.setState({ tiempos: {}, sembrados: {}, clasif: {} });
     if (!this.state.ready) {
@@ -428,6 +429,7 @@ class Component extends DCLogic {
     document.body.appendChild(el); el.click(); el.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
   renderVals() {
+    const mob = this.state.mob;
     this.aplicar(); const D = window.OW_TORNEO || { pruebas: [] };
     const q = this.norm(this.state.q.trim()), club = this.state.club, pr = this.state.prueba, ge = this.state.genero;
     const clubesSet = new Set(), nad = new Set();
@@ -457,6 +459,7 @@ class Component extends DCLogic {
       if (series.length) { const cl = (this.state.clasif[p.n] || []).map(r => Object.assign({}, r, { color: { 1: '#c9a24d', 2: '#cfd8dc', 3: '#cd7f32' }[parseInt(r.puesto, 10)] || '#fff' })); pruebas.push({ n: p.n, nombre: p.nombre, g: this.gen(p.nombre), series, clasif: cl, hayClasif: cl.length > 0 }); }
     });
     return {
+      headDisp: mob ? 'none' : 'grid', gCols: mob ? '28px minmax(0,1fr) 112px' : '28px minmax(0,1fr) 72px 96px', rowPad: mob ? '12px 0' : '8px 0', nomCol: mob ? '2 / 4' : 'auto', sembCol: mob ? '2' : 'auto', sembAl: mob ? 'left' : 'right', labDisp: mob ? 'inline' : 'none',
       pdfMsg: this.state.pdfMsg, subirPdf: this.subirPdf, borrarPdf: this.borrarPdf,
       sync: this.sync().t, syncColor: this.sync().c,
       stats: { pruebas: D.pruebas.length, nadadores: nad.size, clubes: clubesSet.size },
