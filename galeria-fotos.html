@@ -54,7 +54,7 @@
         <button onClick="{{ alternarBorrar }}" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;text-decoration:none;cursor:pointer;background:{{ bgBorrar }};color:{{ colBorrar }};border:1px solid #e8483b;">{{ txtBorrar }}</button>
       </div>
       <div style="font-size:15px;color:#ffd978;min-height:20px;margin-top:14px;">{{ msg }}</div>
-      <input id="ow-foto-input" type="file" accept="image/*" multiple onChange="{{ elegidas }}" style="display:none;">
+      <input id="ow-foto-input" type="file" accept="image/*" multiple="{{ true }}" onChange="{{ elegidas }}" style="display:none;">
     </div>
   </div>
   <div style="max-width:1100px;margin:0 auto;padding:30px 40px 70px;">
