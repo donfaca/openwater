@@ -105,24 +105,36 @@ class Component extends DCLogic {
   norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim(); }
   seg(t) { const p = String(t || '').replace(',', '.').split(':').map(Number); return p.some(isNaN) || !String(t || '').trim() ? Infinity : p.reduce((a, b) => a * 60 + b, 0); }
   mejores(a, b) { const m = {}; a.concat(b.map(x => ({ prueba: x[0], tiempo: x[1] }))).forEach(x => { const k = this.norm(x.prueba), s = this.seg(x.tiempo); if (s < Infinity && (!m[k] || s < m[k].s)) m[k] = { prueba: x.prueba, tiempo: x.tiempo, s }; }); const st = p => ['libre', 'espalda', 'pecho', 'mariposa', 'combinado'].findIndex(w => this.norm(p).indexOf(w) > 0); return Object.values(m).sort((x, y) => (parseInt(x.prueba) - parseInt(y.prueba)) || st(x.prueba) - st(y.prueba)).map(x => ({ prueba: x.prueba, tiempo: x.tiempo })); }
-  async subir(e) {
+  pedirCodigo() {
+    return new Promise(res => {
+      const c = sessionStorage.getItem('ow-team-cod'); if (c) return res(c);
+      const o = document.createElement('div'); o.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Barlow,sans-serif;';
+      o.innerHTML = '<div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;padding:22px;max-width:340px;width:100%;color:#fff;"><div style="font-family:Bebas Neue,sans-serif;font-size:26px;letter-spacing:1px;color:#9be8b0;margin-bottom:10px;">CÓDIGO DEL EQUIPO</div><input type="password" autocomplete="off" style="width:100%;box-sizing:border-box;padding:12px;font-size:16px;border-radius:8px;border:1px solid #1a5678;background:#0c2b42;color:#fff;margin-bottom:12px;"><div style="display:flex;gap:10px;justify-content:flex-end;"><button data-n style="padding:10px 16px;border-radius:8px;border:1px solid #1a5678;background:transparent;color:#cfe4ee;font-size:15px;cursor:pointer;">Cancelar</button><button data-o style="padding:10px 16px;border-radius:8px;border:0;background:#9be8b0;color:#08202f;font-weight:700;font-size:15px;cursor:pointer;">Continuar</button></div></div>';
+      document.body.appendChild(o); const i = o.querySelector('input'); i.focus();
+      const fin = v => { o.remove(); res(v); };
+      o.querySelector('[data-o]').onclick = () => fin(i.value.trim()); o.querySelector('[data-n]').onclick = () => fin('');
+      i.onkeydown = ev => { if (ev.key === 'Enter') fin(i.value.trim()); };
+    });
+  }
+  subir(e) {
     const slug = e.currentTarget.getAttribute('data-slug'), url = window.OW_EQUIPO_FOTOS_URL;
     if (!url) { alert('La subida de fotos todavía no está configurada.'); return; }
-    let cod = sessionStorage.getItem('ow-team-cod') || prompt('Código del equipo:');
-    if (!cod) return;
-    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
-    inp.onchange = async () => {
-      const file = inp.files[0]; if (!file) return;
-      try {
-        const bm = await createImageBitmap(file), k = Math.min(1, 700 / Math.max(bm.width, bm.height)), cv = document.createElement('canvas');
-        cv.width = Math.round(bm.width * k); cv.height = Math.round(bm.height * k); cv.getContext('2d').drawImage(bm, 0, 0, cv.width, cv.height);
-        const data = cv.toDataURL('image/jpeg', 0.85).split(',')[1];
-        const r = await fetch(url, { method: 'POST', body: JSON.stringify({ codigo: cod, slug, data }) }).then(x => x.json());
-        if (r.ok) { sessionStorage.setItem('ow-team-cod', cod); this.fm = this.fm || {}; this.fm[slug] = { id: r.id, t: Date.now() }; this.forceUpdate(); }
-        else { sessionStorage.removeItem('ow-team-cod'); alert(r.error === 'codigo' ? 'Código incorrecto.' : 'No se pudo subir la foto.'); }
-      } catch (x) { alert('No se pudo subir la foto.'); }
-    };
-    inp.click();
+    if (!this._inp) { this._inp = document.createElement('input'); this._inp.type = 'file'; this._inp.accept = 'image/*'; this._inp.style.display = 'none'; document.body.appendChild(this._inp); this._inp.onchange = () => this.enviar(); }
+    this._slug = slug; this._inp.value = ''; this._inp.click();
+  }
+  async enviar() {
+    const file = this._inp.files[0], slug = this._slug, url = window.OW_EQUIPO_FOTOS_URL; if (!file) return;
+    const cod = await this.pedirCodigo(); if (!cod) return;
+    try {
+      const bm = await createImageBitmap(file), k = Math.min(1, 700 / Math.max(bm.width, bm.height)), cv = document.createElement('canvas');
+      cv.width = Math.round(bm.width * k); cv.height = Math.round(bm.height * k); cv.getContext('2d').drawImage(bm, 0, 0, cv.width, cv.height);
+      const data = cv.toDataURL('image/jpeg', 0.85).split(',')[1], body = JSON.stringify({ codigo: cod, slug, data });
+      let r;
+      try { r = await fetch(url, { method: 'POST', body }).then(x => x.json()); }
+      catch (x) { await fetch(url, { method: 'POST', body, mode: 'no-cors' }); await new Promise(z => setTimeout(z, 2500)); const j = await fetch(url).then(x => x.json()); const f = (j.fotos || []).find(q => q.s === slug); r = f && Date.now() - f.t < 60000 ? { ok: true, id: f.id } : { ok: false, error: 'red' }; }
+      if (r.ok) { sessionStorage.setItem('ow-team-cod', cod); this.fm = this.fm || {}; this.fm[slug] = { id: r.id, t: Date.now() }; this.forceUpdate(); }
+      else { sessionStorage.removeItem('ow-team-cod'); alert(r.error === 'codigo' ? 'Código incorrecto.' : 'No se pudo subir la foto (' + r.error + ').'); }
+    } catch (x) { alert('No se pudo subir la foto: ' + x.message); }
   }
   cargarFotos() { const u = window.OW_EQUIPO_FOTOS_URL; if (!u) return; fetch(u).then(r => r.json()).then(j => { this.fm = {}; (j.fotos || []).forEach(f => this.fm[f.s] = f); this.forceUpdate(); }).catch(() => {}); }
   renderVals() {
