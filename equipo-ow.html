@@ -148,7 +148,7 @@ class Component extends DCLogic {
     const slug = s => this.norm(s).replace(/[^a-z0-9]+/g, '-');
     let con = 0;
     const grupos = cats.map(c => ({ cat: lab(c), items: R.filter(r => r[3] === c && this.mejores(tm[this.norm(r[0])] || [], AD[r[0]] || []).length).sort((a, b) => a[0].localeCompare(b[0], 'es')).map(r => { const ts = this.mejores(tm[this.norm(r[0])] || [], AD[r[0]] || []); if (ts.length) con++; return { nombre: r[0], info: (r[1] === 'F' ? 'Mujer' : 'Varón') + ' · ' + r[2] + ' años', slug: slug(r[0]), foto: (this.fm && this.fm[slug(r[0])]) ? 'https://drive.google.com/thumbnail?id=' + this.fm[slug(r[0])].id + '&sz=w500&t=' + this.fm[slug(r[0])].t : './fotos-equipo/' + slug(r[0]) + '.jpg', tiempos: ts, sin: !ts.length, adasba: (AD[r[0]] || []).map(x => ({ prueba: x[0], tiempo: x[1] })), conAdasba: !!AD[r[0]], hay: !!ts.length }; }) }));
-    const gr = grupos.filter(g => g.items.length); return { grupos: gr, total: con, ok: !!M.ok, estado: M.ok ? 'Tiempos en vivo desde el Sheet' : 'Conectando con el Sheet…' };
+    const gr = grupos.filter(g => g.items.length); return { subir: e => this.subir(e), grupos: gr, total: con, ok: !!M.ok, estado: M.ok ? 'Tiempos en vivo desde el Sheet' : 'Conectando con el Sheet…' };
   }
 }
 </script>
