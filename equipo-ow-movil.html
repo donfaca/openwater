@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+    html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+    *{box-sizing:border-box;}
+    img{max-width:100%;}
+    summary.ow-ham{list-style:none;}
+    summary.ow-ham::-webkit-details-marker{display:none;}
+    .ow-card{transition:transform .18s ease, box-shadow .18s ease;}
+  </style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop();
+    var deskf = file.replace(/-movil\.(dc\.)?html$/, '.html');
+    var a = document.createElement('a');
+    a.href = deskf; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+  <script src="./torneo-pileta-data.js"></script>
+  <script src="./ow-equipo-config.js"></script>
+  <script src="./ow-master.js"></script>
+</helmet>
+
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;"><img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:42px;width:42px;object-fit:cover;border-radius:50%;display:block;"></span><span style="font-family:'Bebas Neue',sans-serif;font-size:17px;line-height:1.05;color:#fff;display:flex;flex-direction:column;letter-spacing:1px;white-space:nowrap;">OPEN WATER<span style="font-size:.6em;letter-spacing:3.2px;color:#c9a24d;line-height:1.1;">RÍO NEGRO</span></span>
+    </a>
+    <details class="ow-ham" style="position:relative;">
+      <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
+      <div style="position:absolute;right:0;top:54px;width:min(78vw,300px);background:#08202f;border:1px solid #16455f;border-radius:10px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:1001;"><a href="noticias-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Noticias</a><a href="proximo-evento-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Ediciones</a><a href="actividades-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Actividades</a><a href="sponsors-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Sponsors</a><a href="socios-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Asociate a OW</a><a href="entrenamiento-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Entrena en OW</a><a href="equipo-ow-movil.html" style="display:block;padding:14px 18px;color:#9be8b0;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Equipo OW</a><a href="contacto-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Quiénes somos</a><a href="privado-movil.html" style="font-weight:800;letter-spacing:.06em;display:block;padding:14px 18px;color:#ff6b5e;border-bottom:1px solid #113148;text-decoration:none;">PRIVADO</a><a href="index.html" style="display:block;padding:13px 18px;color:#8bb0c4;font-size:13px;text-decoration:none;">🖥 Versión de escritorio</a></div>
+    </details>
+  </nav>
+  <div style="position:relative;padding:34px 18px 26px;text-align:center;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(1200px 420px at 50% -80px,rgba(155,232,176,.22),transparent 70%),linear-gradient(180deg,#0c2c44,#0a2438);pointer-events:none;"></div>
+    <div style="position:relative;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">OPEN WATER RÍO NEGRO</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:.95;color:#9be8b0;margin:12px 0 10px;">EQUIPO OW</h1>
+      <div style="font-size:14px;color:#cfe4ee;">{{ total }} nadadores por categoría</div>
+    </div>
+  </div>
+  <sc-for list="{{ grupos }}" as="g" hint-placeholder-count="3">
+  <div style="padding:18px 14px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;color:#9be8b0;margin:0 0 16px;border-bottom:1px solid #1a5678;padding-bottom:8px;">{{ g.cat }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;align-items:start;">
+      <sc-for list="{{ g.items }}" as="n" hint-placeholder-count="3">
+      <div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;overflow:hidden;">
+        <div style="padding:12px 14px 0;"><div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:#fff;line-height:1.05;">{{ n.nombre }}</div><div style="font-size:13px;color:#a9c6d6;margin-top:2px;">{{ n.info }}</div></div>
+        <div style="display:flex;gap:12px;padding:10px 14px 14px;align-items:flex-start;">
+          <div style="flex:0 0 84px;display:flex;flex-direction:column;gap:6px;"><div style="position:relative;aspect-ratio:4/5;border-radius:8px;overflow:hidden;background:#0c2b42;display:flex;align-items:center;justify-content:center;color:#7fa3b8;font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:12px;">FOTO<img data-foto="{{ n.foto }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></div><button data-slug="{{ n.slug }}" onClick="{{ subir }}" style="cursor:pointer;background:transparent;border:1px solid #1a5678;color:#9be8b0;border-radius:6px;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:12px;padding:5px 0;">SUBIR FOTO</button></div>
+          <div style="flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:8px;">
+          <div style="margin:0;background:#0c2b42;border:1px solid #1a5678;border-radius:8px;padding:8px 10px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:#c9a24d;margin-bottom:4px;">MEJORES TIEMPOS</div>
+          <sc-for list="{{ n.tiempos }}" as="t" hint-placeholder-count="2"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:3px 0;border-top:1px solid #113148;"><span style="color:#cfe4ee;">{{ t.prueba }}</span><span style="color:#9be8b0;font-weight:700;">{{ t.tiempo }}</span></div></sc-for>
+          <sc-if value="{{ n.sin }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:#7fa3b8;">Sin tiempos cargados</div></sc-if>
+        </div>
+          </div>
+        </div>
+      </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-for>
+
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:32px 16px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;">OPEN WATER RÍO NEGRO</div>
+        <div style="font-size:14px;color:#a9c6d6;margin-top:8px;">openwaterrionegro@gmail.com</div>
+        <div style="font-size:14px;color:#a9c6d6;">+54 9 2920 650486<br>+54 9 2920 352579</div>
+      </div>
+      <div style="font-size:14px;color:#a9c6d6;">
+        <div>@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  fotos() { document.querySelectorAll('img[data-foto]').forEach(i => { const f = i.getAttribute('data-foto'); if (f && (f.indexOf('./') === 0 || f.indexOf('http') === 0) && i.getAttribute('src') !== f) { i.style.display = ''; i.setAttribute('src', f); } }); }
+  componentDidUpdate() { this.fotos(); }
+  componentDidMount() { this._e = e => { if (e.target && e.target.tagName === 'IMG' && e.target.hasAttribute('data-foto')) e.target.style.display = 'none'; }; document.addEventListener('error', this._e, true); this.fotos(); this.cargarFotos(); if (window.OWMaster) { this._f = () => this.forceUpdate(); window.OWMaster.on(this._f); } }
+  componentWillUnmount() { document.removeEventListener('error', this._e, true); if (window.OWMaster && this._f) window.OWMaster.off(this._f); }
+  norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+  seg(t) { const p = String(t || '').replace(',', '.').split(':').map(Number); return p.some(isNaN) || !String(t || '').trim() ? Infinity : p.reduce((a, b) => a * 60 + b, 0); }
+  mejores(a, b) { const m = {}; a.concat(b.map(x => ({ prueba: x[0], tiempo: x[1] }))).forEach(x => { const k = this.norm(x.prueba), s = this.seg(x.tiempo); if (s < Infinity && (!m[k] || s < m[k].s)) m[k] = { prueba: x.prueba, tiempo: x.tiempo, s }; }); const st = p => ['libre', 'espalda', 'pecho', 'mariposa', 'combinado'].findIndex(w => this.norm(p).indexOf(w) > 0); return Object.values(m).sort((x, y) => (parseInt(x.prueba) - parseInt(y.prueba)) || st(x.prueba) - st(y.prueba)).map(x => ({ prueba: x.prueba, tiempo: x.tiempo })); }
+  async subir(e) {
+    const slug = e.currentTarget.getAttribute('data-slug'), url = window.OW_EQUIPO_FOTOS_URL;
+    if (!url) { alert('La subida de fotos todavía no está configurada.'); return; }
+    let cod = sessionStorage.getItem('ow-team-cod') || prompt('Código del equipo:');
+    if (!cod) return;
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = async () => {
+      const file = inp.files[0]; if (!file) return;
+      try {
+        const bm = await createImageBitmap(file), k = Math.min(1, 700 / Math.max(bm.width, bm.height)), cv = document.createElement('canvas');
+        cv.width = Math.round(bm.width * k); cv.height = Math.round(bm.height * k); cv.getContext('2d').drawImage(bm, 0, 0, cv.width, cv.height);
+        const data = cv.toDataURL('image/jpeg', 0.85).split(',')[1];
+        const r = await fetch(url, { method: 'POST', body: JSON.stringify({ codigo: cod, slug, data }) }).then(x => x.json());
+        if (r.ok) { sessionStorage.setItem('ow-team-cod', cod); this.fm = this.fm || {}; this.fm[slug] = { id: r.id, t: Date.now() }; this.forceUpdate(); }
+        else { sessionStorage.removeItem('ow-team-cod'); alert(r.error === 'codigo' ? 'Código incorrecto.' : 'No se pudo subir la foto.'); }
+      } catch (x) { alert('No se pudo subir la foto.'); }
+    };
+    inp.click();
+  }
+  cargarFotos() { const u = window.OW_EQUIPO_FOTOS_URL; if (!u) return; fetch(u).then(r => r.json()).then(j => { this.fm = {}; (j.fotos || []).forEach(f => this.fm[f.s] = f); this.forceUpdate(); }).catch(() => {}); }
+  renderVals() {
+    const AD = {"Jennifer Rossetti":[["50 Libre","33,45"],["50 Espalda","46,18"],["50 Pecho","43,94"],["50 Mariposa","39,93"],["100 Libre","1:14,90"],["100 Combinado","1:31,07"],["200 Pecho","3:48,19"],["400 Libre","6:36,44"],["800 Libre","13:07,22"]],"Camila Micol Zambrana":[["50 Libre","34,90"],["50 Pecho","47,79"],["50 Mariposa","41,97"],["100 Libre","1:16,23"],["100 Combinado","1:29,38"],["200 Combinado","3:29,95"],["400 Libre","6:10,94"],["800 Libre","13:12,82"]],"Irina Lopez Dumrauf":[["50 Libre","35,46"],["50 Espalda","40,77"],["50 Pecho","46,29"],["100 Libre","1:19,50"],["100 Espalda","1:31,90"],["100 Combinado","1:35,68"],["200 Pecho",""],["400 Libre","6:21,75"]],"Carolina Lapa":[["50 Libre","38,23"],["50 Mariposa","49,13"],["100 Combinado","1:44,06"]],"Constanza Ginestec":[["50 Libre","38,24"],["50 Espalda","52,93"],["50 Pecho","55,96"],["50 Mariposa","51,83"],["100 Combinado","1:48,11"],["200 Combinado","3:46,36"]],"Corina Chimelaro":[["50 Libre","43,30"],["50 Espalda","1:03,30"],["50 Pecho","56,14"],["100 Libre","1:35,76"],["100 Combinado","2:07,02"],["200 Pecho","4:24,02"]],"Guadalupe Santa Cruz":[["50 Libre","44,52"],["50 Espalda","59,06"],["50 Pecho","55,65"]],"Sabrina Martinez":[["50 Libre","45,27"],["50 Espalda","59,03"],["100 Libre","1:43,68"],["100 Espalda","2:10,62"]],"Laura Vernhes":[["50 Libre","48,60"],["50 Espalda","59,94"],["50 Pecho","1:03,07"],["100 Libre","2:01,09"],["100 Combinado","2:09,50"]],"Belen Colombo":[["50 Libre","54,04"],["50 Espalda","1:03,45"],["50 Pecho","1:02,38"]],"Nehuen Velazquez Asconape":[["50 Libre","26,77"],["50 Pecho","31,51"],["50 Mariposa","27,68"],["100 Libre","58,34"],["100 Mariposa","1:07,58"],["100 Combinado","1:04,74"],["200 Pecho","2:48,26"],["200 Combinado","2:25,55"],["400 Combinado","5:28,97"]],"Neri Julio Cristaldo":[["50 Libre","26,79"],["50 Pecho","36,25"],["50 Mariposa","29,44"],["100 Libre","1:00,28"],["200 Combinado","2:38,38"],["800 Libre","10:46,01"]],"Esteban Andres Aliani":[["50 Libre","27,29"],["50 Espalda","35,64"],["50 Mariposa","29,05"],["100 Libre","1:02,10"],["100 Mariposa","1:14,71"],["100 Combinado","1:12,51"],["200 Combinado","2:44,15"]],"Lucas Nogues":[["50 Libre","27,62"],["50 Espalda","31,63"],["50 Pecho","34,29"],["50 Mariposa","30,34"],["100 Libre","1:01,10"],["100 Pecho","1:15,56"],["100 Combinado","1:09,79"],["400 Combinado","5:45,97"],["800 Libre","10:46,46"]],"Damian Hector Argat":[["50 Libre","29,07"],["200 Espalda","2:45,70"],["400 Libre","5:13,86"]],"Alex San Martin":[["50 Libre","30,50"],["50 Espalda","38,20"],["50 Pecho","44,66"],["100 Libre","1:10,38"],["100 Combinado","1:24,33"]],"Gaston Ariel Ferreyra":[["50 Libre","30,53"],["50 Espalda","39,24"],["50 Pecho","38,76"],["50 Mariposa","36,37"],["100 Libre","1:10,92"],["100 Espalda","1:26,98"]],"Facundo Albacete":[["50 Libre","30,88"],["50 Pecho","37,16"],["50 Mariposa","35,24"],["100 Libre","1:08,60"],["100 Pecho","1:26,09"],["100 Combinado","1:17,20"],["200 Pecho","3:08,29"],["200 Combinado","3:05,10"],["400 Libre","5:49,56"],["400 Combinado","6:31,50"]],"Joel Belleggia Pecas":[["50 Libre","31,49"],["50 Mariposa","33,14"],["100 Libre","1:11,32"],["100 Combinado","1:19,94"]],"Pablo Liba":[["50 Libre","32,48"],["50 Espalda","38,23"],["50 Pecho","43,38"],["50 Mariposa","35,78"],["100 Espalda","1:24,98"],["100 Mariposa","1:43,66"],["100 Combinado","1:24,67"],["200 Espalda","3:09,70"]],"Gaston Anibal Coumeig":[["50 Libre","32,73"],["50 Pecho","46,65"]],"Ian Muñoz":[["50 Libre",""],["50 Espalda",""],["50 Pecho",""],["50 Mariposa",""],["100 Libre",""],["200 Pecho",""]],"Diego Martinez":[["50 Libre","33,23"],["50 Espalda","43,55"],["50 Pecho","39,29"],["100 Libre","1:16,14"],["100 Espalda","1:42,44"],["100 Pecho",""],["200 Pecho","3:33,17"],["200 Combinado","3:23,50"],["400 Libre","6:47,89"]],"Luis Romero":[["50 Libre","36,22"],["50 Pecho","47,09"]],"Ricardo Lana":[["50 Libre","39,86"],["50 Espalda","57,43"],["100 Libre","1:44,93"]],"Maria Jose Millanao":[["50 Espalda","1:08,83"],["100 Libre","2:23,62"],["100 Espalda","2:51,55"]],"Claudia Inés Rivetta":[["50 Espalda",""],["50 Pecho",""],["400 Libre",""]]};
+    const R = [["Aldana Ludmila Lapa","F",18,"Juvenil"],["Alex San Martin","M",23,"19-24"],["Belen Colombo","F",67,"65-69"],["Camila Guadalupe Parra Gutiérrez","F",12,"Menor"],["Camila Micol Zambrana","F",30,"30-34"],["Carolina Lapa","F",48,"45-49"],["Claudia Inés Rivetta","F",43,"40-44"],["Constanza Ginestec","F",50,"50-54"],["Corina Chimelaro","F",39,"35-39"],["Cristian Perfetti","M",37,"35-39"],["Damian Hector Argat","M",37,"35-39"],["Denisse Candela Rodriguez","F",16,"Juvenil"],["Diego Martinez","M",50,"50-54"],["Emiliano Selva","M",37,"35-39"],["Esteban Andres Aliani","M",47,"45-49"],["Facundo Albacete","M",55,"55-59"],["Francisco Nervi Caparros","M",17,"Juvenil"],["Gaston Anibal Coumeig","M",47,"45-49"],["Gaston Ariel Ferreyra","M",58,"55-59"],["Guadalupe Santa Cruz","F",52,"50-54"],["Ian Muñoz","M",23,"19-24"],["Irina Lopez Dumrauf","F",34,"30-34"],["Jennifer Rossetti","F",40,"40-44"],["Joel Belleggia Pecas","M",32,"30-34"],["Laura Vernhes","F",54,"50-54"],["Lucas Nogues","M",34,"30-34"],["Luciana Lago","F",16,"Juvenil"],["Luis Romero","M",45,"45-49"],["Manuela Saldivar","F",23,"19-24"],["Maria Jose Millanao","F",49,"45-49"],["Melina Daniela Nuñez","F",22,"19-24"],["Melisa Rasquela","F",12,"Menor"],["Morena Lilen Rodriguez","F",17,"Juvenil"],["Nahuelquir Mariano","M",16,"Juvenil"],["Nehuen Velazquez Asconape","M",28,"25-29"],["Neri Julio Cristaldo","M",20,"19-24"],["Pablo Liba","M",35,"35-39"],["Pia Rivas","F",12,"Menor"],["Ricardo Lana","M",63,"60-64"],["Sabrina Martinez","F",41,"40-44"]];
+    const D = window.OW_TORNEO || { pruebas: [] }, M = window.OWMaster || { tiempos: {} }, tm = {};
+    D.pruebas.forEach(p => { if (p.relevo) return; const pr = p.nombre.replace(/^(Mujeres|Varones|Mixto)\s+/i, ''); p.series.forEach(s => s.carriles.forEach(c => { if (c.libre || !/open water/i.test(c.club || '')) return; const t = M.tiempos[p.n + '-' + s.n + '-' + c.c]; if (t) (tm[this.norm(c.nombre)] = tm[this.norm(c.nombre)] || []).push({ n: p.n, prueba: pr, tiempo: t }); })); });
+    const ord = c => c === 'Menor' ? 0 : c === 'Juvenil' ? 1 : parseInt(c, 10);
+    const lab = c => c === 'Menor' ? 'MENOR · HASTA 14 AÑOS' : c === 'Juvenil' ? 'JUVENIL · 15 A 18 AÑOS' : c + ' AÑOS';
+    const cats = [...new Set(R.map(r => r[3]))].sort((a, b) => ord(a) - ord(b));
+    const slug = s => this.norm(s).replace(/[^a-z0-9]+/g, '-');
+    let con = 0;
+    const grupos = cats.map(c => ({ cat: lab(c), items: R.filter(r => r[3] === c && this.mejores(tm[this.norm(r[0])] || [], AD[r[0]] || []).length).sort((a, b) => a[0].localeCompare(b[0], 'es')).map(r => { const ts = this.mejores(tm[this.norm(r[0])] || [], AD[r[0]] || []); if (ts.length) con++; return { nombre: r[0], info: (r[1] === 'F' ? 'Mujer' : 'Varón') + ' · ' + r[2] + ' años', slug: slug(r[0]), foto: (this.fm && this.fm[slug(r[0])]) ? 'https://drive.google.com/thumbnail?id=' + this.fm[slug(r[0])].id + '&sz=w500&t=' + this.fm[slug(r[0])].t : './fotos-equipo/' + slug(r[0]) + '.jpg', tiempos: ts, sin: !ts.length, adasba: (AD[r[0]] || []).map(x => ({ prueba: x[0], tiempo: x[1] })), conAdasba: !!AD[r[0]], hay: !!ts.length }; }) }));
+    const gr = grupos.filter(g => g.items.length); return { grupos: gr, total: con, ok: !!M.ok, estado: M.ok ? 'Tiempos en vivo desde el Sheet' : 'Conectando con el Sheet…' };
+  }
+}
+</script>
+</body>
+</html>
