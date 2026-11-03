@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+    html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+    *{box-sizing:border-box;}
+    img{max-width:100%;}
+    summary.ow-ham{list-style:none;}
+    summary.ow-ham::-webkit-details-marker{display:none;}
+    .ow-card{transition:transform .18s ease, box-shadow .18s ease;}
+  </style>
+  <script>
+(function(){try{
+  if(window.self!==window.top) return;
+  window.addEventListener('DOMContentLoaded',function(){
+    var file = location.pathname.split('/').pop();
+    var deskf = file.replace(/-movil\.(dc\.)?html$/, '.html');
+    var a = document.createElement('a');
+    a.href = deskf; a.textContent = '🖥 Escritorio';
+    a.style.cssText = 'position:fixed;right:12px;bottom:12px;z-index:2000;background:rgba(11,107,168,.92);color:#fff;font:600 13px system-ui,sans-serif;padding:9px 13px;border-radius:22px;border:1px solid #c9a24d;box-shadow:0 4px 12px rgba(0,0,0,.4);text-decoration:none;';
+    a.addEventListener('click',function(){try{sessionStorage.setItem('ow-force-desktop','1');}catch(e){}});
+    document.body.appendChild(a);
+  });
+}catch(e){}})();
+  </script>
+  <script src="./ow-tienda-data.js"></script>
+</helmet>
+
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(90deg,#0b6ba8,#1f8fd6);border-bottom:2px solid #c9a24d;box-shadow:0 4px 14px rgba(0,0,0,.35);position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index-movil.html" style="display:flex;flex-direction:column;line-height:1;text-decoration:none;">
+      <span style="display:inline-flex;flex-direction:column;align-items:center;line-height:1;"><img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:42px;width:42px;object-fit:cover;border-radius:50%;display:block;"></span><span style="font-family:'Bebas Neue',sans-serif;font-size:17px;line-height:1.05;color:#fff;display:flex;flex-direction:column;letter-spacing:1px;white-space:nowrap;">OPEN WATER<span style="font-size:.6em;letter-spacing:3.2px;color:#c9a24d;line-height:1.1;">RÍO NEGRO</span></span>
+    </a>
+    <details class="ow-ham" style="position:relative;">
+      <summary class="ow-ham" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.5);border-radius:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:#fff;">☰</summary>
+      <div style="position:absolute;right:0;top:54px;width:min(78vw,300px);background:#08202f;border:1px solid #16455f;border-radius:10px;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:1001;"><a href="noticias-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Noticias</a><a href="proximo-evento-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Ediciones</a><a href="actividades-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Actividades</a><a href="sponsors-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Sponsors</a><a href="socios-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Asociate a OW</a><a href="entrenamiento-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Entrena en OW</a><a href="equipo-ow-movil.html" style="display:block;padding:14px 18px;color:#9be8b0;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Equipo OW</a><a href="tienda-ow-movil.html" style="display:block;padding:14px 18px;color:#4db8e8;font-weight:800;border-bottom:1px solid #113148;text-decoration:none;">Tienda OW</a><a href="contacto-movil.html" style="display:block;padding:14px 18px;color:#fff;font-weight:700;border-bottom:1px solid #113148;text-decoration:none;">Quiénes somos</a><a href="privado-movil.html" style="font-weight:800;letter-spacing:.06em;display:block;padding:14px 18px;color:#ff6b5e;border-bottom:1px solid #113148;text-decoration:none;">PRIVADO</a><a href="index.html" style="display:block;padding:13px 18px;color:#8bb0c4;font-size:13px;text-decoration:none;">🖥 Versión de escritorio</a></div>
+    </details>
+  </nav>
+  <div style="position:relative;padding:34px 18px 26px;text-align:center;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(1200px 420px at 50% -80px,rgba(155,232,176,.22),transparent 70%),linear-gradient(180deg,#0c2c44,#0a2438);pointer-events:none;"></div>
+    <div style="position:relative;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">OPEN WATER RÍO NEGRO</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:.95;color:#9be8b0;margin:12px 0 10px;">TIENDA OW</h1>
+      <div style="font-size:14px;color:#cfe4ee;">Productos oficiales de Open Water Río Negro</div>
+    </div>
+  </div>
+  <sc-for list="{{ secciones }}" as="g" hint-placeholder-count="3">
+  <div style="padding:18px 14px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;color:#ffb454;margin:0;">{{ g.titulo }}</h2>
+    <div style="font-size:14px;color:#a9c6d6;margin:2px 0 14px;border-bottom:1px solid #1a5678;padding-bottom:10px;">{{ g.sub }}</div>
+    <sc-if value="{{ g.vacia }}" hint-placeholder-val="{{ false }}"><div style="font-family:'Bebas Neue',sans-serif;letter-spacing:3px;color:#7fa3b8;font-size:18px;padding:10px 0;">PRÓXIMAMENTE</div></sc-if>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px;align-items:start;">
+      <sc-for list="{{ g.items }}" as="p" hint-placeholder-count="2">
+      <div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;overflow:hidden;">
+        <div style="position:relative;aspect-ratio:1/1;background:#0c2b42;display:flex;align-items:center;justify-content:center;color:#7fa3b8;font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:13px;">FOTO<img data-foto="{{ p.foto }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></div>
+        <div style="padding:12px 14px 14px;display:flex;flex-direction:column;gap:6px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fff;line-height:1.05;">{{ p.nombre }}</div>
+          <div style="font-size:13px;color:#a9c6d6;">{{ p.desc }}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:4px;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#9be8b0;letter-spacing:1px;">{{ p.precio }}</span>
+            <span style="display:flex;align-items:center;gap:8px;"><button onClick="{{ p.menos }}" style="width:34px;height:34px;border-radius:8px;border:1px solid #1a5678;background:#0c2b42;color:#fff;font-size:18px;cursor:pointer;">−</button><span style="min-width:16px;text-align:center;color:#fff;font-weight:700;">{{ p.q }}</span><button onClick="{{ p.mas }}" style="width:34px;height:34px;border-radius:8px;border:0;background:#ffb454;color:#08202f;font-size:18px;font-weight:800;cursor:pointer;">+</button></span>
+          </div>
+        </div>
+      </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-for>
+  <sc-if value="{{ hayCarrito }}" hint-placeholder-val="{{ false }}"><div style="position:sticky;bottom:0;z-index:900;background:#08202f;border-top:2px solid #ffb454;padding:12px 18px;box-shadow:0 -8px 24px rgba(0,0,0,.45);">
+    <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;flex-direction:column;gap:2px;font-size:14px;color:#cfe4ee;"><sc-for list="{{ lineas }}" as="l" hint-placeholder-count="1"><div>{{ l.txt }} · <span style="color:#9be8b0;font-weight:700;">{{ l.sub }}</span></div></sc-for></div>
+      <div style="display:flex;align-items:center;gap:14px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:1px;">TOTAL {{ total }}</span><a href="{{ wa }}" target="_blank" style="background:#ffb454;color:#08202f;font-weight:800;padding:12px 18px;border-radius:10px;font-size:15px;text-decoration:none;">PEDIR POR WHATSAPP</a></div>
+    </div>
+  </div></sc-if>
+
+  <footer style="background:#08202f;border-top:1px solid #16455f;padding:32px 16px;">
+    <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;">OPEN WATER RÍO NEGRO</div>
+        <div style="font-size:14px;color:#a9c6d6;margin-top:8px;">openwaterrionegro@gmail.com</div>
+        <div style="font-size:14px;color:#a9c6d6;">+54 9 2920 650486<br>+54 9 2920 352579</div>
+      </div>
+      <div style="font-size:14px;color:#a9c6d6;">
+        <div>@OpenWaterEvents · @LucasNatacion · @Facundo_Albacete</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { c: {} };
+  fotos() { document.querySelectorAll('img[data-foto]').forEach(i => { const f = i.getAttribute('data-foto'); if (f && i.getAttribute('src') !== f) { i.style.display = ''; i.setAttribute('src', f); } }); }
+  componentDidMount() { this._e = e => { if (e.target && e.target.tagName === 'IMG' && e.target.hasAttribute('data-foto')) e.target.style.display = 'none'; }; document.addEventListener('error', this._e, true); this.fotos(); }
+  componentDidUpdate() { this.fotos(); }
+  componentWillUnmount() { document.removeEventListener('error', this._e, true); }
+  ch(id, d) { this.setState(s => { const c = Object.assign({}, s.c), q = (c[id] || 0) + d; if (q > 0) c[id] = q; else delete c[id]; return { c }; }); }
+  renderVals() {
+    const T = window.OW_TIENDA || { secciones: [], whatsapp: '' }, c = this.state.c, all = [];
+    const peso = n => String.fromCharCode(36) + Number(n).toLocaleString('es-AR');
+    const secciones = T.secciones.map(s => ({ titulo: s.titulo, sub: s.sub, vacia: !s.items.length, items: s.items.map(p => { all.push(p); return { nombre: p.nombre, desc: p.desc || '', foto: p.foto || '', precio: peso(p.precio), q: c[p.id] || 0, mas: () => this.ch(p.id, 1), menos: () => this.ch(p.id, -1) }; }) }));
+    const lin = all.filter(p => c[p.id]).map(p => ({ n: p.nombre, q: c[p.id], sub: p.precio * c[p.id] }));
+    const total = lin.reduce((a, l) => a + l.sub, 0), cant = lin.reduce((a, l) => a + l.q, 0);
+    const txt = 'Hola! Quiero hacer este pedido en la Tienda OW:\n' + lin.map(l => '- ' + l.q + ' x ' + l.n + ' (' + peso(l.sub) + ')').join('\n') + '\nTotal: ' + peso(total);
+    return { secciones, hayCarrito: cant > 0, total: peso(total), lineas: lin.map(l => ({ txt: l.q + ' × ' + l.n, sub: peso(l.sub) })), wa: 'https://wa.me/' + T.whatsapp + '?text=' + encodeURIComponent(txt) };
+  }
+}
+</script>
+</body>
+</html>
