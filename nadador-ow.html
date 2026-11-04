@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
+    a { color:#4db8e8; text-decoration:none; }
+    a:hover { color:#8fd4f5; }
+  </style>
+  <script src="./torneo-pileta-data.js"></script>
+  <script src="./ow-equipo-config.js"></script>
+  <script src="./ow-historial.js"></script>
+  <script src="./ow-master.js"></script>
+</helmet>
+<div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 16px;padding:12px 20px;background:#08202f;border-bottom:1px solid #16455f;position:sticky;top:0;z-index:1000;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+      <img src="./logo-ow.jpg" alt="Open Water Río Negro" style="height:44px;width:44px;object-fit:cover;border-radius:50%;display:block;"><span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;display:flex;flex-direction:column;letter-spacing:1px;white-space:nowrap;">OPEN WATER<span style="font-size:.6em;letter-spacing:3.2px;color:#c9a24d;line-height:1.1;">RÍO NEGRO</span></span>
+    </a>
+    <div style="display:flex;gap:8px 20px;flex-wrap:wrap;font-size:14px;font-weight:700;">
+      <a href="noticias.html" style="color:#fff;font-weight:800;">Noticias</a>
+      <a href="proximo-evento.html" style="color:#fff;">Ediciones</a>
+      <a href="actividades.html" style="color:#f5c518;">Actividades</a>
+      <a href="sponsors.html" style="color:#fff;">Sponsors</a>
+      <a href="socios.html" style="color:#fff;font-weight:800;">Asociate a OW</a>
+      <a href="entrenamiento.html" style="color:#fff;font-weight:800;">Entrena en OW</a>
+      <a href="equipo-ow.html" style="color:#9be8b0;font-weight:800;">Equipo OW</a>
+      <a href="tienda-ow.html" style="color:#4db8e8;font-weight:800;">Tienda OW</a>
+      <a href="contacto.html" style="color:#fff;">Quiénes somos</a>
+    </div>
+  </nav>
+  <div style="max-width:1100px;margin:0 auto;padding:24px 20px 48px;">
+    <a href="equipo-ow.html" style="font-size:14px;font-weight:700;">← Volver al Equipo OW</a>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start;margin:18px 0 28px;">
+      <div style="flex:0 0 150px;position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:#0c2b42;display:flex;align-items:center;justify-content:center;color:#7fa3b8;font-family:'Bebas Neue',sans-serif;letter-spacing:3px;font-size:13px;border:1px solid #1a5678;">FOTO<img data-foto="{{ foto }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div style="flex:1 1 260px;min-width:0;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:5px;color:#c9a24d;">FICHA DEL NADADOR</div>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:#9be8b0;margin:6px 0 14px;">{{ nombre }}</h1>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:560px;">
+          <div style="background:#0f3350;border:1px solid #1a5678;border-radius:10px;padding:10px 12px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:#c9a24d;">EDAD</div><div style="font-size:18px;font-weight:700;">{{ edad }}</div></div>
+          <div style="background:#0f3350;border:1px solid #1a5678;border-radius:10px;padding:10px 12px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:#c9a24d;">CATEGORÍA</div><div style="font-size:18px;font-weight:700;">{{ cat }}</div></div>
+          <div style="background:#0f3350;border:1px solid #1a5678;border-radius:10px;padding:10px 12px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:#c9a24d;">SEXO</div><div style="font-size:18px;font-weight:700;">{{ sexo }}</div></div>
+          <div style="background:#0f3350;border:1px solid #1a5678;border-radius:10px;padding:10px 12px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:#c9a24d;">CLUB</div><div style="font-size:18px;font-weight:700;">Open Water Río Negro</div></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:#9be8b0;margin:0 0 6px;border-bottom:1px solid #1a5678;padding-bottom:8px;">HISTORIAL DE TIEMPOS</h2>
+    <div style="font-size:13px;color:#a9c6d6;margin-bottom:16px;">Fechas del Circuito Másters ADASBA 2026 (F1 a F5) y 1er Torneo de Pileta OW (2026/10/31). <span style="color:#ff8a1f;font-weight:700;">● Naranja</span> = mejor tiempo.</div>
+    <sc-if value="{{ sinGraf }}" hint-placeholder-val="{{ false }}"><div style="color:#7fa3b8;font-size:15px;padding:10px 0 20px;">Sin tiempos registrados.</div></sc-if>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;align-items:start;">
+      <sc-for list="{{ graf }}" as="g" hint-placeholder-count="2">
+      <div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;padding:12px 14px 8px;">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:#fff;">{{ g.prueba }}</span><span style="font-size:13px;color:#a9c6d6;">Mejor <b style="color:#ff8a1f;">{{ g.mejor }}</b></span></div>
+        <div style="position:relative;width:100%;aspect-ratio:340/190;margin-top:4px;">
+          <sc-for list="{{ g.ejeY }}" as="y" hint-placeholder-count="3"><div><div style="position:absolute;left:{{ y.l }};right:4.1%;top:{{ y.top }};border-top:1px dashed #1a5678;"></div><div style="position:absolute;left:0;width:14.5%;top:{{ y.top }};transform:translateY(-50%);text-align:right;font-size:10px;color:#a9c6d6;">{{ y.t }}</div></div></sc-for>
+          <sc-for list="{{ g.ejeX }}" as="x" hint-placeholder-count="6"><div style="position:absolute;left:{{ x.left }};top:{{ x.top }};transform:translate(-50%,-50%);font-size:9px;color:#a9c6d6;white-space:nowrap;">{{ x.t }}</div></sc-for>
+          <sc-for list="{{ g.pts }}" as="p" hint-placeholder-count="2"><div><div style="position:absolute;left:{{ p.left }};top:{{ p.top }};width:{{ p.d }}px;height:{{ p.d }}px;border-radius:50%;background:{{ p.col }};border:1.5px solid #08202f;transform:translate(-50%,-50%);box-sizing:border-box;"></div><div style="position:absolute;left:{{ p.left }};top:{{ p.ttop }};transform:translate(-50%,-50%);font-size:10px;font-weight:{{ p.fw }};color:{{ p.tc }};white-space:nowrap;">{{ p.txt }}</div></div></sc-for>
+        </div>
+      </div>
+      </sc-for>
+    </div>
+
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:#9be8b0;margin:34px 0 10px;border-bottom:1px solid #1a5678;padding-bottom:8px;">ASPECTOS TÉCNICOS</h2>
+    <div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;padding:14px;">
+      <sc-if value="{{ noEdit }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <sc-if value="{{ vacia }}" hint-placeholder-val="{{ true }}"><div style="color:#7fa3b8;font-size:15px;">Todavía no hay notas técnicas.</div></sc-if>
+          <div style="white-space:pre-wrap;font-size:16px;line-height:1.5;color:#eaf3f8;">{{ guardado }}</div>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:12px;"><button onClick="{{ editar }}" style="cursor:pointer;background:transparent;border:1px solid #1a5678;color:#9be8b0;border-radius:8px;font-family:'Bebas Neue',sans-serif;letter-spacing:1.5px;font-size:15px;padding:8px 16px;">EDITAR NOTAS</button><span style="font-size:14px;color:#9be8b0;">{{ msg }}</span></div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ edit }}" hint-placeholder-val="{{ false }}">
+        <div>
+          <textarea value="{{ txt }}" onInput="{{ onTxt }}" rows="9" placeholder="Técnica de brazada, respiración, patada, salidas, virajes, puntos a mejorar…" style="width:100%;box-sizing:border-box;padding:12px;font-family:Barlow,sans-serif;font-size:16px;line-height:1.5;border-radius:8px;border:1px solid #1a5678;background:#0c2b42;color:#fff;resize:vertical;"></textarea>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap;"><button onClick="{{ guardar }}" style="cursor:pointer;background:#9be8b0;border:0;color:#08202f;border-radius:8px;font-weight:800;font-size:15px;padding:10px 18px;">GUARDAR</button><button onClick="{{ cancelar }}" style="cursor:pointer;background:transparent;border:1px solid #1a5678;color:#cfe4ee;border-radius:8px;font-size:15px;padding:10px 16px;">Cancelar</button><span style="font-size:14px;color:#9be8b0;">{{ msg }}</span></div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { edit: false, txt: '', guardado: '', msg: '' };
+  norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+  slug(s) { return this.norm(s).replace(/[^a-z0-9]+/g, '-'); }
+  fmt(s) { const m = Math.floor(s / 60), r = (s - m * 60).toFixed(2).replace('.', ','); return m ? m + ':' + (r.length < 5 ? '0' : '') + r : r; }
+  componentDidMount() {
+    this._e = e => { if (e.target && e.target.tagName === 'IMG' && e.target.hasAttribute('data-foto')) e.target.style.display = 'none'; }; document.addEventListener('error', this._e, true);
+    const u = window.OW_EQUIPO_FOTOS_URL; if (u) fetch(u).then(r => r.json()).then(j => { this.fm = {}; (j.fotos || []).forEach(f => this.fm[f.s] = f); const n = (j.notas || {})[this.sl()]; this.setState({ guardado: n ? n.txt : '', txt: n ? n.txt : '' }); }).catch(() => {});
+    if (window.OWMaster) { this._f = () => this.forceUpdate(); window.OWMaster.on(this._f); }
+  }
+  componentDidUpdate() { document.querySelectorAll('img[data-foto]').forEach(i => { const f = i.getAttribute('data-foto'); if (f && i.getAttribute('src') !== f) { i.style.display = ''; i.setAttribute('src', f); } }); }
+  componentWillUnmount() { document.removeEventListener('error', this._e, true); if (window.OWMaster && this._f) window.OWMaster.off(this._f); }
+  sl() { return new URLSearchParams(location.search).get('n') || 'facundo-albacete'; }
+  pedirCodigo() {
+    return new Promise(res => {
+      const c = sessionStorage.getItem('ow-team-cod'); if (c) return res(c);
+      const o = document.createElement('div'); o.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:Barlow,sans-serif;';
+      o.innerHTML = '<div style="background:#0f3350;border:1px solid #1a5678;border-radius:12px;padding:22px;max-width:340px;width:100%;color:#fff;"><div style="font-family:Bebas Neue,sans-serif;font-size:26px;letter-spacing:1px;color:#9be8b0;margin-bottom:10px;">CÓDIGO DEL EQUIPO</div><input type="password" autocomplete="off" style="width:100%;box-sizing:border-box;padding:12px;font-size:16px;border-radius:8px;border:1px solid #1a5678;background:#0c2b42;color:#fff;margin-bottom:12px;"><div style="display:flex;gap:10px;justify-content:flex-end;"><button data-n style="padding:10px 16px;border-radius:8px;border:1px solid #1a5678;background:transparent;color:#cfe4ee;font-size:15px;cursor:pointer;">Cancelar</button><button data-o style="padding:10px 16px;border-radius:8px;border:0;background:#9be8b0;color:#08202f;font-weight:700;font-size:15px;cursor:pointer;">Continuar</button></div></div>';
+      document.body.appendChild(o); const i = o.querySelector('input'); i.focus();
+      const fin = v => { o.remove(); res(v); };
+      o.querySelector('[data-o]').onclick = () => fin(i.value.trim()); o.querySelector('[data-n]').onclick = () => fin('');
+      i.onkeydown = ev => { if (ev.key === 'Enter') fin(i.value.trim()); };
+    });
+  }
+  async editar() { const c = await this.pedirCodigo(); if (c) this.setState({ edit: true, msg: '' }); }
+  async guardar() {
+    const url = window.OW_EQUIPO_FOTOS_URL; if (!url) { this.setState({ msg: 'El guardado no está configurado.' }); return; }
+    const cod = await this.pedirCodigo(); if (!cod) return; this.setState({ msg: 'Guardando…' });
+    const body = JSON.stringify({ accion: 'nota', codigo: cod, slug: this.sl(), texto: this.state.txt });
+    try {
+      let r;
+      try { r = await fetch(url, { method: 'POST', body }).then(x => x.json()); }
+      catch (x) { await fetch(url, { method: 'POST', body, mode: 'no-cors' }); await new Promise(z => setTimeout(z, 2500)); const j = await fetch(url).then(x => x.json()); const n = (j.notas || {})[this.sl()]; r = n && n.txt === this.state.txt ? { ok: true } : { ok: false, error: j.notas === undefined ? 'el Apps Script no es la versión nueva' : 'sin respuesta' }; }
+      if (r.ok) { sessionStorage.setItem('ow-team-cod', cod); this.setState({ edit: false, guardado: this.state.txt, msg: 'Guardado.' }); }
+      else { if (r.error === 'codigo') sessionStorage.removeItem('ow-team-cod'); this.setState({ msg: r.error === 'codigo' ? 'Código incorrecto.' : /base64|decode|undefined/i.test(r.error) ? 'El Apps Script todavía es la versión vieja: pegá el código nuevo y publicá una nueva versión.' : 'No se pudo guardar (' + r.error + ').' }); }
+    } catch (x) { this.setState({ msg: 'No se pudo guardar: ' + x.message }); }
+  }
+  renderVals() {
+    const sl = this.sl(), R = window.OW_NADADORES || [], r = R.find(x => this.slug(x[0]) === sl), H = window.OW_HIST || {}, M = window.OWMaster || { tiempos: {} }, D = window.OW_TORNEO || { pruebas: [] };
+    const ev = {}; // prueba -> {slot: seg}
+    const add = (p, slot, s) => { const k = this.norm(p); (ev[k] = ev[k] || { p, pts: [] }).pts.push({ slot, s }); };
+    if (r) {
+      Object.keys(H[r[0]] || {}).forEach(p => H[r[0]][p].forEach(x => add(p, x[0], x[1])));
+      D.pruebas.forEach(p => { if (p.relevo) return; const pr = p.nombre.replace(/^(Mujeres|Varones|Mixto)\s+/i, ''); p.series.forEach(s => s.carriles.forEach(c => { if (c.libre || this.norm(c.nombre) !== this.norm(r[0])) return; const t = M.tiempos[p.n + '-' + s.n + '-' + c.c]; if (!t) return; const q = String(t).replace(',', '.').split(':').map(Number); const sg = q.reduce((a, b) => a * 60 + b, 0); if (sg > 0) add(pr, 'OW', sg); })); });
+    }
+    const slots = ['F1', 'F2', 'F3', 'F4', 'F5', 'OW'], lab = { OW: '1er OW' }, W = 340, Hh = 190, L = 54, Rr = 14, T = 14, B = 34;
+    const st = p => ['libre', 'espalda', 'pecho', 'mariposa', 'combinado'].findIndex(w => this.norm(p).indexOf(w) > 0);
+    const graf = Object.values(ev).sort((a, b) => (parseInt(a.p) - parseInt(b.p)) || st(a.p) - st(b.p)).map(g => {
+      const ys = g.pts.map(p => p.s), mn = Math.min.apply(null, ys), mx = Math.max.apply(null, ys), pad = (mx - mn) * 0.2 || mn * 0.03 || 1, lo = mn - pad, hi = mx + pad;
+      const X = s => L + slots.indexOf(s) * (W - L - Rr) / (slots.length - 1), Y = v => T + (hi - v) / (hi - lo) * (Hh - T - B);
+      let minDone = false;
+      const pts = g.pts.slice().sort((a, b) => slots.indexOf(a.slot) - slots.indexOf(b.slot)).map(p => { const best = p.s === mn && !minDone; if (best) minDone = true; return { left: (X(p.slot)/W*100).toFixed(2)+'%', top: (Y(p.s)/Hh*100).toFixed(2)+'%', ttop: ((Y(p.s) - 12)/Hh*100).toFixed(2)+'%', col: best ? '#ff8a1f' : '#4db8e8', d: best ? 14 : 10, txt: this.fmt(p.s), tc: best ? '#ffb454' : '#cfe4ee', fw: best ? '800' : '500' }; });
+      return { prueba: g.p, n: g.pts.length, mejor: this.fmt(mn), pts,
+        ejeX: slots.map(s => ({ left: (X(s)/W*100).toFixed(2)+'%', top: ((Hh - 12)/Hh*100).toFixed(2)+'%', t: (window.OW_FECHAS || {})[s] || (s === 'OW' ? '1er OW' : s) })),
+        ejeY: [0, 0.5, 1].map(f => ({ top: (Y(lo + (hi - lo) * f)/Hh*100).toFixed(2)+'%', l: (L/W*100).toFixed(2)+'%', t: this.fmt(lo + (hi - lo) * f) })) };
+    });
+    const f = this.fm && this.fm[sl];
+    return { ok: !!r, nombre: r ? r[0] : 'Nadador no encontrado', sexo: r ? (r[1] === 'F' ? 'Femenino' : 'Masculino') : '', edad: r ? r[2] : '', cat: r ? (r[3] === 'Menor' ? 'Menor · hasta 14 años' : r[3] === 'Juvenil' ? 'Juvenil · 15 a 18 años' : r[3] + ' años') : '',
+      foto: f ? 'https://drive.google.com/thumbnail?id=' + f.id + '&sz=w500&t=' + f.t : './fotos-equipo/' + sl + '.jpg',
+      graf, hayGraf: graf.length > 0, sinGraf: !graf.length,
+      edit: this.state.edit, noEdit: !this.state.edit, txt: this.state.txt, vacia: !this.state.guardado, guardado: this.state.guardado, msg: this.state.msg,
+      onTxt: e => this.setState({ txt: e.target.value }), editar: () => this.editar(), guardar: () => this.guardar(), cancelar: () => this.setState({ edit: false, txt: this.state.guardado, msg: '' }) };
+  }
+}
+</script>
+</body>
+</html>
