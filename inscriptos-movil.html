@@ -52,7 +52,6 @@
   </script>
 
   <script src="./ow-stats.js"></script>
-  <script src="./ow-cupones.js"></script>
 </helmet>
 
 <div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
@@ -126,6 +125,7 @@
 class Component extends DCLogic {
   static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT507x3wpH4DTq6hUT-PkeI9P-dIe8aZXYMh0qVvM-f6SVKzeRbWpZRAGriHov5GozZLHNvZ_DA2fXp/pub?output=csv";
   static ACRED_KEY = 'ow-acred-summer';
+  static PAGOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTReM6J7SdhYwVU2aezp7NSF7XSN-aomz2nNIjNm4W63O0XGQScRkHF6AxwAua2gQuzUPLz2BYvZ0jE/pub?gid=2099948558&single=true&output=csv';
   static PIN = '129430';
   static ENDPOINT = 'https://script.google.com/macros/s/AKfycbzPY2Sxc2IkxuRycdSF5l3NFYAwzt7dzdXZfUHASxZbRqN35TWAU3TRwCQe0KKULrAH/exec';
   loadAcred(){ try{ this._ac = JSON.parse(localStorage.getItem(Component.ACRED_KEY)||'{}')||{}; }catch(e){ this._ac={}; } }
@@ -136,7 +136,8 @@ class Component extends DCLogic {
   state = { loading:true, error:false, rows:null, total:0 };
   componentDidMount(){ this.loadAcred();
     var self=this;
-    fetch(Component.CSV_URL, {cache:'no-store'})
+    var pg=fetch(Component.PAGOS_URL,{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.text(); }).then(function(x){ self._pagos=self.pagosMap(x); }).catch(function(){});
+    pg.then(function(){ return fetch(Component.CSV_URL, {cache:'no-store'}); })
       .then(function(r){ if(!r.ok) throw 0; return r.text(); })
       .then(function(t){ self.parse(t); })
       .catch(function(){ self.setState({loading:false, error:true}); });
@@ -166,6 +167,26 @@ class Component extends DCLogic {
     }
     return -1;
   }
+  pagosMap(t){
+    var self=this, all=this.csvToRows(t), out=[]; if(!all.length) return out;
+    var hn=all[0].map(function(x){ return self.norm(x); });
+    var nI=this.findCol(hn,['nombre y apellido','nombre']), eI=this.findCol(hn,['email','correo','mail']), pI=this.findCol(hn,['total que lleva abonado','abonado']), rI=this.findCol(hn,['restante']);
+    var money=function(s){ s=String(s==null?'':s).replace(/[$\s]/g,''); if(!s) return null; var n=Number(s.split(',')[0].replace(/\./g,'').replace(/[^0-9-]/g,'')); return isNaN(n)?null:n; };
+    for(var i=1;i<all.length;i++){ var r=all[i]; if(!r||!String(r[nI]||'').trim()) continue;
+      out.push({ email:eI>=0?String(r[eI]||'').toLowerCase().trim():'', tk:this.tokens(r[nI]), paid:pI>=0?(money(r[pI])||0):0, rest:rI>=0?money(r[rI]):null }); }
+    return out;
+  }
+  tokens(s){ return this.norm(s).replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(Boolean).sort(); }
+  applyPagos(out){
+    var P=this._pagos; if(!P||!P.length) return; var self=this;
+    out.forEach(function(r){
+      var em=String(r.email||'').toLowerCase().trim(), tk=self.tokens(r.nombre), j=tk.join(' '), p=null, k;
+      if(em){ for(k=0;k<P.length;k++){ if(P[k].email===em && (P[k].tk.join(' ')===j || !p)){ p=P[k]; if(P[k].tk.join(' ')===j) break; } } }
+      if(!p){ for(k=0;k<P.length;k++){ if(P[k].tk.join(' ')===j){ p=P[k]; break; } } }
+      if(!p){ for(k=0;k<P.length;k++){ var a=P[k].tk, b=tk, s=a.length<=b.length?a:b, l=a.length<=b.length?b:a; if(s.length>=2 && s.every(function(w){ return l.indexOf(w)>=0; })){ p=P[k]; break; } } }
+      if(p){ r.fromPagos=true; r.abonado=p.paid?('$'+p.paid.toLocaleString('es-AR')):'—'; r.faltaSheet=p.rest; }
+    });
+  }
   parse(text){
     var self=this;
     var all=this.csvToRows(text);
@@ -181,6 +202,7 @@ class Component extends DCLogic {
     var out=[];
     var dniIdx=this.findCol(hn,['dni','documento']);
     var notIdx=this.findCol(hn,['notas']);
+    var emIdx=this.findCol(hn,['correo','email','e-mail','mail']);
     for(var i=1;i<all.length;i++){
       var r=all[i]; if(!r) continue;
       if(!r.join('').trim()) continue;
@@ -192,20 +214,21 @@ class Component extends DCLogic {
         dorsal: out.length+1,
         estadoSheet: notIdx>=0 ? (/NO SE PRESENT/i.test(r[notIdx]||"")?"no":(/\[ACREDITADO\]/i.test(r[notIdx]||"")?"ok":"")) : "",
         key: self.norm(nombre)+"|"+(dniIdx>=0?String(r[dniIdx]||"").replace(/\D/g,""):""),
-        nombre: nombre,
+        nombre: nombre, email: (emIdx>=0?String(r[emIdx]||''):''),
         sexo: sIdx>=0?(r[sIdx]||''):'',
         distancia: dIdx>=0?(r[dIdx]||''):'',
         origen: oIdx>=0?(r[oIdx]||''):'',
         abonado: pago ? (isNaN(pagoNum)||pagoNum===0 ? pago : ('$'+pagoNum.toLocaleString('es-AR'))) : '—'
       });
     }
+    this.applyPagos(out);
     this.setState({loading:false, error:false, rows:out, total:out.length});
   }
   renderVals(){
     var s=this.state, rows=s.rows;
     var self=this, ac=this._ac||{}, ok=0, no=0;
     var rowsV=(rows||[]).map(function(r){
-      var o=ac[r.key]||{}; var est=(o.estado!==undefined)?o.estado:r.estadoSheet;
+      var o=ac[r.key]||{}; if(r.fromPagos){ o=Object.assign({},o); delete o.monto; delete o.falta; } var est=(o.estado!==undefined)?o.estado:r.estadoSheet;
       if(est==='ok') ok++; else if(est==='no') no++;
       return Object.assign({}, r, {
         montoVal: o.monto || (r.abonado==='—' ? '' : r.abonado),

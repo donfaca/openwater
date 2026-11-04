@@ -123,7 +123,7 @@ function doGet() {
 
 /* ---------- Cupones de equipo (valor de equipo · solo contado) ----------
  * Hoja "Cupones" dentro de la planilla Combo: Código · Evento · Grupo · Usos permitidos · Usos hechos · Creado.
- * Se generan desde el botón privado "Cupones de equipo" de las listas de inscriptos.
+ * Se generan desde la zona PRIVADO (sección Cupones). Tipo winter: 10% por haber participado de Winter OW 2026, 1 uso, se envía por mail.
  * Summer: solo Campeonato 5K+10K. Eclipse: única distancia. Sin cuotas. */
 const CUPON_HEAD = ['Código', 'Evento', 'Grupo', 'Usos permitidos', 'Usos hechos', 'Creado'];
 
@@ -135,8 +135,8 @@ function hojaCupones() {
 
 function generarCupon(d) {
   if (String(d.clave) !== CLAVE_ACREDITACION) return {ok: false, error: 'clave incorrecta'};
-  if (d.evento !== 'summer' && d.evento !== 'eclipse') return {ok: false, error: 'evento inválido'};
-  const usos = Math.floor(Number(d.usos));
+  if (d.evento !== 'summer' && d.evento !== 'eclipse' && d.evento !== 'winter') return {ok: false, error: 'evento inválido'};
+  const usos = d.evento === 'winter' ? 1 : Math.floor(Number(d.usos));
   if (!(usos >= 1)) return {ok: false, error: 'cantidad inválida'};
   if (!String(d.grupo || '').trim()) return {ok: false, error: 'falta el equipo'};
   const lock = LockService.getScriptLock(); lock.waitLock(20000);
@@ -147,7 +147,15 @@ function generarCupon(d) {
     let c;
     do { c = ''; for (let i = 0; i < 6; i++) c += abc.charAt(Math.floor(Math.random() * abc.length)); } while (existentes.indexOf(c) !== -1);
     h.appendRow([c, d.evento, d.grupo || '', usos, 0, new Date().toLocaleString('es-AR')]);
-    return {ok: true, codigo: c, usos: usos};
+    let enviado = false;
+    if (d.evento === 'winter' && d.email) {
+      try {
+        MailApp.sendEmail(String(d.email).trim(), 'Tu cupón del 10% de descuento · Open Water Río Negro',
+          'Hola ' + (d.grupo || '') + '!\n\nPor haber participado de Winter Open Water 2026 tenés un 10% de descuento en tu inscripción a Summer Open Water 2027.\n\nTu código de descuento: ' + c + '\n\nIngresalo en el campo «Cupón» de la ficha de inscripción. Es personal y se puede usar una sola vez.\n\nOpen Water Río Negro\nopenwater.ar');
+        enviado = true;
+      } catch (errM) { console.error('Mail cupón: ' + errM); }
+    }
+    return {ok: true, codigo: c, usos: usos, enviado: enviado};
   } finally { lock.releaseLock(); }
 }
 
@@ -165,7 +173,7 @@ function buscarCupon(codigo, ev) {
   const h = hojaCupones();
   if (h.getLastRow() < 2) return null;
   const v = h.getRange(2, 1, h.getLastRow() - 1, 5).getValues();
-  for (let i = 0; i < v.length; i++) if (String(v[i][0]).toUpperCase() === cod && v[i][1] === ev) return {h: h, fila: i + 2, usos: Number(v[i][3]), usados: Number(v[i][4]), grupo: v[i][2]};
+  for (let i = 0; i < v.length; i++) if (String(v[i][0]).toUpperCase() === cod && (v[i][1] === ev || (v[i][1] === 'winter' && ev === 'summer'))) return {winter: v[i][1] === 'winter', h: h, fila: i + 2, usos: Number(v[i][3]), usados: Number(v[i][4]), grupo: v[i][2]};
   return null;
 }
 
@@ -178,6 +186,7 @@ function validarCupon(d) {
   const c = buscarCupon(d.codigo, d.evento);
   if (!c) return {ok: false, error: 'Cupón inválido.'};
   if (c.usados >= c.usos) return {ok: false, error: 'Ese cupón ya se usó la cantidad de veces permitida.'};
+  if (c.winter) return {ok: true, tipo: 'winter', descuento: 10, restantes: c.usos - c.usados};
   if (!equipoCoincide(d.club, c.grupo)) return {ok: false, error: 'El cupón fue generado para otro equipo. Revisá que el campo «Club o equipo» sea el del grupo que lo pidió.'};
   return {ok: true, restantes: c.usos - c.usados};
 }
@@ -187,15 +196,17 @@ function consumirCupon(d, ev) {
   const cod = d['Cupón'];
   if (!cod) return {ok: true};
   if (ev !== 'summer' && ev !== 'eclipse') return {ok: false, error: 'El cupón no aplica a este evento.'};
-  if (ev === 'summer' && d['Prueba'] !== '5K+10K') return {ok: false, error: 'El cupón solo vale para Campeonato 5K + 10K.'};
-  if (/cuota|financ/i.test(String(d['Plan de pago'] || ''))) return {ok: false, error: 'El cupón solo vale con pago contado.'};
+  const esWinter = (buscarCupon(cod, ev) || {}).winter;
+  if (!esWinter && ev === 'summer' && d['Prueba'] !== '5K+10K') return {ok: false, error: 'El cupón solo vale para Campeonato 5K + 10K.'};
+  if (!esWinter && /cuota|financ/i.test(String(d['Plan de pago'] || ''))) return {ok: false, error: 'El cupón solo vale con pago contado.'};
   const lock = LockService.getScriptLock(); lock.waitLock(20000);
   try {
     const c = buscarCupon(cod, ev);
     if (!c) return {ok: false, error: 'Cupón inválido.'};
     if (c.usados >= c.usos) return {ok: false, error: 'Ese cupón ya se usó la cantidad de veces permitida.'};
-    if (!equipoCoincide(d['Club o equipo'], c.grupo)) return {ok: false, error: 'El cupón fue generado para otro equipo. Revisá el campo «Club o equipo».'};
+    if (!c.winter && !equipoCoincide(d['Club o equipo'], c.grupo)) return {ok: false, error: 'El cupón fue generado para otro equipo. Revisá el campo «Club o equipo».'};
     c.h.getRange(c.fila, 5).setValue(c.usados + 1);
+    if (c.winter) { d['Notas'] = (d['Notas'] ? d['Notas'] + ' · ' : '') + 'Cupón Winter OW 2026 ' + String(cod).toUpperCase() + ' (10% dto, ' + (c.grupo || '') + ')'; return {ok: true}; }
     d['Notas'] = (d['Notas'] ? d['Notas'] + ' · ' : '') + 'Cupón equipo ' + String(cod).toUpperCase() + ' (valor equipo, ' + (c.grupo || 'grupo') + ')';
     return {ok: true};
   } finally { lock.releaseLock(); }

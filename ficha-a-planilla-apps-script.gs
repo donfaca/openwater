@@ -48,7 +48,7 @@ function doGet() {
 function guardarEnPlanilla(d) {
   const ss = SpreadsheetApp.getActive();
   const hoja = ss.getSheetByName(HOJA) || ss.insertSheet(HOJA);
-  const claves = Object.keys(d);
+  const claves = Object.keys(d).filter(k => k.charAt(0) !== '_');
   if (hoja.getLastRow() === 0) hoja.appendRow(claves);
   const cab = hoja.getRange(1, 1, 1, hoja.getLastColumn()).getValues()[0].map(String);
   claves.forEach(k => { if (cab.indexOf(k) === -1) { hoja.getRange(1, cab.length + 1).setValue(k); cab.push(k); } });
@@ -58,8 +58,9 @@ function guardarEnPlanilla(d) {
 function enviarCorreo(d) {
   const nombre = d['Nombre y apellido'] || 'nuevo socio';
   const plan = d['Membresía'] || d['Plan'] || '';
-  const csv = csvRegistro(d);
-  const archivo = 'OW-socio-' + slug(nombre) + (d['DNI'] ? '-' + d['DNI'] : '') + '.csv';
+  // Si la ficha manda su propio CSV (fichas por categoría), se adjunta tal cual.
+  const csv = d['_csv'] || csvRegistro(d);
+  const archivo = d['_csv_nombre'] || ('OW-socio-' + slug(nombre) + (d['DNI'] ? '-' + d['DNI'] : '') + '.csv');
 
   const cuerpo =
     'Nueva ficha de asociación.\n\n' +
@@ -68,17 +69,32 @@ function enviarCorreo(d) {
     'Localidad: ' + (d['Localidad'] || '') + '\n' +
     'Teléfono: ' + (d['Teléfono'] || '') + '\n' +
     'Email: ' + (d['Email'] || '') + '\n\n' +
-    'Adjunto va el CSV para importar en la página Socios activos (botón "Cargar CSV de la ficha").\n\n' +
+    'Adjunto va el CSV para importar en la página Socios activos (botón "Cargar CSV de la ficha").\n' +
+    (d['_foto'] ? 'También va adjunta la foto para el carnet de socio.\n' : 'El socio no adjuntó foto para el carnet.\n') + '\n' +
     '--- FICHA COMPLETA ---\n' +
-    Object.keys(d).map(k => k + ': ' + d[k]).filter(l => !/: *$/.test(l)).join('\n');
+    Object.keys(d).filter(k => k.charAt(0) !== '_').map(k => k + ': ' + d[k]).filter(l => !/: *$/.test(l)).join('\n');
+
+  const adjunto = Utilities.newBlob(csv.indexOf('\uFEFF') === 0 ? csv : '\uFEFF' + csv, 'text/csv', archivo);
+  const adjuntos = [adjunto];
+
+  /* Foto para el carnet (opcional): llega como data URL desde la ficha */
+  if (d['_foto']) {
+    const m = String(d['_foto']).match(/^data:([^;]+);base64,(.*)$/);
+    if (m) {
+      const ext = m[1].indexOf('png') > -1 ? '.png' : '.jpg';
+      const nombreFoto = d['_foto_nombre'] || ('OW-foto-' + slug(nombre) + ext);
+      adjuntos.push(Utilities.newBlob(Utilities.base64Decode(m[2]), m[1], nombreFoto));
+    }
+  }
 
   MailApp.sendEmail({
     to: DESTINO,
+    cc: d['Email'] || '',
     replyTo: d['Email'] || DESTINO,
     subject: 'Ficha de asociación · ' + nombre + (plan ? ' · ' + plan : ''),
     body: cuerpo,
     name: 'Fichas Open Water',
-    attachments: [Utilities.newBlob('\uFEFF' + csv, 'text/csv', archivo)]
+    attachments: adjuntos
   });
 }
 
