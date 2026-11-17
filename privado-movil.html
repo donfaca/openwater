@@ -13,10 +13,11 @@
   <title>PRIVADO · Open Water</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>body{margin:0;background:#08202f;}a{color:#c9a24d;}a:hover{color:#e6c677;}</style>
 </helmet>
 <div style="font-family:'Barlow',system-ui,sans-serif;color:#fff;min-height:100vh;background:#08202f;">
-  <nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 24px;background:#0a2438;border-bottom:1px solid #16455f;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;background:#0a2438;border-bottom:1px solid #16455f;">
     <a href="index-movil.html" style="color:#fff;text-decoration:none;font-weight:700;">← Volver a la página</a>
     <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.12em;color:#ff6b5e;">PRIVADO · ORGANIZADORES</span>
   </nav>
@@ -32,24 +33,103 @@
   </sc-if>
 
   <sc-if value="{{ unlocked }}">
-    <div style="max-width:1100px;margin:0 auto;padding:28px 24px 60px;">
-      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:.05em;margin:0;">CLASIFICACIÓN · OWECLIPSE 2027</h1>
-      <p style="color:#a9c6d6;margin:4px 0 20px;max-width:760px;">Seguí los 3 pasos en orden. Salen 4 tablas: Mujeres y Hombres, cada uno en Cuero y Neopreno, con las medallas del 1.º al 8.º resaltadas.</p>
+    <div style="max-width:1100px;margin:0 auto;padding:22px 24px 0;display:flex;gap:10px;flex-wrap:wrap;">
+      <button onClick="{{ verSummerBtn }}" style="{{ stSummer }}">Clasificador · Summer Open Water 2027</button>
+      <button onClick="{{ verEclipseBtn }}" style="{{ stEclipse }}">Clasificador · OWeclipse 2027</button>
+      <button onClick="{{ verCuponesBtn }}" style="{{ stCupones }}">Cupones de descuento</button>
+    </div>
+
+    <sc-if value="{{ verSummer }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1100px;margin:0 auto;padding:18px 24px 10px;">
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:.04em;margin:0;">CLASIFICADOR · SUMMER OPEN WATER 2027</h1>
+      <p style="color:#a9c6d6;margin:4px 0 8px;max-width:820px;">Se leen de Drive la planilla de inscriptos y las de tiempos (5K y 10K) y se cruzan por número de dorsal. Salen: <b>General Cuero</b> (sin distinción de sexo, por prueba), <b>podio por sexo y categoría</b> (Cuero, Neopreno, Adaptada) y el <b>Campeonato</b> (puesto en 5K + 2 × puesto en 10K, gana el mínimo puntaje).</p>
+      <div style="color:#cfe4ee;font-size:13px;line-height:1.55;max-width:820px;margin-bottom:14px;background:#0a2438;border:1px solid #16455f;border-radius:10px;padding:10px 14px;">
+        <b>Categoría:</b> «Adaptada» sale de la casilla de la ficha; el resto es <b>Cuero</b> salvo que la columna «Traje» de la planilla de inscriptos diga <b>Neopreno</b>. <b>Campeonato:</b> el puesto se cuenta dentro de cada sexo y categoría; solo puntúan quienes terminaron 5K y 10K; si empatan en puntos, desempata el mejor puesto en 10K y luego el tiempo total.
+      </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">
         <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">1</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Cargar inscriptos</span></div>
-          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Trae la lista actual de la planilla de inscriptos, con su número ID.</div>
-          <button onClick="{{ cargarReal }}" style="background:#ff6b5e;color:#2a0603;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Cargar inscriptos</button>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Se lee sola de la planilla de inscriptos de Summer al calcular (número, nombre, género, prueba, categoría adaptada y traje). Ahí se completa la columna «Traje» (Cuero / Neopreno).</div>
+          <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ sInscInfo }}</div>
+          <button onClick="{{ sCargar }}" style="background:#ff6b5e;color:#2a0603;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Probar lectura</button>
+        </div>
+        <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">2</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Tiempos 5K</span></div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Se lee sola de la planilla de Drive «Tiempos Summer 5K» (columnas: Dorsal y Hora de arribo). El nadador, sexo, categoría y traje salen de la planilla de inscriptos por el dorsal. Si dejás la largada vacía, la columna se toma como tiempo de nado.</div>
+          <label style="font-size:13px;color:#a9c6d6;">Hora de largada 5K (hh:mm:ss)<input value="{{ sLarg5 }}" onInput="{{ sOnLarg5 }}" placeholder="09:00:00" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 15px 'Barlow',sans-serif;"></label>
+          <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ sInfo5 }}</div>
+          <button onClick="{{ sLeer5 }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:10px 14px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Probar lectura 5K</button>
+        </div>
+        <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">3</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Tiempos 10K</span></div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Planilla «Tiempos Summer 10K», mismo formato que el 5K. El 10K es otro día y otra largada.</div>
+          <label style="font-size:13px;color:#a9c6d6;">Hora de largada 10K (hh:mm:ss)<input value="{{ sLarg10 }}" onInput="{{ sOnLarg10 }}" placeholder="12:00:00" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 15px 'Barlow',sans-serif;"></label>
+          <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ sInfo10 }}</div>
+          <button onClick="{{ sLeer10 }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:10px 14px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Probar lectura 10K</button>
+        </div>
+        <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">4</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Calcular</span></div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Lee de Drive inscriptos y tiempos (5K y 10K) y arma General Cuero, podios por sexo y categoría y el Campeonato.</div>
+          <button onClick="{{ sRun }}" style="background:#c9a24d;color:#1b1405;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Calcular clasificación</button>
+          <button onClick="{{ sSim }}" style="background:transparent;color:#ff9a90;border:1px dashed #ff6b5e;border-radius:9px;padding:8px 14px;font:700 13px 'Barlow',sans-serif;cursor:pointer;">Solo prueba: sortear tiempos</button>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;min-height:22px;color:#ffd58a;font-weight:600;">{{ sMsg }}</div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px;">
+        <button onClick="{{ sPdf }}" style="background:transparent;color:#c9a24d;border:1px solid #c9a24d;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar PDF</button>
+        <button onClick="{{ sCsv }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar Excel (CSV)</button>
+        <button onClick="{{ lock }}" style="margin-left:auto;background:transparent;color:#ff9a90;border:1px solid #ff6b5e;border-radius:9px;padding:12px 18px;font:700 14px 'Barlow',sans-serif;cursor:pointer;">Cerrar sesión</button>
+      </div>
+
+      <sc-for list="{{ sGroups }}" as="g" hint-placeholder-count="0">
+        <div style="margin-top:26px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c9a24d;">{{ g.title }}</div>
+          <div style="color:#a9c6d6;font-size:13px;margin-top:2px;">{{ g.sub }}</div>
+          <div style="overflow-x:auto;border:1px solid #16455f;border-radius:10px;margin-top:6px;">
+            <table style="width:100%;border-collapse:collapse;font-size:15px;min-width:680px;">
+              <thead><tr style="background:#0a2438;color:#a9c6d6;text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;">
+                <sc-for list="{{ g.heads }}" as="h" hint-placeholder-count="0"><th style="padding:9px 12px;">{{ h }}</th></sc-for>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="0">
+                  <tr style="border-top:1px solid #16455f;background:{{ r.bg }};">
+                    <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="0"><td style="padding:8px 12px;{{ c.st }}">{{ c.v }}</td></sc-for>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ verEclipse }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1100px;margin:0 auto;padding:20px 14px 0;">
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:.04em;margin:0;">CLASIFICACIÓN · OWECLIPSE 2027</h1>
+      <p style="color:#a9c6d6;margin:4px 0 20px;max-width:760px;">Seguí los 3 pasos. Se cruzan la lista de inscriptos y el archivo de tiempos por número de nadador. Salen 4 tablas: Mujeres y Hombres, cada uno en Cuero y Neopreno, con las medallas del 1.º al 8.º resaltadas.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;">
+        <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">1</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Cargar inscriptos</span></div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Lee la planilla de inscriptos (número ID, nombre, género).</div>
+          <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ inscInfo }}</div>
+          <button onClick="{{ cargarReal }}" style="background:#ff6b5e;color:#2a0603;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Leer inscriptos</button>
         </div>
         <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">2</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Cargar tiempos</span></div>
-          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Solo para pruebas: sortea tiempos entre 1:30 y 2:20 y Cuero o Neopreno a los que no tengan. Con resultados reales, escribilos en «Ver y editar datos».</div>
-          <button onClick="{{ simular }}" style="background:transparent;color:#ff9a90;border:1px dashed #ff6b5e;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Sortear tiempos de prueba</button>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Subí un Excel o CSV con 3 columnas: orden de llegada, número de dorsal y hora de llegada (hh:mm:ss). El tiempo de nado es la hora de llegada menos la hora de largada; nombre, género y traje salen de los inscriptos.</div>
+          <label style="font-size:13px;color:#a9c6d6;">Hora de largada (hh:mm:ss)<input value="{{ largada }}" onInput="{{ onLargada }}" placeholder="10:45:00" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 15px 'Barlow',sans-serif;"></label>
+          <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ tiemInfo }}</div>
+          <label style="background:#ff6b5e;color:#2a0603;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;text-align:center;">Subir archivo de tiempos<input type="file" accept=".xlsx,.xls,.csv,.txt,.tsv" onChange="{{ onTiempos }}" style="display:none;"></label>
+          <button onClick="{{ plantilla }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:10px 14px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Descargar planilla de tiempos (Excel)</button>
+          <button onClick="{{ simular }}" style="background:transparent;color:#ff9a90;border:1px dashed #ff6b5e;border-radius:9px;padding:8px 14px;font:700 13px 'Barlow',sans-serif;cursor:pointer;">Solo prueba: sortear tiempos</button>
         </div>
         <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">3</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Calcular</span></div>
-          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Ordena a todos por tiempo y arma las 4 tablas. Se recalcula solo al sortear tiempos.</div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Cruza ambos archivos por número, ordena por tiempo y arma las 4 tablas.</div>
           <button onClick="{{ run }}" style="background:#c9a24d;color:#1b1405;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Calcular clasificación</button>
         </div>
       </div>
@@ -64,7 +144,7 @@
 
       <details style="margin-top:18px;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:12px 16px;">
         <summary style="cursor:pointer;font-weight:700;color:#cfe4ee;">Ver y editar datos (avanzado)</summary>
-        <p style="color:#a9c6d6;font-size:13px;margin:10px 0 8px;">Una fila por nadador: id;nombre;sexo;traje;prueba;tiempo;estado. Podés corregir tiempos a mano o pegar los reales (h:mm:ss). En estado: DNF, DSQ o DNS.</p>
+        <p style="color:#a9c6d6;font-size:13px;margin:10px 0 8px;">Resultado del cruce, una fila por nadador. Si lo editás a mano o subís un CSV, el cálculo usa este texto en lugar de los pasos 1 y 2 (vuelve a los archivos al cargarlos de nuevo).</p>
         <textarea value="{{ text }}" onInput="{{ onText }}" style="width:100%;box-sizing:border-box;height:200px;padding:12px;border-radius:10px;border:1px solid #3b5a6b;background:#08202f;color:#fff;font:13px ui-monospace,Menlo,monospace;resize:vertical;"></textarea>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:10px;">
           <label style="display:block;font-size:13px;color:#a9c6d6;">Evento
@@ -88,7 +168,8 @@
         </div>
       </details>
 
-
+    </div>
+    <div style="max-width:1100px;margin:0 auto;padding:0 24px 60px;">
       <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
         <div style="margin-top:26px;">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c9a24d;">{{ g.title }}</div>
@@ -116,12 +197,52 @@
         </div>
       </sc-for>
     </div>
+    </sc-if>
+    <sc-if value="{{ verCupones }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1100px;margin:0 auto;padding:0 24px 0;">
+      <div style="margin-top:36px;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:18px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.05em;">CUPONES DE DESCUENTO</div>
+        <p style="color:#a9c6d6;font-size:14px;margin:2px 0 14px;max-width:760px;">Equipos: valor por equipo (Summer $212.500, Eclipse $150.000), válido tantas veces como nadadores. Equipos: el c\u00f3digo deja de valer al llegar a la cantidad de nadadores indicada. Winter OW 2026: 10% de descuento, personal y de un solo uso; si cargás el email, el código se envía solo.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+          <label style="font-size:13px;color:#a9c6d6;">Tipo de cupón
+            <select value="{{ cTipo }}" onChange="{{ onCTipo }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="summer">Equipo · Summer 5K+10K</option>
+              <option value="eclipse">Equipo · Eclipse 2.5K</option>
+              <option value="winter">Winter OW 2026 · 10%</option>
+            </select>
+          </label>
+          <label style="font-size:13px;color:#a9c6d6;">{{ cNombreLbl }}<input value="{{ cNombre }}" onInput="{{ onCNombre }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <sc-if value="{{ cEsWinter }}" hint-placeholder-val="{{ false }}">
+            <label style="font-size:13px;color:#a9c6d6;">Email del nadador<input type="email" value="{{ cEmail }}" onInput="{{ onCEmail }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          </sc-if>
+          <sc-if value="{{ cEsEquipo }}" hint-placeholder-val="{{ true }}">
+            <label style="font-size:13px;color:#a9c6d6;">{{ cUsosLbl }}<input type="number" min="1" value="{{ cUsos }}" onInput="{{ onCUsos }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          </sc-if>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px;">
+          <button onClick="{{ generarCup }}" style="background:#86efac;color:#052e16;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Generar cupón</button>
+          <button onClick="{{ listarCup }}" style="background:transparent;color:#7dd3fc;border:1px solid #38bdf8;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Ver cupones generados</button>
+          <span style="color:#ffd58a;font-weight:600;">{{ cMsg }}</span>
+        </div>
+        <sc-if value="{{ cCodigo }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:14px;font-size:15px;">Código: <b style="font-size:30px;letter-spacing:6px;color:#86efac;">{{ cCodigo }}</b></div>
+        </sc-if>
+        <div style="margin-top:12px;">
+          <sc-for list="{{ cLista }}" as="c" hint-placeholder-count="0">
+            <div style="display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid #16455f;font-size:14px;"><b style="letter-spacing:2px;">{{ c.codigo }}</b><span style="color:#a9c6d6;text-align:right;">{{ c.grupo }} · {{ c.usados }}/{{ c.usos }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
   </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
+  static T5_URL = 'https://docs.google.com/spreadsheets/d/181aw4FZxcrQKK0SbkEmJFLP7yuIukIi6XNccLt0ZI9M/gviz/tq?tqx=out:csv';
+  static T10_URL = 'https://docs.google.com/spreadsheets/d/1LlLKAKyFGH0fjgXVCPMAn-IAygBc_RRpqXYbA2t6lcc/gviz/tq?tqx=out:csv';
+  state = { seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
   componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
   norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
   tsec(v) {
@@ -162,7 +283,23 @@ class Component extends DCLogic {
     const m = new Map(); rows.forEach(r => { const k = keyf(r); if (!m.has(k)) m.set(k, []); m.get(k).push(r); });
     return [...m.keys()].sort().map(k => this.rank(m.get(k), titf(k)));
   }
+  cid(v) { return String(v || '').replace(/\D/g, '').replace(/^0+/, ''); }
+  merge() {
+    const s = this.state; this.mtext = null; if (s.manual || !s.insc.length) return true;
+    if (!s.tiem.length) { this.setState({ msg: 'Falta el archivo de tiempos (paso 2).' }); return false; }
+    const T = new Map(); s.tiem.forEach(t => T.set(t.id, t));
+    const L0 = this.tsec(s.largada); if (L0 == null) { this.setState({ msg: 'Escribí la hora de largada (hh:mm:ss).' }); return false; }
+    const dur = t => { let h = String(t.hora || '').trim().replace(',', '.'); let x = /^\d*\.\d+$/.test(h) && parseFloat(h) < 1 ? parseFloat(h) * 86400 : this.tsec(h); if (x == null) return ''; x = Math.round(x) - L0; if (x < 0) x += 86400; return this.fmt(x); };
+    const L = ['id;nombre;sexo;traje;prueba;tiempo;estado;orden']; const used = new Set();
+    s.insc.forEach(r => { const t = T.get(this.cid(r.id)); if (t) used.add(t.id);
+      L.push([r.id, r.nombre, r.sexo, r.traje || '', '2.5K', t ? dur(t) : '', r.est || '', t ? t.orden : ''].join(';')); });
+    const sobran = s.tiem.filter(t => !used.has(t.id)).map(t => t.id);
+    this.setState({ text: L.join('\n'), extra: sobran.length ? ' Sin inscripto en la lista: N.º ' + sobran.join(', ') + '.' : '' });
+    this.mtext = L.join('\n'); return true;
+  }
   run = () => {
+    if (!this.merge()) return;
+    if (this.mtext && !this.state.manual) { this.state.text = this.mtext; }
     const rows = this.parse(); if (!rows) return;
     if (!rows.length) { this.setState({ msg: 'No hay datos para calcular.', groups: [] }); return; }
     const mo = this.state.modo, ev = this.state.ev; let groups;
@@ -179,7 +316,8 @@ class Component extends DCLogic {
         else inc.push({ nombre: v.nombre, sexo: v.sexo, cat: v.cat, sec: null, est: 'Incompleto', ok: false }); });
       groups = this.group(comb.concat(inc), r => r.sexo || '?', k => ev + ' · Campeonato 5K + 10K · ' + ({ F: 'Femenino', M: 'Masculino' }[k] || 'Sin sexo'));
     }
-    this.setState({ groups, msg: rows.length + ' filas leídas. ' + groups.length + ' tabla(s) generada(s).' });
+    const sin = rows.filter(r => !r.ok && !r.est).length;
+    this.setState({ groups, msg: rows.length + ' nadadores. ' + groups.length + ' tabla(s) generada(s).' + (sin ? ' ' + sin + ' sin tiempo.' : '') + (this.state.manual ? '' : (this.state.extra || '')) });
   };
   download = () => {
     const g = this.state.groups; if (!g.length) { this.setState({ msg: 'Primero calculá la clasificación.' }); return; }
@@ -207,21 +345,204 @@ class Component extends DCLogic {
       const H = rows[0].map(h => this.norm(h)), ix = re => H.findIndex(h => re.test(h));
       const iN = ix(/nombre/), iG = ix(/genero|sexo/), iI = ix(/numero de inscripto/), iNo = ix(/^notas/);
       if (iN < 0) { this.setState({ msg: 'No encontré la columna de nombres en la planilla.' }); return; }
-      const L = ['id;nombre;sexo;traje;prueba;tiempo;estado']; let k = 0;
+      const iT = ix(/traje|neopreno|cuero/); const insc = []; let k = 0;
       rows.slice(1).filter(r => r.join('').trim()).forEach(r => { k++;
         const dns = iNo >= 0 && /NO SE PRESENT/i.test(r[iNo] || '');
-        L.push([(iI >= 0 && r[iI]) || k, (r[iN] || '').replace(/;/g, ' '), this.gen(r[iG] || ''), '', '2.5K', '', dns ? 'DNS' : ''].join(';')); });
-      this.setState({ ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: L.join('\n'), groups: [], msg: k + ' inscriptos cargados. Siguiente: paso 2.' });
+        insc.push({ id: (iI >= 0 && r[iI]) || String(k), nombre: (r[iN] || '').replace(/;/g, ' '), sexo: this.gen(r[iG] || ''), traje: iT >= 0 ? this.traje(r[iT]) : '', est: dns ? 'DNS' : '' }); });
+      this.setState({ insc, manual: false, ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', groups: [], inscInfo: k + ' inscriptos leídos', msg: k + ' inscriptos leídos. Siguiente: paso 2.' });
     }).catch(() => this.setState({ msg: 'No se pudo leer la planilla. Revisá la conexión.' }));
   };
+  post = o => fetch('https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec', { method: 'POST', body: JSON.stringify(Object.assign({ clave: '129430' }, o)) }).then(r => r.json());
+  cErr = r => /desconocida|inv\u00e1lido/.test(r.error || '') ? 'Falta publicar la nueva versi\u00f3n del Apps Script.' : (r.error || 'Error');
+  generarCup = () => {
+    const s = this.state, w = s.cTipo === 'winter', u = parseInt(s.cUsos, 10);
+    if (!s.cNombre.trim()) { this.setState({ cMsg: w ? 'Indic\u00e1 el nombre del nadador.' : 'Indic\u00e1 el equipo.' }); return; }
+    if (!w && !(u >= 1)) { this.setState({ cMsg: 'Indic\u00e1 cu\u00e1ntas veces se puede usar el c\u00f3digo.' }); return; }
+    this.setState({ cMsg: 'Generando\u2026', cCodigo: '' });
+    this.post({ accion: 'generarCupon', evento: s.cTipo, grupo: s.cNombre.trim(), usos: u, email: w ? s.cEmail.trim() : '' }).then(r => {
+      if (!r.ok) { this.setState({ cMsg: this.cErr(r) }); return; }
+      this.setState({ cCodigo: r.codigo, cNombre: '', cEmail: '', cUsos: '', cMsg: w ? (s.cEmail.trim() ? (r.enviado ? 'Cup\u00f3n generado y enviado por mail.' : 'Cup\u00f3n generado; no se pudo enviar el mail.') : 'Cup\u00f3n generado (sin email: envialo vos).') : 'Cup\u00f3n generado.' }); this.listarCup();
+    }).catch(() => this.setState({ cMsg: 'No se pudo generar.' }));
+  };
+  listarCup = () => {
+    this.post({ accion: 'listarCupones', evento: this.state.cTipo }).then(r => this.setState(r.ok ? { cLista: r.cupones.map(c => ({ codigo: c.codigo, grupo: String(c.grupo), usados: c.usados, usos: c.usos })) } : { cMsg: this.cErr(r) })).catch(() => this.setState({ cMsg: 'No se pudo cargar.' }));
+  };
   simular = () => {
-    const z = n => String(n).padStart(2, '0');
-    const L = this.state.text.split(/\r?\n/); if (L.length < 2) { this.setState({ msg: 'Primero cargá los inscriptos.' }); return; }
-    const out = [L[0]].concat(L.slice(1).filter(l => l.trim()).map(l => { const c = l.split(';'); if (!c[3]) c[3] = Math.random() < .5 ? 'Cuero' : 'Neopreno'; if (!c[5]) { const s = 5400 + Math.floor(Math.random() * 3001); c[5] = Math.floor(s / 3600) + ':' + z(Math.floor(s % 3600 / 60)) + ':' + z(s % 60); } return c.join(';'); }));
-    this.setState({ text: out.join('\n'), msg: (out.length - 1) + ' nadadores con tiempos (1:30 a 2:20) y trajes de PRUEBA. Cuando tengas resultados reales, reemplazalos en «Ver y editar datos».' }, this.run);
+    const z = n => String(n).padStart(2, '0'); if (!this.state.insc.length) { this.setState({ msg: 'Primero leé los inscriptos (paso 1).' }); return; }
+    const L0 = this.tsec(this.state.largada) || 38700, f = s => z(Math.floor(s / 3600) % 24) + ':' + z(Math.floor(s % 3600 / 60)) + ':' + z(s % 60);
+    const insc = this.state.insc.map(r => ({ ...r, traje: r.traje || (Math.random() < .5 ? 'Cuero' : 'Neopreno') }));
+    const tiem = insc.filter(r => r.est !== 'DNS').map(r => ({ id: this.cid(r.id), orden: '', hora: f(41760 + Math.floor(Math.random() * 1741)) }));
+    this.setState({ insc, tiem, manual: false, tiemInfo: tiem.length + ' llegadas de PRUEBA', msg: 'Llegadas y trajes de prueba sorteados (llegadas entre 11:36 y 12:05). Apretá «Calcular clasificación».' });
+  };
+  plantilla = () => {
+    const ins = this.state.insc, L = ['orden de llegada;numero de dorsal;hora de llegada'];
+    for (let i = 0; i < Math.max(ins.length, 30); i++) L.push(['', ins[i] ? ins[i].id : '', ''].join(';'));
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + L.join('\r\n')], { type: 'text/csv' }));
+    a.download = 'planilla-tiempos-eclipse-2027.csv'; a.click();
+    this.setState({ msg: 'Planilla descargada: orden de llegada, dorsal y hora de llegada (hh:mm:ss). Completala en Excel y subila.' });
+  };
+  onTiempos = e => {
+    const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+    const done = txt => {
+      const lines = txt.split(/\r?\n/).filter(l => l.trim()); if (lines.length < 2) { this.setState({ msg: 'El archivo de tiempos está vacío.' }); return; }
+      const d = [';', '\t', ','].find(x => lines[0].indexOf(x) > -1) || ';', H = lines[0].split(d).map(h => this.norm(h)), ix = re => H.findIndex(h => re.test(h));
+      const a = { id: ix(/^(id|n°|nº|nro|num|dorsal|nadador)/), o: ix(/orden|pos|lugar/) }; a.t = ix(/hora|arribo|tiempo|time|llegada/) === a.o ? H.findIndex((h, k) => k !== a.o && /hora|arribo|tiempo|time|llegada/.test(h)) : ix(/hora|arribo|tiempo|time|llegada/);
+      if (a.t < 0 && H.length > 2) a.t = 2;
+      if (a.id < 0 || a.t < 0) { this.setState({ msg: 'El archivo necesita las columnas «número de dorsal» y «hora de llegada» en la primera fila.' }); return; }
+      const tiem = lines.slice(1).map(l => { const c = l.split(d).map(x => x.trim().replace(/^"|"$/g, '')); return { id: this.cid(c[a.id]), orden: a.o >= 0 ? c[a.o] || '' : '', hora: c[a.t] || '' }; }).filter(t => t.id && t.hora);
+      this.setState({ tiem, manual: false, groups: [], tiemInfo: tiem.length + ' llegadas leídas (' + f.name + ')', msg: tiem.length + ' llegadas leídas. Apretá «Calcular clasificación».' });
+    };
+    if (/\.xlsx?$/i.test(f.name) && window.XLSX) { rd.onload = () => { const wb = XLSX.read(rd.result, { type: 'array' }); done(XLSX.utils.sheet_to_csv(wb.Sheets[wb.SheetNames[0]], { FS: ';' })); }; rd.readAsArrayBuffer(f); }
+    else { rd.onload = () => done(String(rd.result)); rd.readAsText(f); }
+    e.target.value = '';
   };
   example = () => this.setState({ text: 'nombre;sexo;categoria;prueba;tiempo;estado\nAna Pérez;F;30-34;5K;1:10:20;\nLaura Gómez;F;30-34;5K;1:15:05;\nMarcos Díaz;M;35-39;5K;1:02:11;\nJuan Soto;M;35-39;5K;1:05:40;DNF\nAna Pérez;F;30-34;10K;2:31:00;\nMarcos Díaz;M;35-39;10K;2:12:30;\nLaura Gómez;F;30-34;10K;2:40:10;' });
-  onFile = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => this.setState({ text: String(r.result) }); r.readAsText(f); };
+  onFile = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => this.setState({ manual: true, text: String(r.result) }); r.readAsText(f); };
+
+  /* ===== Clasificador Summer Open Water 2027 ===== */
+  sCargar = () => {
+    this.setState({ sMsg: 'Leyendo la planilla de Summer…' });
+    return fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT507x3wpH4DTq6hUT-PkeI9P-dIe8aZXYMh0qVvM-f6SVKzeRbWpZRAGriHov5GozZLHNvZ_DA2fXp/pub?output=csv', { cache: 'no-store' }).then(r => { if (!r.ok) throw 0; return r.text(); }).then(t => {
+      const rows = []; let row = [], f = '', q = false; t = t.replace(/\r\n?/g, '\n');
+      for (let i = 0; i < t.length; i++) { const c = t[i];
+        if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+        else if (c === '"') q = true; else if (c === ',') { row.push(f); f = ''; } else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; } else f += c; }
+      if (f || row.length) { row.push(f); rows.push(row); }
+      const H = rows[0].map(h => this.norm(h)), ix = re => H.findIndex(h => re.test(h));
+      const iN = ix(/nombre/), iG = ix(/genero|sexo/), iI = ix(/numero de inscripto/), iP = ix(/^prueba/), iA = ix(/categoria adaptada/), iNo = ix(/^notas/), iT = ix(/^traje|neopreno/);
+      if (iN < 0) { this.setState({ sMsg: 'No encontré la columna de nombres en la planilla.' }); return null; }
+      const sInsc = []; let k = 0;
+      rows.slice(1).filter(r => r.join('').trim()).forEach(r => { k++;
+        const ad = iA >= 0 ? this.norm(r[iA]) : '';
+        sInsc.push({ id: this.cid((iI >= 0 && r[iI]) || String(k)), nombre: (r[iN] || '').trim(), sexo: this.gen(r[iG] || ''), prueba: iP >= 0 ? String(r[iP] || '').toUpperCase().replace(/\s/g, '') : '', adaptada: /^(si|s|true|x|on|1)$/.test(ad), traje: iT >= 0 ? this.trajeS(r[iT]) : '', dns: iNo >= 0 && /NO SE PRESENT/i.test(r[iNo] || '') }); });
+      this.setState({ sInsc, sGroups: [], sInscInfo: k + ' inscriptos leídos', sMsg: k + ' inscriptos leídos.' });
+      return sInsc;
+    }).catch(() => { this.setState({ sMsg: 'No se pudo leer la planilla de inscriptos. Revisá la conexión.' }); return null; });
+  };
+  sCsvRows(t) {
+    const rows = []; let row = [], f = '', q = false; t = String(t).replace(/\r\n?/g, '\n');
+    for (let i = 0; i < t.length; i++) { const c = t[i];
+      if (q) { if (c === '"') { if (t[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true; else if (c === ',') { row.push(f); f = ''; } else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; } else f += c; }
+    if (f || row.length) { row.push(f); rows.push(row); }
+    return rows;
+  }
+  sLeerT = race => {
+    const url = String(race === '5' ? this.state.sUrl5 : this.state.sUrl10).trim();
+    const lab = race + 'K';
+    if (!url) return Promise.resolve(null);
+    return fetch(url, { cache: 'no-store' }).then(r => { if (!r.ok) throw 0; return r.text(); }).then(t => {
+      const rows = this.sCsvRows(t), H = (rows[0] || []).map(h => this.norm(h)), ix = re => H.findIndex(h => re.test(h));
+      const iD = ix(/dorsal|^(id|n°|nº|nro|num)/), iH = ix(/arribo|hora|llegada|tiempo/);
+      if (iD < 0 || iH < 0) { this.setState({ sMsg: 'La planilla del ' + lab + ' necesita las columnas «Dorsal» y «Hora de arribo» en la primera fila.' }); return null; }
+      const tiem = rows.slice(1).map(c => ({ id: this.cid(c[iD]), hora: String(c[iH] || '').trim().split(' ').pop() })).filter(x => x.id && x.hora);
+      const up = {}; up['sT' + race] = tiem; up['sInfo' + race] = tiem.length + ' llegadas leídas de Drive'; up.sMsg = tiem.length + ' llegadas de ' + lab + ' leídas de Drive.';
+      this.setState(up); return tiem;
+    }).catch(() => { this.setState({ sMsg: 'No se pudo leer la planilla del ' + lab + '. Revisá el link (debe estar publicado en la web como CSV).' }); return null; });
+  };
+  sLeerTodo = () => {
+    this.setState({ sMsg: 'Leyendo planillas de Drive…' });
+    return Promise.all([this.sCargar(), this.sLeerT('5'), this.sLeerT('10')]);
+  };
+  trajeS(s) { const n = this.norm(s); return /^(n|neo)/.test(n) ? 'Neopreno' : /^(c|cuero|sin)/.test(n) ? 'Cuero' : ''; }
+  sPlantilla = race => {
+    const ins = (this.state.sInsc || []).filter(r => !r.dns && (!r.prueba || r.prueba.indexOf(race + 'K') > -1)), L = ['orden de llegada;numero de dorsal;hora de llegada;traje (Cuero/Neopreno)'];
+    for (let i = 0; i < Math.max(ins.length, 30); i++) L.push(['', ins[i] ? ins[i].id : '', '', ''].join(';'));
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + L.join('\r\n')], { type: 'text/csv' }));
+    a.download = 'planilla-tiempos-summer-2027-' + race + 'K.csv'; a.click();
+    this.setState({ sMsg: 'Planilla del ' + race + 'K descargada. Completala (hora de llegada hh:mm:ss; traje solo si es Neopreno) y subila.' });
+  };
+  sSim = () => {
+    const ins = this.state.sInsc || []; if (!ins.length) { this.setState({ sMsg: 'Primero leé los inscriptos (paso 1).' }); return; }
+    const z = n => String(n).padStart(2, '0'), f = s => z(Math.floor(s / 3600) % 24) + ':' + z(Math.floor(s % 3600 / 60)) + ':' + z(s % 60);
+    const mk = (race, base, span) => ins.filter(r => !r.dns && (!r.prueba || r.prueba.indexOf(race + 'K') > -1)).map(r => ({ id: r.id, hora: f(base + Math.floor(Math.random() * span)) }));
+    const t5 = mk(5, 9 * 3600 + 3600, 2400), t10 = mk(10, 12 * 3600 + 7200, 4800);
+    this.setState({ sInsc: ins.map(r => ({ ...r, traje: r.traje || (Math.random() < .3 ? 'Neopreno' : '') })), sT5: t5, sT10: t10, sLarg5: '09:00:00', sLarg10: '12:00:00', sInfo5: t5.length + ' llegadas de PRUEBA', sInfo10: t10.length + ' llegadas de PRUEBA', sMsg: 'Tiempos y trajes de prueba sorteados. Apretá «Calcular clasificación».' });
+  };
+  sRun = () => {
+    const hayUrl = String(this.state.sUrl5 || '').trim() || String(this.state.sUrl10 || '').trim();
+    if (!hayUrl) { this.sCalc(); return; }
+    this.sLeerTodo().then(r => this.sCalc(r[0], r[1], r[2]));
+  };
+  sCalc = (insc, t5, t10) => {
+    const s = this.state, ins = insc || s.sInsc || [], T5 = t5 || s.sT5 || [], T10 = t10 || s.sT10 || [];
+    if (!ins.length) { this.setState({ sMsg: 'Primero leé los inscriptos (paso 1).' }); return; }
+    if (!T5.length && !T10.length) { this.setState({ sMsg: 'Faltan los tiempos: pegá el link de la planilla del 5K y/o del 10K (o usá «Solo prueba»).' }); return; }
+    const by = new Map(); ins.forEach(r => by.set(r.id, r));
+    const sobran = [];
+    const dur = (t, larg) => { const h = String(t.hora || '').trim().replace(',', '.'); let x;
+      if (!String(larg || '').trim()) return this.tsec(h);
+      const L0 = this.tsec(larg); if (L0 == null) return null;
+      x = /^\d*\.\d+$/.test(h) && parseFloat(h) < 1 ? parseFloat(h) * 86400 : this.tsec(h); if (x == null) return null;
+      x = Math.round(x) - L0; if (x < 0) x += 86400; return x; };
+    const res = { 5: [], 10: [] }, trj = new Map();
+    [[5, T5, s.sLarg5], [10, T10, s.sLarg10]].forEach(([race, lista, larg]) => {
+      const seen = new Set();
+      (lista || []).forEach(t => { if (seen.has(t.id)) return; seen.add(t.id);
+        const w = by.get(t.id); if (!w) { sobran.push(race + 'K: N.º ' + t.id); return; }
+        const sec = dur(t, larg); if (sec == null || sec <= 0) return;
+        res[race].push({ w, sec }); });
+    });
+    const catDe = w => w.adaptada ? 'Adaptada' : (w.traje || 'Cuero');
+    const sx = w => w.sexo === 'F' ? 'Femenino' : w.sexo === 'M' ? 'Masculino' : 'Sin sexo';
+    const CATS = ['Cuero', 'Neopreno', 'Adaptada'], SEXOS = ['F', 'M', ''];
+    const cell = (v, st) => ({ v: v == null ? '' : String(v), st: st || '' });
+    const gold = k => k === 0 ? 'rgba(201,162,77,.38)' : k < 3 ? 'rgba(201,162,77,.20)' : 'transparent';
+    const premio = k => k < 3 ? (k + 1) + '.º premio' : '';
+    const sorted = arr => arr.slice().sort((a, b) => a.sec - b.sec);
+    const racetable = (title, sub, arr) => { const o = sorted(arr), best = o.length ? o[0].sec : 0;
+      return { title, sub, heads: ['Pos.', 'ID', 'Nadador/a', 'Sexo', 'Categoría', 'Tiempo', 'Dif.', 'Premio'], rows: o.map((r, k) => ({ bg: gold(k), cells: [cell(k + 1 + '°', 'font-weight:800;color:#c9a24d;'), cell(r.w.id, 'color:#a9c6d6;'), cell(r.w.nombre, 'font-weight:600;'), cell(r.w.sexo || '?'), cell(catDe(r.w)), cell(this.fmt(r.sec)), cell(k ? '+' + this.fmt(r.sec - best) : '', 'color:#a9c6d6;'), cell(premio(k), 'font-weight:800;color:#e6c677;text-transform:uppercase;font-size:12px;letter-spacing:.08em;')] })) }; };
+    const groups = [], rankIn = { 5: new Map(), 10: new Map() };
+    [10, 5].forEach(race => {
+      const all = res[race]; if (!all.length) return;
+      groups.push(racetable(race + 'K · GENERAL CUERO', 'Sin distinción de sexo · solo categoría Cuero · premio del 1.º al 3.º · ' + all.filter(r => catDe(r.w) === 'Cuero').length + ' clasificados', all.filter(r => catDe(r.w) === 'Cuero')));
+    });
+    [10, 5].forEach(race => {
+      const all = res[race];
+      SEXOS.forEach(sex => CATS.forEach(cat => {
+        const g = all.filter(r => (r.w.sexo || '') === sex && catDe(r.w) === cat); if (!g.length) return;
+        sorted(g).forEach((r, k) => rankIn[race].set(r.w.id, k + 1));
+        groups.push(racetable(race + 'K · ' + sx({ sexo: sex }) + ' · ' + cat, 'Premio del 1.º al 3.º · ' + g.length + ' clasificados', g));
+      }));
+    });
+    // Campeonato: puesto 5K + 2 × puesto 10K (puesto dentro de sexo y categoría), mínimo puntaje.
+    // Quien no completa una prueba recibe el puntaje como si hubiera llegado detrás del último de su sexo y categoría.
+    const ambas = w => /5K\+?10K|10K\+?5K/.test(w.prueba || '');
+    const nGrp = (race, sex, cat) => res[race].filter(r => (r.w.sexo || '') === sex && catDe(r.w) === cat).length;
+    const camp = [];
+    ins.filter(w => !w.dns).forEach(w => {
+      const a = res[5].find(r => r.w.id === w.id), b = res[10].find(r => r.w.id === w.id);
+      if (!a && !b) return;
+      if (!(a && b) && !ambas(w)) return;
+      const sex = w.sexo || '', cat = catDe(w);
+      const p5 = a ? rankIn[5].get(w.id) : nGrp(5, sex, cat) + 1, p10 = b ? rankIn[10].get(w.id) : nGrp(10, sex, cat) + 1;
+      camp.push({ w, a, b, p5, p10, sec: a && b ? a.sec + b.sec : null });
+    });
+    SEXOS.forEach(sex => CATS.forEach(cat => {
+      const g = camp.filter(r => (r.w.sexo || '') === sex && catDe(r.w) === cat);
+      if (!g.length) return;
+      g.forEach(r => { r.pts = r.p5 + 2 * r.p10; });
+      g.sort((x, y) => x.pts - y.pts || x.p10 - y.p10 || (x.sec == null ? 1 : 0) - (y.sec == null ? 1 : 0) || (x.sec || 0) - (y.sec || 0));
+      const rows = g.map((r, k) => ({ bg: gold(k), cells: [cell(k + 1 + '°', 'font-weight:800;color:#c9a24d;'), cell(r.w.id, 'color:#a9c6d6;'), cell(r.w.nombre, 'font-weight:600;'), cell(r.w.sexo || '?'), cell(cat), cell(r.p5 + '°' + (r.a ? '' : ' (sin completar)'), r.a ? '' : 'color:#ff9a90;'), cell(r.p10 + '°' + (r.b ? '' : ' (sin completar)') + ' (×2 = ' + 2 * r.p10 + ')', r.b ? '' : 'color:#ff9a90;'), cell(r.pts, 'font-weight:800;'), cell(r.sec == null ? '—' : this.fmt(r.sec)), cell(premio(k), 'font-weight:800;color:#e6c677;text-transform:uppercase;font-size:12px;letter-spacing:.08em;')] }));
+      groups.push({ title: 'CAMPEONATO · ' + sx({ sexo: sex }) + ' · ' + cat, sub: 'Puntos = puesto 5K + 2 × puesto 10K · gana el mínimo puntaje · quien no completa una prueba suma el puesto siguiente al último de su sexo y categoría · desempate: mejor 10K, luego tiempo total', heads: ['Pos.', 'ID', 'Nadador/a', 'Sexo', 'Categoría', 'Puesto 5K', 'Puesto 10K', 'Puntos', 'Tiempo total', 'Premio'], rows });
+    }));
+    const ex = sobran.length ? ' Sin inscripto en la lista: ' + sobran.join(', ') + '.' : '';
+    this.setState({ sGroups: groups, sMsg: groups.length + ' tabla(s) generada(s): ' + res[5].length + ' llegadas en 5K, ' + res[10].length + ' en 10K, ' + camp.length + ' en el campeonato.' + ex });
+  };
+  sCsv = () => {
+    const g = this.state.sGroups; if (!g.length) { this.setState({ sMsg: 'Primero calculá la clasificación.' }); return; }
+    const L = []; g.forEach(t => { L.push(t.title); L.push(t.heads.join(';')); t.rows.forEach(r => L.push(r.cells.map(c => c.v).join(';'))); L.push(''); });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + L.join('\n')], { type: 'text/csv' }));
+    a.download = 'clasificacion-summer-2027.csv'; a.click();
+  };
+  sPdf = () => {
+    const g = this.state.sGroups; if (!g.length) { this.setState({ sMsg: 'Primero calculá la clasificación.' }); return; }
+    const e = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const tb = g.map(t => '<h2>' + e(t.title) + '</h2><div class="s">' + e(t.sub) + '</div><table><tr>' + t.heads.map(h => '<th>' + e(h) + '</th>').join('') + '</tr>' + t.rows.map((r, k) => '<tr' + (r.cells[r.cells.length - 1].v ? ' class="' + (k === 0 ? 't' : 'm') + '"' : '') + '>' + r.cells.map(c => '<td>' + e(c.v) + '</td>').join('') + '</tr>').join('') + '</table>').join('');
+    const w = window.open('', '_blank'); if (!w) { this.setState({ sMsg: 'El navegador bloqueó la ventana. Permití ventanas emergentes.' }); return; }
+    w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Clasificación · Summer Open Water 2027</title><style>body{font:13px Arial,sans-serif;color:#111;margin:24px}h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;margin:22px 0 2px;color:#0a2438}.s{color:#555;font-size:11px;margin-bottom:6px}table{width:100%;border-collapse:collapse}tr{page-break-inside:avoid}th,td{border:1px solid #ccc;padding:5px 8px;text-align:left}th{background:#0a2438;color:#fff;font-size:11px;text-transform:uppercase}tr.m td{background:#f6ebc8}tr.t td{background:#ecd48c;font-weight:bold}@page{margin:14mm}</style></head><body><h1>Summer Open Water 2027 · Clasificación</h1>' + tb + '</body></html>');
+    w.document.close(); setTimeout(() => w.print(), 400);
+  };
   unlock = () => { if (this.state.pin.trim() === '129430') { this.setState({ unlocked: true, pin: '', pinErr: '' }); } else this.setState({ pinErr: 'Código incorrecto.' }); };
   lock = () => { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} this.setState({ unlocked: false }); };
   renderVals() {
@@ -229,7 +550,15 @@ class Component extends DCLogic {
     return {
       locked: !s.unlocked, unlocked: s.unlocked, pin: s.pin, pinErr: s.pinErr, ev: s.ev, modo: s.modo, text: s.text, msg: s.msg, groups: s.groups,
       onPin: e => this.setState({ pin: e.target.value }), onPinKey: e => { if (e.key === 'Enter') this.unlock(); },
-      onEv: e => this.setState({ ev: e.target.value }), onModo: e => this.setState({ modo: e.target.value }), onText: e => this.setState({ text: e.target.value }),
+      onEv: e => this.setState({ ev: e.target.value }), onModo: e => this.setState({ modo: e.target.value }), onText: e => this.setState({ text: e.target.value, manual: true }), inscInfo: s.inscInfo, tiemInfo: s.tiemInfo, cTipo: s.cTipo, onCTipo: e => this.setState({ cTipo: e.target.value, cLista: [], cCodigo: '', cMsg: '' }), cNombre: s.cNombre, onCNombre: e => this.setState({ cNombre: e.target.value }), cEmail: s.cEmail, onCEmail: e => this.setState({ cEmail: e.target.value }), cUsos: s.cUsos, onCUsos: e => this.setState({ cUsos: e.target.value }), cMsg: s.cMsg, cCodigo: s.cCodigo, cLista: s.cLista, cEsWinter: s.cTipo === 'winter', cEsEquipo: s.cTipo !== 'winter', cUsosLbl: 'Cantidad de nadadores (usos permitidos del c\u00f3digo)', cNombreLbl: s.cTipo === 'winter' ? 'Nombre del nadador' : 'Equipo (igual a \u00abClub o equipo\u00bb de la ficha)', generarCup: this.generarCup, listarCup: this.listarCup, onTiempos: this.onTiempos, largada: s.largada, onLargada: e => this.setState({ largada: e.target.value }), plantilla: this.plantilla,
+      verSummer: s.seccion === 'summer', verEclipse: s.seccion === 'eclipse', verCupones: s.seccion === 'cupones', verCuponesBtn: () => this.setState({ seccion: 'cupones' }), stCupones: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'cupones' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
+      verSummerBtn: () => this.setState({ seccion: 'summer' }), verEclipseBtn: () => this.setState({ seccion: 'eclipse' }),
+      stSummer: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'summer' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
+      stEclipse: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'eclipse' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
+      sInscInfo: s.sInscInfo, sInfo5: s.sInfo5, sInfo10: s.sInfo10, sMsg: s.sMsg, sGroups: s.sGroups, sLarg5: s.sLarg5, sLarg10: s.sLarg10,
+      sOnLarg5: e => this.setState({ sLarg5: e.target.value }), sOnLarg10: e => this.setState({ sLarg10: e.target.value }),
+      sUrl5: s.sUrl5, sUrl10: s.sUrl10, sOnUrl5: e => { const v = e.target.value; try { localStorage.setItem('ow-t5-url', v); } catch (x) {} this.setState({ sUrl5: v }); }, sOnUrl10: e => { const v = e.target.value; try { localStorage.setItem('ow-t10-url', v); } catch (x) {} this.setState({ sUrl10: v }); }, sLeer5: () => this.sLeerT('5'), sLeer10: () => this.sLeerT('10'),
+      sCargar: () => this.sCargar(), sRun: this.sRun, sSim: this.sSim, sCsv: this.sCsv, sPdf: this.sPdf,
       unlock: this.unlock, lock: this.lock, run: this.run, download: this.download, example: this.example, pdf: this.pdf, cargarReal: this.cargarReal, simular: this.simular, onFile: this.onFile
     };
   }

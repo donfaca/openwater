@@ -36,6 +36,7 @@
     <div style="max-width:1100px;margin:0 auto;padding:22px 24px 0;display:flex;gap:10px;flex-wrap:wrap;">
       <button onClick="{{ verSummerBtn }}" style="{{ stSummer }}">Clasificador · Summer Open Water 2027</button>
       <button onClick="{{ verEclipseBtn }}" style="{{ stEclipse }}">Clasificador · OWeclipse 2027</button>
+      <button onClick="{{ verCuponesBtn }}" style="{{ stCupones }}">Cupones de descuento</button>
     </div>
 
     <sc-if value="{{ verSummer }}" hint-placeholder-val="{{ true }}">
@@ -58,7 +59,6 @@
           <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Se lee sola de la planilla de Drive «Tiempos Summer 5K» (columnas: Dorsal y Hora de arribo). El nadador, sexo, categoría y traje salen de la planilla de inscriptos por el dorsal. Si dejás la largada vacía, la columna se toma como tiempo de nado.</div>
           <label style="font-size:13px;color:#a9c6d6;">Hora de largada 5K (hh:mm:ss)<input value="{{ sLarg5 }}" onInput="{{ sOnLarg5 }}" placeholder="09:00:00" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 15px 'Barlow',sans-serif;"></label>
           <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ sInfo5 }}</div>
-          <label style="font-size:13px;color:#a9c6d6;">Link de la planilla 5K publicada (CSV)<input value="{{ sUrl5 }}" onInput="{{ sOnUrl5 }}" placeholder="https://docs.google.com/spreadsheets/d/e/…/pub?output=csv" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 12px 'Barlow',sans-serif;"></label>
           <button onClick="{{ sLeer5 }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:10px 14px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Probar lectura 5K</button>
         </div>
         <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
@@ -66,7 +66,6 @@
           <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Planilla «Tiempos Summer 10K», mismo formato que el 5K. El 10K es otro día y otra largada.</div>
           <label style="font-size:13px;color:#a9c6d6;">Hora de largada 10K (hh:mm:ss)<input value="{{ sLarg10 }}" onInput="{{ sOnLarg10 }}" placeholder="12:00:00" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 15px 'Barlow',sans-serif;"></label>
           <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ sInfo10 }}</div>
-          <label style="font-size:13px;color:#a9c6d6;">Link de la planilla 10K publicada (CSV)<input value="{{ sUrl10 }}" onInput="{{ sOnUrl10 }}" placeholder="https://docs.google.com/spreadsheets/d/e/…/pub?output=csv" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 12px 'Barlow',sans-serif;"></label>
           <button onClick="{{ sLeer10 }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:10px 14px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Probar lectura 10K</button>
         </div>
         <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
@@ -170,7 +169,36 @@
       </details>
 
     </div>
+    <div style="max-width:1100px;margin:0 auto;padding:0 24px 60px;">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
+        <div style="margin-top:26px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c9a24d;">{{ g.title }}</div>
+          <div style="overflow-x:auto;border:1px solid #16455f;border-radius:10px;margin-top:6px;">
+            <table style="width:100%;border-collapse:collapse;font-size:15px;min-width:680px;">
+              <thead><tr style="background:#0a2438;color:#a9c6d6;text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;">
+                <th style="padding:9px 12px;width:56px;">Pos.</th><th style="padding:9px 12px;width:56px;">ID</th><th style="padding:9px 12px;">Nadador/a</th><th style="padding:9px 12px;">Sexo</th><th style="padding:9px 12px;">Categoría</th><th style="padding:9px 12px;">Tiempo</th><th style="padding:9px 12px;">Dif.</th><th style="padding:9px 12px;">Premio</th>
+              </tr></thead>
+              <tbody>
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="0">
+                  <tr style="border-top:1px solid #16455f;background:{{ r.bg }};{{ r.line }}">
+                    <td style="padding:8px 12px;font-weight:800;color:#c9a24d;">{{ r.pos }}</td>
+                    <td style="padding:8px 12px;color:#a9c6d6;font-variant-numeric:tabular-nums;">{{ r.id }}</td>
+                    <td style="padding:8px 12px;font-weight:600;">{{ r.nombre }}</td>
+                    <td style="padding:8px 12px;">{{ r.sexo }}</td>
+                    <td style="padding:8px 12px;">{{ r.cat }}</td>
+                    <td style="padding:8px 12px;font-variant-numeric:tabular-nums;">{{ r.tiempo }}</td>
+                    <td style="padding:8px 12px;color:#a9c6d6;font-variant-numeric:tabular-nums;">{{ r.dif }}</td>
+                    <td style="padding:8px 12px;font-weight:800;color:#e6c677;letter-spacing:.08em;text-transform:uppercase;font-size:12px;">{{ r.premio }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </sc-for>
+    </div>
     </sc-if>
+    <sc-if value="{{ verCupones }}" hint-placeholder-val="{{ false }}">
     <div style="max-width:1100px;margin:0 auto;padding:0 24px 0;">
       <div style="margin-top:36px;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:18px;">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.05em;">CUPONES DE DESCUENTO</div>
@@ -205,42 +233,16 @@
           </sc-for>
         </div>
       </div>
-
-      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
-        <div style="margin-top:26px;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c9a24d;">{{ g.title }}</div>
-          <div style="overflow-x:auto;border:1px solid #16455f;border-radius:10px;margin-top:6px;">
-            <table style="width:100%;border-collapse:collapse;font-size:15px;min-width:680px;">
-              <thead><tr style="background:#0a2438;color:#a9c6d6;text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;">
-                <th style="padding:9px 12px;width:56px;">Pos.</th><th style="padding:9px 12px;width:56px;">ID</th><th style="padding:9px 12px;">Nadador/a</th><th style="padding:9px 12px;">Sexo</th><th style="padding:9px 12px;">Categoría</th><th style="padding:9px 12px;">Tiempo</th><th style="padding:9px 12px;">Dif.</th><th style="padding:9px 12px;">Premio</th>
-              </tr></thead>
-              <tbody>
-                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="0">
-                  <tr style="border-top:1px solid #16455f;background:{{ r.bg }};{{ r.line }}">
-                    <td style="padding:8px 12px;font-weight:800;color:#c9a24d;">{{ r.pos }}</td>
-                    <td style="padding:8px 12px;color:#a9c6d6;font-variant-numeric:tabular-nums;">{{ r.id }}</td>
-                    <td style="padding:8px 12px;font-weight:600;">{{ r.nombre }}</td>
-                    <td style="padding:8px 12px;">{{ r.sexo }}</td>
-                    <td style="padding:8px 12px;">{{ r.cat }}</td>
-                    <td style="padding:8px 12px;font-variant-numeric:tabular-nums;">{{ r.tiempo }}</td>
-                    <td style="padding:8px 12px;color:#a9c6d6;font-variant-numeric:tabular-nums;">{{ r.dif }}</td>
-                    <td style="padding:8px 12px;font-weight:800;color:#e6c677;letter-spacing:.08em;text-transform:uppercase;font-size:12px;">{{ r.premio }}</td>
-                  </tr>
-                </sc-for>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </sc-for>
     </div>
+    </sc-if>
   </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  static T5_URL = '';
-  static T10_URL = '';
-  state = { seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: (() => { try { return localStorage.getItem('ow-t5-url') || Component.T5_URL; } catch (e) { return Component.T5_URL; } })(), sUrl10: (() => { try { return localStorage.getItem('ow-t10-url') || Component.T10_URL; } catch (e) { return Component.T10_URL; } })(), sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
+  static T5_URL = 'https://docs.google.com/spreadsheets/d/181aw4FZxcrQKK0SbkEmJFLP7yuIukIi6XNccLt0ZI9M/gviz/tq?tqx=out:csv';
+  static T10_URL = 'https://docs.google.com/spreadsheets/d/1LlLKAKyFGH0fjgXVCPMAn-IAygBc_RRpqXYbA2t6lcc/gviz/tq?tqx=out:csv';
+  state = { seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
   componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
   norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
   tsec(v) {
@@ -549,7 +551,7 @@ class Component extends DCLogic {
       locked: !s.unlocked, unlocked: s.unlocked, pin: s.pin, pinErr: s.pinErr, ev: s.ev, modo: s.modo, text: s.text, msg: s.msg, groups: s.groups,
       onPin: e => this.setState({ pin: e.target.value }), onPinKey: e => { if (e.key === 'Enter') this.unlock(); },
       onEv: e => this.setState({ ev: e.target.value }), onModo: e => this.setState({ modo: e.target.value }), onText: e => this.setState({ text: e.target.value, manual: true }), inscInfo: s.inscInfo, tiemInfo: s.tiemInfo, cTipo: s.cTipo, onCTipo: e => this.setState({ cTipo: e.target.value, cLista: [], cCodigo: '', cMsg: '' }), cNombre: s.cNombre, onCNombre: e => this.setState({ cNombre: e.target.value }), cEmail: s.cEmail, onCEmail: e => this.setState({ cEmail: e.target.value }), cUsos: s.cUsos, onCUsos: e => this.setState({ cUsos: e.target.value }), cMsg: s.cMsg, cCodigo: s.cCodigo, cLista: s.cLista, cEsWinter: s.cTipo === 'winter', cEsEquipo: s.cTipo !== 'winter', cUsosLbl: 'Cantidad de nadadores (usos permitidos del c\u00f3digo)', cNombreLbl: s.cTipo === 'winter' ? 'Nombre del nadador' : 'Equipo (igual a \u00abClub o equipo\u00bb de la ficha)', generarCup: this.generarCup, listarCup: this.listarCup, onTiempos: this.onTiempos, largada: s.largada, onLargada: e => this.setState({ largada: e.target.value }), plantilla: this.plantilla,
-      verSummer: s.seccion === 'summer', verEclipse: s.seccion === 'eclipse',
+      verSummer: s.seccion === 'summer', verEclipse: s.seccion === 'eclipse', verCupones: s.seccion === 'cupones', verCuponesBtn: () => this.setState({ seccion: 'cupones' }), stCupones: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'cupones' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
       verSummerBtn: () => this.setState({ seccion: 'summer' }), verEclipseBtn: () => this.setState({ seccion: 'eclipse' }),
       stSummer: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'summer' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
       stEclipse: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'eclipse' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
