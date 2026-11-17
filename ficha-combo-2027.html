@@ -42,6 +42,7 @@
   .opt .t{font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.12em;font-size:.84rem;font-weight:700;color:#12688f;}
   .opt .m{font-family:'Bebas Neue';font-size:2.1rem;line-height:1;}
   .opt .d{font-size:.88rem;color:#3c5a70;}
+  .opt .lentes{margin-top:10px;font-size:.88rem;font-weight:700;color:#c00000;}
   .tag{position:absolute;top:-10px;left:14px;font-family:'Barlow Condensed';text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:700;background:#EDC264;color:#0a2438;padding:.15rem .6rem;border-radius:999px;}
   .btn{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.95rem;padding:15px 26px;border-radius:999px;border:0;cursor:pointer;background:#12688f;color:#fff;min-height:48px;}
   .btn:disabled{background:#c3d3dd;color:#6b7d89;cursor:not-allowed;}
@@ -72,7 +73,7 @@
     <div class="herobox">
       <div><b>Summer Open Water</b>5K (sábado 23) + 10K (domingo 24) + 2K Travel Night Fest con pizza libre.</div>
       <div><b>OWeclipse</b>2.500 m en el Golfo San Matías bajo el eclipse solar anular, largada 10:31:40.</div>
-      <div><b>Los dos kits</b>Poncho largo y gorros Aquom de Summer + remera, lentes ISO 12312-2 y pulseras de Eclipse.</div>
+      <div><b>Los dos kits</b>Poncho largo y gorros Aquom de Summer + remera y pulseras de Eclipse. No incluye lentes ISO 12312-2 ($15.000 extra, opcionales).</div>
     </div>
   </div>
 </div>
@@ -148,17 +149,24 @@
         <div class="t">Combo individual · contado</div>
         <div class="m" id="m-contado">$390.000</div>
         <div class="d" id="d-contado">Pago único por las cuatro distancias y los dos kits.</div>
+        <div class="lentes">Lentes de eclipse ISO 12312-2: se suman $15.000 extra al pago (única vez).</div>
       </div>
       <div class="opt" data-plan="cuotas">
         <div class="t">Financiado · 1ª cuota</div>
         <div class="m" id="m-cuota">$110.000</div>
         <div class="d" id="d-cuota">3 cuotas mensuales. Con la 1ª cuota se congela el valor.</div>
+        <div class="lentes">Lentes de eclipse ISO 12312-2: se suman $15.000 extra a la 1ª cuota (única vez).</div>
       </div>
       <div class="opt" data-plan="equipo">
         <div class="t">Combo equipo · contado</div>
         <div class="m" id="m-equipo">$350.000</div>
         <div class="d">Grupos de 4 nadadores o más, sin financiación. Cada nadador completa su ficha con el mismo nombre de grupo.</div>
+        <div class="lentes">Lentes de eclipse ISO 12312-2: 1 lente para todo el grupo por $15.000 extra al pago (no es uno por cada integrante).</div>
       </div>
+    </div>
+
+    <div style="background:#FFF8F0;border:1px solid #F4A11B;border-radius:14px;padding:14px 18px;margin-top:14px;">
+      <label class="chk" style="margin:0;"><input type="checkbox" id="lentes" name="Lentes de eclipse"><span id="lentes-txt"></span></label>
     </div>
 
     <div class="grid" id="wrap-grupo" style="margin-top:14px;display:none;">
@@ -240,6 +248,9 @@ function nombrePlan(){
 
 function resetPago(){}
 
+const LENTES = 15000;
+function conLentes(){ return $('#lentes').checked; }
+
 function recalcular(){
   $('#m-contado').textContent = pesos(V.contado);
   $('#m-cuota').textContent = pesos(V.cuota);
@@ -247,9 +258,12 @@ function recalcular(){
   $('#d-cuota').textContent = V.cuotas + ' cuotas mensuales de ' + pesos(V.cuota) + ' (total ' + pesos(V.total) + '). Con la 1ª cuota se congela el valor.';
   $('#periodo').innerHTML = '<b>' + V.etiqueta + '.</b> Contado ' + pesos(V.contado) + ' · financiado ' + V.cuotas + ' de ' + pesos(V.cuota) + ' · equipo ' + pesos(PRECIOS.equipo) + '.';
   $('#wrap-grupo').style.display = plan === 'equipo' ? 'grid' : 'none';
-  monto = plan === 'contado' ? V.contado : (plan === 'equipo' ? PRECIOS.equipo : V.cuota);
+  monto = (plan === 'contado' ? V.contado : (plan === 'equipo' ? PRECIOS.equipo : V.cuota)) + (conLentes() ? LENTES : 0);
+  $('#lentes-txt').innerHTML = plan === 'equipo'
+    ? 'Pido <b>1 lente de eclipse ISO 12312-2 para todo el grupo</b> por <b>$15.000</b>. Lo marca un solo integrante del equipo (no uno por cada nadador).'
+    : 'Quiero sumar los lentes de eclipse ISO 12312-2 por <b>$15.000</b> (se suman al pago, única vez' + (plan === 'cuotas' ? ', junto con la 1ª cuota' : '') + ').';
   $('#total').textContent = pesos(monto);
-  $('#detalle').textContent = nombrePlan();
+  $('#detalle').textContent = nombrePlan() + (conLentes() ? ' + lentes ' + pesos(LENTES) : '');
   resetPago();
   revisar();
 }
@@ -262,6 +276,7 @@ document.querySelectorAll('#planes .opt').forEach(o => o.addEventListener('click
 }));
 
 $('#grupo').addEventListener('input', revisar);
+$('#lentes').addEventListener('change', recalcular);
 
 /* Fechas en formato DD/MM/AAAA */
 document.querySelectorAll('.fecha').forEach(el => el.addEventListener('input', () => {
@@ -316,7 +331,8 @@ $('#enviar').addEventListener('click', () => {
   d['Plan de pago'] = nombrePlan();
   d['Período de precio'] = V.etiqueta;
   d['Monto'] = pesos(monto);
-  d['Total del combo'] = pesos(plan === 'cuotas' ? V.total : monto);
+  d['Monto lentes'] = conLentes() ? pesos(LENTES) : '$0';
+  d['Total del combo'] = pesos(plan === 'cuotas' ? V.total + (conLentes() ? LENTES : 0) : monto);
   d['Forma de pago'] = 'Transferencia bancaria';
   d['Estado de pago'] = 'Pendiente de verificación';
   d['Fecha de envío'] = new Date().toLocaleString('es-AR');
