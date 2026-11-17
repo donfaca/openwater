@@ -364,6 +364,15 @@ function escribirExacto(h, columnasOficiales, datos) {
     }
     datos['Número de inscripto'] = max + 1;
   }
+  /* Si a la hoja le falta alguna columna oficial, se agrega al final (con su encabezado)
+     para que ningún dato de la ficha se pierda y la hoja quede igual que la planilla Excel. */
+  const cabIni = h.getRange(1, 1, 1, h.getLastColumn()).getValues()[0].map(norm);
+  columnasOficiales.forEach(function (c) {
+    if (cabIni.indexOf(norm(c)) === -1) {
+      h.getRange(1, cabIni.length + 1).setValue(c).setFontWeight('bold');
+      cabIni.push(norm(c));
+    }
+  });
   const cab = h.getRange(1, 1, 1, h.getLastColumn()).getValues()[0];
   const cabNorm = cab.map(norm);
   const fila = new Array(cab.length).fill('');
@@ -493,6 +502,7 @@ function filaComboOficial(d) {
       ['Plan', d['Plan de pago']],
       ['Monto pagado ahora', d['Monto']],
       ['Total del combo', d['Total del combo']],
+      ['Lentes de eclipse', d['Lentes de eclipse'] === 'Sí' ? 'Sí (' + (d['Monto lentes'] || '') + ')' : ''],
       ['Forma de pago', d['Forma de pago']],
       ['Estado de pago', d['Estado de pago']],
       ['Referencia de pago', d['Referencia de pago'] || d['Número de operación']],

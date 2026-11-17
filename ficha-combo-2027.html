@@ -207,8 +207,8 @@
   </section>
 
   <section class="card" style="text-align:center;">
-    <button type="button" class="btn" id="enviar" disabled style="font-size:1rem;padding:18px 40px;">Enviar inscripción del combo</button>
-    <div class="hint" id="motivo" style="margin-top:12px;">El envío se habilita al completar todos los datos obligatorios, incluido el número de operación de la transferencia.</div>
+    <button type="button" class="btn" id="enviar" style="font-size:1rem;padding:18px 40px;">Enviar inscripción del combo</button>
+    <div class="hint" id="motivo" style="margin-top:12px;">Completá los datos obligatorios, incluido el número de operación de la transferencia. Si falta algo, te avisamos qué es al tocar el botón.</div>
     <div class="estado e-ok" id="ok" style="display:none;justify-content:center;"></div>
     <p class="hint" style="margin:14px 0 0;">Con esta ficha quedás inscripto en las dos competencias: no hace falta completar los formularios individuales de Summer ni de Eclipse.</p>
   </section>
@@ -219,7 +219,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbySbPZBIMUgRAKrYLFIGJxw2bBq7aMNRADXmHNUPIQg0QeWPwHyieihpnWwXrZKoaIf8g/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbz3ipPe2qixqVfIVnxgUVruCuy6GwVXDmbkw7ag1I_o5lkMLJ_89pROjexlpHy2f3Kc/exec';
 
 /* VALORES DEL COMBO — actualizar acá si cambian.
    El período se elige solo por la fecha de CAMBIO; si querés forzar uno,
@@ -286,8 +286,7 @@ document.querySelectorAll('.fecha').forEach(el => el.addEventListener('input', (
   el.value = v;
   if(el.id === 'nac') categoria();
 }));
-document.querySelectorAll('[data-req]').forEach(el => el.addEventListener('input', revisar));
-document.querySelectorAll('select[data-req]').forEach(el => el.addEventListener('change', revisar));
+document.querySelectorAll('[data-req]').forEach(el => ['input','change','keyup','blur','paste'].forEach(ev => el.addEventListener(ev, () => setTimeout(revisar, 0))));
 
 function categoria(){
   const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec($('#nac').value);
@@ -311,10 +310,17 @@ function faltantes(){
   return f;
 }
 
+function etiqueta(el){
+  const l = el.closest('label'), r = l && l.querySelector('.req');
+  return (r ? r.textContent : (el.name || 'campo')).replace(/\s+/g,' ').trim();
+}
+
 function revisar(){
-  const ok = faltantes().length === 0;
-  $('#enviar').disabled = !ok;
-  $('#motivo').textContent = ok ? 'Todo listo: podés enviar la inscripción.' : 'Faltan datos obligatorios del formulario, incluido el número de operación de la transferencia.';
+  if($('#enviar').dataset.enviado) return;
+  const f = faltantes();
+  if(!f.length){ $('#motivo').textContent = 'Todo listo: podés enviar la inscripción.'; return; }
+  const n = f.map(etiqueta);
+  $('#motivo').textContent = 'Falta completar: ' + n.slice(0, 5).join(', ') + (n.length > 5 ? ' y ' + (n.length - 5) + ' más' : '') + '.';
 }
 
 function pedir(cuerpo){
@@ -322,6 +328,13 @@ function pedir(cuerpo){
 }
 
 $('#enviar').addEventListener('click', () => {
+  const falta = faltantes();
+  if(falta.length){
+    revisar();
+    falta[0].scrollIntoView({behavior:'smooth', block:'center'});
+    try{ falta[0].focus({preventScroll:true}); }catch(e){}
+    return;
+  }
   const d = {};
   document.querySelectorAll('[name]').forEach(el => {
     d[el.name] = el.type === 'checkbox' ? (el.checked ? 'Sí' : 'No') : el.value;
@@ -341,7 +354,7 @@ $('#enviar').addEventListener('click', () => {
     if(!r.ok) throw 0;
     $('#ok').style.display = 'flex';
     $('#ok').textContent = '✓ Inscripción al combo registrada en las dos competencias. Te llega la confirmación por email.';
-    $('#enviar').textContent = 'Inscripción enviada';
+    $('#enviar').textContent = 'Inscripción enviada'; $('#enviar').dataset.enviado = '1';
     $('#motivo').textContent = '';
   }).catch(() => {
     $('#enviar').disabled = false; $('#enviar').textContent = 'Enviar inscripción del combo';
