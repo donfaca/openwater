@@ -529,7 +529,7 @@ function guardarFicha(d, ev) {
 
 /* ---------- Acreditación (desde las páginas de inscriptos) ----------
  * {accion:'acreditar', evento, clave, dni, nombre, estado?, monto?}
- *   estado: 'ok' → agrega [ACREDITADO] en "Notas" · '' → quita la marca · 'no' → BORRA la fila de la hoja (sin renumerar)
+ *   estado: 'ok' → agrega [ACREDITADO] en "Notas" · '' → quita la marca · 'no' → agrega [NO SE PRESENTÓ] (la fila queda; se puede deshacer con '')
  *   monto:  número → lo escribe en "Dinero entregado" (Summer/Eclipse) o como [ABONADO $x] en "Notas" (Combo)
  * No agrega columnas. En el combo, la acción se replica en las hojas Combo, Summer y Eclipse.
  */
@@ -551,7 +551,6 @@ function acreditar(d) {
       const okDni = dni && iDni !== -1 && String(v[r][iDni]).replace(/\D/g, '') === dni;
       const okNom = !dni && iNom !== -1 && norm(v[r][iNom]) === nom;
       if (!okDni && !okNom) continue;
-      if (d.estado === 'no') { h.deleteRow(r + 1); tocadas++; break; }
       if (iNotas !== -1) {
         let n = String(v[r][iNotas] || '');
         if (d.estado !== undefined) {
