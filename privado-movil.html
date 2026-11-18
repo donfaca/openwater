@@ -80,14 +80,10 @@
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px;">
         <button onClick="{{ sPdf }}" style="background:transparent;color:#c9a24d;border:1px solid #c9a24d;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar PDF</button>
         <button onClick="{{ sCsv }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar Excel (CSV)</button>
-        <button onClick="{{ lock }}" style="margin-left:auto;background:transparent;color:#ff9a90;border:1px solid #ff6b5e;border-radius:9px;padding:12px 18px;font:700 14px 'Barlow',sans-serif;cursor:pointer;">Cerrar sesión</button>
+        <button onClick="{{ sToggle }}" style="margin-left:auto;background:{{ sPubBg }};color:#fff;border:1px solid #a78bfa;border-radius:9px;padding:12px 18px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">{{ sPubTxt }}</button>
+        <button onClick="{{ lock }}" style="background:transparent;color:#ff9a90;border:1px solid #ff6b5e;border-radius:9px;padding:12px 18px;font:700 14px 'Barlow',sans-serif;cursor:pointer;">Cerrar sesión</button>
       </div>
 
-      <div style="margin-top:14px;background:#1b1233;border:1px solid #7c3aed;border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
-        <div style="flex:1 1 260px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:#c4b5fd;">Botón violeta «Resultados» en la home · Summer</div><div style="color:#a9c6d6;font-size:13px;line-height:1.4;">Calculá la clasificación y publicala: el botón aparece en la home para todos. Ocultalo cuando quieras. Mientras esté oculto, el público no ve nada.</div><div style="color:#ffd58a;font-size:13px;font-weight:700;margin-top:4px;">{{ sPubInfo }}</div></div>
-        <button onClick="{{ sPub }}" style="background:#7c3aed;color:#fff;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Publicar y mostrar</button>
-        <button onClick="{{ sOcultar }}" style="background:transparent;color:#c4b5fd;border:1px solid #7c3aed;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Ocultar de la home</button>
-      </div>
 
       <sc-for list="{{ sGroups }}" as="g" hint-placeholder-count="0">
         <div style="margin-top:26px;">
@@ -146,7 +142,8 @@
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px;">
         <button onClick="{{ pdf }}" style="background:transparent;color:#c9a24d;border:1px solid #c9a24d;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar PDF</button>
         <button onClick="{{ download }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar Excel (CSV)</button>
-        <button onClick="{{ lock }}" style="margin-left:auto;background:transparent;color:#ff9a90;border:1px solid #ff6b5e;border-radius:9px;padding:12px 18px;font:700 14px 'Barlow',sans-serif;cursor:pointer;">Cerrar sesión</button>
+        <button onClick="{{ eToggle }}" style="margin-left:auto;background:{{ ePubBg }};color:#fff;border:1px solid #a78bfa;border-radius:9px;padding:12px 18px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">{{ ePubTxt }}</button>
+        <button onClick="{{ lock }}" style="background:transparent;color:#ff9a90;border:1px solid #ff6b5e;border-radius:9px;padding:12px 18px;font:700 14px 'Barlow',sans-serif;cursor:pointer;">Cerrar sesión</button>
       </div>
 
       <details style="margin-top:18px;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:12px 16px;">
@@ -177,11 +174,6 @@
 
     </div>
     <div style="max-width:1100px;margin:0 auto;padding:0 24px 60px;">
-      <div style="margin-top:14px;background:#1b1233;border:1px solid #7c3aed;border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
-        <div style="flex:1 1 260px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:#c4b5fd;">Botón violeta «Resultados» en la home · Eclipse</div><div style="color:#a9c6d6;font-size:13px;line-height:1.4;">Calculá la clasificación y publicala: el botón aparece en la home para todos. Ocultalo cuando quieras. Mientras esté oculto, el público no ve nada.</div><div style="color:#ffd58a;font-size:13px;font-weight:700;margin-top:4px;">{{ ePubInfo }}</div></div>
-        <button onClick="{{ ePub }}" style="background:#7c3aed;color:#fff;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Publicar y mostrar</button>
-        <button onClick="{{ eOcultar }}" style="background:transparent;color:#c4b5fd;border:1px solid #7c3aed;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Ocultar de la home</button>
-      </div>
 
       <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
         <div style="margin-top:26px;">
@@ -256,7 +248,7 @@ class Component extends DCLogic {
   static T5_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHgr5X2OhmL9Vc2B1WRXMK2iMLp2DV0PJObVQVLEX4r0VTRCA-2iMElq_nyChlInVVWMWfiTD717vz/pub?output=csv';
   static ET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSM0m6la5kw-CtnL6Xe5Yy2GMFJyrTAq2GQzCR24maohzwDsNwfXllU_Q1wOX2941TIi8Qr36jjolXp/pub?output=csv';
   static T10_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsvrGuJociaZAOtCQ9KvpIlmHTJ4vqH2YKbAIyuE6czWurUH1NDnBhXmNTtwAYoL0hwTJEmapelsrm/pub?output=csv';
-  state = { sPubInfo: '', ePubInfo: '', seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
+  state = { sPublicado: null, ePublicado: null, seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
   componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
   norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
   tsec(v) {
@@ -376,16 +368,20 @@ class Component extends DCLogic {
         { v: r.pos, st: 'font-weight:800;color:#c9a24d;' }, { v: r.id, st: 'color:#a9c6d6;' }, { v: r.nombre, st: 'font-weight:600;' }, { v: r.sexo, st: '' }, { v: r.cat, st: '' },
         { v: r.tiempo, st: 'font-variant-numeric:tabular-nums;' }, { v: r.dif, st: 'color:#a9c6d6;' }, { v: r.premio, st: 'font-weight:800;color:#e6c677;text-transform:uppercase;font-size:12px;' }] })) }));
   }
-  pubRes(ev, activo) {
-    const key = ev === 'summer' ? 'sPubInfo' : 'ePubInfo';
-    const grupos = ev === 'summer' ? this.state.sGroups : this.eGenerico();
+  leerPub() {
+    fetch('https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec?resultados=estado', { cache: 'no-store' }).then(r => r.json()).then(r => { if (r && r.ok) this.setState({ sPublicado: !!r.summer, ePublicado: !!r.eclipse }); }).catch(() => {});
+  }
+  togglePub(ev) {
+    const sm = ev === 'summer', flag = sm ? 'sPublicado' : 'ePublicado', msg = sm ? 'sMsg' : 'msg';
+    const activo = !this.state[flag];
+    const grupos = sm ? this.state.sGroups : this.eGenerico();
     const o = { accion: 'publicarResultados', evento: ev, activo };
     if (activo && grupos.length) o.grupos = grupos;
-    this.setState({ [key]: 'Enviando…' });
+    this.setState({ [msg]: 'Enviando…' });
     this.post(o).then(r => {
       if (!r.ok) throw new Error(r.error || 'error');
-      this.setState({ [key]: activo ? (grupos.length ? 'PUBLICADO: el botón ya se ve en la home (' + grupos.length + ' tabla(s)).' : 'Botón visible con los resultados ya publicados antes. Para actualizarlos, calculá primero y volvé a publicar.') : 'OCULTO: el público no ve el botón.' });
-    }).catch(err => this.setState({ [key]: 'No se pudo: ' + (err && err.message ? err.message : err) + '. ¿Pegaste la nueva versión del Apps Script?' }));
+      this.setState({ [flag]: activo, [msg]: activo ? (grupos.length ? 'PUBLICADO: el botón violeta ya se ve en la home (' + grupos.length + ' tabla(s)).' : 'PUBLICADO con los resultados guardados antes. Para actualizarlos: calculá la clasificación, ocultá y volvé a publicar.') : 'NO PUBLICADO: el botón violeta se ocultó de la home.' });
+    }).catch(err => this.setState({ [msg]: 'No se pudo cambiar: ' + (err && err.message ? err.message : err) + '. ¿Pegaste la nueva versión del Apps Script?' }));
   }
   post = o => fetch('https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec', { method: 'POST', body: JSON.stringify(Object.assign({ clave: '129430' }, o)) }).then(r => r.json());
   cErr = r => /desconocida|inv\u00e1lido/.test(r.error || '') ? 'Falta publicar la nueva versi\u00f3n del Apps Script.' : (r.error || 'Error');
@@ -589,7 +585,7 @@ class Component extends DCLogic {
     w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Clasificación · Summer Open Water 2027</title><style>body{font:13px Arial,sans-serif;color:#111;margin:24px}h1{font-size:22px;margin:0 0 4px}h2{font-size:15px;margin:22px 0 2px;color:#0a2438}.s{color:#555;font-size:11px;margin-bottom:6px}table{width:100%;border-collapse:collapse}tr{page-break-inside:avoid}th,td{border:1px solid #ccc;padding:5px 8px;text-align:left}th{background:#0a2438;color:#fff;font-size:11px;text-transform:uppercase}tr.m td{background:#f6ebc8}tr.t td{background:#ecd48c;font-weight:bold}@page{margin:14mm}</style></head><body><h1>Summer Open Water 2027 · Clasificación</h1>' + tb + '</body></html>');
     w.document.close(); setTimeout(() => w.print(), 400);
   };
-  unlock = () => { if (this.state.pin.trim() === '129430') { this.setState({ unlocked: true, pin: '', pinErr: '' }); } else this.setState({ pinErr: 'Código incorrecto.' }); };
+  unlock = () => { if (this.state.pin.trim() === '129430') { this.setState({ unlocked: true, pin: '', pinErr: '' }); this.leerPub(); } else this.setState({ pinErr: 'Código incorrecto.' }); };
   lock = () => { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} this.setState({ unlocked: false }); };
   renderVals() {
     const s = this.state;
@@ -604,7 +600,7 @@ class Component extends DCLogic {
       sInscInfo: s.sInscInfo, sInfo5: s.sInfo5, sInfo10: s.sInfo10, sMsg: s.sMsg, sGroups: s.sGroups, sLarg5: s.sLarg5, sLarg10: s.sLarg10,
       sOnLarg5: e => this.setState({ sLarg5: e.target.value }), sOnLarg10: e => this.setState({ sLarg10: e.target.value }),
       sUrl5: s.sUrl5, sUrl10: s.sUrl10, sOnUrl5: e => { const v = e.target.value; try { localStorage.setItem('ow-t5-url', v); } catch (x) {} this.setState({ sUrl5: v }); }, sOnUrl10: e => { const v = e.target.value; try { localStorage.setItem('ow-t10-url', v); } catch (x) {} this.setState({ sUrl10: v }); }, sLeer5: () => this.sLeerT('5'), sLeer10: () => this.sLeerT('10'),
-      sCargar: () => this.sCargar(), sRun: this.sRun, sSim: this.sSim, sCsv: this.sCsv, sPubInfo: s.sPubInfo, ePubInfo: s.ePubInfo, sPub: () => this.pubRes('summer', true), sOcultar: () => this.pubRes('summer', false), ePub: () => this.pubRes('eclipse', true), eOcultar: () => this.pubRes('eclipse', false), sPdf: this.sPdf,
+      sCargar: () => this.sCargar(), sRun: this.sRun, sSim: this.sSim, sCsv: this.sCsv, sToggle: () => this.togglePub('summer'), eToggle: () => this.togglePub('eclipse'), sPubBg: s.sPublicado ? '#7c3aed' : 'transparent', ePubBg: s.ePublicado ? '#7c3aed' : 'transparent', sPubTxt: s.sPublicado === null ? 'Home: consultando…' : s.sPublicado ? '● PUBLICADO · tocar para ocultar' : '○ NO PUBLICADO · tocar para publicar', ePubTxt: s.ePublicado === null ? 'Home: consultando…' : s.ePublicado ? '● PUBLICADO · tocar para ocultar' : '○ NO PUBLICADO · tocar para publicar', sPdf: this.sPdf,
       unlock: this.unlock, lock: this.lock, run: this.run, download: this.download, example: this.example, pdf: this.pdf, cargarReal: this.cargarReal, eLeer: this.eLeerWeb, simular: this.simular, onFile: this.onFile
     };
   }
