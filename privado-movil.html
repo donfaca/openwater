@@ -240,8 +240,8 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  static T5_URL = 'https://docs.google.com/spreadsheets/d/181aw4FZxcrQKK0SbkEmJFLP7yuIukIi6XNccLt0ZI9M/gviz/tq?tqx=out:csv';
-  static T10_URL = 'https://docs.google.com/spreadsheets/d/1LlLKAKyFGH0fjgXVCPMAn-IAygBc_RRpqXYbA2t6lcc/gviz/tq?tqx=out:csv';
+  static T5_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHgr5X2OhmL9Vc2B1WRXMK2iMLp2DV0PJObVQVLEX4r0VTRCA-2iMElq_nyChlInVVWMWfiTD717vz/pub?output=csv';
+  static T10_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsvrGuJociaZAOtCQ9KvpIlmHTJ4vqH2YKbAIyuE6czWurUH1NDnBhXmNTtwAYoL0hwTJEmapelsrm/pub?output=csv';
   state = { seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
   componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
   norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
