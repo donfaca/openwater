@@ -83,6 +83,12 @@
         <button onClick="{{ lock }}" style="margin-left:auto;background:transparent;color:#ff9a90;border:1px solid #ff6b5e;border-radius:9px;padding:12px 18px;font:700 14px 'Barlow',sans-serif;cursor:pointer;">Cerrar sesión</button>
       </div>
 
+      <div style="margin-top:14px;background:#1b1233;border:1px solid #7c3aed;border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
+        <div style="flex:1 1 260px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:#c4b5fd;">Botón violeta «Resultados» en la home · Summer</div><div style="color:#a9c6d6;font-size:13px;line-height:1.4;">Calculá la clasificación y publicala: el botón aparece en la home para todos. Ocultalo cuando quieras. Mientras esté oculto, el público no ve nada.</div><div style="color:#ffd58a;font-size:13px;font-weight:700;margin-top:4px;">{{ sPubInfo }}</div></div>
+        <button onClick="{{ sPub }}" style="background:#7c3aed;color:#fff;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Publicar y mostrar</button>
+        <button onClick="{{ sOcultar }}" style="background:transparent;color:#c4b5fd;border:1px solid #7c3aed;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Ocultar de la home</button>
+      </div>
+
       <sc-for list="{{ sGroups }}" as="g" hint-placeholder-count="0">
         <div style="margin-top:26px;">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c9a24d;">{{ g.title }}</div>
@@ -171,6 +177,12 @@
 
     </div>
     <div style="max-width:1100px;margin:0 auto;padding:0 24px 60px;">
+      <div style="margin-top:14px;background:#1b1233;border:1px solid #7c3aed;border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
+        <div style="flex:1 1 260px;"><div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em;color:#c4b5fd;">Botón violeta «Resultados» en la home · Eclipse</div><div style="color:#a9c6d6;font-size:13px;line-height:1.4;">Calculá la clasificación y publicala: el botón aparece en la home para todos. Ocultalo cuando quieras. Mientras esté oculto, el público no ve nada.</div><div style="color:#ffd58a;font-size:13px;font-weight:700;margin-top:4px;">{{ ePubInfo }}</div></div>
+        <button onClick="{{ ePub }}" style="background:#7c3aed;color:#fff;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Publicar y mostrar</button>
+        <button onClick="{{ eOcultar }}" style="background:transparent;color:#c4b5fd;border:1px solid #7c3aed;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Ocultar de la home</button>
+      </div>
+
       <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
         <div style="margin-top:26px;">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c9a24d;">{{ g.title }}</div>
@@ -244,7 +256,7 @@ class Component extends DCLogic {
   static T5_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHgr5X2OhmL9Vc2B1WRXMK2iMLp2DV0PJObVQVLEX4r0VTRCA-2iMElq_nyChlInVVWMWfiTD717vz/pub?output=csv';
   static ET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSM0m6la5kw-CtnL6Xe5Yy2GMFJyrTAq2GQzCR24maohzwDsNwfXllU_Q1wOX2941TIi8Qr36jjolXp/pub?output=csv';
   static T10_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsvrGuJociaZAOtCQ9KvpIlmHTJ4vqH2YKbAIyuE6czWurUH1NDnBhXmNTtwAYoL0hwTJEmapelsrm/pub?output=csv';
-  state = { seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
+  state = { sPubInfo: '', ePubInfo: '', seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
   componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
   norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
   tsec(v) {
@@ -358,6 +370,23 @@ class Component extends DCLogic {
       this.setState({ insc, manual: false, ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', groups: [], inscInfo: k + ' inscriptos leídos', msg: k + ' inscriptos leídos. Siguiente: paso 2.' });
     }).catch(() => this.setState({ msg: 'No se pudo leer la planilla. Revisá la conexión.' }));
   };
+  eGenerico() {
+    return this.state.groups.map(g => ({ title: g.title, sub: '', heads: ['Pos.', 'ID', 'Nadador/a', 'Sexo', 'Traje', 'Tiempo', 'Dif.', 'Premio'],
+      rows: g.rows.map(r => ({ bg: r.bg, cells: [
+        { v: r.pos, st: 'font-weight:800;color:#c9a24d;' }, { v: r.id, st: 'color:#a9c6d6;' }, { v: r.nombre, st: 'font-weight:600;' }, { v: r.sexo, st: '' }, { v: r.cat, st: '' },
+        { v: r.tiempo, st: 'font-variant-numeric:tabular-nums;' }, { v: r.dif, st: 'color:#a9c6d6;' }, { v: r.premio, st: 'font-weight:800;color:#e6c677;text-transform:uppercase;font-size:12px;' }] })) }));
+  }
+  pubRes(ev, activo) {
+    const key = ev === 'summer' ? 'sPubInfo' : 'ePubInfo';
+    const grupos = ev === 'summer' ? this.state.sGroups : this.eGenerico();
+    const o = { accion: 'publicarResultados', evento: ev, activo };
+    if (activo && grupos.length) o.grupos = grupos;
+    this.setState({ [key]: 'Enviando…' });
+    this.post(o).then(r => {
+      if (!r.ok) throw new Error(r.error || 'error');
+      this.setState({ [key]: activo ? (grupos.length ? 'PUBLICADO: el botón ya se ve en la home (' + grupos.length + ' tabla(s)).' : 'Botón visible con los resultados ya publicados antes. Para actualizarlos, calculá primero y volvé a publicar.') : 'OCULTO: el público no ve el botón.' });
+    }).catch(err => this.setState({ [key]: 'No se pudo: ' + (err && err.message ? err.message : err) + '. ¿Pegaste la nueva versión del Apps Script?' }));
+  }
   post = o => fetch('https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec', { method: 'POST', body: JSON.stringify(Object.assign({ clave: '129430' }, o)) }).then(r => r.json());
   cErr = r => /desconocida|inv\u00e1lido/.test(r.error || '') ? 'Falta publicar la nueva versi\u00f3n del Apps Script.' : (r.error || 'Error');
   generarCup = () => {
@@ -575,7 +604,7 @@ class Component extends DCLogic {
       sInscInfo: s.sInscInfo, sInfo5: s.sInfo5, sInfo10: s.sInfo10, sMsg: s.sMsg, sGroups: s.sGroups, sLarg5: s.sLarg5, sLarg10: s.sLarg10,
       sOnLarg5: e => this.setState({ sLarg5: e.target.value }), sOnLarg10: e => this.setState({ sLarg10: e.target.value }),
       sUrl5: s.sUrl5, sUrl10: s.sUrl10, sOnUrl5: e => { const v = e.target.value; try { localStorage.setItem('ow-t5-url', v); } catch (x) {} this.setState({ sUrl5: v }); }, sOnUrl10: e => { const v = e.target.value; try { localStorage.setItem('ow-t10-url', v); } catch (x) {} this.setState({ sUrl10: v }); }, sLeer5: () => this.sLeerT('5'), sLeer10: () => this.sLeerT('10'),
-      sCargar: () => this.sCargar(), sRun: this.sRun, sSim: this.sSim, sCsv: this.sCsv, sPdf: this.sPdf,
+      sCargar: () => this.sCargar(), sRun: this.sRun, sSim: this.sSim, sCsv: this.sCsv, sPubInfo: s.sPubInfo, ePubInfo: s.ePubInfo, sPub: () => this.pubRes('summer', true), sOcultar: () => this.pubRes('summer', false), ePub: () => this.pubRes('eclipse', true), eOcultar: () => this.pubRes('eclipse', false), sPdf: this.sPdf,
       unlock: this.unlock, lock: this.lock, run: this.run, download: this.download, example: this.example, pdf: this.pdf, cargarReal: this.cargarReal, eLeer: this.eLeerWeb, simular: this.simular, onFile: this.onFile
     };
   }

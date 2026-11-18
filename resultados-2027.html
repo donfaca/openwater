@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados 2027 · Open Water Río Negro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Barlow:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>body{margin:0;background:#08202f;}a{color:#c4b5fd;}@media print{nav,button{display:none !important;}body{background:#fff;}}</style>
+</helmet>
+<div style="font-family:'Barlow',system-ui,sans-serif;color:#fff;min-height:100vh;background:#08202f;">
+  <nav style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;background:#0a2438;border-bottom:1px solid #16455f;">
+    <a href="index.html" style="color:#fff;text-decoration:none;font-weight:700;">← Volver a la página</a>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.12em;color:#c4b5fd;">RESULTADOS</span>
+  </nav>
+  <div style="max-width:1100px;margin:0 auto;padding:20px 14px 60px;">
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:.05em;margin:0;">{{ titulo }}</h1>
+    <div style="color:#a9c6d6;margin:4px 0 6px;">{{ info }}</div>
+    <button onClick="{{ imprimir }}" style="margin-top:6px;background:transparent;color:#c4b5fd;border:1px solid #7c3aed;border-radius:9px;padding:10px 16px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Imprimir / guardar PDF</button>
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="0">
+      <div style="margin-top:26px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.06em;color:#c4b5fd;">{{ g.title }}</div>
+        <div style="color:#a9c6d6;font-size:13px;margin-top:2px;">{{ g.sub }}</div>
+        <div style="overflow-x:auto;border:1px solid #16455f;border-radius:10px;margin-top:6px;">
+          <table style="width:100%;border-collapse:collapse;font-size:15px;min-width:620px;">
+            <thead><tr style="background:#0a2438;color:#a9c6d6;text-align:left;font-size:12px;letter-spacing:.1em;text-transform:uppercase;">
+              <sc-for list="{{ g.heads }}" as="h" hint-placeholder-count="0"><th style="padding:9px 12px;">{{ h }}</th></sc-for>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="0">
+                <tr style="border-top:1px solid #16455f;background:{{ r.bg }};">
+                  <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="0"><td style="padding:8px 12px;{{ c.st }}">{{ c.v }}</td></sc-for>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  static API = 'https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec';
+  state = { ev: 'summer', info: 'Cargando resultados…', groups: [] };
+  componentDidMount() {
+    let ev = 'summer';
+    try { ev = new URLSearchParams(location.search).get('ev') === 'eclipse' ? 'eclipse' : 'summer'; } catch (e) {}
+    this.setState({ ev });
+    fetch(Component.API + '?resultados=' + ev, { cache: 'no-store' }).then(r => r.json()).then(r => {
+      if (!r.ok || !r.activo) { this.setState({ info: 'Los resultados todavía no están publicados.', groups: [] }); return; }
+      const f = r.fecha ? new Date(r.fecha) : null;
+      this.setState({ groups: r.grupos || [], info: (r.grupos && r.grupos.length ? '' : 'Todavía no hay tablas cargadas. ') + (f && !isNaN(f) ? 'Actualizado: ' + f.toLocaleString('es-AR') : '') });
+    }).catch(() => this.setState({ info: 'No se pudieron cargar los resultados. Probá de nuevo en unos minutos.' }));
+  }
+  renderVals() {
+    const s = this.state;
+    return { titulo: s.ev === 'eclipse' ? 'RESULTADOS · OWECLIPSE 2027' : 'RESULTADOS · SUMMER OPEN WATER 2027', info: s.info, groups: s.groups, imprimir: () => window.print() };
+  }
+}
+</script>
+</body>
+</html>

@@ -128,6 +128,7 @@
           </div>
         </div>
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;"><a href="mailto:openwaterrionegro@gmail.com?subject=Descuento%20por%20equipos%20-%20pedido%20de%20cup%C3%B3n%20(Summer%20Open%20Water%202027%20%C2%B7%20Campeonato%205K%2B10K)&amp;body=Hola!%20Quiero%20pedir%20el%20cup%C3%B3n%20de%20descuento%20por%20equipos%20para%20Summer%20Open%20Water%202027%20%C2%B7%20Campeonato%205K%2B10K.%0A%0ANombre%20del%20equipo%20%2F%20club%3A%0ACiudad%20o%20localidad%20de%20origen%3A%0ACantidad%20de%20nadadores%3A%0ANombre%20y%20tel%C3%A9fono%20de%20contacto%3A%0A" style="flex:1 1 200px;display:flex;align-items:center;justify-content:center;background:#86efac;border:1px solid #4ade80;color:#052e16;padding:11px 14px;border-radius:8px;font-weight:800;font-size:15px;text-decoration:none;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.3);">Cupón de descuento por equipos</a><a href="mailto:openwaterrionegro@gmail.com?subject=Descuento%20Winter%20Open%20Water%202026%20-%20pedido%20de%20cup%C3%B3n%20(Summer%20Open%20Water%202027%20%C2%B7%20Campeonato%205K%2B10K)&body=Hola!%20Particip%C3%A9%20de%20Winter%20Open%20Water%202026%20y%20quiero%20pedir%20mi%20cup%C3%B3n%20de%2010%25%20de%20descuento%20para%20Summer%20Open%20Water%202027%20%C2%B7%20Campeonato%205K%2B10K.%0A%0ANombre%20y%20apellido%3A%0ADNI%3A%0APrueba%20que%20nad%C3%B3%20en%20Winter%202026%3A%0ATel%C3%A9fono%20de%20contacto%3A%0A" style="flex:1 1 200px;display:flex;align-items:center;justify-content:center;background:#7dd3fc;border:1px solid #38bdf8;color:#082f49;padding:11px 14px;border-radius:8px;font-weight:800;font-size:15px;text-decoration:none;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.3);">Cupón de descuento individual Winter Open Water</a></div>
+          <a ref="{{ resSumRef }}" href="resultados-2027.html?ev=summer" style="display:none;margin-top:10px;width:100%;box-sizing:border-box;align-items:center;justify-content:center;background:linear-gradient(135deg,#7c3aed,#6d28d9);border:1px solid #a78bfa;color:#fff;padding:14px 18px;border-radius:8px;font-weight:800;font-size:16px;text-decoration:none;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.45);">Resultados de la clasificación →</a>
       </div>
       <img src="disfruta-la-vida-es-hoy.jpg" alt="Disfruta la vida es hoy — Open Water Río Negro" style="width:100%;height:auto;border-radius:14px;display:block;">
 
@@ -174,6 +175,7 @@
           </div>
         </div>
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;"><a href="mailto:openwaterrionegro@gmail.com?subject=Descuento%20por%20equipos%20-%20pedido%20de%20cup%C3%B3n%20(OWeclipse%202027%20%C2%B7%202.5K)&amp;body=Hola!%20Quiero%20pedir%20el%20cup%C3%B3n%20de%20descuento%20por%20equipos%20para%20OWeclipse%202027%20%C2%B7%202.5K.%0A%0ANombre%20del%20equipo%20%2F%20club%3A%0ACiudad%20o%20localidad%20de%20origen%3A%0ACantidad%20de%20nadadores%3A%0ANombre%20y%20tel%C3%A9fono%20de%20contacto%3A%0A" style="flex:1 1 200px;display:flex;align-items:center;justify-content:center;background:#86efac;border:1px solid #4ade80;color:#052e16;padding:11px 14px;border-radius:8px;font-weight:800;font-size:15px;text-decoration:none;text-align:center;box-shadow:0 6px 16px rgba(0,0,0,.3);">Cupón de descuento por equipos</a></div>
+          <a ref="{{ resEclRef }}" href="resultados-2027.html?ev=eclipse" style="display:none;margin-top:10px;width:100%;box-sizing:border-box;align-items:center;justify-content:center;background:linear-gradient(135deg,#7c3aed,#6d28d9);border:1px solid #a78bfa;color:#fff;padding:14px 18px;border-radius:8px;font-weight:800;font-size:16px;text-decoration:none;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.45);">Resultados de la clasificación →</a>
       </div>
 
       <div style="background:linear-gradient(160deg,#123a52,#1A0B08);border-radius:14px;border:1px solid #c9a24d;overflow:hidden;display:flex;flex-direction:column;">
@@ -410,6 +412,7 @@ class Component extends DCLogic {
     load(Component.CSV_URL, function(n){ self.setInsc(n); });
     load(Component.ECLIPSE_CSV_URL, function(n){ self.setInscE(n); });
     load(Component.COMBO_CSV_URL, function(n){ self.setInscC(n); });
+    try{ fetch(Component.RES_API+'?resultados=estado',{cache:'no-store'}).then(function(r){return r.json();}).then(function(r){ if(!r||!r.ok) return; if(self.rsr&&self.rsr.current) self.rsr.current.style.display=r.summer?'flex':'none'; if(self.rer&&self.rer.current) self.rer.current.style.display=r.eclipse?'flex':'none'; }).catch(function(){}); }catch(e){}
   }
   countCsvRows(text){
     text=String(text).replace(/\r/g,'');
@@ -421,6 +424,7 @@ class Component extends DCLogic {
     if(text.length && text[text.length-1]!=='\n') rows++;
     return Math.max(0, rows-1);
   }
+  static RES_API = 'https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec';
   static CUPO_SUMMER = 65;
   static CUPO_ECLIPSE = 79;
   static BASE_SUMMER = 0;
@@ -460,6 +464,7 @@ class Component extends DCLogic {
       combo2BtnRef: (this.cib2=this.cib2||R()),
       combo2LblRef: (this.cil2=this.cil2||R()),
       combo2InscClick:function(e){ if(self._comboLocked){ e.preventDefault(); } },
+      resSumRef: (this.rsr=this.rsr||R()), resEclRef: (this.rer=this.rer||R()),
       spRef: (this.sp=this.sp||R()),
       epRef: (this.ep=this.ep||R()),
       openSummerList:function(){ self.askList('inscriptos-movil.html'); },
