@@ -369,7 +369,7 @@ class Component extends DCLogic {
         { v: r.tiempo, st: 'font-variant-numeric:tabular-nums;' }, { v: r.dif, st: 'color:#a9c6d6;' }, { v: r.premio, st: 'font-weight:800;color:#e6c677;text-transform:uppercase;font-size:12px;' }] })) }));
   }
   leerPub() {
-    fetch('https://script.google.com/macros/s/AKfycbwWMNDXyjrq4n7Cq9xQiB3YwN1B5haLtLN6XmnoKZEGBHAeZ8rjmVH4OCPduBw50VbPfw/exec?resultados=estado', { cache: 'no-store' }).then(r => r.json()).then(r => { if (r && r.ok) this.setState({ sPublicado: !!r.summer, ePublicado: !!r.eclipse }); }).catch(() => {});
+    fetch('https://script.google.com/macros/s/AKfycbwQ3sA7GaavCJXqUykGdwAkRhFuSayUJPQzcCEv9szYEHeSsbSuLAXELjvXSeI-4oHBiA/exec?resultados=estado', { cache: 'no-store' }).then(r => r.json()).then(r => { if (r && r.ok) this.setState({ sPublicado: !!r.summer, ePublicado: !!r.eclipse }); }).catch(() => {});
   }
   togglePub(ev) {
     const sm = ev === 'summer', flag = sm ? 'sPublicado' : 'ePublicado', msg = sm ? 'sMsg' : 'msg';
@@ -383,7 +383,7 @@ class Component extends DCLogic {
       this.setState({ [flag]: activo, [msg]: activo ? (grupos.length ? 'PUBLICADO: el botón violeta ya se ve en la home (' + grupos.length + ' tabla(s)).' : 'PUBLICADO con los resultados guardados antes. Para actualizarlos: calculá la clasificación, ocultá y volvé a publicar.') : 'NO PUBLICADO: el botón violeta se ocultó de la home.' });
     }).catch(err => this.setState({ [msg]: 'No se pudo cambiar: ' + (err && err.message ? err.message : err) + '. ¿Pegaste la nueva versión del Apps Script?' }));
   }
-  post = o => fetch('https://script.google.com/macros/s/AKfycbwWMNDXyjrq4n7Cq9xQiB3YwN1B5haLtLN6XmnoKZEGBHAeZ8rjmVH4OCPduBw50VbPfw/exec', { method: 'POST', body: JSON.stringify(Object.assign({ clave: '129430' }, o)) }).then(r => r.json());
+  post = o => fetch('https://script.google.com/macros/s/AKfycbwQ3sA7GaavCJXqUykGdwAkRhFuSayUJPQzcCEv9szYEHeSsbSuLAXELjvXSeI-4oHBiA/exec', { method: 'POST', body: JSON.stringify(Object.assign({ clave: '129430' }, o)) }).then(r => r.json());
   cErr = r => /desconocida|inv\u00e1lido/.test(r.error || '') ? 'Falta publicar la nueva versi\u00f3n del Apps Script.' : (r.error || 'Error');
   generarCup = () => {
     const s = this.state, w = s.cTipo === 'winter', u = parseInt(s.cUsos, 10);
