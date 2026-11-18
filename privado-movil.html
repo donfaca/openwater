@@ -120,10 +120,11 @@
         </div>
         <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">2</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Cargar tiempos</span></div>
-          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Subí un Excel o CSV con 3 columnas: orden de llegada, número de dorsal y hora de llegada (hh:mm:ss). El tiempo de nado es la hora de llegada menos la hora de largada; nombre, género y traje salen de los inscriptos.</div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Se lee sola de la planilla de Drive «Tiempos Eclipse» (columnas: orden de llegada, dorsal y hora de llegada hh:mm:ss). También podés subir un archivo a mano. El tiempo de nado es la hora de llegada menos la hora de largada; nombre, género y traje salen de los inscriptos.</div>
           <label style="font-size:13px;color:#a9c6d6;">Hora de largada (hh:mm:ss)<input value="{{ largada }}" onInput="{{ onLargada }}" placeholder="10:45:00" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 15px 'Barlow',sans-serif;"></label>
           <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ tiemInfo }}</div>
-          <label style="background:#ff6b5e;color:#2a0603;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;text-align:center;">Subir archivo de tiempos<input type="file" accept=".xlsx,.xls,.csv,.txt,.tsv" onChange="{{ onTiempos }}" style="display:none;"></label>
+          <button onClick="{{ eLeer }}" style="background:#ff6b5e;color:#2a0603;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Leer tiempos de la planilla</button>
+          <label style="background:transparent;color:#cfe4ee;border:1px solid #3b5a6b;border-radius:9px;padding:10px 14px;font:700 13px 'Barlow',sans-serif;cursor:pointer;text-align:center;">Subir archivo de tiempos a mano<input type="file" accept=".xlsx,.xls,.csv,.txt,.tsv" onChange="{{ onTiempos }}" style="display:none;"></label>
           <button onClick="{{ plantilla }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:10px 14px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Descargar planilla de tiempos (Excel)</button>
           <button onClick="{{ simular }}" style="background:transparent;color:#ff9a90;border:1px dashed #ff6b5e;border-radius:9px;padding:8px 14px;font:700 13px 'Barlow',sans-serif;cursor:pointer;">Solo prueba: sortear tiempos</button>
         </div>
@@ -241,6 +242,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   static T5_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHgr5X2OhmL9Vc2B1WRXMK2iMLp2DV0PJObVQVLEX4r0VTRCA-2iMElq_nyChlInVVWMWfiTD717vz/pub?output=csv';
+  static ET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSM0m6la5kw-CtnL6Xe5Yy2GMFJyrTAq2GQzCR24maohzwDsNwfXllU_Q1wOX2941TIi8Qr36jjolXp/pub?output=csv';
   static T10_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsvrGuJociaZAOtCQ9KvpIlmHTJ4vqH2YKbAIyuE6czWurUH1NDnBhXmNTtwAYoL0hwTJEmapelsrm/pub?output=csv';
   state = { seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
   componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
@@ -298,6 +300,10 @@ class Component extends DCLogic {
     this.mtext = L.join('\n'); return true;
   }
   run = () => {
+    if (Component.ET_URL && !this.state.manual && !this.state.simT) { this.eLeerWeb().then(ok => { if (ok) this.runLocal(); }); return; }
+    this.runLocal();
+  };
+  runLocal = () => {
     if (!this.merge()) return;
     if (this.mtext && !this.state.manual) { this.state.text = this.mtext; }
     const rows = this.parse(); if (!rows) return;
@@ -372,7 +378,7 @@ class Component extends DCLogic {
     const L0 = this.tsec(this.state.largada) || 38700, f = s => z(Math.floor(s / 3600) % 24) + ':' + z(Math.floor(s % 3600 / 60)) + ':' + z(s % 60);
     const insc = this.state.insc.map(r => ({ ...r, traje: r.traje || (Math.random() < .5 ? 'Cuero' : 'Neopreno') }));
     const tiem = insc.filter(r => r.est !== 'DNS').map(r => ({ id: this.cid(r.id), orden: '', hora: f(41760 + Math.floor(Math.random() * 1741)) }));
-    this.setState({ insc, tiem, manual: false, tiemInfo: tiem.length + ' llegadas de PRUEBA', msg: 'Llegadas y trajes de prueba sorteados (llegadas entre 11:36 y 12:05). Apretá «Calcular clasificación».' });
+    this.state.simT = true; this.setState({ insc, tiem, manual: false, simT: true, tiemInfo: tiem.length + ' llegadas de PRUEBA', msg: 'Llegadas y trajes de prueba sorteados (llegadas entre 11:36 y 12:05). Apretá «Calcular clasificación».' });
   };
   plantilla = () => {
     const ins = this.state.insc, L = ['orden de llegada;numero de dorsal;hora de llegada'];
@@ -381,17 +387,28 @@ class Component extends DCLogic {
     a.download = 'planilla-tiempos-eclipse-2027.csv'; a.click();
     this.setState({ msg: 'Planilla descargada: orden de llegada, dorsal y hora de llegada (hh:mm:ss). Completala en Excel y subila.' });
   };
-  onTiempos = e => {
-    const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
-    const done = txt => {
-      const lines = txt.split(/\r?\n/).filter(l => l.trim()); if (lines.length < 2) { this.setState({ msg: 'El archivo de tiempos está vacío.' }); return; }
+  eParse(txt, nombre) {
+      const lines = txt.split(/\r?\n/).filter(l => l.trim()); if (lines.length < 2) { this.setState({ msg: 'El archivo de tiempos está vacío.' }); return false; }
       const d = [';', '\t', ','].find(x => lines[0].indexOf(x) > -1) || ';', H = lines[0].split(d).map(h => this.norm(h)), ix = re => H.findIndex(h => re.test(h));
       const a = { id: ix(/^(id|n°|nº|nro|num|dorsal|nadador)/), o: ix(/orden|pos|lugar/) }; a.t = ix(/hora|arribo|tiempo|time|llegada/) === a.o ? H.findIndex((h, k) => k !== a.o && /hora|arribo|tiempo|time|llegada/.test(h)) : ix(/hora|arribo|tiempo|time|llegada/);
       if (a.t < 0 && H.length > 2) a.t = 2;
-      if (a.id < 0 || a.t < 0) { this.setState({ msg: 'El archivo necesita las columnas «número de dorsal» y «hora de llegada» en la primera fila.' }); return; }
+      if (a.id < 0 || a.t < 0) { this.setState({ msg: 'El archivo necesita las columnas «número de dorsal» y «hora de llegada» en la primera fila.' }); return false; }
       const tiem = lines.slice(1).map(l => { const c = l.split(d).map(x => x.trim().replace(/^"|"$/g, '')); return { id: this.cid(c[a.id]), orden: a.o >= 0 ? c[a.o] || '' : '', hora: c[a.t] || '' }; }).filter(t => t.id && t.hora);
-      this.setState({ tiem, manual: false, groups: [], tiemInfo: tiem.length + ' llegadas leídas (' + f.name + ')', msg: tiem.length + ' llegadas leídas. Apretá «Calcular clasificación».' });
-    };
+      this.state.tiem = tiem; this.state.manual = false; this.state.simT = false; this.setState({ tiem, manual: false, groups: [], tiemInfo: tiem.length + ' llegadas leídas (' + nombre + ')', msg: tiem.length + ' llegadas leídas. Apretá «Calcular clasificación».' });
+    return true;
+  }
+  eLeerWeb = () => {
+    const url = Component.ET_URL;
+    if (!url) { this.setState({ msg: 'Todavía no está configurada la dirección de la planilla de tiempos de Eclipse. Mientras tanto, subí el archivo a mano.' }); return Promise.resolve(false); }
+    this.setState({ msg: 'Leyendo la planilla de tiempos de Eclipse…' });
+    return fetch(url, { cache: 'no-store' }).then(r => { if (!r.ok) throw 0; return r.text(); }).then(t => {
+      const txt = this.sCsvRows(t).map(r => r.map(x => String(x).replace(/;/g, ' ')).join(';')).join('\n');
+      return this.eParse(txt, 'planilla de Drive');
+    }).catch(() => { this.setState({ msg: 'No se pudo leer la planilla de tiempos de Eclipse. Revisá que esté publicada en la web (CSV).' }); return false; });
+  };
+  onTiempos = e => {
+    const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+    const done = txt => this.eParse(txt, f.name);
     if (/\.xlsx?$/i.test(f.name) && window.XLSX) { rd.onload = () => { const wb = XLSX.read(rd.result, { type: 'array' }); done(XLSX.utils.sheet_to_csv(wb.Sheets[wb.SheetNames[0]], { FS: ';' })); }; rd.readAsArrayBuffer(f); }
     else { rd.onload = () => done(String(rd.result)); rd.readAsText(f); }
     e.target.value = '';
@@ -559,7 +576,7 @@ class Component extends DCLogic {
       sOnLarg5: e => this.setState({ sLarg5: e.target.value }), sOnLarg10: e => this.setState({ sLarg10: e.target.value }),
       sUrl5: s.sUrl5, sUrl10: s.sUrl10, sOnUrl5: e => { const v = e.target.value; try { localStorage.setItem('ow-t5-url', v); } catch (x) {} this.setState({ sUrl5: v }); }, sOnUrl10: e => { const v = e.target.value; try { localStorage.setItem('ow-t10-url', v); } catch (x) {} this.setState({ sUrl10: v }); }, sLeer5: () => this.sLeerT('5'), sLeer10: () => this.sLeerT('10'),
       sCargar: () => this.sCargar(), sRun: this.sRun, sSim: this.sSim, sCsv: this.sCsv, sPdf: this.sPdf,
-      unlock: this.unlock, lock: this.lock, run: this.run, download: this.download, example: this.example, pdf: this.pdf, cargarReal: this.cargarReal, simular: this.simular, onFile: this.onFile
+      unlock: this.unlock, lock: this.lock, run: this.run, download: this.download, example: this.example, pdf: this.pdf, cargarReal: this.cargarReal, eLeer: this.eLeerWeb, simular: this.simular, onFile: this.onFile
     };
   }
 }
