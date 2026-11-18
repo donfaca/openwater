@@ -73,7 +73,7 @@
         <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:13px;color:#9fc0d2;">inscriptos</span>
       </div>
     </sc-if>
-    <sc-if value="{{ showTable }}">
+    <sc-if value="{{ showTotalsBox }}">
       <div style="max-width:1040px;margin:18px auto 40px;padding:0 40px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
         <div style="flex:1 1 260px;max-width:340px;background:#12467a;border:1px solid #3f86c9;border-radius:12px;padding:16px 22px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px;color:#cfe6fb;">Total cobrado</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:#fff;line-height:1.15;">{{ totCobrado }}</div></div>
         <div style="flex:1 1 260px;max-width:340px;background:#12467a;border:1px solid #3f86c9;border-radius:12px;padding:16px 22px;text-align:center;"><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:14px;color:#cfe6fb;">Total por abonar</div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:#fff;line-height:1.15;">{{ totPorAbonar }}</div></div>
@@ -81,9 +81,9 @@
     </sc-if>
   </div>
 
-  <div style="max-width:1040px;margin:0 auto;padding:0 40px;display:flex;justify-content:center;">
+  <sc-if value="{{ showSheetLink }}"><div style="max-width:1040px;margin:0 auto;padding:0 40px;display:flex;justify-content:center;">
     <a href="https://docs.google.com/spreadsheets/d/18u_DigYqYoMp0vNZF96zJJyL254n-bL1MraNeXS-2sg/edit" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#0c2c40;border:1px solid #16455f;color:#eaf3f8;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Abrir planilla Summer ↗</a>
-  </div>
+  </div></sc-if>
 
   <div style="max-width:1040px;margin:0 auto 70px;padding:26px 40px 0;">
     <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
@@ -95,7 +95,9 @@
     <sc-if value="{{ showEmpty }}">
       <div style="text-align:center;padding:60px 0;color:#9fc0d2;font-size:16px;">Todavía no hay inscriptos cargados.</div>
     </sc-if>
-    <sc-if value="{{ showTable }}"><div style="max-width:1040px;margin:0 auto;padding:18px 40px 0;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;align-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px;"><span style="color:#7fe3a2;">Presentes: {{ cntOk }}</span><span style="color:#f0a3a3;">No se presentaron: {{ cntNo }}</span><span style="color:#cfe4ee;">Pendientes: {{ cntPend }}</span></div>
+    <sc-if value="{{ showCountsBox }}"><div style="max-width:1040px;margin:0 auto;padding:18px 40px 0;display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:center;align-items:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:14px;"><span style="color:#7fe3a2;">Presentes: {{ cntOk }}</span><span style="color:#f0a3a3;">No se presentaron: {{ cntNo }}</span><span style="color:#cfe4ee;">Pendientes: {{ cntPend }}</span></div>
+  </sc-if>
+  <sc-if value="{{ showTable }}">
   <div style="max-width:1040px;margin:0 auto;padding:6px 40px 0;text-align:center;font-size:12px;color:#9fc0d2;">El monto abonado y la acreditación se guardan en la planilla de Google. {{ syncMsg }}</div>
   </sc-if>
     <sc-if value="{{ showTable }}">
@@ -128,13 +130,13 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showTotals&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bloques visibles&quot;},&quot;showCounts&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bloques visibles&quot;},&quot;showSheetLink&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bloques visibles&quot;}}">
 class Component extends DCLogic {
   static CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT507x3wpH4DTq6hUT-PkeI9P-dIe8aZXYMh0qVvM-f6SVKzeRbWpZRAGriHov5GozZLHNvZ_DA2fXp/pub?output=csv";
   static ACRED_KEY = 'ow-acred-summer';
   static PAGOS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTReM6J7SdhYwVU2aezp7NSF7XSN-aomz2nNIjNm4W63O0XGQScRkHF6AxwAua2gQuzUPLz2BYvZ0jE/pub?gid=2099948558&single=true&output=csv';
   static PIN = '129430';
-  static ENDPOINT = 'https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec';
+  static ENDPOINT = 'https://script.google.com/macros/s/AKfycbwWMNDXyjrq4n7Cq9xQiB3YwN1B5haLtLN6XmnoKZEGBHAeZ8rjmVH4OCPduBw50VbPfw/exec';
   loadAcred(){ try{ this._ac = JSON.parse(localStorage.getItem(Component.ACRED_KEY)||'{}')||{}; }catch(e){ this._ac={}; } }
   saveAcred(){ try{ localStorage.setItem(Component.ACRED_KEY, JSON.stringify(this._ac||{})); }catch(e){} this.forceUpdate(); }
   setMonto(key,val,r){ this._ac=this._ac||{}; var o=this._ac[key]||{}; var v=String(val||'').trim(); delete o.falta; if(v){ var n=Number(v.replace(/[^0-9]/g,'')); o.monto = n ? ('$'+n.toLocaleString('es-AR')) : v; } else delete o.monto; this._ac[key]=o; this.saveAcred(); this.enviar(r,{monto:String(o.monto||'').replace(/[^0-9]/g,'')}); return o.monto||''; }
@@ -273,6 +275,9 @@ class Component extends DCLogic {
       loading: !!s.loading,
       showError: !!s.error,
       showEmpty: !s.loading && !s.error && !!rows && rows.length===0,
+      showTotalsBox: (this.props.showTotals ?? true) && !s.loading && !s.error && !!rows && rows.length>0,
+      showCountsBox: (this.props.showCounts ?? true) && !s.loading && !s.error && !!rows && rows.length>0,
+      showSheetLink: this.props.showSheetLink ?? true,
       showTable: !s.loading && !s.error && !!rows && rows.length>0,
       totCobrado: '$'+sumC.toLocaleString('es-AR'), totPorAbonar: '$'+sumF.toLocaleString('es-AR'),
       rows: rowsV,

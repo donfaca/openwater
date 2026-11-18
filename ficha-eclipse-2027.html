@@ -48,6 +48,7 @@
   footer{background:#08202f;color:#a9c6d6;padding:28px 0;margin-top:40px;font-size:.9rem;}
   .req::after{content:' *';color:#C0271A;}
 </style>
+<script src="./ow-demo-editor.js"></script>
 </head>
 <body>
 
@@ -150,7 +151,7 @@
 
   <section class="card">
     <h2><span class="snum">5</span> Declaración jurada</h2>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
     <label class="chk"><input type="checkbox" name="Aptitud física" data-req><span>Declaro estar en condiciones físicas para nadar 2.500 m en mar abierto y contar con apto médico vigente.</span></label>
     <label class="chk"><input type="checkbox" name="Riesgo solar" data-req><span>Comprendo que mirar el Sol sin protección homologada ISO 12312-2 puede causar daños oculares graves e irreversibles.</span></label>
     <label class="chk"><input type="checkbox" name="Uso de imagen" data-req><span>Autorizo el uso de imágenes y videos del evento en los que aparezca, con fines de difusión.</span></label>
@@ -169,7 +170,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwWMNDXyjrq4n7Cq9xQiB3YwN1B5haLtLN6XmnoKZEGBHAeZ8rjmVH4OCPduBw50VbPfw/exec';
 
 let base = 170000, monto = 170000, plan = 'Individual contado';
 const $ = (s) => document.querySelector(s);

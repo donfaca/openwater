@@ -62,6 +62,7 @@
   footer{background:#08202f;color:#a9c6d6;padding:28px 0;margin-top:40px;font-size:.9rem;}
   .req::after{content:' *';color:#c0271a;}
 </style>
+<script src="./ow-demo-editor.js"></script>
 </head>
 <body>
 
@@ -197,8 +198,8 @@
 
   <section class="card">
     <h2><span class="snum">5</span> Declaración jurada</h2>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento Summer" data-req><span>Leí y acepto el <a href="reglamento-2027.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento Eclipse" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento Summer" data-req><span>Leí y acepto el <a href="reglamento-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento Eclipse" data-req><span>Leí y acepto el <a href="reglamento-eclipse-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial de OWeclipse 2027</a> y su deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
     <label class="chk"><input type="checkbox" name="Aptitud física" data-req><span>Declaro estar en condiciones físicas para nadar las distancias del combo en aguas abiertas —río y mar— y contar con apto médico vigente para cada competencia.</span></label>
     <label class="chk"><input type="checkbox" name="Dispositivo de seguridad" data-req><span>Entiendo que el Summer Open Water se nada sobre el Río Negro, con corriente y condiciones naturales variables, y que debo respetar las indicaciones del dispositivo de seguridad.</span></label>
     <label class="chk"><input type="checkbox" name="Riesgo solar" data-req><span>Comprendo que mirar el Sol sin protección homologada ISO 12312-2 puede causar daños oculares graves e irreversibles.</span></label>
@@ -219,7 +220,7 @@
 <script>
 /* URL /exec del Apps Script de inscripciones (ver ow-inscripciones-apps-script.gs).
    Las tres fichas —summer, eclipse y combo— usan la MISMA URL. */
-const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwdBim4Z0GGUY1bZTVIOybaimJMWz-G0gxjeR1MsaSOlcp8NyhwNntUi6vadnMUZJ3wBQ/exec';
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwWMNDXyjrq4n7Cq9xQiB3YwN1B5haLtLN6XmnoKZEGBHAeZ8rjmVH4OCPduBw50VbPfw/exec';
 
 /* VALORES DEL COMBO — actualizar acá si cambian.
    El período se elige solo por la fecha de CAMBIO; si querés forzar uno,
