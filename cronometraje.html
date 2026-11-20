@@ -28,7 +28,7 @@ input{width:100%;background:#0d2536;border:1px solid #234a66;color:#fff;border-r
 #flash.ok{background:rgba(11,140,70,.93);display:flex}
 #flash.dup{background:rgba(210,120,0,.95);display:flex}
 #flash.err{background:rgba(190,30,30,.95);display:flex}
-#flash .d{font-size:4.6rem}#flash .h{font-size:1.9rem;font-variant-numeric:tabular-nums}#flash .s{font-size:1rem;font-weight:600;margin-top:6px}
+#flash .d{font-size:4.8rem}#flash .p{font-size:2.3rem;font-weight:800;letter-spacing:.04em}#flash .h{font-size:1.9rem;font-variant-numeric:tabular-nums}#flash .t{font-size:1.3rem;font-weight:700;color:#d8fff0;font-variant-numeric:tabular-nums}#flash .s{font-size:1rem;font-weight:600;margin-top:6px}
 .seg{display:flex;gap:8px}.seg .btn{flex:1}
 ul{list-style:none;margin:10px 0 0;padding:0}
 li{display:flex;align-items:center;gap:10px;background:#0d2536;border-radius:12px;padding:10px 12px;margin-bottom:6px;font-variant-numeric:tabular-nums}
@@ -60,10 +60,15 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
     <span class="pill" id="pend">Pendientes: 0</span>
   </div>
 
+  <div class="row" style="margin:8px 0 0;flex-wrap:nowrap">
+    <label class="hint" for="larg" style="flex:0 0 auto">Hora de largada (opcional, para mostrar el tiempo)</label>
+    <input id="larg" placeholder="hh:mm:ss" inputmode="numeric" style="width:120px;padding:10px;font-size:1rem">
+  </div>
+
   <div class="cam">
     <video id="video" playsinline muted></video>
     <div class="frame"></div>
-    <div id="flash"><div><div class="d" id="fd"></div><div class="h" id="fh"></div><div class="s" id="fs"></div></div></div>
+    <div id="flash"><div><div class="d" id="fd"></div><div class="p" id="fp"></div><div class="h" id="fh"></div><div class="t" id="ft"></div><div class="s" id="fs"></div></div></div>
   </div>
   <button class="btn big" id="cam">Encender cámara</button>
 
@@ -76,6 +81,7 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
 
   <p class="hint" style="margin:6px 0 0">Últimas lecturas</p>
   <ul id="lista"></ul>
+  <p class="hint"><a href="#" id="limpiar" style="color:#9bb6c9">Borrar la memoria de este teléfono</a> (solo si vas a empezar una prueba nueva; no toca la planilla).</p>
   <p class="hint">La hora que queda en la planilla es la del instante exacto en que se leyó el código. Si no hay señal, las lecturas quedan guardadas en el teléfono y se envían solas cuando vuelve la conexión.</p>
 </div>
 
@@ -99,62 +105,103 @@ function entrar(){
   clave = $('#clave').value.trim(); if(!clave){ return; }
   $('#gmsg').textContent = 'Verificando…';
   post({accion:'verificarClave'}).then(r=>{
-    if(r && r.ok){ try{ sessionStorage.setItem('owc-clave', clave);}catch(e){} abrir(); }
-    else $('#gmsg').textContent = 'Código incorrecto.';
-  }).catch(()=>{ $('#gmsg').textContent='Sin conexión. Probá de nuevo.'; });
+    if(r && r.ok){ ok(); return; }
+    if(r && /desconocida/i.test(r.error||'')){
+      // el script de Google todavía no tiene la versión nueva: validamos el código con una acción que ya existía
+      return post({accion:'listarCupones', evento:'summer'}).then(q=>{
+        if(q && q.ok){ ok(); $('#msg').textContent='Ojo: el script de Google todavía no tiene la versión con cronometraje. Actualizalo y publicá «Nueva versión».'; }
+        else $('#gmsg').textContent = 'Código incorrecto.';
+      });
+    }
+    $('#gmsg').textContent = (r && r.error) ? r.error : 'Código incorrecto.';
+  }).catch(()=>{ $('#gmsg').textContent='Sin conexión con el script de Google. Probá de nuevo.'; });
 }
+function ok(){ try{ sessionStorage.setItem('owc-clave', clave);}catch(e){} abrir(); }
 $('#entrar').onclick = entrar; $('#clave').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar(); });
 function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; marcarPrueba(); render(); enviar(); }
 try{ const c = sessionStorage.getItem('owc-clave'); if(c){ clave = c; abrir(); } }catch(e){}
 
 /* ---- prueba ---- */
 function marcarPrueba(){ $('#p5').classList.toggle('on', prueba==='5'); $('#p10').classList.toggle('on', prueba==='10'); }
-$('#p5').onclick = ()=>{ prueba='5'; ls.set('owc-prueba',prueba); marcarPrueba(); };
-$('#p10').onclick = ()=>{ prueba='10'; ls.set('owc-prueba',prueba); marcarPrueba(); };
+$('#p5').onclick = ()=>{ prueba='5'; ls.set('owc-prueba',prueba); marcarPrueba(); $('#larg').value=(largada&&largada[prueba])||''; };
+$('#p10').onclick = ()=>{ prueba='10'; ls.set('owc-prueba',prueba); marcarPrueba(); $('#larg').value=(largada&&largada[prueba])||''; };
 
 /* ---- sonido / vibración ---- */
 let ac = null;
 function beep(ok){ try{ ac = ac || new (window.AudioContext||window.webkitAudioContext)(); const o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = ok?1000:300; g.gain.value=.25; o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime+(ok?.12:.35)); }catch(e){} try{ navigator.vibrate && navigator.vibrate(ok?80:[120,60,120]); }catch(e){} }
-let ft = 0;
-function flash(cls,d,h,s){ const f=$('#flash'); f.className=cls; $('#fd').textContent=d; $('#fh').textContent=h||''; $('#fs').textContent=s||''; clearTimeout(ft); ft=setTimeout(()=>{ f.className=''; }, cls==='ok'?1500:2600); }
+let ftm = 0;
+function flash(cls, o, ms){
+  const f=$('#flash'); f.className=cls;
+  $('#fd').textContent = o.d||''; $('#fp').textContent = o.p||''; $('#fh').textContent = o.h||''; $('#ft').textContent = o.t||''; $('#fs').textContent = o.s||'';
+  clearTimeout(ftm); ftm = setTimeout(()=>{ f.className=''; }, ms || 3500);
+}
+
+/* ---- tiempo desde la largada (opcional) ---- */
+let largada = ls.get('owc-larg', {});
+$('#larg').value = largada[prueba] || '';
+$('#larg').addEventListener('input', ()=>{ largada[prueba] = $('#larg').value.trim(); ls.set('owc-larg', largada); });
+function seg(h){ const m = String(h||'').trim().match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/); return m ? (+m[1])*3600 + (+m[2])*60 + (+(m[3]||0)) : null; }
+function tiempoDe(hora, pr){
+  const a = seg(largada[pr||prueba]), b = seg(hora); if(a==null || b==null) return '';
+  let d = b - a; if(d < 0) d += 86400;
+  return z(Math.floor(d/3600))+':'+z(Math.floor(d%3600/60))+':'+z(d%60);
+}
+
+/* ---- dorsales ya leídos (memoria del teléfono; la planilla es la que manda) ---- */
+let leidos = ls.get('owc-leidos', {});   // 'prueba:dorsal' -> {hora, orden}
+function gLeidos(){ ls.set('owc-leidos', leidos); }
 
 /* ---- registrar una llegada ---- */
-const visto = {};   // dorsal -> ts de la última lectura (anti doble lectura)
 function registrar(dorsal, origen){
   const ts = Date.now(), key = prueba+':'+dorsal;
-  if(visto[key] && ts - visto[key] < 8000){ return; }
-  visto[key] = ts;
-  const it = { id: ts+'-'+Math.random().toString(36).slice(2,6), prueba, dorsal, ts, estado:'pend', hora: hms(ts) };
+  if(leidos[key]){
+    if(origen==='qr' && leidos[key].t && ts-leidos[key].t < 10000) return;   // el mismo QR sigue frente a la cámara: no molestar
+    if(!registrar.av || ts-registrar.av > 2500){ registrar.av = ts; const l = leidos[key]; beep(false);
+      flash('dup', {d:'Nº '+dorsal, p:'YA LEÍDO', h:(l.orden?'Puesto '+l.orden+' · ':'')+l.hora, t:tiempoDe(l.hora)?'Tiempo '+tiempoDe(l.hora):'', s:prueba+'K · no se registra de nuevo'}, 3000); }
+    return;
+  }
+  const it = { id: ts+'-'+Math.random().toString(36).slice(2,6), prueba, dorsal, ts, estado:'pend', hora: hms(ts), orden: null };
+  leidos[key] = { hora: it.hora, orden: null, t: ts }; gLeidos();
   cola.push(it); hist.unshift(it); guardar();
-  beep(true); flash('ok','Nº '+dorsal, it.hora, prueba+'K · leído');
+  beep(true); flash('ok', {d:'Nº '+dorsal, p:'PUESTO …', h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:prueba+'K · guardando…'}, 6000);
   render(); enviar();
 }
 let enviando = false;
 function enviar(){
   if(enviando || !clave) return; const it = cola[0]; if(!it) return;
-  enviando = true;
+  enviando = true; const key = it.prueba+':'+it.dorsal;
   post({accion:'registrarLlegada', prueba:it.prueba, dorsal:it.dorsal, ts:it.ts}).then(r=>{
-    if(r && r.ok){ it.estado='ok'; it.hora = r.hora || it.hora; it.orden = r.orden; cola.shift(); }
-    else if(r && r.dup){ it.estado='dup'; it.hora = r.hora || it.hora; it.msg='Ya tenía hora'; cola.shift(); beep(false); flash('dup','Nº '+it.dorsal,'YA TENÍA HORA',r.hora||''); }
-    else { it.estado='err'; it.msg=(r&&r.error)||'Error'; cola.shift(); beep(false); flash('err','Nº '+it.dorsal,'NO SE GUARDÓ',it.msg); }
-    guardar(); render(); enviando=false; enviar();
+    if(r && r.ok){
+      it.estado='ok'; it.hora = r.hora || it.hora; it.orden = r.orden; leidos[key] = {hora:it.hora, orden:r.orden, t:leidos[key]&&leidos[key].t}; cola.shift();
+      flash('ok', {d:'Nº '+it.dorsal, p:'PUESTO '+(r.orden||'—'), h:it.hora, t:tiempoDe(it.hora, it.prueba)?'Tiempo '+tiempoDe(it.hora, it.prueba):'', s:it.prueba+'K · ✓ guardado en la planilla'+(r.celda?' ('+r.celda+')':'')}, 3500);
+    }
+    else if(r && r.dup){
+      it.estado='dup'; it.hora = r.hora || it.hora; it.orden = r.orden; it.msg='Ya estaba leído'; leidos[key] = {hora:it.hora, orden:r.orden}; cola.shift(); beep(false);
+      flash('dup', {d:'Nº '+it.dorsal, p:'YA LEÍDO', h:(r.orden?'Puesto '+r.orden+' · ':'')+(r.hora||''), t:'', s:'No se registró de nuevo'}, 4000);
+    }
+    else {
+      it.estado='err'; it.msg=(r&&/desconocida/i.test(r.error||''))?'El script de Google no tiene la versión nueva':((r&&r.error)||'Error'); delete leidos[key]; cola.shift(); beep(false);
+      flash('err', {d:'Nº '+it.dorsal, p:'NO SE GUARDÓ', h:'', t:'', s:it.msg}, 6000);
+    }
+    gLeidos(); guardar(); render(); enviando=false; enviar();
   }).catch(()=>{ enviando=false; setTimeout(enviar, 4000); render(); });
 }
 $('#mbtn').onclick = ()=>{ const v = parseInt($('#manual').value,10); if(!(v>0)){ $('#msg').textContent='Escribí un dorsal válido.'; return; } $('#msg').textContent=''; $('#manual').value=''; registrar(v,'manual'); };
+$('#limpiar').onclick = e=>{ e.preventDefault(); if(!confirm('¿Borrar la lista y la memoria de lecturas de este teléfono? La planilla no se toca.')) return; if(cola.length && !confirm('Hay '+cola.length+' lecturas sin enviar que se perderían. ¿Seguro?')) return; leidos={}; hist=[]; cola=[]; gLeidos(); guardar(); render(); };
 
 /* ---- deshacer ---- */
 window.owDeshacer = function(id){
   const it = hist.find(x=>x.id===id); if(!it) return;
   if(!confirm('¿Borrar la hora del dorsal '+it.dorsal+'?')) return;
   const iq = cola.findIndex(x=>x.id===id);
-  if(iq>-1){ cola.splice(iq,1); it.estado='borrada'; guardar(); render(); return; }
-  post({accion:'borrarLlegada', prueba:it.prueba, dorsal:it.dorsal}).then(r=>{ if(r&&r.ok){ it.estado='borrada'; delete visto[it.prueba+':'+it.dorsal]; guardar(); render(); } else alert((r&&r.error)||'No se pudo borrar.'); }).catch(()=>alert('Sin conexión.'));
+  if(iq>-1){ cola.splice(iq,1); it.estado='borrada'; delete leidos[it.prueba+':'+it.dorsal]; gLeidos(); guardar(); render(); return; }
+  post({accion:'borrarLlegada', prueba:it.prueba, dorsal:it.dorsal}).then(r=>{ if(r&&r.ok){ it.estado='borrada'; delete leidos[it.prueba+':'+it.dorsal]; gLeidos(); guardar(); render(); } else alert((r&&r.error)||'No se pudo borrar.'); }).catch(()=>alert('Sin conexión.'));
 };
 function render(){
   $('#pend').textContent = 'Pendientes: '+cola.length; $('#pend').className = 'pill'+(cola.length?' warn':' ok');
   $('#lista').innerHTML = hist.slice(0,12).map(it=>{
-    const st = it.estado==='ok'?'✓ en planilla'+(it.orden?' · orden '+it.orden:''):it.estado==='pend'?'⏳ enviando…':it.estado==='dup'?'⚠ '+(it.msg||'duplicado'):it.estado==='borrada'?'borrada':'✗ '+(it.msg||'error');
-    return '<li><span class="n">'+it.dorsal+'</span><span class="t">'+it.prueba+'K · '+it.hora+'<br><span class="st">'+st+'</span></span>'+(it.estado==='ok'||it.estado==='pend'?'<button onclick="owDeshacer(\''+it.id+'\')">Deshacer</button>':'')+'</li>';
+    const st = it.estado==='ok'?'✓ en planilla':it.estado==='pend'?'⏳ enviando…':it.estado==='dup'?'⚠ '+(it.msg||'duplicado'):it.estado==='borrada'?'borrada':'✗ '+(it.msg||'error');
+    const tp = tiempoDe(it.hora, it.prueba); return '<li><span class="n">'+it.dorsal+'</span><span class="t">'+it.prueba+'K · '+(it.orden?'puesto '+it.orden+' · ':'')+it.hora+(tp?' · '+tp:'')+'<br><span class="st">'+st+'</span></span>'+(it.estado==='ok'||it.estado==='pend'?'<button onclick="owDeshacer(\''+it.id+'\')">Deshacer</button>':'')+'</li>';
   }).join('');
 }
 
@@ -173,7 +220,7 @@ function bucle(){
     if(q && q.data){
       const d = dorsalDe(q.data);
       if(d){ registrar(d,'qr'); }
-      else if(!bucle.ult || Date.now()-bucle.ult>3000){ bucle.ult=Date.now(); beep(false); flash('err','QR no válido','No es un dorsal de OW',''); }
+      else if(!bucle.ult || Date.now()-bucle.ult>3000){ bucle.ult=Date.now(); beep(false); flash('err',{d:'QR no válido',h:'No es un dorsal de OW'},2500); }
     }
   }
   setTimeout(()=>requestAnimationFrame(bucle), 80);
