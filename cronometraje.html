@@ -191,6 +191,7 @@ function enviar(){
   if(enviando || !clave) return; const it = cola[0]; if(!it) return;
   enviando = true; const key = it.prueba+':'+it.dorsal;
   post({accion:'registrarLlegada', prueba:it.prueba, dorsal:it.dorsal, ts:it.ts}).then(r=>{
+    if(r && r.ok && !r.ver){ $('#msg').textContent='⚠ El script de Google desplegado es una VERSIÓN VIEJA: no guarda bien la hora ni controla repetidos. Pegá el .gs nuevo y publicá «Nueva versión».'; }
     if(r && r.ok){
       it.estado='ok'; it.hora = r.hora || it.hora; it.orden = r.orden; leidos[key] = {hora:it.hora, orden:r.orden, t:leidos[key]&&leidos[key].t}; cola.shift();
       flash('ok', {d:'Nº '+it.dorsal, p:'PUESTO '+(r.orden||'—'), h:it.hora, t:tiempoDe(it.hora, it.prueba)?'Tiempo '+tiempoDe(it.hora, it.prueba):'', s:it.prueba+'K · ✓ guardado en la planilla'+(r.celda?' ('+r.celda+')':'')}, 3500);
@@ -306,11 +307,10 @@ $('#probar').onclick = e=>{ e.preventDefault(); const pr = $('#probres'); pr.sty
   post({accion:'probarLlegada', prueba}).then(r=>{ pr.textContent = (r.pasos||[]).join('\n') + (r.ok ? '\n\n✓ La planilla responde bien.' : '\n\n✗ '+(r.error||'Falló')); }).catch(()=>{ pr.textContent='Sin conexión con el script de Google.'; }); };
 
 /* ---- finalizar · guardar en el celular · borrar ---- */
-function lecturas(){ return hist.filter(x=>x.estado!=='borrada').slice().sort((a,b)=> (a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba))); }
-const ESTADOS = {ok:'en planilla', pend:'sin enviar', dup:'repetido (no se cargó)', err:'error (no se cargó)'};
+function lecturas(){ return hist.filter(x=>x.estado==='ok' || x.estado==='pend').slice().sort((a,b)=> (a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba))); }
 function resumen(){ const L = lecturas(), n5 = L.filter(x=>x.prueba==='5').length, n10 = L.filter(x=>x.prueba==='10').length;
-  $('#finres').textContent = '5K: '+n5+' lecturas · 10K: '+n10+' lecturas'+(cola.length?' · ⚠ '+cola.length+' sin enviar a la planilla todavía':'')+'.'; }
-function filasExport(pr){ return lecturas().filter(x=>x.prueba===pr).map((x,i)=>({ 'N° de lectura': i+1, 'Puesto en planilla': x.orden||'', 'Dorsal': x.dorsal, 'Hora de arribo': x.hora, 'Tiempo desde la largada': tiempoDe(x.hora, pr), 'Estado': ESTADOS[x.estado]||x.estado, 'Fecha y hora exacta': new Date(x.ts).toISOString() })); }
+  $('#finres').textContent = '5K: '+n5+' llegadas · 10K: '+n10+' llegadas'+(cola.length?' · ⚠ '+cola.length+' sin enviar a la planilla todavía':'')+'.'; }
+function filasExport(pr){ return lecturas().filter(x=>x.prueba===pr).map(x=>({ 'Dorsal': x.dorsal, 'Hora de llegada': x.hora })); }
 function descargar(nombre, blob){ const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }
 function guardarLectura(){
   const f5 = filasExport('5'), f10 = filasExport('10'); if(!f5.length && !f10.length){ alert('Todavía no hay lecturas guardadas en este teléfono.'); return; }
