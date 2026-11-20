@@ -208,6 +208,7 @@
             <div style="margin-top:10px;font-size:13px;line-height:1.65;color:#bcd6e4;">Inscribiéndote por separado pagarías $420.000 (individual): con el combo ahorrás $30.000.</div>
           </div>
           <a href="ficha-combo-2027.html" target="_blank" rel="noopener" onClick="{{ combo2InscClick }}" ref="{{ combo2BtnRef }}" style="display:flex;align-items:center;justify-content:center;gap:9px;background:#0b0b0b;border:1px solid #333;animation:owpulsedark 1.3s ease-in-out infinite;color:#fff;padding:13px 22px;border-radius:8px;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.45);"><span ref="{{ combo2LblRef }}">Inscripción combo abierta →</span></a>
+          <div onClick="{{ openComboList }}" style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:9px;background:rgba(6,26,40,.72);border:1px solid rgba(255,255,255,.28);padding:11px 15px;border-radius:8px;cursor:pointer;color:#eaf3f8;font-size:14px;font-weight:700;">📋 Inscriptos</div>
         </div>
       </div>
 
@@ -473,8 +474,9 @@ class Component extends DCLogic {
       epRef: (this.ep=this.ep||R()),
       openSummerList:function(){ self.askList('inscriptos-movil.html'); },
       openEclipseList:function(){ self.askList('inscriptos-eclipse-movil.html'); },
+      openComboList:function(){ self.askList('inscriptos-combo-movil.html'); },
       toggleMenu: () => this.setState(s=>({ menuOpen: !s.menuOpen })),
-      menuStyle: { position:'sticky', top:'73px', zIndex:999, background:'#08202f', borderBottom:'1px solid #16455f', overflow:'hidden', transition:'max-height .28s ease', maxHeight: open?'420px':'0px' },
+      menuStyle: { position:'sticky', top:'73px', zIndex:999, background:'#08202f', borderBottom:'1px solid #16455f', overflowY:'auto', overflowX:'hidden', transition:'max-height .28s ease', maxHeight: open?'calc(100vh - 73px)':'0px' },
       bar1Style: Object.assign({}, bar, open?{ transform:'translateY(7px) rotate(45deg)' }:{}),
       bar2Style: Object.assign({}, bar, open?{ opacity:0 }:{}),
       bar3Style: Object.assign({}, bar, open?{ transform:'translateY(-7px) rotate(-45deg)' }:{}),
