@@ -88,12 +88,22 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
 
   <p class="hint" style="margin:6px 0 0">Últimas lecturas</p>
   <ul id="lista"></ul>
+  <button class="btn big" id="fin" style="background:#8a1f2b;margin-top:14px">■ Finalizar cronómetro de lectura</button>
+  <div id="finpanel" style="display:none;margin-top:12px;background:#0d2536;border:1px solid #234a66;border-radius:14px;padding:14px">
+    <div style="font-weight:800;font-size:1.05rem;margin-bottom:6px">Lectura finalizada</div>
+    <div class="hint" id="finres" style="margin-bottom:10px"></div>
+    <button class="btn big" id="xlsx" style="background:#0b8c46;margin-bottom:8px">⬇ Guardar la lectura en mi celular (.xlsx)</button>
+    <button class="btn big" id="borrar" style="background:#8a1f2b;margin-bottom:8px">🗑 Eliminar toda la lectura del teléfono</button>
+    <button class="btn big sec" id="volver">Volver a leer</button>
+    <p class="hint" style="margin:10px 0 0">Eliminar solo borra la memoria de este teléfono. La planilla de Drive no se toca: esa la borrás vos a mano.</p>
+  </div>
   <p class="hint"><a href="#" id="limpiar" style="color:#9bb6c9">Borrar la memoria de este teléfono</a> (solo si vas a empezar una prueba nueva; no toca la planilla).</p>
   <p class="hint">La hora que queda en la planilla es la del instante exacto en que se leyó el código. Si no hay señal, las lecturas quedan guardadas en el teléfono y se envían solas cuando vuelve la conexión.</p>
 </div>
 
 <canvas id="cv" style="display:none"></canvas>
 <script src="./ow-jsqr.js"></script>
+<script src="./ow-xlsx.js"></script>
 <script>
 (function(){
 const API = 'https://script.google.com/macros/s/AKfycbxIaZeJVEvJ5pVyrxjSVmxo0oH5Be25zwl6ysPXzY9eNGm8g-TA8unT7LqdKIZWJJsKlg/exec';
@@ -104,7 +114,7 @@ let cola = ls.get('owc-cola', []);      // lecturas por enviar
 let hist = ls.get('owc-hist', []);      // últimas lecturas (para mostrar)
 const z = n => String(n).padStart(2,'0');
 const hms = ts => { const d = new Date(ts); return z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds()); };
-function guardar(){ ls.set('owc-cola', cola); ls.set('owc-hist', hist.slice(0,40)); }
+function guardar(){ ls.set('owc-cola', cola); ls.set('owc-hist', hist.slice(0,5000)); }
 
 /* ---- acceso ---- */
 function post(o){ return fetch(API,{method:'POST',body:JSON.stringify(Object.assign({clave:clave},o))}).then(r=>r.json()); }
@@ -219,20 +229,22 @@ const video = $('#video'), cv = $('#cv'), ctx = cv.getContext('2d', {willReadFre
 const bd = ('BarcodeDetector' in window) ? (()=>{ try{ return new BarcodeDetector({formats:['qr_code']}); }catch(e){ return null; } })() : null;
 function dorsalDe(txt){ const m = String(txt||'').trim().match(/^OW27-(\d{1,5})$/i); return m ? parseInt(m[1],10) : null; }
 
-/* decodifica el cuadro actual: primero el lector nativo del teléfono (rápido), si no jsQR */
+/* decodifica el cuadro actual: primero el lector nativo del teléfono (rápido); si no, jsQR a resolución completa */
+let fase = 0;
 async function decodificar(){
   if(video.readyState < 2) return null;
   if(bd){ try{ const r = await bd.detect(video); if(r && r.length) return r[0].rawValue; }catch(e){} }
-  const w = video.videoWidth, h = video.videoHeight;
-  // recorte central (donde el usuario apunta) y reducido: mucho más rápido que el cuadro completo
-  const lado = Math.min(w,h), sx = Math.round((w-lado)/2), sy = Math.round((h-lado)/2), out = Math.min(520, lado);
-  cv.width = out; cv.height = out; ctx.drawImage(video, sx, sy, lado, lado, 0, 0, out, out);
-  let q = jsQR(ctx.getImageData(0,0,out,out).data, out, out, {inversionAttempts:'dontInvert'});
-  if(!q && lado > 700){   // QR chico o lejos: segundo intento con el cuadro completo
-    const s = Math.min(1, 900/Math.max(w,h)); cv.width = Math.round(w*s); cv.height = Math.round(h*s); ctx.drawImage(video,0,0,cv.width,cv.height);
-    q = jsQR(ctx.getImageData(0,0,cv.width,cv.height).data, cv.width, cv.height, {inversionAttempts:'dontInvert'});
-  }
-  return q && q.data ? q.data : null;
+  const w = video.videoWidth, h = video.videoHeight; if(!w || !h) return null;
+  const leer = (sx,sy,sw,sh,ow,oh,inv)=>{ cv.width = ow; cv.height = oh; ctx.drawImage(video, sx, sy, sw, sh, 0, 0, ow, oh); const q = jsQR(ctx.getImageData(0,0,ow,oh).data, ow, oh, {inversionAttempts: inv?'attemptBoth':'dontInvert'}); return q && q.data ? q.data : null; };
+  fase++;
+  // 1) recorte central cuadrado, SIN reducir (así no se pierde resolución)
+  const lado = Math.min(w,h), sx = Math.round((w-lado)/2), sy = Math.round((h-lado)/2);
+  let t = leer(sx, sy, lado, lado, Math.min(lado,800), Math.min(lado,800), false); if(t) return t;
+  // 2) cuadro completo sin reducir (QR chico o lejos o corrido de centro)
+  t = leer(0, 0, w, h, Math.min(w,1280), Math.round(Math.min(w,1280)*h/w), false); if(t) return t;
+  // 3) de vez en cuando, probar también imagen invertida y un recorte más cerrado (QR muy chico en el centro)
+  if(fase % 3 === 0){ const c2 = Math.round(lado*0.55), x2 = Math.round((w-c2)/2), y2 = Math.round((h-c2)/2); t = leer(x2, y2, c2, c2, c2*2, c2*2, true); if(t) return t; }
+  return null;
 }
 function procesar(txt, ts, origen){
   const d = dorsalDe(txt);
@@ -270,8 +282,9 @@ $('#mt').onclick = ()=>{ modo='toque'; ls.set('owc-modo',modo); marcarModo(); };
 $('#ma').onclick = ()=>{ modo='auto'; ls.set('owc-modo',modo); marcarModo(); };
 async function encender(){
   try{
-    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720},frameRate:{ideal:30}},audio:false});
+    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}},audio:false});
     video.srcObject = stream; await video.play(); activo = true;
+    try{ const tr = stream.getVideoTracks()[0], cap = tr.getCapabilities ? tr.getCapabilities() : {}; if(cap.focusMode && cap.focusMode.indexOf('continuous')>-1) await tr.applyConstraints({advanced:[{focusMode:'continuous'}]}); }catch(e){}
     $('#cam').textContent='Apagar cámara'; $('#estado').className='pill ok';
     try{ if(navigator.wakeLock) wl = await navigator.wakeLock.request('screen'); }catch(e){}
     marcarModo();
@@ -280,6 +293,31 @@ async function encender(){
 function apagar(){ activo=false; if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } try{ wl && wl.release(); }catch(e){} $('#cam').textContent='Encender cámara'; $('#estado').textContent='Cámara apagada'; $('#estado').className='pill'; }
 $('#cam').onclick = ()=> activo ? apagar() : encender();
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && activo && !wl){ try{ navigator.wakeLock && navigator.wakeLock.request('screen').then(x=>wl=x); }catch(e){} } });
+/* ---- finalizar · guardar en el celular · borrar ---- */
+function lecturas(){ return hist.filter(x=>x.estado==='ok' || x.estado==='pend').slice().sort((a,b)=> (a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba))); }
+function resumen(){ const L = lecturas(), n5 = L.filter(x=>x.prueba==='5').length, n10 = L.filter(x=>x.prueba==='10').length;
+  $('#finres').textContent = '5K: '+n5+' llegadas · 10K: '+n10+' llegadas'+(cola.length?' · ⚠ '+cola.length+' sin enviar a la planilla todavía':'')+'.'; }
+$('#fin').onclick = ()=>{
+  if(!confirm('¿Finalizar la lectura? Se apaga la cámara.')) return;
+  apagar(); resumen(); $('#finpanel').style.display = 'block'; $('#finpanel').scrollIntoView({behavior:'smooth'}); enviar();
+};
+$('#volver').onclick = ()=>{ $('#finpanel').style.display='none'; };
+$('#xlsx').onclick = ()=>{
+  if(typeof XLSX === 'undefined'){ alert('No se pudo cargar el generador de Excel (ow-xlsx.js).'); return; }
+  const L = lecturas(); if(!L.length){ alert('No hay lecturas para guardar.'); return; }
+  const wb = XLSX.utils.book_new();
+  ['5','10'].forEach(pr=>{
+    const filas = L.filter(x=>x.prueba===pr).map((x,i)=>({ 'Puesto (orden en esta lectura)': i+1, 'Puesto en planilla': x.orden||'', 'Dorsal': x.dorsal, 'Hora de arribo': x.hora, 'Tiempo desde la largada': tiempoDe(x.hora, pr), 'Estado': x.estado==='ok'?'en planilla':'sin enviar', 'Fecha y hora exacta': new Date(x.ts).toISOString() }));
+    if(filas.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(filas), 'Tiempos '+pr+'K');
+  });
+  const d = new Date(), nom = 'lectura-summer-2027-'+d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes())+'.xlsx';
+  XLSX.writeFile(wb, nom);
+};
+$('#borrar').onclick = ()=>{
+  if(!confirm('¿Eliminar TODA la lectura guardada en este teléfono?\n\nSi no la guardaste en .xlsx, se pierde. La planilla de Drive no se toca.')) return;
+  if(cola.length && !confirm('Hay '+cola.length+' lecturas que todavía no llegaron a la planilla y se perderían. ¿Eliminar igual?')) return;
+  leidos={}; hist=[]; cola=[]; gLeidos(); guardar(); render(); resumen(); $('#finpanel').style.display='none'; alert('Lectura eliminada de este teléfono.');
+};
 window.addEventListener('online', enviar);
 setInterval(()=>{ if(cola.length) enviar(); }, 6000);
 })();

@@ -39,9 +39,9 @@ button{border:0;background:#12688f;color:#fff;font-weight:700;padding:12px 18px;
       <div><label>Dorsal desde</label><input id="d1" type="number" value="1" min="1"></div>
       <div><label>Dorsal hasta</label><input id="d2" type="number" value="300" min="1"></div>
       <div><label>Tamaño del QR</label>
-        <select id="tam"><option value="3">3 cm</option><option value="4" selected>4 cm</option><option value="5">5 cm</option><option value="6">6 cm</option></select></div>
+        <select id="tam"><option value="4">4 cm</option><option value="5">5 cm</option><option value="6" selected>6 cm</option><option value="8">8 cm</option></select></div>
       <div><label>Columnas por hoja</label>
-        <select id="cols"><option>3</option><option selected>4</option><option>5</option></select></div>
+        <select id="cols"><option selected>3</option><option>4</option><option>5</option></select></div>
     </div>
     <label>O pegá una lista de dorsales (opcional, separados por coma, espacio o renglón; admite rangos 1-50)</label>
     <textarea id="lista" rows="2" placeholder="Ej: 1-50, 61, 75"></textarea>
@@ -62,8 +62,8 @@ function dorsales(){
   return Array.from(new Set(out)).filter(n=>n>0 && n<100000);
 }
 function qrSvg(texto, px){
-  const q = qrcode(0,'M'); q.addData(texto); q.make();
-  const n = q.getModuleCount(), m = 2, tot = n + 2*m; let d = '';
+  const q = qrcode(0,'Q'); q.addData(texto); q.make();
+  const n = q.getModuleCount(), m = 4, tot = n + 2*m; let d = '';
   for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(q.isDark(r,c)) d += 'M'+(c+m)+' '+(r+m)+'h1v1h-1z';
   return '<svg xmlns="http://www.w3.org/2000/svg" width="'+px+'" height="'+px+'" viewBox="0 0 '+tot+' '+tot+'" shape-rendering="crispEdges"><rect width="'+tot+'" height="'+tot+'" fill="#fff"/><path d="'+d+'" fill="#000"/></svg>';
 }
