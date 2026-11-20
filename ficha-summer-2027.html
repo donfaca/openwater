@@ -102,7 +102,7 @@
 
   <section class="card" id="s-prueba">
     <h2><span class="snum">2</span> Elegí tu prueba</h2>
-    <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
+    <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Si elegís solo 5K o solo 10K, podés sumar el 2K Nocturno. Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
     <div class="pay" id="pruebas">
       <div class="opt on" data-prueba="5K+10K" data-contado="250000" data-cuota="85000" data-cuotas="3" data-kit="1">
         <div class="tag">Recomendado</div>
@@ -126,6 +126,9 @@
         <div class="d">Sábado 23 a las 21:00 · Swimming Fest + pizza libre. No incluye poncho ni financiación.</div>
       </div>
     </div>
+
+    <label class="chk" id="wrap-2k" style="display:none;margin-top:12px;"><input type="checkbox" id="mas2k"><span><b>Sumar el 2K Travel Night Fest (+$60.000).</b> Sábado 23 a las 21:00, Swimming Fest + pizza libre. Se puede combinar con tu 5K o tu 10K.</span></label>
+    <p class="hint" id="nota-2k" style="display:none;margin:12px 0 0;">✓ El 2K Nocturno ya está incluido en el Campeonato 5K + 10K.</p>
 
     <input type="hidden" name="Categoría de edad" id="cat">
 
@@ -262,17 +265,30 @@ function recalcular(){
   revisar();
 }
 
+let base = {prueba:'5K+10K', contado:250000, cuota:85000, cuotas:3, fin:0, kit:true};
+const PRECIO_2K = 60000;
+function aplicarPrueba(){
+  const combinable = base.prueba === '5K' || base.prueba === '10K';
+  $('#wrap-2k').style.display = combinable ? '' : 'none';
+  $('#nota-2k').style.display = base.prueba === '5K+10K' ? '' : 'none';
+  if(!combinable) $('#mas2k').checked = false;
+  const con2k = combinable && $('#mas2k').checked;
+  prueba = con2k ? base.prueba + '+2K' : base.prueba;
+  contado = base.contado + (con2k ? PRECIO_2K : 0);
+  cuotas = base.cuotas;
+  cuota = con2k ? Math.ceil(contado / 3 / 5000) * 5000 : base.cuota;
+  fin = base.fin;
+  conKit = base.kit;
+  recalcular();
+}
 document.querySelectorAll('#pruebas .opt').forEach(o => o.addEventListener('click', () => {
   document.querySelectorAll('#pruebas .opt').forEach(x => x.classList.remove('on'));
   o.classList.add('on');
-  prueba = o.dataset.prueba;
-  contado = +o.dataset.contado;
-  cuota = +o.dataset.cuota;
-  cuotas = +o.dataset.cuotas;
-  fin = +o.dataset.fin || 0;
-  conKit = o.dataset.kit === '1';
-  recalcular();
+  base = {prueba:o.dataset.prueba, contado:+o.dataset.contado, cuota:+o.dataset.cuota, cuotas:+o.dataset.cuotas, fin:+o.dataset.fin || 0, kit:o.dataset.kit === '1'};
+  aplicarPrueba();
 }));
+$('#mas2k').addEventListener('change', aplicarPrueba);
+$('#nota-2k').style.display = '';
 
 document.querySelectorAll('#planes .opt').forEach(o => o.addEventListener('click', () => {
   plan = o.dataset.plan; marcarPlan(); recalcular();
