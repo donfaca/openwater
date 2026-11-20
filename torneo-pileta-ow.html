@@ -325,7 +325,7 @@ class Component extends DCLogic {
   setTiempo(k, v) { const t = Object.assign({}, this.state.tiempos); if (v) t[k] = v; else delete t[k]; try { localStorage.setItem('ow-torneo-pileta-tiempos', JSON.stringify(t)); } catch (e) {} this.setState({ tiempos: t }); }
   componentDidMount() {
     this._rs = () => { const m = window.innerWidth < 640; if (m !== this.state.mob) this.setState({ mob: m }); }; this._rs(); window.addEventListener('resize', this._rs);
-    if (/openwater\.ar$/.test(location.hostname) && sessionStorage.getItem('ow-torneo-ok') !== '1') { const c = prompt('Acceso privado. Ingresá el código:'); if (String(c).trim() === '129430') sessionStorage.setItem('ow-torneo-ok', '1'); else { location.href = 'actividades.dc.html'; return; } }
+    if (/openwater\.ar$/.test(location.hostname) && sessionStorage.getItem('ow-torneo-ok') !== '1') { const c = prompt('Acceso privado. Ingresá el código:'); if (String(c).trim() === '129430') sessionStorage.setItem('ow-torneo-ok', '1'); else { location.href = 'actividades.html'; return; } }
     if (window.OWMaster) { this._f = () => this.forceUpdate(); window.OWMaster.on(this._f); }
     if (this.ver()) this.setState({ tiempos: {}, sembrados: {}, clasif: {} });
     if (!this.state.ready) {
