@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>QR de dorsales · Open Water Río Negro</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#f3f6f9;color:#0a2438}
+.panel{max-width:900px;margin:0 auto;padding:18px}
+h1{margin:0 0 6px;font-size:1.4rem}
+.card{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(10,36,56,.08);margin-top:12px}
+label{display:block;font-weight:700;font-size:.85rem;margin:8px 0 4px}
+input,textarea,select{width:100%;padding:10px;border:1px solid #b9c9d6;border-radius:10px;font-size:1rem;font-family:inherit}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+button{border:0;background:#12688f;color:#fff;font-weight:700;padding:12px 18px;border-radius:10px;font-size:1rem;cursor:pointer;margin-top:12px;margin-right:8px}
+.hint{color:#51697b;font-size:.85rem;margin:6px 0 0}
+#hoja{display:grid;gap:0;margin:16px auto 0;background:#fff}
+.q{border:1px dashed #9db3c4;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;break-inside:avoid;page-break-inside:avoid;text-align:center}
+.q svg{display:block}
+.q .n{font-weight:800;line-height:1;margin-top:4px}
+.q .e{font-size:.6rem;letter-spacing:.2em;color:#51697b;text-transform:uppercase;margin-top:2px}
+@media print{
+  body{background:#fff}
+  .panel .card,.panel h1,.panel>p{display:none}
+  .panel{padding:0;max-width:none}
+  #hoja{margin:0}
+  @page{size:A4;margin:8mm}
+}
+</style>
+</head>
+<body>
+<div class="panel">
+  <h1>QR de dorsales</h1>
+  <p class="hint">Cada código contiene el número de dorsal (<code>OW27-123</code>). La página de cronometraje lo lee al llegar el nadador. Imprimí en A4 y recortá por las líneas punteadas.</p>
+  <div class="card">
+    <div class="g">
+      <div><label>Dorsal desde</label><input id="d1" type="number" value="1" min="1"></div>
+      <div><label>Dorsal hasta</label><input id="d2" type="number" value="300" min="1"></div>
+      <div><label>Tamaño del QR</label>
+        <select id="tam"><option value="3">3 cm</option><option value="4" selected>4 cm</option><option value="5">5 cm</option><option value="6">6 cm</option></select></div>
+      <div><label>Columnas por hoja</label>
+        <select id="cols"><option>3</option><option selected>4</option><option>5</option></select></div>
+    </div>
+    <label>O pegá una lista de dorsales (opcional, separados por coma, espacio o renglón; admite rangos 1-50)</label>
+    <textarea id="lista" rows="2" placeholder="Ej: 1-50, 61, 75"></textarea>
+    <button id="gen">Generar QR</button><button id="imp" style="background:#0b5d2e">Imprimir / Guardar PDF</button>
+    <p class="hint" id="info"></p>
+  </div>
+  <div id="hoja"></div>
+</div>
+<script src="./ow-qrcode.js"></script>
+<script>
+(function(){
+const $ = s => document.querySelector(s);
+function dorsales(){
+  const t = $('#lista').value.trim(), out = [];
+  if(t){
+    t.split(/[\s,;]+/).forEach(p=>{ const m = p.match(/^(\d+)-(\d+)$/); if(m){ for(let i=+m[1]; i<=+m[2]; i++) out.push(i); } else if(/^\d+$/.test(p)) out.push(+p); });
+  } else { for(let i=+$('#d1').value; i<=+$('#d2').value; i++) out.push(i); }
+  return Array.from(new Set(out)).filter(n=>n>0 && n<100000);
+}
+function qrSvg(texto, px){
+  const q = qrcode(0,'M'); q.addData(texto); q.make();
+  const n = q.getModuleCount(), m = 2, tot = n + 2*m; let d = '';
+  for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(q.isDark(r,c)) d += 'M'+(c+m)+' '+(r+m)+'h1v1h-1z';
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+px+'" height="'+px+'" viewBox="0 0 '+tot+' '+tot+'" shape-rendering="crispEdges"><rect width="'+tot+'" height="'+tot+'" fill="#fff"/><path d="'+d+'" fill="#000"/></svg>';
+}
+function generar(){
+  const L = dorsales(), cm = +$('#tam').value, cols = +$('#cols').value, px = Math.round(cm*37.8);
+  if(!L.length){ $('#info').textContent='Revisá el rango de dorsales.'; return; }
+  const h = $('#hoja'); h.style.gridTemplateColumns = 'repeat('+cols+',1fr)'; h.style.width = Math.min(cols*(cm+1.2),19.4)+'cm';
+  h.innerHTML = L.map(n=>'<div class="q">'+qrSvg('OW27-'+n, px)+'<div class="n" style="font-size:'+(cm*0.42)+'cm">'+n+'</div><div class="e">Open Water 2027</div></div>').join('');
+  $('#info').textContent = L.length+' códigos generados ('+L[0]+' a '+L[L.length-1]+').';
+}
+$('#gen').onclick = generar; $('#imp').onclick = ()=>{ if(!$('#hoja').children.length) generar(); window.print(); };
+generar();
+})();
+</script>
+</body>
+</html>
