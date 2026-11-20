@@ -59,7 +59,7 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
   </div>
   <div class="row" style="margin:10px 0 0;justify-content:space-between">
     <span class="pill" id="estado">Cámara apagada</span>
-    <span class="pill" id="pend">Pendientes: 0</span>
+    <span class="pill" id="pend">Sin copiar a Drive: 0</span>
   </div>
 
   <div class="row" style="margin:8px 0 0;flex-wrap:nowrap">
@@ -93,15 +93,21 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
   <div id="finpanel" style="display:none;margin-top:12px;background:#0d2536;border:1px solid #234a66;border-radius:14px;padding:14px">
     <div style="font-weight:800;font-size:1.05rem;margin-bottom:6px">Lectura finalizada</div>
     <div class="hint" id="finres" style="margin-bottom:10px"></div>
+    <div style="font-weight:700;margin:4px 0">Cuando la lectura esté cerrada:</div>
+    <button class="btn big" id="subir" style="background:#0b8c46;font-size:1.3rem;padding:22px;margin-bottom:8px">☁ COPIAR A DRIVE (planillas 5K y 10K)</button>
+    <pre id="subres" style="display:none;white-space:pre-wrap;background:#06141f;border:1px solid #234a66;border-radius:12px;padding:10px;font-size:.85rem;color:#cfe3f1;margin:0 0 8px"></pre>
+    <div class="hint" style="margin:6px 0">Plan B si «Copiar a Drive» no funciona: copiá el texto y pegalo en la celda A2 de cada planilla:</div>
+    <div class="seg" style="margin-bottom:8px">
+      <button class="btn sec" id="cp5">📋 Copiar texto 5K</button>
+      <button class="btn sec" id="cp10">📋 Copiar texto 10K</button>
+    </div>
     <button class="btn big" id="xlsx" style="background:#0b8c46;margin-bottom:8px">⬇ Guardar la lectura en mi celular (.xlsx)</button>
     <button class="btn big" id="borrar" style="background:#8a1f2b;margin-bottom:8px">🗑 Eliminar toda la lectura del teléfono</button>
     <button class="btn big sec" id="volver">Volver a leer</button>
     <p class="hint" style="margin:10px 0 0">Eliminar solo borra la memoria de este teléfono. La planilla de Drive no se toca: esa la borrás vos a mano.</p>
   </div>
-  <p class="hint"><a href="#" id="probar" style="color:#9bb6c9">Probar conexión con la planilla</a> (escribe y borra un dorsal de prueba, 99999).</p>
-  <pre id="probres" style="display:none;white-space:pre-wrap;background:#0d2536;border:1px solid #234a66;border-radius:12px;padding:12px;font-size:.8rem;color:#cfe3f1"></pre>
   <p class="hint"><a href="#" id="limpiar" style="color:#9bb6c9">Borrar la memoria de este teléfono</a> (solo si vas a empezar una prueba nueva; no toca la planilla).</p>
-  <p class="hint">La hora que queda en la planilla es la del instante exacto en que se leyó el código. Si no hay señal, las lecturas quedan guardadas en el teléfono y se envían solas cuando vuelve la conexión.</p>
+  <p class="hint">Las lecturas se guardan en este teléfono con la hora exacta del instante en que se leyó el código (no hace falta señal). Al terminar, tocá «Finalizar» y después «Copiar a Drive».</p>
 </div>
 
 <canvas id="cv" style="display:none"></canvas>
@@ -113,11 +119,10 @@ const API = 'https://script.google.com/macros/s/AKfycbxIaZeJVEvJ5pVyrxjSVmxo0oH5
 const $ = s => document.querySelector(s);
 const ls = { get(k,d){ try{ const v = localStorage.getItem(k); return v==null?d:JSON.parse(v);}catch(e){return d;} }, set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
 let clave = '', prueba = ls.get('owc-prueba','5');
-let cola = ls.get('owc-cola', []);      // lecturas por enviar
-let hist = ls.get('owc-hist', []);      // últimas lecturas (para mostrar)
+let hist = ls.get('owc-hist', []);      // TODAS las lecturas (viven en el teléfono): {id,prueba,dorsal,ts,hora,estado:'ok'|'borrada',up:bool}
 const z = n => String(n).padStart(2,'0');
 const hms = ts => { const d = new Date(ts); return z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds()); };
-function guardar(){ ls.set('owc-cola', cola); ls.set('owc-hist', hist.slice(0,5000)); }
+function guardar(){ ls.set('owc-hist', hist.slice(0,5000)); }
 
 /* ---- acceso ---- */
 function post(o){ return fetch(API,{method:'POST',body:JSON.stringify(Object.assign({clave:clave},o))}).then(r=>r.json()); }
@@ -127,19 +132,14 @@ function entrar(){
   post({accion:'verificarClave'}).then(r=>{
     if(r && r.ok){ ok(); return; }
     if(r && /desconocida/i.test(r.error||'')){
-      // el script de Google todavía no tiene la versión nueva: validamos el código con una acción que ya existía
-      return post({accion:'listarCupones', evento:'summer'}).then(q=>{
-        if(q && q.ok){ ok(); $('#msg').textContent='Ojo: el script de Google todavía no tiene la versión con cronometraje. Actualizalo y publicá «Nueva versión».'; }
-        else $('#gmsg').textContent = 'Código incorrecto.';
-      });
+      return post({accion:'listarCupones', evento:'summer'}).then(q=>{ if(q && q.ok) ok(); else $('#gmsg').textContent = 'Código incorrecto.'; });
     }
     $('#gmsg').textContent = (r && r.error) ? r.error : 'Código incorrecto.';
-  }).catch(()=>{ $('#gmsg').textContent='Sin conexión con el script de Google. Probá de nuevo.'; });
+  }).catch(()=>{ ok(); $('#msg').textContent='Sin señal: podés leer igual; la lectura queda en el teléfono y el código se verifica al copiar a Drive.'; });
 }
 function ok(){ try{ sessionStorage.setItem('owc-clave', clave);}catch(e){} abrir(); }
 $('#entrar').onclick = entrar; $('#clave').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar(); });
-function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; marcarPrueba(); render(); enviar(); }
-
+function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; marcarPrueba(); render(); }
 
 /* ---- prueba ---- */
 function marcarPrueba(){ $('#p5').classList.toggle('on', prueba==='5'); $('#p10').classList.toggle('on', prueba==='10'); }
@@ -167,62 +167,39 @@ function tiempoDe(hora, pr){
   return z(Math.floor(d/3600))+':'+z(Math.floor(d%3600/60))+':'+z(d%60);
 }
 
-/* ---- dorsales ya leídos (memoria del teléfono; la planilla es la que manda) ---- */
-let leidos = ls.get('owc-leidos', {});   // 'prueba:dorsal' -> {hora, orden}
-function gLeidos(){ ls.set('owc-leidos', leidos); }
-
-/* ---- registrar una llegada ---- */
+/* ---- registrar una llegada (se guarda en el teléfono; no usa internet) ---- */
+function viva(pr, dorsal){ return hist.find(x=>x.estado==='ok' && x.prueba===pr && x.dorsal===dorsal); }
 function registrar(dorsal, origen, tsFijo){
-  const ahora = Date.now(), ts = tsFijo || ahora, key = prueba+':'+dorsal;
-  if(leidos[key]){
-    if(origen==='qr' && leidos[key].t && ahora-leidos[key].t < 10000) return;   // el mismo QR sigue frente a la cámara: no molestar
-    if(!registrar.av || ahora-registrar.av > 2500){ registrar.av = ahora; const l = leidos[key]; beep(false);
-      flash('dup', {d:'Nº '+dorsal, p:'YA LEÍDO', h:(l.orden?'Puesto '+l.orden+' · ':'')+l.hora, t:tiempoDe(l.hora)?'Tiempo '+tiempoDe(l.hora):'', s:prueba+'K · no se registra de nuevo'}, 3000); }
+  const ahora = Date.now(), ts = tsFijo || ahora, ya = viva(prueba, dorsal);
+  if(ya){
+    if(origen==='qr' && ya.t && ahora-ya.t < 10000) return;   // el mismo QR sigue frente a la cámara: no molestar
+    if(!registrar.av || ahora-registrar.av > 2500){ registrar.av = ahora; beep(false);
+      flash('dup', {d:'Nº '+dorsal, p:'YA LEÍDO', h:ya.hora, t:tiempoDe(ya.hora, ya.prueba)?'Tiempo '+tiempoDe(ya.hora, ya.prueba):'', s:prueba+'K · no se registra de nuevo'}, 3000); }
     return;
   }
-  const it = { id: ts+'-'+Math.random().toString(36).slice(2,6), prueba, dorsal, ts, estado:'pend', hora: hms(ts), orden: null };
-  leidos[key] = { hora: it.hora, orden: null, t: ts }; gLeidos();
-  cola.push(it); hist.unshift(it); guardar();
-  beep(true); flash('ok', {d:'Nº '+dorsal, p:'PUESTO …', h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:prueba+'K · guardando…'}, 6000);
-  render(); enviar();
-}
-let enviando = false;
-function enviar(){
-  if(enviando || !clave) return; const it = cola[0]; if(!it) return;
-  enviando = true; const key = it.prueba+':'+it.dorsal;
-  post({accion:'registrarLlegada', prueba:it.prueba, dorsal:it.dorsal, ts:it.ts}).then(r=>{
-    if(r && r.ok && !r.ver){ $('#msg').textContent='⚠ El script de Google desplegado es una VERSIÓN VIEJA: no guarda bien la hora ni controla repetidos. Pegá el .gs nuevo y publicá «Nueva versión».'; }
-    if(r && r.ok){
-      it.estado='ok'; it.hora = r.hora || it.hora; it.orden = r.orden; leidos[key] = {hora:it.hora, orden:r.orden, t:leidos[key]&&leidos[key].t}; cola.shift();
-      flash('ok', {d:'Nº '+it.dorsal, p:'PUESTO '+(r.orden||'—'), h:it.hora, t:tiempoDe(it.hora, it.prueba)?'Tiempo '+tiempoDe(it.hora, it.prueba):'', s:it.prueba+'K · ✓ guardado en la planilla'+(r.celda?' ('+r.celda+')':'')}, 3500);
-    }
-    else if(r && r.dup){
-      it.estado='dup'; it.hora = r.hora || it.hora; it.orden = r.orden; it.msg='Ya estaba leído'; leidos[key] = {hora:it.hora, orden:r.orden}; cola.shift(); beep(false);
-      flash('dup', {d:'Nº '+it.dorsal, p:'YA LEÍDO', h:(r.orden?'Puesto '+r.orden+' · ':'')+(r.hora||''), t:'', s:'No se registró de nuevo'}, 4000);
-    }
-    else {
-      it.estado='err'; it.msg=(r&&/desconocida/i.test(r.error||''))?'El script de Google no tiene la versión nueva':((r&&r.error)||'Error'); delete leidos[key]; cola.shift(); beep(false);
-      flash('err', {d:'Nº '+it.dorsal, p:'NO SE GUARDÓ', h:'', t:'', s:it.msg}, 6000);
-    }
-    gLeidos(); guardar(); render(); enviando=false; enviar();
-  }).catch(()=>{ enviando=false; setTimeout(enviar, 4000); render(); });
+  const it = { id: ts+'-'+Math.random().toString(36).slice(2,6), prueba, dorsal, ts, t: ahora, hora: hms(ts), estado:'ok', up:false };
+  hist.unshift(it); guardar();
+  const pos = hist.filter(x=>x.estado==='ok' && x.prueba===prueba).sort((a,b)=>a.ts-b.ts).findIndex(x=>x===it)+1;
+  it.orden = pos; guardar();
+  beep(true); flash('ok', {d:'Nº '+dorsal, p:'PUESTO '+pos, h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:prueba+'K · ✓ guardado en el teléfono'}, 3500);
+  render();
 }
 $('#mbtn').onclick = ()=>{ const v = parseInt($('#manual').value,10); if(!(v>0)){ $('#msg').textContent='Escribí un dorsal válido.'; return; } $('#msg').textContent=''; $('#manual').value=''; registrar(v,'manual'); };
-$('#limpiar').onclick = e=>{ e.preventDefault(); if(!confirm('¿Borrar la lista y la memoria de lecturas de este teléfono? La planilla no se toca.')) return; if(cola.length && !confirm('Hay '+cola.length+' lecturas sin enviar que se perderían. ¿Seguro?')) return; leidos={}; hist=[]; cola=[]; gLeidos(); guardar(); render(); };
+$('#limpiar').onclick = e=>{ e.preventDefault(); if(!confirm('¿Borrar la lista y la memoria de lecturas de este teléfono? La planilla no se toca.')) return; const n = hist.filter(x=>x.estado==='ok'&&!x.up).length; if(n && !confirm('Hay '+n+' lecturas que NO copiaste a Drive y se perderían. ¿Seguro?')) return; hist=[]; guardar(); render(); };
 
-/* ---- deshacer ---- */
+/* ---- deshacer (solo en el teléfono) ---- */
 window.owDeshacer = function(id){
   const it = hist.find(x=>x.id===id); if(!it) return;
-  if(!confirm('¿Borrar la hora del dorsal '+it.dorsal+'?')) return;
-  const iq = cola.findIndex(x=>x.id===id);
-  if(iq>-1){ cola.splice(iq,1); it.estado='borrada'; delete leidos[it.prueba+':'+it.dorsal]; gLeidos(); guardar(); render(); return; }
-  post({accion:'borrarLlegada', prueba:it.prueba, dorsal:it.dorsal}).then(r=>{ if(r&&r.ok){ it.estado='borrada'; delete leidos[it.prueba+':'+it.dorsal]; gLeidos(); guardar(); render(); } else alert((r&&r.error)||'No se pudo borrar.'); }).catch(()=>alert('Sin conexión.'));
+  if(!confirm('¿Borrar la lectura del dorsal '+it.dorsal+' ('+it.prueba+'K)?'+(it.up?'\n\nOjo: ya estaba subida; borrá esa hora en la planilla a mano.':''))) return;
+  it.estado='borrada'; guardar(); render();
 };
+function vivas(){ return hist.filter(x=>x.estado==='ok'); }
 function render(){
-  $('#pend').textContent = 'Pendientes: '+cola.length; $('#pend').className = 'pill'+(cola.length?' warn':' ok');
-  $('#lista').innerHTML = hist.slice(0,12).map(it=>{
-    const st = it.estado==='ok'?'✓ en planilla':it.estado==='pend'?'⏳ enviando…':it.estado==='dup'?'⚠ '+(it.msg||'duplicado'):it.estado==='borrada'?'borrada':'✗ '+(it.msg||'error');
-    const tp = tiempoDe(it.hora, it.prueba); return '<li><span class="n">'+it.dorsal+'</span><span class="t">'+it.prueba+'K · '+(it.orden?'puesto '+it.orden+' · ':'')+it.hora+(tp?' · '+tp:'')+'<br><span class="st">'+st+'</span></span>'+(it.estado==='ok'||it.estado==='pend'?'<button onclick="owDeshacer(\''+it.id+'\')">Deshacer</button>':'')+'</li>';
+  const sin = vivas().filter(x=>!x.up).length;
+  $('#pend').textContent = 'Sin copiar a Drive: '+sin; $('#pend').className = 'pill'+(sin?' warn':' ok');
+  $('#lista').innerHTML = vivas().slice(0,12).map(it=>{
+    const tp = tiempoDe(it.hora, it.prueba);
+    return '<li><span class="n">'+it.dorsal+'</span><span class="t">'+it.prueba+'K · '+it.hora+(tp?' · '+tp:'')+'<br><span class="st">'+(it.up?'✓ ya copiada a Drive':'● guardada en el teléfono')+'</span></span><button onclick="owDeshacer(\''+it.id+'\')">Deshacer</button></li>';
   }).join('');
 }
 
@@ -302,15 +279,11 @@ async function encender(){
 function apagar(){ activo=false; if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } try{ wl && wl.release(); }catch(e){} $('#cam').textContent='Encender cámara'; $('#estado').textContent='Cámara apagada'; $('#estado').className='pill'; }
 $('#cam').onclick = ()=> activo ? apagar() : encender();
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && activo && !wl){ try{ navigator.wakeLock && navigator.wakeLock.request('screen').then(x=>wl=x); }catch(e){} } });
-/* ---- prueba de conexión con la planilla ---- */
-$('#probar').onclick = e=>{ e.preventDefault(); const pr = $('#probres'); pr.style.display='block'; pr.textContent='Probando la planilla de '+prueba+'K…';
-  post({accion:'probarLlegada', prueba}).then(r=>{ pr.textContent = (r.pasos||[]).join('\n') + (r.ok ? '\n\n✓ La planilla responde bien.' : '\n\n✗ '+(r.error||'Falló')); }).catch(()=>{ pr.textContent='Sin conexión con el script de Google.'; }); };
-
-/* ---- finalizar · guardar en el celular · borrar ---- */
-function lecturas(){ return hist.filter(x=>x.estado==='ok' || x.estado==='pend').slice().sort((a,b)=> (a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba))); }
-function resumen(){ const L = lecturas(), n5 = L.filter(x=>x.prueba==='5').length, n10 = L.filter(x=>x.prueba==='10').length;
-  $('#finres').textContent = '5K: '+n5+' llegadas · 10K: '+n10+' llegadas'+(cola.length?' · ⚠ '+cola.length+' sin enviar a la planilla todavía':'')+'.'; }
-function filasExport(pr){ return lecturas().filter(x=>x.prueba===pr).map(x=>({ 'Dorsal': x.dorsal, 'Hora de llegada': x.hora })); }
+/* ---- finalizar · subir · copiar · guardar en el celular · borrar ---- */
+function lecturas(pr){ return vivas().filter(x=>!pr||x.prueba===pr).slice().sort((a,b)=> a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba)); }
+function resumen(){ const n5 = lecturas('5').length, n10 = lecturas('10').length, sin = vivas().filter(x=>!x.up).length;
+  $('#finres').textContent = '5K: '+n5+' llegadas · 10K: '+n10+' llegadas · sin copiar a Drive: '+sin+'.'; }
+function filasExport(pr){ return lecturas(pr).map(x=>({ 'Dorsal': x.dorsal, 'Hora de arribo': x.hora })); }
 function descargar(nombre, blob){ const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }
 function guardarLectura(){
   const f5 = filasExport('5'), f10 = filasExport('10'); if(!f5.length && !f10.length){ alert('Todavía no hay lecturas guardadas en este teléfono.'); return; }
@@ -320,28 +293,58 @@ function guardarLectura(){
     if(f5.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(f5), 'Tiempos 5K');
     if(f10.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(f10), 'Tiempos 10K');
     XLSX.writeFile(wb, base+'.xlsx');
-  } else {   // si no se subió ow-xlsx.js: se baja igual, como CSV (abre en Excel)
+  } else {
     const fila = o => Object.values(o).map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';');
-    const head = '"'+Object.keys((f5[0]||f10[0])).join('";"')+'"';
+    const head = '"Dorsal";"Hora de arribo"';
     const txt = ['5K'].concat([head], f5.map(fila), ['10K'], [head], f10.map(fila)).join('\r\n');
-    descargar(base+'.csv', new Blob(['﻿'+txt], {type:'text/csv'}));
-    alert('No se encontró ow-xlsx.js en el sitio: se guardó como .csv (se abre igual en Excel). Subí ow-xlsx.js para tener .xlsx.');
+    descargar(base+'.csv', new Blob(['\ufeff'+txt], {type:'text/csv'}));
+    alert('No se encontró ow-xlsx.js en el sitio: se guardó como .csv (se abre igual en Excel).');
   }
 }
+/* copiar "dorsal<TAB>hora" (sin encabezado) para pegar en la celda A2 de la planilla de esa distancia */
+function copiar(pr){
+  const L = lecturas(pr); if(!L.length){ alert('No hay lecturas de '+pr+'K.'); return; }
+  const txt = L.map(x=>x.dorsal+'\t'+x.hora).join('\n');
+  const listo = ()=>alert('Copiado: '+L.length+' llegadas de '+pr+'K.\n\nAbrí la planilla de '+pr+'K, tocá la celda A2 (debajo de «Dorsal») y pegá.\nSi ya tenía dorsales cargados, borrá primero esas filas.');
+  const viejo = ()=>{ const t = document.createElement('textarea'); t.value = txt; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); listo(); }catch(e){ prompt('Copiá este texto:', txt); } t.remove(); };
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(listo, viejo); else viejo();
+}
+$('#cp5').onclick = ()=>copiar('5'); $('#cp10').onclick = ()=>copiar('10');
+/* subir todo de una vez a las planillas (el script es repetible: no pisa horas ya cargadas) */
+async function subir(){
+  const out = $('#subres'); out.style.display='block';
+  if(!clave){ out.textContent='Falta el código: volvé a entrar.'; return; }
+  const partes = [];
+  for(const pr of ['5','10']){
+    const L = lecturas(pr); if(!L.length) continue;
+    out.textContent = partes.join('\n') + (partes.length?'\n':'') + 'Copiando '+pr+'K a Drive ('+L.length+')…';
+    try{
+      const r = await post({accion:'cargarLote', prueba:pr, items:L.map(x=>({dorsal:x.dorsal, hora:x.hora}))});
+      if(r && r.ok){
+        L.forEach(x=>{ if(!(r.sinHora||[]).includes(x.dorsal)) x.up = true; });
+        partes.push((r.sinHora&&r.sinHora.length?'⚠ ':'✓ ')+pr+'K: '+r.verificados+' de '+r.enviados+' con hora en la planilla ('+r.escritos+' nuevas'+(r.ya&&r.ya.length?', '+r.ya.length+' ya estaban: '+r.ya.join(', '):'')+')'+(r.sinHora&&r.sinHora.length?'\n   SIN hora: '+r.sinHora.join(', ')+' → usá «Copiar texto '+pr+'K» y pegá a mano':'')+(r.errores&&r.errores.length?'\n   Errores: '+r.errores.join(' | '):''));
+      } else if(r && /desconocida/i.test(r.error||'')){
+        partes.push('✗ '+pr+'K: el script de Google es una versión VIEJA. Pegá el .gs nuevo y publicá «Nueva versión», o usá «Copiar texto '+pr+'K» / el .xlsx.');
+      } else partes.push('✗ '+pr+'K: '+((r&&r.error)||'error desconocido')+' → usá «Copiar texto '+pr+'K».');
+    }catch(e){ partes.push('✗ '+pr+'K: sin conexión → probá de nuevo cuando tengas señal, o usá «Copiar texto '+pr+'K».'); }
+    guardar(); render();
+  }
+  out.textContent = partes.join('\n') || 'No hay lecturas para copiar a Drive.'; resumen();
+}
+$('#subir').onclick = subir;
 $('#fin').onclick = ()=>{
   if(!confirm('¿Finalizar la lectura? Se apaga la cámara.')) return;
-  apagar(); resumen(); $('#finpanel').style.display = 'block'; $('#finpanel').scrollIntoView({behavior:'smooth'}); enviar();
+  apagar(); resumen(); $('#finpanel').style.display = 'block'; $('#finpanel').scrollIntoView({behavior:'smooth'});
 };
 $('#volver').onclick = ()=>{ $('#finpanel').style.display='none'; };
 $('#xlsx').onclick = guardarLectura;
 $('#guardar').onclick = guardarLectura;
 $('#borrar').onclick = ()=>{
-  if(!confirm('¿Eliminar TODA la lectura guardada en este teléfono?\n\nSi no la guardaste en .xlsx, se pierde. La planilla de Drive no se toca.')) return;
-  if(cola.length && !confirm('Hay '+cola.length+' lecturas que todavía no llegaron a la planilla y se perderían. ¿Eliminar igual?')) return;
-  leidos={}; hist=[]; cola=[]; gLeidos(); guardar(); render(); resumen(); $('#finpanel').style.display='none'; alert('Lectura eliminada de este teléfono.');
+  if(!confirm('¿Eliminar TODA la lectura guardada en este teléfono?\n\nSi no la copiaste a Drive ni la guardaste en .xlsx, se pierde. La planilla de Drive no se toca.')) return;
+  const n = vivas().filter(x=>!x.up).length;
+  if(n && !confirm('Hay '+n+' lecturas que todavía NO copiaste a Drive y se perderían. ¿Eliminar igual?')) return;
+  hist=[]; guardar(); render(); resumen(); $('#finpanel').style.display='none'; $('#subres').style.display='none'; alert('Lectura eliminada de este teléfono.');
 };
-window.addEventListener('online', enviar);
-setInterval(()=>{ if(cola.length) enviar(); }, 6000);
 /* entrada automática si ya había una sesión abierta (va al final: necesita todo lo anterior definido) */
 try{ const c = sessionStorage.getItem('owc-clave'); if(c){ clave = c; abrir(); } }catch(e){ console.error(e); }
 })();
