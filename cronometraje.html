@@ -16,6 +16,8 @@ h1{font-size:1.1rem;letter-spacing:.14em;text-transform:uppercase;margin:6px 0 1
 .btn.big{width:100%;font-size:1.15rem;padding:18px}
 .btn.on{background:#c9a24d;color:#06141f}
 .btn:disabled{opacity:.5}
+#leer.on{background:#c9a24d!important;color:#06141f}
+.cam{cursor:pointer}
 input{width:100%;background:#0d2536;border:1px solid #234a66;color:#fff;border-radius:12px;padding:14px;font-size:1.2rem}
 .pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.8rem;background:#17344a}
 .pill.warn{background:#7a4b00}.pill.ok{background:#0b5d2e}
@@ -69,6 +71,11 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
     <video id="video" playsinline muted></video>
     <div class="frame"></div>
     <div id="flash"><div><div class="d" id="fd"></div><div class="p" id="fp"></div><div class="h" id="fh"></div><div class="t" id="ft"></div><div class="s" id="fs"></div></div></div>
+  </div>
+  <button class="btn big" id="leer" style="background:#0b8c46;font-size:1.5rem;padding:26px;margin-bottom:10px;display:none">⏱ LEER (tocá acá o la pantalla)</button>
+  <div class="seg" style="margin-bottom:10px">
+    <button class="btn sec" id="mt">Leer al tocar</button>
+    <button class="btn sec" id="ma">Automático</button>
   </div>
   <button class="btn big" id="cam">Encender cámara</button>
 
@@ -152,11 +159,11 @@ let leidos = ls.get('owc-leidos', {});   // 'prueba:dorsal' -> {hora, orden}
 function gLeidos(){ ls.set('owc-leidos', leidos); }
 
 /* ---- registrar una llegada ---- */
-function registrar(dorsal, origen){
-  const ts = Date.now(), key = prueba+':'+dorsal;
+function registrar(dorsal, origen, tsFijo){
+  const ahora = Date.now(), ts = tsFijo || ahora, key = prueba+':'+dorsal;
   if(leidos[key]){
-    if(origen==='qr' && leidos[key].t && ts-leidos[key].t < 10000) return;   // el mismo QR sigue frente a la cámara: no molestar
-    if(!registrar.av || ts-registrar.av > 2500){ registrar.av = ts; const l = leidos[key]; beep(false);
+    if(origen==='qr' && leidos[key].t && ahora-leidos[key].t < 10000) return;   // el mismo QR sigue frente a la cámara: no molestar
+    if(!registrar.av || ahora-registrar.av > 2500){ registrar.av = ahora; const l = leidos[key]; beep(false);
       flash('dup', {d:'Nº '+dorsal, p:'YA LEÍDO', h:(l.orden?'Puesto '+l.orden+' · ':'')+l.hora, t:tiempoDe(l.hora)?'Tiempo '+tiempoDe(l.hora):'', s:prueba+'K · no se registra de nuevo'}, 3000); }
     return;
   }
@@ -206,32 +213,68 @@ function render(){
 }
 
 /* ---- cámara + lectura de QR ---- */
-let stream = null, activo = false, wl = null;
+let stream = null, activo = false, wl = null, ocupado = false;
+let modo = ls.get('owc-modo','toque');   // 'toque' = lee al tocar la pantalla · 'auto' = lee solo
 const video = $('#video'), cv = $('#cv'), ctx = cv.getContext('2d', {willReadFrequently:true});
+const bd = ('BarcodeDetector' in window) ? (()=>{ try{ return new BarcodeDetector({formats:['qr_code']}); }catch(e){ return null; } })() : null;
 function dorsalDe(txt){ const m = String(txt||'').trim().match(/^OW27-(\d{1,5})$/i); return m ? parseInt(m[1],10) : null; }
-function bucle(){
-  if(!activo) return;
-  if(video.readyState >= 2){
-    const w = video.videoWidth, h = video.videoHeight, s = Math.min(1, 720/Math.max(w,h));
-    cv.width = Math.round(w*s); cv.height = Math.round(h*s);
-    ctx.drawImage(video,0,0,cv.width,cv.height);
-    const img = ctx.getImageData(0,0,cv.width,cv.height);
-    const q = jsQR(img.data, img.width, img.height, {inversionAttempts:'dontInvert'});
-    if(q && q.data){
-      const d = dorsalDe(q.data);
-      if(d){ registrar(d,'qr'); }
-      else if(!bucle.ult || Date.now()-bucle.ult>3000){ bucle.ult=Date.now(); beep(false); flash('err',{d:'QR no válido',h:'No es un dorsal de OW'},2500); }
-    }
+
+/* decodifica el cuadro actual: primero el lector nativo del teléfono (rápido), si no jsQR */
+async function decodificar(){
+  if(video.readyState < 2) return null;
+  if(bd){ try{ const r = await bd.detect(video); if(r && r.length) return r[0].rawValue; }catch(e){} }
+  const w = video.videoWidth, h = video.videoHeight;
+  // recorte central (donde el usuario apunta) y reducido: mucho más rápido que el cuadro completo
+  const lado = Math.min(w,h), sx = Math.round((w-lado)/2), sy = Math.round((h-lado)/2), out = Math.min(520, lado);
+  cv.width = out; cv.height = out; ctx.drawImage(video, sx, sy, lado, lado, 0, 0, out, out);
+  let q = jsQR(ctx.getImageData(0,0,out,out).data, out, out, {inversionAttempts:'dontInvert'});
+  if(!q && lado > 700){   // QR chico o lejos: segundo intento con el cuadro completo
+    const s = Math.min(1, 900/Math.max(w,h)); cv.width = Math.round(w*s); cv.height = Math.round(h*s); ctx.drawImage(video,0,0,cv.width,cv.height);
+    q = jsQR(ctx.getImageData(0,0,cv.width,cv.height).data, cv.width, cv.height, {inversionAttempts:'dontInvert'});
   }
-  setTimeout(()=>requestAnimationFrame(bucle), 80);
+  return q && q.data ? q.data : null;
 }
+function procesar(txt, ts, origen){
+  const d = dorsalDe(txt);
+  if(d){ registrar(d, origen||'qr', ts); return true; }
+  if(!procesar.ult || Date.now()-procesar.ult>3000){ procesar.ult=Date.now(); beep(false); flash('err',{d:'QR no válido',h:'No es un dorsal de OW'},2500); }
+  return true;
+}
+/* modo automático */
+async function bucle(){
+  if(!activo || modo!=='auto'){ return; }
+  try{ const t = await decodificar(); if(t) procesar(t); }catch(e){}
+  setTimeout(bucle, 30);
+}
+/* modo por toque: la hora que queda es la del instante del toque */
+async function leerAhora(){
+  if(!activo){ $('#msg').textContent='Primero encendé la cámara.'; return; }
+  if(ocupado) return; ocupado = true;
+  const ts = Date.now(); $('#leer').classList.add('on');
+  try{
+    let t = null;
+    for(let i=0; i<30 && !t && Date.now()-ts < 1800; i++){ t = await decodificar(); if(!t) await new Promise(r=>setTimeout(r,35)); }
+    if(t) procesar(t, ts, 'toque');
+    else { beep(false); flash('err',{d:'NO SE LEYÓ',h:'Acercá el QR y tocá de nuevo'},1800); }
+  }finally{ ocupado = false; $('#leer').classList.remove('on'); }
+}
+$('#leer').addEventListener('click', leerAhora);
+$('.cam').addEventListener('click', ()=>{ if(modo==='toque') leerAhora(); });
+function marcarModo(){
+  $('#mt').classList.toggle('on', modo==='toque'); $('#ma').classList.toggle('on', modo==='auto');
+  $('#leer').style.display = modo==='toque' ? '' : 'none';
+  $('#estado').textContent = !activo ? 'Cámara apagada' : (modo==='toque' ? 'Tocá para leer' : 'Leyendo…');
+  if(activo && modo==='auto') bucle();
+}
+$('#mt').onclick = ()=>{ modo='toque'; ls.set('owc-modo',modo); marcarModo(); };
+$('#ma').onclick = ()=>{ modo='auto'; ls.set('owc-modo',modo); marcarModo(); };
 async function encender(){
   try{
-    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});
+    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720},frameRate:{ideal:30}},audio:false});
     video.srcObject = stream; await video.play(); activo = true;
-    $('#cam').textContent='Apagar cámara'; $('#estado').textContent='Leyendo…'; $('#estado').className='pill ok';
+    $('#cam').textContent='Apagar cámara'; $('#estado').className='pill ok';
     try{ if(navigator.wakeLock) wl = await navigator.wakeLock.request('screen'); }catch(e){}
-    bucle();
+    marcarModo();
   }catch(e){ $('#msg').textContent='No se pudo abrir la cámara. Dale permiso al navegador (y usá https).'; }
 }
 function apagar(){ activo=false; if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } try{ wl && wl.release(); }catch(e){} $('#cam').textContent='Encender cámara'; $('#estado').textContent='Cámara apagada'; $('#estado').className='pill'; }
