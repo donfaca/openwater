@@ -88,7 +88,8 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
 
   <p class="hint" style="margin:6px 0 0">Últimas lecturas</p>
   <ul id="lista"></ul>
-  <button class="btn big" id="fin" style="background:#8a1f2b;margin-top:14px">■ Finalizar cronómetro de lectura</button>
+  <button class="btn big" id="guardar" style="background:#0b8c46;margin-top:14px">⬇ Guardar lo leído en mi celular (.xlsx)</button>
+  <button class="btn big" id="fin" style="margin-top:8px;background:#8a1f2b" >■ Finalizar cronómetro de lectura</button>
   <div id="finpanel" style="display:none;margin-top:12px;background:#0d2536;border:1px solid #234a66;border-radius:14px;padding:14px">
     <div style="font-weight:800;font-size:1.05rem;margin-bottom:6px">Lectura finalizada</div>
     <div class="hint" id="finres" style="margin-bottom:10px"></div>
@@ -138,7 +139,7 @@ function entrar(){
 function ok(){ try{ sessionStorage.setItem('owc-clave', clave);}catch(e){} abrir(); }
 $('#entrar').onclick = entrar; $('#clave').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar(); });
 function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; marcarPrueba(); render(); enviar(); }
-try{ const c = sessionStorage.getItem('owc-clave'); if(c){ clave = c; abrir(); } }catch(e){}
+
 
 /* ---- prueba ---- */
 function marcarPrueba(){ $('#p5').classList.toggle('on', prueba==='5'); $('#p10').classList.toggle('on', prueba==='10'); }
@@ -226,7 +227,7 @@ function render(){
 
 /* ---- cámara + lectura de QR ---- */
 let stream = null, activo = false, wl = null, ocupado = false;
-let modo = ls.get('owc-modo','toque');   // 'toque' = lee al tocar la pantalla · 'auto' = lee solo
+let modo = ls.get('owc-modo','auto');   // 'toque' = lee al tocar la pantalla · 'auto' = lee solo
 const video = $('#video'), cv = $('#cv'), ctx = cv.getContext('2d', {willReadFrequently:true});
 const bd = ('BarcodeDetector' in window) ? (()=>{ try{ return new BarcodeDetector({formats:['qr_code']}); }catch(e){ return null; } })() : null;
 function dorsalDe(txt){ const m = String(txt||'').trim().match(/^OW27-(\d{1,5})$/i); return m ? parseInt(m[1],10) : null; }
@@ -254,23 +255,28 @@ function procesar(txt, ts, origen){
   if(!procesar.ult || Date.now()-procesar.ult>3000){ procesar.ult=Date.now(); beep(false); flash('err',{d:'QR no válido',h:'No es un dorsal de OW'},2500); }
   return true;
 }
-/* modo automático */
+/* la cámara decodifica SIEMPRE mientras está encendida (así el toque responde al instante) */
+let ult = null;   // última lectura: {txt, t}
 async function bucle(){
-  if(!activo || modo!=='auto'){ return; }
-  try{ const t = await decodificar(); if(t) procesar(t); }catch(e){}
-  setTimeout(bucle, 30);
+  if(!activo || bucle.corre){ return; } bucle.corre = true;
+  while(activo){
+    try{ const t = await decodificar(); if(t){ ult = {txt:t, t:Date.now()}; if(modo==='auto') procesar(t); } }catch(e){}
+    await new Promise(r=>setTimeout(r, 25));
+  }
+  bucle.corre = false;
 }
-/* modo por toque: la hora que queda es la del instante del toque */
+/* modo por toque: la hora que queda es la del instante del toque; usa la lectura de la cámara (ya detectada o la que aparezca en los próximos 5 s) */
 async function leerAhora(){
   if(!activo){ $('#msg').textContent='Primero encendé la cámara.'; return; }
   if(ocupado) return; ocupado = true;
-  const ts = Date.now(); $('#leer').classList.add('on');
+  const ts = Date.now(); $('#leer').classList.add('on'); $('#leer').textContent = 'Buscando el QR…';
   try{
     let t = null;
-    for(let i=0; i<30 && !t && Date.now()-ts < 1800; i++){ t = await decodificar(); if(!t) await new Promise(r=>setTimeout(r,35)); }
-    if(t) procesar(t, ts, 'toque');
-    else { beep(false); flash('err',{d:'NO SE LEYÓ',h:'Acercá el QR y tocá de nuevo'},1800); }
-  }finally{ ocupado = false; $('#leer').classList.remove('on'); }
+    if(ult && ts - ult.t < 2500) t = ult.txt;
+    for(let i=0; !t && Date.now()-ts < 5000; i++){ if(ult && ult.t >= ts-300){ t = ult.txt; break; } await new Promise(r=>setTimeout(r,40)); }
+    if(t){ ult = null; procesar(t, ts, 'toque'); }
+    else { beep(false); flash('err',{d:'NO SE LEYÓ',h:'Acercá el QR y tocá de nuevo'},2000); }
+  }finally{ ocupado = false; $('#leer').classList.remove('on'); $('#leer').textContent = '⏱ LEER (tocá acá o la pantalla)'; }
 }
 $('#leer').addEventListener('click', leerAhora);
 $('.cam').addEventListener('click', ()=>{ if(modo==='toque') leerAhora(); });
@@ -278,7 +284,7 @@ function marcarModo(){
   $('#mt').classList.toggle('on', modo==='toque'); $('#ma').classList.toggle('on', modo==='auto');
   $('#leer').style.display = modo==='toque' ? '' : 'none';
   $('#estado').textContent = !activo ? 'Cámara apagada' : (modo==='toque' ? 'Tocá para leer' : 'Leyendo…');
-  if(activo && modo==='auto') bucle();
+  if(activo) bucle();
 }
 $('#mt').onclick = ()=>{ modo='toque'; ls.set('owc-modo',modo); marcarModo(); };
 $('#ma').onclick = ()=>{ modo='auto'; ls.set('owc-modo',modo); marcarModo(); };
@@ -300,25 +306,35 @@ $('#probar').onclick = e=>{ e.preventDefault(); const pr = $('#probres'); pr.sty
   post({accion:'probarLlegada', prueba}).then(r=>{ pr.textContent = (r.pasos||[]).join('\n') + (r.ok ? '\n\n✓ La planilla responde bien.' : '\n\n✗ '+(r.error||'Falló')); }).catch(()=>{ pr.textContent='Sin conexión con el script de Google.'; }); };
 
 /* ---- finalizar · guardar en el celular · borrar ---- */
-function lecturas(){ return hist.filter(x=>x.estado==='ok' || x.estado==='pend').slice().sort((a,b)=> (a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba))); }
+function lecturas(){ return hist.filter(x=>x.estado!=='borrada').slice().sort((a,b)=> (a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba))); }
+const ESTADOS = {ok:'en planilla', pend:'sin enviar', dup:'repetido (no se cargó)', err:'error (no se cargó)'};
 function resumen(){ const L = lecturas(), n5 = L.filter(x=>x.prueba==='5').length, n10 = L.filter(x=>x.prueba==='10').length;
-  $('#finres').textContent = '5K: '+n5+' llegadas · 10K: '+n10+' llegadas'+(cola.length?' · ⚠ '+cola.length+' sin enviar a la planilla todavía':'')+'.'; }
+  $('#finres').textContent = '5K: '+n5+' lecturas · 10K: '+n10+' lecturas'+(cola.length?' · ⚠ '+cola.length+' sin enviar a la planilla todavía':'')+'.'; }
+function filasExport(pr){ return lecturas().filter(x=>x.prueba===pr).map((x,i)=>({ 'N° de lectura': i+1, 'Puesto en planilla': x.orden||'', 'Dorsal': x.dorsal, 'Hora de arribo': x.hora, 'Tiempo desde la largada': tiempoDe(x.hora, pr), 'Estado': ESTADOS[x.estado]||x.estado, 'Fecha y hora exacta': new Date(x.ts).toISOString() })); }
+function descargar(nombre, blob){ const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }
+function guardarLectura(){
+  const f5 = filasExport('5'), f10 = filasExport('10'); if(!f5.length && !f10.length){ alert('Todavía no hay lecturas guardadas en este teléfono.'); return; }
+  const d = new Date(), base = 'lectura-summer-2027-'+d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes());
+  if(typeof XLSX !== 'undefined'){
+    const wb = XLSX.utils.book_new();
+    if(f5.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(f5), 'Tiempos 5K');
+    if(f10.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(f10), 'Tiempos 10K');
+    XLSX.writeFile(wb, base+'.xlsx');
+  } else {   // si no se subió ow-xlsx.js: se baja igual, como CSV (abre en Excel)
+    const fila = o => Object.values(o).map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';');
+    const head = '"'+Object.keys((f5[0]||f10[0])).join('";"')+'"';
+    const txt = ['5K'].concat([head], f5.map(fila), ['10K'], [head], f10.map(fila)).join('\r\n');
+    descargar(base+'.csv', new Blob(['﻿'+txt], {type:'text/csv'}));
+    alert('No se encontró ow-xlsx.js en el sitio: se guardó como .csv (se abre igual en Excel). Subí ow-xlsx.js para tener .xlsx.');
+  }
+}
 $('#fin').onclick = ()=>{
   if(!confirm('¿Finalizar la lectura? Se apaga la cámara.')) return;
   apagar(); resumen(); $('#finpanel').style.display = 'block'; $('#finpanel').scrollIntoView({behavior:'smooth'}); enviar();
 };
 $('#volver').onclick = ()=>{ $('#finpanel').style.display='none'; };
-$('#xlsx').onclick = ()=>{
-  if(typeof XLSX === 'undefined'){ alert('No se pudo cargar el generador de Excel (ow-xlsx.js).'); return; }
-  const L = lecturas(); if(!L.length){ alert('No hay lecturas para guardar.'); return; }
-  const wb = XLSX.utils.book_new();
-  ['5','10'].forEach(pr=>{
-    const filas = L.filter(x=>x.prueba===pr).map((x,i)=>({ 'Puesto (orden en esta lectura)': i+1, 'Puesto en planilla': x.orden||'', 'Dorsal': x.dorsal, 'Hora de arribo': x.hora, 'Tiempo desde la largada': tiempoDe(x.hora, pr), 'Estado': x.estado==='ok'?'en planilla':'sin enviar', 'Fecha y hora exacta': new Date(x.ts).toISOString() }));
-    if(filas.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(filas), 'Tiempos '+pr+'K');
-  });
-  const d = new Date(), nom = 'lectura-summer-2027-'+d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes())+'.xlsx';
-  XLSX.writeFile(wb, nom);
-};
+$('#xlsx').onclick = guardarLectura;
+$('#guardar').onclick = guardarLectura;
 $('#borrar').onclick = ()=>{
   if(!confirm('¿Eliminar TODA la lectura guardada en este teléfono?\n\nSi no la guardaste en .xlsx, se pierde. La planilla de Drive no se toca.')) return;
   if(cola.length && !confirm('Hay '+cola.length+' lecturas que todavía no llegaron a la planilla y se perderían. ¿Eliminar igual?')) return;
@@ -326,6 +342,8 @@ $('#borrar').onclick = ()=>{
 };
 window.addEventListener('online', enviar);
 setInterval(()=>{ if(cola.length) enviar(); }, 6000);
+/* entrada automática si ya había una sesión abierta (va al final: necesita todo lo anterior definido) */
+try{ const c = sessionStorage.getItem('owc-clave'); if(c){ clave = c; abrir(); } }catch(e){ console.error(e); }
 })();
 </script>
 </body>
