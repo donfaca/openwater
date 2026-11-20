@@ -97,6 +97,8 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
     <button class="btn big sec" id="volver">Volver a leer</button>
     <p class="hint" style="margin:10px 0 0">Eliminar solo borra la memoria de este teléfono. La planilla de Drive no se toca: esa la borrás vos a mano.</p>
   </div>
+  <p class="hint"><a href="#" id="probar" style="color:#9bb6c9">Probar conexión con la planilla</a> (escribe y borra un dorsal de prueba, 99999).</p>
+  <pre id="probres" style="display:none;white-space:pre-wrap;background:#0d2536;border:1px solid #234a66;border-radius:12px;padding:12px;font-size:.8rem;color:#cfe3f1"></pre>
   <p class="hint"><a href="#" id="limpiar" style="color:#9bb6c9">Borrar la memoria de este teléfono</a> (solo si vas a empezar una prueba nueva; no toca la planilla).</p>
   <p class="hint">La hora que queda en la planilla es la del instante exacto en que se leyó el código. Si no hay señal, las lecturas quedan guardadas en el teléfono y se envían solas cuando vuelve la conexión.</p>
 </div>
@@ -293,6 +295,10 @@ async function encender(){
 function apagar(){ activo=false; if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } try{ wl && wl.release(); }catch(e){} $('#cam').textContent='Encender cámara'; $('#estado').textContent='Cámara apagada'; $('#estado').className='pill'; }
 $('#cam').onclick = ()=> activo ? apagar() : encender();
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && activo && !wl){ try{ navigator.wakeLock && navigator.wakeLock.request('screen').then(x=>wl=x); }catch(e){} } });
+/* ---- prueba de conexión con la planilla ---- */
+$('#probar').onclick = e=>{ e.preventDefault(); const pr = $('#probres'); pr.style.display='block'; pr.textContent='Probando la planilla de '+prueba+'K…';
+  post({accion:'probarLlegada', prueba}).then(r=>{ pr.textContent = (r.pasos||[]).join('\n') + (r.ok ? '\n\n✓ La planilla responde bien.' : '\n\n✗ '+(r.error||'Falló')); }).catch(()=>{ pr.textContent='Sin conexión con el script de Google.'; }); };
+
 /* ---- finalizar · guardar en el celular · borrar ---- */
 function lecturas(){ return hist.filter(x=>x.estado==='ok' || x.estado==='pend').slice().sort((a,b)=> (a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba))); }
 function resumen(){ const L = lecturas(), n5 = L.filter(x=>x.prueba==='5').length, n10 = L.filter(x=>x.prueba==='10').length;
