@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>QR de dorsales · Open Water Río Negro</title>
+<title>QR de dorsales · Summer Open Water 2027</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#f3f6f9;color:#0a2438}
@@ -32,7 +32,7 @@ button{border:0;background:#12688f;color:#fff;font-weight:700;padding:12px 18px;
 </head>
 <body>
 <div class="panel">
-  <h1>QR de dorsales</h1>
+  <h1>QR de dorsales · Summer Open Water 2027</h1>
   <p class="hint">Cada código contiene el número de dorsal (<code>OW27-123</code>). La página de cronometraje lo lee al llegar el nadador. Imprimí en A4 y recortá por las líneas punteadas.</p>
   <div class="card">
     <div class="g">
@@ -54,6 +54,9 @@ button{border:0;background:#12688f;color:#fff;font-weight:700;padding:12px 18px;
 <script>
 (function(){
 const $ = s => document.querySelector(s);
+/*CFG*/
+const CFG = {pref:'OW27', ev:'Open Water 2027'};
+/*/CFG*/
 function dorsales(){
   const t = $('#lista').value.trim(), out = [];
   if(t){
@@ -71,7 +74,7 @@ function generar(){
   const L = dorsales(), cm = +$('#tam').value, cols = +$('#cols').value, px = Math.round(cm*37.8);
   if(!L.length){ $('#info').textContent='Revisá el rango de dorsales.'; return; }
   const h = $('#hoja'); h.style.gridTemplateColumns = 'repeat('+cols+',1fr)'; h.style.width = Math.min(cols*(cm+1.2),19.4)+'cm';
-  h.innerHTML = L.map(n=>'<div class="q">'+qrSvg('OW27-'+n, px)+'<div class="n" style="font-size:'+(cm*0.42)+'cm">'+n+'</div><div class="e">Open Water 2027</div></div>').join('');
+  h.innerHTML = L.map(n=>'<div class="q">'+qrSvg(CFG.pref+'-'+n, px)+'<div class="n" style="font-size:'+(cm*0.42)+'cm">'+n+'</div><div class="e">'+CFG.ev+'</div></div>').join('');
   $('#info').textContent = L.length+' códigos generados ('+L[0]+' a '+L[L.length-1]+').';
 }
 $('#gen').onclick = generar; $('#imp').onclick = ()=>{ if(!$('#hoja').children.length) generar(); window.print(); };

@@ -124,7 +124,7 @@
         </div>
         <div style="background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:50%;background:#c9a24d;color:#1b1405;font:800 15px 'Barlow',sans-serif;display:flex;align-items:center;justify-content:center;">2</span><span style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;">Cargar tiempos</span></div>
-          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Se lee sola de la planilla de Drive «Tiempos Eclipse» (columnas: orden de llegada, dorsal y hora de llegada hh:mm:ss). También podés subir un archivo a mano. El tiempo de nado es la hora de llegada menos la hora de largada; nombre, género y traje salen de los inscriptos.</div>
+          <div style="color:#a9c6d6;font-size:14px;line-height:1.45;flex:1;">Se lee sola de la planilla de Drive «Tiempos-Eclipse-2.5K-2027» (columnas: Dorsal y Hora de arribo hh:mm:ss), que completa el lector de QR de Cronometraje Eclipse. También podés subir un archivo a mano. El tiempo de nado es la hora de llegada menos la hora de largada; nombre, género y traje salen de los inscriptos.</div>
           <label style="font-size:13px;color:#a9c6d6;">Hora de largada (hh:mm:ss)<input value="{{ largada }}" onInput="{{ onLargada }}" placeholder="10:45:00" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:9px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:700 15px 'Barlow',sans-serif;"></label>
           <div style="color:#ffd58a;font-size:13px;font-weight:700;">{{ tiemInfo }}</div>
           <button onClick="{{ eLeer }}" style="background:#ff6b5e;color:#2a0603;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Leer tiempos de la planilla</button>
@@ -142,6 +142,8 @@
       <div style="margin-top:14px;min-height:22px;color:#ffd58a;font-weight:600;">{{ msg }}</div>
 
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:6px;">
+        <a href="cronometraje-eclipse.html" target="_blank" rel="noopener" style="text-decoration:none;background:#12688f;color:#fff;border:1px solid #38bdf8;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">⏱ Cronometraje Eclipse (leer QR)</a>
+        <a href="qr-dorsales-eclipse.html" target="_blank" rel="noopener" style="text-decoration:none;background:#12688f;color:#fff;border:1px solid #38bdf8;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">🔳 QR de dorsales Eclipse</a>
         <button onClick="{{ pdf }}" style="background:transparent;color:#c9a24d;border:1px solid #c9a24d;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar PDF</button>
         <button onClick="{{ download }}" style="background:transparent;color:#86efac;border:1px solid #4ade80;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Descargar Excel (CSV)</button>
         <button onClick="{{ eToggle }}" style="margin-left:auto;background:{{ ePubBg }};color:#fff;border:1px solid #a78bfa;border-radius:9px;padding:12px 18px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">{{ ePubTxt }}</button>
@@ -360,7 +362,7 @@ class Component extends DCLogic {
       const iT = ix(/traje|neopreno|cuero/); const insc = []; let k = 0;
       rows.slice(1).filter(r => r.join('').trim()).forEach(r => { k++;
         const dns = iNo >= 0 && /NO SE PRESENT/i.test(r[iNo] || '');
-        insc.push({ id: (iI >= 0 && r[iI]) || String(k), nombre: (r[iN] || '').replace(/;/g, ' '), sexo: this.gen(r[iG] || ''), traje: iT >= 0 ? this.traje(r[iT]) : '', est: dns ? 'DNS' : '' }); });
+        insc.push({ id: (iI >= 0 && r[iI]) || String(k), nombre: (r[iN] || '').replace(/;/g, ' '), sexo: this.gen(r[iG] || ''), traje: (iT >= 0 ? this.traje(r[iT]) : '') || (iNo >= 0 ? this.traje((String(r[iNo] || '').match(/Categor[ií]a de premiaci[oó]n:\s*(Cuero|Neopreno)/i) || [])[1] || '') : ''), est: dns ? 'DNS' : '' }); });
       this.setState({ insc, manual: false, ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', groups: [], inscInfo: k + ' inscriptos leídos', msg: k + ' inscriptos leídos. Siguiente: paso 2.' });
     }).catch(() => this.setState({ msg: 'No se pudo leer la planilla. Revisá la conexión.' }));
   };

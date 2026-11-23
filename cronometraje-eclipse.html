@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Cronometraje · OWeclipse 2027 (2.5K)</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#06141f;color:#fff;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+body{min-height:100vh;padding:12px 12px 40px;max-width:560px;margin:0 auto}
+h1{font-size:1.1rem;letter-spacing:.14em;text-transform:uppercase;margin:6px 0 10px;color:#c9a24d}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:14px 16px;font-size:1rem;font-weight:700;color:#fff;background:#12688f;cursor:pointer}
+.btn.sec{background:#17344a}
+.btn.big{width:100%;font-size:1.15rem;padding:18px}
+.btn.on{background:#c9a24d;color:#06141f}
+.btn:disabled{opacity:.5}
+#leer.on{background:#c9a24d!important;color:#06141f}
+.cam{cursor:pointer}
+input{width:100%;background:#0d2536;border:1px solid #234a66;color:#fff;border-radius:12px;padding:14px;font-size:1.2rem}
+.pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.8rem;background:#17344a}
+.pill.warn{background:#7a4b00}.pill.ok{background:#0b5d2e}
+#gate{margin-top:30px}
+#app{display:none}
+.cam{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:1/1;margin:10px 0}
+.cam video{width:100%;height:100%;object-fit:cover;display:block}
+.cam .frame{position:absolute;inset:18%;border:3px solid rgba(255,255,255,.7);border-radius:18px;pointer-events:none}
+#flash{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;font-weight:800;line-height:1.05}
+#flash.ok{background:rgba(11,140,70,.93);display:flex}
+#flash.dup{background:rgba(210,120,0,.95);display:flex}
+#flash.err{background:rgba(190,30,30,.95);display:flex}
+#flash .d{font-size:4.8rem}#flash .p{font-size:2.3rem;font-weight:800;letter-spacing:.04em}#flash .h{font-size:1.9rem;font-variant-numeric:tabular-nums}#flash .t{font-size:1.3rem;font-weight:700;color:#d8fff0;font-variant-numeric:tabular-nums}#flash .s{font-size:1rem;font-weight:600;margin-top:6px}
+.seg{display:flex;gap:8px}.seg .btn{flex:1}
+ul{list-style:none;margin:10px 0 0;padding:0}
+li{display:flex;align-items:center;gap:10px;background:#0d2536;border-radius:12px;padding:10px 12px;margin-bottom:6px;font-variant-numeric:tabular-nums}
+li .n{font-size:1.5rem;font-weight:800;min-width:72px}
+li .t{flex:1;color:#cfe3f1}
+li .st{font-size:.78rem}
+li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8px 10px;font-weight:700}
+.msg{min-height:1.3em;color:#ffb4b4;margin:8px 0}
+.hint{color:#9bb6c9;font-size:.85rem;line-height:1.4}
+</style>
+</head>
+<body>
+<h1>Cronometraje de llegada · OWeclipse 2.5K</h1>
+
+<div id="gate">
+  <p class="hint">Ingresá el código de organización.</p>
+  <input id="clave" type="password" inputmode="numeric" placeholder="Código" autocomplete="off">
+  <div class="msg" id="gmsg"></div>
+  <button class="btn big" id="entrar">Entrar</button>
+</div>
+
+<div id="app">
+  <div class="seg" id="segp"></div>
+  <div class="row" style="margin:10px 0 0;justify-content:space-between">
+    <span class="pill" id="estado">Cámara apagada</span>
+    <span class="pill" id="pend">Sin copiar a Drive: 0</span>
+  </div>
+
+  <div class="row" style="margin:8px 0 0;flex-wrap:nowrap">
+    <label class="hint" for="larg" style="flex:0 0 auto">Hora de largada (opcional, para mostrar el tiempo)</label>
+    <input id="larg" placeholder="hh:mm:ss" inputmode="numeric" style="width:120px;padding:10px;font-size:1rem">
+  </div>
+
+  <div class="cam">
+    <video id="video" playsinline muted></video>
+    <div class="frame"></div>
+    <div id="flash"><div><div class="d" id="fd"></div><div class="p" id="fp"></div><div class="h" id="fh"></div><div class="t" id="ft"></div><div class="s" id="fs"></div></div></div>
+  </div>
+  <button class="btn big" id="leer" style="background:#0b8c46;font-size:1.5rem;padding:26px;margin-bottom:10px;display:none">⏱ LEER (tocá acá o la pantalla)</button>
+  <div class="seg" style="margin-bottom:10px">
+    <button class="btn sec" id="mt">Leer al tocar</button>
+    <button class="btn sec" id="ma">Automático</button>
+  </div>
+  <button class="btn big" id="cam">Encender cámara</button>
+
+  <p class="hint" style="margin:14px 0 6px">¿No lee el código? Cargá el dorsal a mano:</p>
+  <div class="row" style="flex-wrap:nowrap">
+    <input id="manual" type="number" inputmode="numeric" placeholder="N° de dorsal" style="flex:1">
+    <button class="btn" id="mbtn" style="flex:0 0 auto">Registrar</button>
+  </div>
+  <div class="msg" id="msg"></div>
+
+  <p class="hint" style="margin:6px 0 0">Últimas lecturas</p>
+  <ul id="lista"></ul>
+  <button class="btn big" id="guardar" style="background:#0b8c46;margin-top:14px">⬇ Guardar lo leído en mi celular (.xlsx)</button>
+  <button class="btn big" id="fin" style="margin-top:8px;background:#8a1f2b" >■ Finalizar cronómetro de lectura</button>
+  <div id="finpanel" style="display:none;margin-top:12px;background:#0d2536;border:1px solid #234a66;border-radius:14px;padding:14px">
+    <div style="font-weight:800;font-size:1.05rem;margin-bottom:6px">Lectura finalizada</div>
+    <div class="hint" id="finres" style="margin-bottom:10px"></div>
+    <div style="font-weight:700;margin:4px 0">Cuando la lectura esté cerrada:</div>
+    <button class="btn big" id="subir" style="background:#0b8c46;font-size:1.3rem;padding:22px;margin-bottom:8px">☁ COPIAR A DRIVE (planillas 5K y 10K)</button>
+    <pre id="subres" style="display:none;white-space:pre-wrap;background:#06141f;border:1px solid #234a66;border-radius:12px;padding:10px;font-size:.85rem;color:#cfe3f1;margin:0 0 8px"></pre>
+    <div class="hint" style="margin:6px 0">Plan B si «Copiar a Drive» no funciona: copiá el texto y pegalo en la celda A2 de cada planilla:</div>
+    <div class="seg" style="margin-bottom:8px" id="cpbtns"></div>
+    <button class="btn big" id="xlsx" style="background:#0b8c46;margin-bottom:8px">⬇ Guardar la lectura en mi celular (.xlsx)</button>
+    <button class="btn big" id="borrar" style="background:#8a1f2b;margin-bottom:8px">🗑 Eliminar toda la lectura del teléfono</button>
+    <button class="btn big sec" id="volver">Volver a leer</button>
+    <p class="hint" style="margin:10px 0 0">Eliminar solo borra la memoria de este teléfono. La planilla de Drive no se toca: esa la borrás vos a mano.</p>
+  </div>
+  <p class="hint"><a href="#" id="limpiar" style="color:#9bb6c9">Borrar la memoria de este teléfono</a> (solo si vas a empezar una prueba nueva; no toca la planilla).</p>
+  <p class="hint">Las lecturas se guardan en este teléfono con la hora exacta del instante en que se leyó el código (no hace falta señal). Al terminar, tocá «Finalizar» y después «Copiar a Drive».</p>
+</div>
+
+<canvas id="cv" style="display:none"></canvas>
+<script src="./ow-jsqr.js"></script>
+<script src="./ow-xlsx.js"></script>
+<script>
+(function(){
+const API = 'https://script.google.com/macros/s/AKfycbxIaZeJVEvJ5pVyrxjSVmxo0oH5Be25zwl6ysPXzY9eNGm8g-TA8unT7LqdKIZWJJsKlg/exec';
+const $ = s => document.querySelector(s);
+const ls = { get(k,d){ try{ const v = localStorage.getItem(k); return v==null?d:JSON.parse(v);}catch(e){return d;} }, set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
+/*CFG*/
+const CFG = {ev:'eclipse', pruebas:['E'], nom:{'E':'2.5K'}, pref:'OWE27', arch:'lectura-eclipse-2027', hoja:{'E':'Tiempos-Eclipse'}, k:'owe', pl:'Llegada '};
+/*/CFG*/
+const NOM = pr => CFG.nom[pr] || pr;
+let clave = '', prueba = ls.get(CFG.k+'-prueba', CFG.pruebas[0]); if(CFG.pruebas.indexOf(prueba)<0) prueba = CFG.pruebas[0];
+let hist = ls.get(CFG.k+'-hist', []);      // TODAS las lecturas (viven en el teléfono): {id,prueba,dorsal,ts,hora,estado:'ok'|'borrada',up:bool}
+const z = n => String(n).padStart(2,'0');
+const hms = ts => { const d = new Date(ts); return z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds()); };
+function guardar(){ ls.set(CFG.k+'-hist', hist.slice(0,5000)); }
+
+/* ---- acceso ---- */
+function post(o){ return fetch(API,{method:'POST',body:JSON.stringify(Object.assign({clave:clave},o))}).then(r=>r.json()); }
+function entrar(){
+  clave = $('#clave').value.trim(); if(!clave){ return; }
+  $('#gmsg').textContent = 'Verificando…';
+  post({accion:'verificarClave'}).then(r=>{
+    if(r && r.ok){ ok(); return; }
+    if(r && /desconocida/i.test(r.error||'')){
+      return post({accion:'listarCupones', evento:CFG.ev}).then(q=>{ if(q && q.ok) ok(); else $('#gmsg').textContent = 'Código incorrecto.'; });
+    }
+    $('#gmsg').textContent = (r && r.error) ? r.error : 'Código incorrecto.';
+  }).catch(()=>{ ok(); $('#msg').textContent='Sin señal: podés leer igual; la lectura queda en el teléfono y el código se verifica al copiar a Drive.'; });
+}
+function ok(){ try{ sessionStorage.setItem('owc-clave', clave);}catch(e){} abrir(); }
+$('#entrar').onclick = entrar; $('#clave').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar(); });
+function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; marcarPrueba(); render(); }
+
+/* ---- prueba ---- */
+function marcarPrueba(){ document.querySelectorAll('#segp button').forEach(b=>b.classList.toggle('on', b.dataset.p===prueba)); }
+(function(){ const c = $('#segp'); if(CFG.pruebas.length<2){ c.style.display='none'; return; }
+  CFG.pruebas.forEach(pr=>{ const b = document.createElement('button'); b.className='btn sec'; b.dataset.p = pr; b.textContent = CFG.pl+NOM(pr); b.onclick = ()=>{ prueba=pr; ls.set(CFG.k+'-prueba',prueba); marcarPrueba(); $('#larg').value=(largada&&largada[prueba])||''; }; c.appendChild(b); }); })();
+
+/* ---- sonido / vibración ---- */
+let ac = null;
+function beep(ok){ try{ ac = ac || new (window.AudioContext||window.webkitAudioContext)(); const o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = ok?1000:300; g.gain.value=.25; o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime+(ok?.12:.35)); }catch(e){} try{ navigator.vibrate && navigator.vibrate(ok?80:[120,60,120]); }catch(e){} }
+let ftm = 0;
+function flash(cls, o, ms){
+  const f=$('#flash'); f.className=cls;
+  $('#fd').textContent = o.d||''; $('#fp').textContent = o.p||''; $('#fh').textContent = o.h||''; $('#ft').textContent = o.t||''; $('#fs').textContent = o.s||'';
+  clearTimeout(ftm); ftm = setTimeout(()=>{ f.className=''; }, ms || 3500);
+}
+
+/* ---- tiempo desde la largada (opcional) ---- */
+let largada = ls.get(CFG.k+'-larg', {});
+$('#larg').value = largada[prueba] || '';
+$('#larg').addEventListener('input', ()=>{ largada[prueba] = $('#larg').value.trim(); ls.set(CFG.k+'-larg', largada); });
+function seg(h){ const m = String(h||'').trim().match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/); return m ? (+m[1])*3600 + (+m[2])*60 + (+(m[3]||0)) : null; }
+function tiempoDe(hora, pr){
+  const a = seg(largada[pr||prueba]), b = seg(hora); if(a==null || b==null) return '';
+  let d = b - a; if(d < 0) d += 86400;
+  return z(Math.floor(d/3600))+':'+z(Math.floor(d%3600/60))+':'+z(d%60);
+}
+
+/* ---- registrar una llegada (se guarda en el teléfono; no usa internet) ---- */
+function viva(pr, dorsal){ return hist.find(x=>x.estado==='ok' && x.prueba===pr && x.dorsal===dorsal); }
+function registrar(dorsal, origen, tsFijo){
+  const ahora = Date.now(), ts = tsFijo || ahora, ya = viva(prueba, dorsal);
+  if(ya){
+    if(origen==='qr' && ya.t && ahora-ya.t < 10000) return;   // el mismo QR sigue frente a la cámara: no molestar
+    if(!registrar.av || ahora-registrar.av > 2500){ registrar.av = ahora; beep(false);
+      flash('dup', {d:'Nº '+dorsal, p:'YA LEÍDO', h:ya.hora, t:tiempoDe(ya.hora, ya.prueba)?'Tiempo '+tiempoDe(ya.hora, ya.prueba):'', s:NOM(prueba)+' · no se registra de nuevo'}, 3000); }
+    return;
+  }
+  const it = { id: ts+'-'+Math.random().toString(36).slice(2,6), prueba, dorsal, ts, t: ahora, hora: hms(ts), estado:'ok', up:false };
+  hist.unshift(it); guardar();
+  const pos = hist.filter(x=>x.estado==='ok' && x.prueba===prueba).sort((a,b)=>a.ts-b.ts).findIndex(x=>x===it)+1;
+  it.orden = pos; guardar();
+  beep(true); flash('ok', {d:'Nº '+dorsal, p:'PUESTO '+pos, h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:NOM(prueba)+' · ✓ guardado en el teléfono'}, 3500);
+  render();
+}
+$('#mbtn').onclick = ()=>{ const v = parseInt($('#manual').value,10); if(!(v>0)){ $('#msg').textContent='Escribí un dorsal válido.'; return; } $('#msg').textContent=''; $('#manual').value=''; registrar(v,'manual'); };
+$('#limpiar').onclick = e=>{ e.preventDefault(); if(!confirm('¿Borrar la lista y la memoria de lecturas de este teléfono? La planilla no se toca.')) return; const n = hist.filter(x=>x.estado==='ok'&&!x.up).length; if(n && !confirm('Hay '+n+' lecturas que NO copiaste a Drive y se perderían. ¿Seguro?')) return; hist=[]; guardar(); render(); };
+
+/* ---- deshacer (solo en el teléfono) ---- */
+window.owDeshacer = function(id){
+  const it = hist.find(x=>x.id===id); if(!it) return;
+  if(!confirm('¿Borrar la lectura del dorsal '+it.dorsal+' ('+NOM(it.prueba)+')?'+(it.up?'\n\nOjo: ya estaba subida; borrá esa hora en la planilla a mano.':''))) return;
+  it.estado='borrada'; guardar(); render();
+};
+function vivas(){ return hist.filter(x=>x.estado==='ok'); }
+function render(){
+  const sin = vivas().filter(x=>!x.up).length;
+  $('#pend').textContent = 'Sin copiar a Drive: '+sin; $('#pend').className = 'pill'+(sin?' warn':' ok');
+  $('#lista').innerHTML = vivas().slice(0,12).map(it=>{
+    const tp = tiempoDe(it.hora, it.prueba);
+    return '<li><span class="n">'+it.dorsal+'</span><span class="t">'+NOM(it.prueba)+' · '+it.hora+(tp?' · '+tp:'')+'<br><span class="st">'+(it.up?'✓ ya copiada a Drive':'● guardada en el teléfono')+'</span></span><button onclick="owDeshacer(\''+it.id+'\')">Deshacer</button></li>';
+  }).join('');
+}
+
+/* ---- cámara + lectura de QR ---- */
+let stream = null, activo = false, wl = null, ocupado = false;
+let modo = ls.get(CFG.k+'-modo','auto');   // 'toque' = lee al tocar la pantalla · 'auto' = lee solo
+const video = $('#video'), cv = $('#cv'), ctx = cv.getContext('2d', {willReadFrequently:true});
+const bd = ('BarcodeDetector' in window) ? (()=>{ try{ return new BarcodeDetector({formats:['qr_code']}); }catch(e){ return null; } })() : null;
+function dorsalDe(txt){ const m = String(txt||'').trim().match(new RegExp('^'+CFG.pref+'-(\\d{1,5})$','i')); return m ? parseInt(m[1],10) : null; }
+
+/* decodifica el cuadro actual: primero el lector nativo del teléfono (rápido); si no, jsQR a resolución completa */
+let fase = 0;
+async function decodificar(){
+  if(video.readyState < 2) return null;
+  if(bd){ try{ const r = await bd.detect(video); if(r && r.length) return r[0].rawValue; }catch(e){} }
+  const w = video.videoWidth, h = video.videoHeight; if(!w || !h) return null;
+  const leer = (sx,sy,sw,sh,ow,oh,inv)=>{ cv.width = ow; cv.height = oh; ctx.drawImage(video, sx, sy, sw, sh, 0, 0, ow, oh); const q = jsQR(ctx.getImageData(0,0,ow,oh).data, ow, oh, {inversionAttempts: inv?'attemptBoth':'dontInvert'}); return q && q.data ? q.data : null; };
+  fase++;
+  // 1) recorte central cuadrado, SIN reducir (así no se pierde resolución)
+  const lado = Math.min(w,h), sx = Math.round((w-lado)/2), sy = Math.round((h-lado)/2);
+  let t = leer(sx, sy, lado, lado, Math.min(lado,800), Math.min(lado,800), false); if(t) return t;
+  // 2) cuadro completo sin reducir (QR chico o lejos o corrido de centro)
+  t = leer(0, 0, w, h, Math.min(w,1280), Math.round(Math.min(w,1280)*h/w), false); if(t) return t;
+  // 3) de vez en cuando, probar también imagen invertida y un recorte más cerrado (QR muy chico en el centro)
+  if(fase % 3 === 0){ const c2 = Math.round(lado*0.55), x2 = Math.round((w-c2)/2), y2 = Math.round((h-c2)/2); t = leer(x2, y2, c2, c2, c2*2, c2*2, true); if(t) return t; }
+  return null;
+}
+function procesar(txt, ts, origen){
+  const d = dorsalDe(txt);
+  if(d){ registrar(d, origen||'qr', ts); return true; }
+  if(!procesar.ult || Date.now()-procesar.ult>3000){ procesar.ult=Date.now(); beep(false); flash('err',{d:'QR no válido',h:'No es un dorsal de OW'},2500); }
+  return true;
+}
+/* la cámara decodifica SIEMPRE mientras está encendida (así el toque responde al instante) */
+let ult = null;   // última lectura: {txt, t}
+async function bucle(){
+  if(!activo || bucle.corre){ return; } bucle.corre = true;
+  while(activo){
+    try{ const t = await decodificar(); if(t){ ult = {txt:t, t:Date.now()}; if(modo==='auto') procesar(t); } }catch(e){}
+    await new Promise(r=>setTimeout(r, 25));
+  }
+  bucle.corre = false;
+}
+/* modo por toque: la hora que queda es la del instante del toque; usa la lectura de la cámara (ya detectada o la que aparezca en los próximos 5 s) */
+async function leerAhora(){
+  if(!activo){ $('#msg').textContent='Primero encendé la cámara.'; return; }
+  if(ocupado) return; ocupado = true;
+  const ts = Date.now(); $('#leer').classList.add('on'); $('#leer').textContent = 'Buscando el QR…';
+  try{
+    let t = null;
+    if(ult && ts - ult.t < 2500) t = ult.txt;
+    for(let i=0; !t && Date.now()-ts < 5000; i++){ if(ult && ult.t >= ts-300){ t = ult.txt; break; } await new Promise(r=>setTimeout(r,40)); }
+    if(t){ ult = null; procesar(t, ts, 'toque'); }
+    else { beep(false); flash('err',{d:'NO SE LEYÓ',h:'Acercá el QR y tocá de nuevo'},2000); }
+  }finally{ ocupado = false; $('#leer').classList.remove('on'); $('#leer').textContent = '⏱ LEER (tocá acá o la pantalla)'; }
+}
+$('#leer').addEventListener('click', leerAhora);
+$('.cam').addEventListener('click', ()=>{ if(modo==='toque') leerAhora(); });
+function marcarModo(){
+  $('#mt').classList.toggle('on', modo==='toque'); $('#ma').classList.toggle('on', modo==='auto');
+  $('#leer').style.display = modo==='toque' ? '' : 'none';
+  $('#estado').textContent = !activo ? 'Cámara apagada' : (modo==='toque' ? 'Tocá para leer' : 'Leyendo…');
+  if(activo) bucle();
+}
+$('#mt').onclick = ()=>{ modo='toque'; ls.set(CFG.k+'-modo',modo); marcarModo(); };
+$('#ma').onclick = ()=>{ modo='auto'; ls.set(CFG.k+'-modo',modo); marcarModo(); };
+async function encender(){
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}},audio:false});
+    video.srcObject = stream; await video.play(); activo = true;
+    try{ const tr = stream.getVideoTracks()[0], cap = tr.getCapabilities ? tr.getCapabilities() : {}; if(cap.focusMode && cap.focusMode.indexOf('continuous')>-1) await tr.applyConstraints({advanced:[{focusMode:'continuous'}]}); }catch(e){}
+    $('#cam').textContent='Apagar cámara'; $('#estado').className='pill ok';
+    try{ if(navigator.wakeLock) wl = await navigator.wakeLock.request('screen'); }catch(e){}
+    marcarModo();
+  }catch(e){ $('#msg').textContent='No se pudo abrir la cámara. Dale permiso al navegador (y usá https).'; }
+}
+function apagar(){ activo=false; if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; } try{ wl && wl.release(); }catch(e){} $('#cam').textContent='Encender cámara'; $('#estado').textContent='Cámara apagada'; $('#estado').className='pill'; }
+$('#cam').onclick = ()=> activo ? apagar() : encender();
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && activo && !wl){ try{ navigator.wakeLock && navigator.wakeLock.request('screen').then(x=>wl=x); }catch(e){} } });
+/* ---- finalizar · subir · copiar · guardar en el celular · borrar ---- */
+function lecturas(pr){ return vivas().filter(x=>!pr||x.prueba===pr).slice().sort((a,b)=> a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba)); }
+function resumen(){ const sin = vivas().filter(x=>!x.up).length;
+  $('#finres').textContent = CFG.pruebas.map(pr=>NOM(pr)+': '+lecturas(pr).length+' llegadas').join(' · ')+' · sin copiar a Drive: '+sin+'.'; }
+function filasExport(pr){ return lecturas(pr).map(x=>({ 'Dorsal': x.dorsal, 'Hora de arribo': x.hora })); }
+function descargar(nombre, blob){ const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }
+function guardarLectura(){
+  const F = {}; let tot = 0; CFG.pruebas.forEach(pr=>{ F[pr] = filasExport(pr); tot += F[pr].length; });
+  if(!tot){ alert('Todavía no hay lecturas guardadas en este teléfono.'); return; }
+  const d = new Date(), base = CFG.arch+'-'+d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes());
+  if(typeof XLSX !== 'undefined'){
+    const wb = XLSX.utils.book_new();
+    CFG.pruebas.forEach(pr=>{ if(F[pr].length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(F[pr]), CFG.hoja[pr]); });
+    XLSX.writeFile(wb, base+'.xlsx');
+  } else {
+    const fila = o => Object.values(o).map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';');
+    const head = '"Dorsal";"Hora de arribo"', L = [];
+    CFG.pruebas.forEach(pr=>{ L.push(NOM(pr), head); F[pr].forEach(o=>L.push(fila(o))); });
+    descargar(base+'.csv', new Blob(['\ufeff'+L.join('\r\n')], {type:'text/csv'}));
+    alert('No se encontró ow-xlsx.js en el sitio: se guardó como .csv (se abre igual en Excel).');
+  }
+}
+/* copiar "dorsal<TAB>hora" (sin encabezado) para pegar en la celda A2 de la planilla de esa distancia */
+function copiar(pr){
+  const L = lecturas(pr); if(!L.length){ alert('No hay lecturas de '+NOM(pr)+'.'); return; }
+  const txt = L.map(x=>x.dorsal+'\t'+x.hora).join('\n');
+  const listo = ()=>alert('Copiado: '+L.length+' llegadas de '+NOM(pr)+'.\n\nAbrí la planilla de '+NOM(pr)+', tocá la celda A2 (debajo de «Dorsal») y pegá.\nSi ya tenía dorsales cargados, borrá primero esas filas.');
+  const viejo = ()=>{ const t = document.createElement('textarea'); t.value = txt; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); listo(); }catch(e){ prompt('Copiá este texto:', txt); } t.remove(); };
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(listo, viejo); else viejo();
+}
+CFG.pruebas.forEach(pr=>{ const b = document.createElement('button'); b.className='btn sec'; b.textContent = '📋 Copiar texto '+NOM(pr); b.onclick = ()=>copiar(pr); $('#cpbtns').appendChild(b); });
+/* subir todo de una vez a las planillas (el script es repetible: no pisa horas ya cargadas) */
+async function subir(){
+  const out = $('#subres'); out.style.display='block';
+  if(!clave){ out.textContent='Falta el código: volvé a entrar.'; return; }
+  const partes = [];
+  for(const pr of CFG.pruebas){
+    const L = lecturas(pr); if(!L.length) continue;
+    out.textContent = partes.join('\n') + (partes.length?'\n':'') + 'Copiando '+NOM(pr)+' a Drive ('+L.length+')…';
+    try{
+      const r = await post({accion:'cargarLote', prueba:pr, items:L.map(x=>({dorsal:x.dorsal, hora:x.hora}))});
+      if(r && r.ok){
+        L.forEach(x=>{ if(!(r.sinHora||[]).includes(x.dorsal)) x.up = true; });
+        partes.push((r.sinHora&&r.sinHora.length?'⚠ ':'✓ ')+NOM(pr)+': '+r.verificados+' de '+r.enviados+' con hora en la planilla ('+r.escritos+' nuevas'+(r.ya&&r.ya.length?', '+r.ya.length+' ya estaban: '+r.ya.join(', '):'')+')'+(r.sinHora&&r.sinHora.length?'\n   SIN hora: '+r.sinHora.join(', ')+' → usá «Copiar texto '+NOM(pr)+'» y pegá a mano':'')+(r.errores&&r.errores.length?'\n   Errores: '+r.errores.join(' | '):''));
+      } else if(r && /desconocida/i.test(r.error||'')){
+        partes.push('✗ '+NOM(pr)+': el script de Google es una versión VIEJA. Pegá el .gs nuevo y publicá «Nueva versión», o usá «Copiar texto '+NOM(pr)+'» / el .xlsx.');
+      } else partes.push('✗ '+NOM(pr)+': '+((r&&r.error)||'error desconocido')+' → usá «Copiar texto '+NOM(pr)+'».');
+    }catch(e){ partes.push('✗ '+NOM(pr)+': sin conexión → probá de nuevo cuando tengas señal, o usá «Copiar texto '+NOM(pr)+'».'); }
+    guardar(); render();
+  }
+  out.textContent = partes.join('\n') || 'No hay lecturas para copiar a Drive.'; resumen();
+}
+$('#subir').onclick = subir;
+$('#fin').onclick = ()=>{
+  if(!confirm('¿Finalizar la lectura? Se apaga la cámara.')) return;
+  apagar(); resumen(); $('#finpanel').style.display = 'block'; $('#finpanel').scrollIntoView({behavior:'smooth'});
+};
+$('#volver').onclick = ()=>{ $('#finpanel').style.display='none'; };
+$('#xlsx').onclick = guardarLectura;
+$('#guardar').onclick = guardarLectura;
+$('#borrar').onclick = ()=>{
+  if(!confirm('¿Eliminar TODA la lectura guardada en este teléfono?\n\nSi no la copiaste a Drive ni la guardaste en .xlsx, se pierde. La planilla de Drive no se toca.')) return;
+  const n = vivas().filter(x=>!x.up).length;
+  if(n && !confirm('Hay '+n+' lecturas que todavía NO copiaste a Drive y se perderían. ¿Eliminar igual?')) return;
+  hist=[]; guardar(); render(); resumen(); $('#finpanel').style.display='none'; $('#subres').style.display='none'; alert('Lectura eliminada de este teléfono.');
+};
+/* entrada automática si ya había una sesión abierta (va al final: necesita todo lo anterior definido) */
+try{ const c = sessionStorage.getItem('owc-clave'); if(c){ clave = c; abrir(); } }catch(e){ console.error(e); }
+})();
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>Cronometraje · Open Water Río Negro</title>
+<title>Cronometraje · Summer Open Water 2027</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;background:#06141f;color:#fff;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
@@ -43,7 +43,7 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
 </style>
 </head>
 <body>
-<h1>Cronometraje de llegada · Open Water</h1>
+<h1>Cronometraje de llegada · Summer Open Water</h1>
 
 <div id="gate">
   <p class="hint">Ingresá el código de organización.</p>
@@ -53,10 +53,7 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
 </div>
 
 <div id="app">
-  <div class="seg">
-    <button class="btn sec" id="p5">Llegada 5K</button>
-    <button class="btn sec" id="p10">Llegada 10K</button>
-  </div>
+  <div class="seg" id="segp"></div>
   <div class="row" style="margin:10px 0 0;justify-content:space-between">
     <span class="pill" id="estado">Cámara apagada</span>
     <span class="pill" id="pend">Sin copiar a Drive: 0</span>
@@ -97,10 +94,7 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
     <button class="btn big" id="subir" style="background:#0b8c46;font-size:1.3rem;padding:22px;margin-bottom:8px">☁ COPIAR A DRIVE (planillas 5K y 10K)</button>
     <pre id="subres" style="display:none;white-space:pre-wrap;background:#06141f;border:1px solid #234a66;border-radius:12px;padding:10px;font-size:.85rem;color:#cfe3f1;margin:0 0 8px"></pre>
     <div class="hint" style="margin:6px 0">Plan B si «Copiar a Drive» no funciona: copiá el texto y pegalo en la celda A2 de cada planilla:</div>
-    <div class="seg" style="margin-bottom:8px">
-      <button class="btn sec" id="cp5">📋 Copiar texto 5K</button>
-      <button class="btn sec" id="cp10">📋 Copiar texto 10K</button>
-    </div>
+    <div class="seg" style="margin-bottom:8px" id="cpbtns"></div>
     <button class="btn big" id="xlsx" style="background:#0b8c46;margin-bottom:8px">⬇ Guardar la lectura en mi celular (.xlsx)</button>
     <button class="btn big" id="borrar" style="background:#8a1f2b;margin-bottom:8px">🗑 Eliminar toda la lectura del teléfono</button>
     <button class="btn big sec" id="volver">Volver a leer</button>
@@ -118,11 +112,15 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
 const API = 'https://script.google.com/macros/s/AKfycbxIaZeJVEvJ5pVyrxjSVmxo0oH5Be25zwl6ysPXzY9eNGm8g-TA8unT7LqdKIZWJJsKlg/exec';
 const $ = s => document.querySelector(s);
 const ls = { get(k,d){ try{ const v = localStorage.getItem(k); return v==null?d:JSON.parse(v);}catch(e){return d;} }, set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
-let clave = '', prueba = ls.get('owc-prueba','5');
-let hist = ls.get('owc-hist', []);      // TODAS las lecturas (viven en el teléfono): {id,prueba,dorsal,ts,hora,estado:'ok'|'borrada',up:bool}
+/*CFG*/
+const CFG = {ev:'summer', pruebas:['5','10'], nom:{'5':'5K','10':'10K'}, pref:'OW27', arch:'lectura-summer-2027', hoja:{'5':'Tiempos 5K','10':'Tiempos 10K'}, k:'owc', pl:'Llegada '};
+/*/CFG*/
+const NOM = pr => CFG.nom[pr] || pr;
+let clave = '', prueba = ls.get(CFG.k+'-prueba', CFG.pruebas[0]); if(CFG.pruebas.indexOf(prueba)<0) prueba = CFG.pruebas[0];
+let hist = ls.get(CFG.k+'-hist', []);      // TODAS las lecturas (viven en el teléfono): {id,prueba,dorsal,ts,hora,estado:'ok'|'borrada',up:bool}
 const z = n => String(n).padStart(2,'0');
 const hms = ts => { const d = new Date(ts); return z(d.getHours())+':'+z(d.getMinutes())+':'+z(d.getSeconds()); };
-function guardar(){ ls.set('owc-hist', hist.slice(0,5000)); }
+function guardar(){ ls.set(CFG.k+'-hist', hist.slice(0,5000)); }
 
 /* ---- acceso ---- */
 function post(o){ return fetch(API,{method:'POST',body:JSON.stringify(Object.assign({clave:clave},o))}).then(r=>r.json()); }
@@ -132,7 +130,7 @@ function entrar(){
   post({accion:'verificarClave'}).then(r=>{
     if(r && r.ok){ ok(); return; }
     if(r && /desconocida/i.test(r.error||'')){
-      return post({accion:'listarCupones', evento:'summer'}).then(q=>{ if(q && q.ok) ok(); else $('#gmsg').textContent = 'Código incorrecto.'; });
+      return post({accion:'listarCupones', evento:CFG.ev}).then(q=>{ if(q && q.ok) ok(); else $('#gmsg').textContent = 'Código incorrecto.'; });
     }
     $('#gmsg').textContent = (r && r.error) ? r.error : 'Código incorrecto.';
   }).catch(()=>{ ok(); $('#msg').textContent='Sin señal: podés leer igual; la lectura queda en el teléfono y el código se verifica al copiar a Drive.'; });
@@ -142,9 +140,9 @@ $('#entrar').onclick = entrar; $('#clave').addEventListener('keydown',e=>{ if(e.
 function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; marcarPrueba(); render(); }
 
 /* ---- prueba ---- */
-function marcarPrueba(){ $('#p5').classList.toggle('on', prueba==='5'); $('#p10').classList.toggle('on', prueba==='10'); }
-$('#p5').onclick = ()=>{ prueba='5'; ls.set('owc-prueba',prueba); marcarPrueba(); $('#larg').value=(largada&&largada[prueba])||''; };
-$('#p10').onclick = ()=>{ prueba='10'; ls.set('owc-prueba',prueba); marcarPrueba(); $('#larg').value=(largada&&largada[prueba])||''; };
+function marcarPrueba(){ document.querySelectorAll('#segp button').forEach(b=>b.classList.toggle('on', b.dataset.p===prueba)); }
+(function(){ const c = $('#segp'); if(CFG.pruebas.length<2){ c.style.display='none'; return; }
+  CFG.pruebas.forEach(pr=>{ const b = document.createElement('button'); b.className='btn sec'; b.dataset.p = pr; b.textContent = CFG.pl+NOM(pr); b.onclick = ()=>{ prueba=pr; ls.set(CFG.k+'-prueba',prueba); marcarPrueba(); $('#larg').value=(largada&&largada[prueba])||''; }; c.appendChild(b); }); })();
 
 /* ---- sonido / vibración ---- */
 let ac = null;
@@ -157,9 +155,9 @@ function flash(cls, o, ms){
 }
 
 /* ---- tiempo desde la largada (opcional) ---- */
-let largada = ls.get('owc-larg', {});
+let largada = ls.get(CFG.k+'-larg', {});
 $('#larg').value = largada[prueba] || '';
-$('#larg').addEventListener('input', ()=>{ largada[prueba] = $('#larg').value.trim(); ls.set('owc-larg', largada); });
+$('#larg').addEventListener('input', ()=>{ largada[prueba] = $('#larg').value.trim(); ls.set(CFG.k+'-larg', largada); });
 function seg(h){ const m = String(h||'').trim().match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/); return m ? (+m[1])*3600 + (+m[2])*60 + (+(m[3]||0)) : null; }
 function tiempoDe(hora, pr){
   const a = seg(largada[pr||prueba]), b = seg(hora); if(a==null || b==null) return '';
@@ -174,14 +172,14 @@ function registrar(dorsal, origen, tsFijo){
   if(ya){
     if(origen==='qr' && ya.t && ahora-ya.t < 10000) return;   // el mismo QR sigue frente a la cámara: no molestar
     if(!registrar.av || ahora-registrar.av > 2500){ registrar.av = ahora; beep(false);
-      flash('dup', {d:'Nº '+dorsal, p:'YA LEÍDO', h:ya.hora, t:tiempoDe(ya.hora, ya.prueba)?'Tiempo '+tiempoDe(ya.hora, ya.prueba):'', s:prueba+'K · no se registra de nuevo'}, 3000); }
+      flash('dup', {d:'Nº '+dorsal, p:'YA LEÍDO', h:ya.hora, t:tiempoDe(ya.hora, ya.prueba)?'Tiempo '+tiempoDe(ya.hora, ya.prueba):'', s:NOM(prueba)+' · no se registra de nuevo'}, 3000); }
     return;
   }
   const it = { id: ts+'-'+Math.random().toString(36).slice(2,6), prueba, dorsal, ts, t: ahora, hora: hms(ts), estado:'ok', up:false };
   hist.unshift(it); guardar();
   const pos = hist.filter(x=>x.estado==='ok' && x.prueba===prueba).sort((a,b)=>a.ts-b.ts).findIndex(x=>x===it)+1;
   it.orden = pos; guardar();
-  beep(true); flash('ok', {d:'Nº '+dorsal, p:'PUESTO '+pos, h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:prueba+'K · ✓ guardado en el teléfono'}, 3500);
+  beep(true); flash('ok', {d:'Nº '+dorsal, p:'PUESTO '+pos, h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:NOM(prueba)+' · ✓ guardado en el teléfono'}, 3500);
   render();
 }
 $('#mbtn').onclick = ()=>{ const v = parseInt($('#manual').value,10); if(!(v>0)){ $('#msg').textContent='Escribí un dorsal válido.'; return; } $('#msg').textContent=''; $('#manual').value=''; registrar(v,'manual'); };
@@ -190,7 +188,7 @@ $('#limpiar').onclick = e=>{ e.preventDefault(); if(!confirm('¿Borrar la lista 
 /* ---- deshacer (solo en el teléfono) ---- */
 window.owDeshacer = function(id){
   const it = hist.find(x=>x.id===id); if(!it) return;
-  if(!confirm('¿Borrar la lectura del dorsal '+it.dorsal+' ('+it.prueba+'K)?'+(it.up?'\n\nOjo: ya estaba subida; borrá esa hora en la planilla a mano.':''))) return;
+  if(!confirm('¿Borrar la lectura del dorsal '+it.dorsal+' ('+NOM(it.prueba)+')?'+(it.up?'\n\nOjo: ya estaba subida; borrá esa hora en la planilla a mano.':''))) return;
   it.estado='borrada'; guardar(); render();
 };
 function vivas(){ return hist.filter(x=>x.estado==='ok'); }
@@ -199,16 +197,16 @@ function render(){
   $('#pend').textContent = 'Sin copiar a Drive: '+sin; $('#pend').className = 'pill'+(sin?' warn':' ok');
   $('#lista').innerHTML = vivas().slice(0,12).map(it=>{
     const tp = tiempoDe(it.hora, it.prueba);
-    return '<li><span class="n">'+it.dorsal+'</span><span class="t">'+it.prueba+'K · '+it.hora+(tp?' · '+tp:'')+'<br><span class="st">'+(it.up?'✓ ya copiada a Drive':'● guardada en el teléfono')+'</span></span><button onclick="owDeshacer(\''+it.id+'\')">Deshacer</button></li>';
+    return '<li><span class="n">'+it.dorsal+'</span><span class="t">'+NOM(it.prueba)+' · '+it.hora+(tp?' · '+tp:'')+'<br><span class="st">'+(it.up?'✓ ya copiada a Drive':'● guardada en el teléfono')+'</span></span><button onclick="owDeshacer(\''+it.id+'\')">Deshacer</button></li>';
   }).join('');
 }
 
 /* ---- cámara + lectura de QR ---- */
 let stream = null, activo = false, wl = null, ocupado = false;
-let modo = ls.get('owc-modo','auto');   // 'toque' = lee al tocar la pantalla · 'auto' = lee solo
+let modo = ls.get(CFG.k+'-modo','auto');   // 'toque' = lee al tocar la pantalla · 'auto' = lee solo
 const video = $('#video'), cv = $('#cv'), ctx = cv.getContext('2d', {willReadFrequently:true});
 const bd = ('BarcodeDetector' in window) ? (()=>{ try{ return new BarcodeDetector({formats:['qr_code']}); }catch(e){ return null; } })() : null;
-function dorsalDe(txt){ const m = String(txt||'').trim().match(/^OW27-(\d{1,5})$/i); return m ? parseInt(m[1],10) : null; }
+function dorsalDe(txt){ const m = String(txt||'').trim().match(new RegExp('^'+CFG.pref+'-(\\d{1,5})$','i')); return m ? parseInt(m[1],10) : null; }
 
 /* decodifica el cuadro actual: primero el lector nativo del teléfono (rápido); si no, jsQR a resolución completa */
 let fase = 0;
@@ -264,8 +262,8 @@ function marcarModo(){
   $('#estado').textContent = !activo ? 'Cámara apagada' : (modo==='toque' ? 'Tocá para leer' : 'Leyendo…');
   if(activo) bucle();
 }
-$('#mt').onclick = ()=>{ modo='toque'; ls.set('owc-modo',modo); marcarModo(); };
-$('#ma').onclick = ()=>{ modo='auto'; ls.set('owc-modo',modo); marcarModo(); };
+$('#mt').onclick = ()=>{ modo='toque'; ls.set(CFG.k+'-modo',modo); marcarModo(); };
+$('#ma').onclick = ()=>{ modo='auto'; ls.set(CFG.k+'-modo',modo); marcarModo(); };
 async function encender(){
   try{
     stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30}},audio:false});
@@ -281,52 +279,52 @@ $('#cam').onclick = ()=> activo ? apagar() : encender();
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && activo && !wl){ try{ navigator.wakeLock && navigator.wakeLock.request('screen').then(x=>wl=x); }catch(e){} } });
 /* ---- finalizar · subir · copiar · guardar en el celular · borrar ---- */
 function lecturas(pr){ return vivas().filter(x=>!pr||x.prueba===pr).slice().sort((a,b)=> a.prueba===b.prueba ? a.ts-b.ts : (+a.prueba)-(+b.prueba)); }
-function resumen(){ const n5 = lecturas('5').length, n10 = lecturas('10').length, sin = vivas().filter(x=>!x.up).length;
-  $('#finres').textContent = '5K: '+n5+' llegadas · 10K: '+n10+' llegadas · sin copiar a Drive: '+sin+'.'; }
+function resumen(){ const sin = vivas().filter(x=>!x.up).length;
+  $('#finres').textContent = CFG.pruebas.map(pr=>NOM(pr)+': '+lecturas(pr).length+' llegadas').join(' · ')+' · sin copiar a Drive: '+sin+'.'; }
 function filasExport(pr){ return lecturas(pr).map(x=>({ 'Dorsal': x.dorsal, 'Hora de arribo': x.hora })); }
 function descargar(nombre, blob){ const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nombre; document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }
 function guardarLectura(){
-  const f5 = filasExport('5'), f10 = filasExport('10'); if(!f5.length && !f10.length){ alert('Todavía no hay lecturas guardadas en este teléfono.'); return; }
-  const d = new Date(), base = 'lectura-summer-2027-'+d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes());
+  const F = {}; let tot = 0; CFG.pruebas.forEach(pr=>{ F[pr] = filasExport(pr); tot += F[pr].length; });
+  if(!tot){ alert('Todavía no hay lecturas guardadas en este teléfono.'); return; }
+  const d = new Date(), base = CFG.arch+'-'+d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+'-'+z(d.getHours())+z(d.getMinutes());
   if(typeof XLSX !== 'undefined'){
     const wb = XLSX.utils.book_new();
-    if(f5.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(f5), 'Tiempos 5K');
-    if(f10.length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(f10), 'Tiempos 10K');
+    CFG.pruebas.forEach(pr=>{ if(F[pr].length) XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(F[pr]), CFG.hoja[pr]); });
     XLSX.writeFile(wb, base+'.xlsx');
   } else {
     const fila = o => Object.values(o).map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';');
-    const head = '"Dorsal";"Hora de arribo"';
-    const txt = ['5K'].concat([head], f5.map(fila), ['10K'], [head], f10.map(fila)).join('\r\n');
-    descargar(base+'.csv', new Blob(['\ufeff'+txt], {type:'text/csv'}));
+    const head = '"Dorsal";"Hora de arribo"', L = [];
+    CFG.pruebas.forEach(pr=>{ L.push(NOM(pr), head); F[pr].forEach(o=>L.push(fila(o))); });
+    descargar(base+'.csv', new Blob(['\ufeff'+L.join('\r\n')], {type:'text/csv'}));
     alert('No se encontró ow-xlsx.js en el sitio: se guardó como .csv (se abre igual en Excel).');
   }
 }
 /* copiar "dorsal<TAB>hora" (sin encabezado) para pegar en la celda A2 de la planilla de esa distancia */
 function copiar(pr){
-  const L = lecturas(pr); if(!L.length){ alert('No hay lecturas de '+pr+'K.'); return; }
+  const L = lecturas(pr); if(!L.length){ alert('No hay lecturas de '+NOM(pr)+'.'); return; }
   const txt = L.map(x=>x.dorsal+'\t'+x.hora).join('\n');
-  const listo = ()=>alert('Copiado: '+L.length+' llegadas de '+pr+'K.\n\nAbrí la planilla de '+pr+'K, tocá la celda A2 (debajo de «Dorsal») y pegá.\nSi ya tenía dorsales cargados, borrá primero esas filas.');
+  const listo = ()=>alert('Copiado: '+L.length+' llegadas de '+NOM(pr)+'.\n\nAbrí la planilla de '+NOM(pr)+', tocá la celda A2 (debajo de «Dorsal») y pegá.\nSi ya tenía dorsales cargados, borrá primero esas filas.');
   const viejo = ()=>{ const t = document.createElement('textarea'); t.value = txt; t.style.position='fixed'; t.style.opacity='0'; document.body.appendChild(t); t.select(); try{ document.execCommand('copy'); listo(); }catch(e){ prompt('Copiá este texto:', txt); } t.remove(); };
   if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(listo, viejo); else viejo();
 }
-$('#cp5').onclick = ()=>copiar('5'); $('#cp10').onclick = ()=>copiar('10');
+CFG.pruebas.forEach(pr=>{ const b = document.createElement('button'); b.className='btn sec'; b.textContent = '📋 Copiar texto '+NOM(pr); b.onclick = ()=>copiar(pr); $('#cpbtns').appendChild(b); });
 /* subir todo de una vez a las planillas (el script es repetible: no pisa horas ya cargadas) */
 async function subir(){
   const out = $('#subres'); out.style.display='block';
   if(!clave){ out.textContent='Falta el código: volvé a entrar.'; return; }
   const partes = [];
-  for(const pr of ['5','10']){
+  for(const pr of CFG.pruebas){
     const L = lecturas(pr); if(!L.length) continue;
-    out.textContent = partes.join('\n') + (partes.length?'\n':'') + 'Copiando '+pr+'K a Drive ('+L.length+')…';
+    out.textContent = partes.join('\n') + (partes.length?'\n':'') + 'Copiando '+NOM(pr)+' a Drive ('+L.length+')…';
     try{
       const r = await post({accion:'cargarLote', prueba:pr, items:L.map(x=>({dorsal:x.dorsal, hora:x.hora}))});
       if(r && r.ok){
         L.forEach(x=>{ if(!(r.sinHora||[]).includes(x.dorsal)) x.up = true; });
-        partes.push((r.sinHora&&r.sinHora.length?'⚠ ':'✓ ')+pr+'K: '+r.verificados+' de '+r.enviados+' con hora en la planilla ('+r.escritos+' nuevas'+(r.ya&&r.ya.length?', '+r.ya.length+' ya estaban: '+r.ya.join(', '):'')+')'+(r.sinHora&&r.sinHora.length?'\n   SIN hora: '+r.sinHora.join(', ')+' → usá «Copiar texto '+pr+'K» y pegá a mano':'')+(r.errores&&r.errores.length?'\n   Errores: '+r.errores.join(' | '):''));
+        partes.push((r.sinHora&&r.sinHora.length?'⚠ ':'✓ ')+NOM(pr)+': '+r.verificados+' de '+r.enviados+' con hora en la planilla ('+r.escritos+' nuevas'+(r.ya&&r.ya.length?', '+r.ya.length+' ya estaban: '+r.ya.join(', '):'')+')'+(r.sinHora&&r.sinHora.length?'\n   SIN hora: '+r.sinHora.join(', ')+' → usá «Copiar texto '+NOM(pr)+'» y pegá a mano':'')+(r.errores&&r.errores.length?'\n   Errores: '+r.errores.join(' | '):''));
       } else if(r && /desconocida/i.test(r.error||'')){
-        partes.push('✗ '+pr+'K: el script de Google es una versión VIEJA. Pegá el .gs nuevo y publicá «Nueva versión», o usá «Copiar texto '+pr+'K» / el .xlsx.');
-      } else partes.push('✗ '+pr+'K: '+((r&&r.error)||'error desconocido')+' → usá «Copiar texto '+pr+'K».');
-    }catch(e){ partes.push('✗ '+pr+'K: sin conexión → probá de nuevo cuando tengas señal, o usá «Copiar texto '+pr+'K».'); }
+        partes.push('✗ '+NOM(pr)+': el script de Google es una versión VIEJA. Pegá el .gs nuevo y publicá «Nueva versión», o usá «Copiar texto '+NOM(pr)+'» / el .xlsx.');
+      } else partes.push('✗ '+NOM(pr)+': '+((r&&r.error)||'error desconocido')+' → usá «Copiar texto '+NOM(pr)+'».');
+    }catch(e){ partes.push('✗ '+NOM(pr)+': sin conexión → probá de nuevo cuando tengas señal, o usá «Copiar texto '+NOM(pr)+'».'); }
     guardar(); render();
   }
   out.textContent = partes.join('\n') || 'No hay lecturas para copiar a Drive.'; resumen();
