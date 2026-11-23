@@ -30,7 +30,7 @@ input{width:100%;background:#0d2536;border:1px solid #234a66;color:#fff;border-r
 #flash.ok{background:rgba(11,140,70,.93);display:flex}
 #flash.dup{background:rgba(210,120,0,.95);display:flex}
 #flash.err{background:rgba(190,30,30,.95);display:flex}
-#flash .d{font-size:4.8rem}#flash .p{font-size:2.3rem;font-weight:800;letter-spacing:.04em}#flash .h{font-size:1.9rem;font-variant-numeric:tabular-nums}#flash .t{font-size:1.3rem;font-weight:700;color:#d8fff0;font-variant-numeric:tabular-nums}#flash .s{font-size:1rem;font-weight:600;margin-top:6px}
+#flash .l{font-size:2.4rem;font-weight:900;letter-spacing:.08em;margin-bottom:8px}#flash .d{font-size:4.8rem}#flash .p{font-size:2.3rem;font-weight:800;letter-spacing:.04em}#flash .h{font-size:1.9rem;font-variant-numeric:tabular-nums}#flash .t{font-size:1.3rem;font-weight:700;color:#d8fff0;font-variant-numeric:tabular-nums}#flash .s{font-size:1rem;font-weight:600;margin-top:6px}
 .seg{display:flex;gap:8px}.seg .btn{flex:1}
 ul{list-style:none;margin:10px 0 0;padding:0}
 li{display:flex;align-items:center;gap:10px;background:#0d2536;border-radius:12px;padding:10px 12px;margin-bottom:6px;font-variant-numeric:tabular-nums}
@@ -46,7 +46,7 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
 <h1>Cronometraje de llegada · OWeclipse 2.5K</h1>
 
 <div id="gate">
-  <p class="hint">Ingresá el código de organización.</p>
+  <p class="hint">Si entrás desde Privado no se pide el código. Si abriste esta página directo, ingresá el código de organización.</p>
   <input id="clave" type="password" inputmode="numeric" placeholder="Código" autocomplete="off">
   <div class="msg" id="gmsg"></div>
   <button class="btn big" id="entrar">Entrar</button>
@@ -67,7 +67,7 @@ li button{border:0;background:#33141a;color:#ffb4b4;border-radius:8px;padding:8p
   <div class="cam">
     <video id="video" playsinline muted></video>
     <div class="frame"></div>
-    <div id="flash"><div><div class="d" id="fd"></div><div class="p" id="fp"></div><div class="h" id="fh"></div><div class="t" id="ft"></div><div class="s" id="fs"></div></div></div>
+    <div id="flash"><div><div class="l" id="fl"></div><div class="d" id="fd"></div><div class="p" id="fp"></div><div class="h" id="fh"></div><div class="t" id="ft"></div><div class="s" id="fs"></div></div></div>
   </div>
   <button class="btn big" id="leer" style="background:#0b8c46;font-size:1.5rem;padding:26px;margin-bottom:10px;display:none">⏱ LEER (tocá acá o la pantalla)</button>
   <div class="seg" style="margin-bottom:10px">
@@ -135,7 +135,7 @@ function entrar(){
     $('#gmsg').textContent = (r && r.error) ? r.error : 'Código incorrecto.';
   }).catch(()=>{ ok(); $('#msg').textContent='Sin señal: podés leer igual; la lectura queda en el teléfono y el código se verifica al copiar a Drive.'; });
 }
-function ok(){ try{ sessionStorage.setItem('owc-clave', clave);}catch(e){} abrir(); }
+function ok(){ try{ sessionStorage.setItem('owc-clave', clave); localStorage.setItem('ow-crono-ok', JSON.stringify({t:Date.now(), c:clave})); }catch(e){} abrir(); }
 $('#entrar').onclick = entrar; $('#clave').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar(); });
 function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; marcarPrueba(); render(); }
 
@@ -150,7 +150,7 @@ function beep(ok){ try{ ac = ac || new (window.AudioContext||window.webkitAudioC
 let ftm = 0;
 function flash(cls, o, ms){
   const f=$('#flash'); f.className=cls;
-  $('#fd').textContent = o.d||''; $('#fp').textContent = o.p||''; $('#fh').textContent = o.h||''; $('#ft').textContent = o.t||''; $('#fs').textContent = o.s||'';
+  $('#fl').textContent = o.l||''; $('#fd').textContent = o.d||''; $('#fp').textContent = o.p||''; $('#fh').textContent = o.h||''; $('#ft').textContent = o.t||''; $('#fs').textContent = o.s||'';
   clearTimeout(ftm); ftm = setTimeout(()=>{ f.className=''; }, ms || 3500);
 }
 
@@ -179,7 +179,7 @@ function registrar(dorsal, origen, tsFijo){
   hist.unshift(it); guardar();
   const pos = hist.filter(x=>x.estado==='ok' && x.prueba===prueba).sort((a,b)=>a.ts-b.ts).findIndex(x=>x===it)+1;
   it.orden = pos; guardar();
-  beep(true); flash('ok', {d:'Nº '+dorsal, p:'PUESTO '+pos, h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:NOM(prueba)+' · ✓ guardado en el teléfono'}, 3500);
+  beep(true); flash('ok', {l:'✓ LEÍDO', d:'Nº '+dorsal, p:'PUESTO '+pos, h:it.hora, t:tiempoDe(it.hora)?'Tiempo '+tiempoDe(it.hora):'', s:NOM(prueba)+' · ✓ guardado en el teléfono'}, 3500);
   render();
 }
 $('#mbtn').onclick = ()=>{ const v = parseInt($('#manual').value,10); if(!(v>0)){ $('#msg').textContent='Escribí un dorsal válido.'; return; } $('#msg').textContent=''; $('#manual').value=''; registrar(v,'manual'); };
@@ -344,7 +344,11 @@ $('#borrar').onclick = ()=>{
   hist=[]; guardar(); render(); resumen(); $('#finpanel').style.display='none'; $('#subres').style.display='none'; alert('Lectura eliminada de este teléfono.');
 };
 /* entrada automática si ya había una sesión abierta (va al final: necesita todo lo anterior definido) */
-try{ const c = sessionStorage.getItem('owc-clave'); if(c){ clave = c; abrir(); } }catch(e){ console.error(e); }
+try{
+  let c = sessionStorage.getItem('owc-clave');
+  if(!c){ const o = JSON.parse(localStorage.getItem('ow-crono-ok')||'null'); if(o && o.c && Date.now()-o.t < 12*3600*1000) c = o.c; }   // viene de PRIVADO: no pide el código de nuevo
+  if(c){ clave = c; try{ localStorage.setItem('ow-crono-ok', JSON.stringify({t:Date.now(), c:c})); }catch(e){} abrir(); }
+}catch(e){ console.error(e); }
 })();
 </script>
 </body>
