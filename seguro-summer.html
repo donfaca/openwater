@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Seguro · Inscriptos Summer Open Water 2027</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#08202f;color:#fff;font-family:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+body{min-height:100vh}
+a{color:#c9a24d}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 20px;background:#0a2438;border-bottom:1px solid #16455f}
+nav a{color:#fff;text-decoration:none;font-weight:700}
+nav .t{font-size:1.2rem;letter-spacing:.12em;color:#ff6b5e;font-weight:800}
+.wrap{max-width:1400px;margin:0 auto;padding:18px 20px 60px}
+h1{font-size:clamp(1.5rem,4vw,2.3rem);letter-spacing:.05em;margin:0 0 4px;text-transform:uppercase}
+.sub{color:#a9c6d6;margin:0 0 14px;max-width:900px;line-height:1.5;font-size:.95rem}
+#gate{max-width:420px;margin:70px auto;padding:0 20px;text-align:center}
+#gate input{width:100%;background:#0d2536;border:1px solid #3b5a6b;color:#fff;border-radius:10px;padding:13px;font-size:1.1rem}
+#app{display:none}
+.btn{border:1px solid transparent;border-radius:10px;padding:10px 14px;font:800 .92rem 'Barlow',system-ui,sans-serif;cursor:pointer;color:#fff;background:#12688f}
+.btn.gold{background:#c9a24d;color:#1b1405}
+.btn.coral{background:#ff6b5e;color:#2a0603}
+.btn.green{background:transparent;color:#86efac;border-color:#4ade80}
+.btn.line{background:transparent;color:#c9a24d;border-color:#c9a24d}
+.btn:disabled{opacity:.5;cursor:default}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.tools input[type=search],.tools select{background:#0d2536;border:1px solid #234a66;color:#fff;border-radius:10px;padding:10px 12px;font-size:.95rem}
+.tools input[type=search]{flex:1 1 220px;min-width:0}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 4px}
+.st{background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:8px 14px;min-width:110px}
+.st b{display:block;font-size:1.5rem;line-height:1.1}
+.st span{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#a9c6d6}
+.st.ok b{color:#86efac}.st.no b{color:#ffb4a8}
+#estado{display:inline-block;font-size:.85rem;font-weight:700;padding:5px 11px;border-radius:999px;background:#17344a;color:#cfe3f1}
+#estado.ok{background:#0b5d2e;color:#d9ffe8}#estado.warn{background:#7a4b00;color:#ffe8b8}#estado.err{background:#7a1f1f;color:#ffd6d6}
+.msg{min-height:1.3em;color:#ffd58a;font-weight:600;margin:6px 0;line-height:1.4}
+.tw{overflow-x:auto;border:1px solid #16455f;border-radius:12px;background:#0a2438}
+table{border-collapse:collapse;width:100%;min-width:1180px}
+th{background:#0d2f45;color:#cfe3f1;text-align:left;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:9px 8px;position:sticky;top:0;white-space:nowrap}
+td{padding:5px 6px;border-top:1px solid #123a52;vertical-align:middle}
+tr.pag td{background:rgba(60,180,100,.12)}
+tr.man td:first-child{box-shadow:inset 3px 0 0 #c9a24d}
+td.n{color:#7fa3b8;font-size:.8rem;width:34px;text-align:center}
+td input[type=text],td select{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-radius:7px;color:#fff;padding:8px 8px;font:inherit;font-size:.93rem;min-width:0}
+td input:focus,td select:focus{outline:2px solid #c9a24d;background:rgba(255,255,255,.12)}
+td select option{color:#000}
+td select{min-width:92px}
+td.pg{text-align:center;width:74px}
+td.pg input{width:24px;height:24px;accent-color:#22c55e;cursor:pointer}
+td.x{width:84px;text-align:center}
+.del{border:1px solid #b23a3a;background:#3a1417;color:#ffb4b4;border-radius:8px;padding:7px 9px;font:800 .8rem 'Barlow',sans-serif;cursor:pointer;white-space:nowrap}
+.del.sure{background:#b3261e;color:#fff}
+.vacio{padding:26px;text-align:center;color:#a9c6d6}
+.ft{color:#7fa3b8;font-size:.82rem;line-height:1.5;margin-top:14px;max-width:900px}
+@media (max-width:860px){
+  .wrap{padding:14px 12px 50px}
+  .tw{border:0;background:transparent;overflow:visible}
+  table{min-width:0;display:block}
+  thead{display:none}
+  tbody{display:block}
+  tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:10px;margin-bottom:10px}
+  tr.pag{background:#0d3a33}
+  td{display:block;border:0;padding:0;background:none!important;box-shadow:none!important}
+  td::before{content:attr(data-l);display:block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#8fb2c6;margin:0 0 2px}
+  td.n{display:none}
+  td.f2{grid-column:1/3}
+  td.pg,td.x{width:auto;text-align:left}
+  td.pg input{width:30px;height:30px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="privado.html">← Volver a PRIVADO</a>
+  <span class="t">PRIVADO · ORGANIZADORES</span>
+</nav>
+
+<div id="gate">
+  <h1>Área privada</h1>
+  <p class="sub" style="margin-left:auto;margin-right:auto">Ingresá el código de acceso.</p>
+  <input id="clave" type="password" placeholder="Código" autocomplete="off">
+  <button class="btn coral" id="entrar" style="width:100%;margin-top:12px;padding:13px;font-size:1.05rem">Entrar</button>
+  <div class="msg" id="gmsg"></div>
+</div>
+
+<div id="app" class="wrap">
+  <h1>Seguro · Inscriptos Summer Open Water 2027</h1>
+  <p class="sub">Lista de las personas inscriptas desde el formulario de Summer, para pasarle al seguro. Todo se puede editar: escribí sobre cualquier dato, tildá <b>Pagado</b>, <b>agregá gente a mano</b> o borrala. Los cambios se guardan solos en la pestaña «Seguro» de tu planilla de Summer (la hoja «Summer» de inscripciones no se toca).</p>
+
+  <div class="tools">
+    <button class="btn gold" id="add">➕ Agregar persona</button>
+    <button class="btn line" id="sync">🔄 Traer nuevos inscriptos</button>
+    <button class="btn green" id="xlsx">⬇ Descargar Excel (.xlsx)</button>
+    <button class="btn line" id="copy">⎘ Copiar lista</button>
+    <span id="estado">Cargando…</span>
+  </div>
+  <div class="stats">
+    <div class="st"><b id="sT">0</b><span>Personas</span></div>
+    <div class="st ok"><b id="sP">0</b><span>Pagado</span></div>
+    <div class="st no"><b id="sN">0</b><span>Sin pagar</span></div>
+    <div class="st"><b id="sM">0</b><span>Cargadas a mano</span></div>
+  </div>
+  <div class="tools">
+    <input type="search" id="q" placeholder="Buscar por nombre, DNI, email, ciudad…" aria-label="Buscar">
+    <select id="fil" aria-label="Filtrar">
+      <option value="">Todos</option><option value="p">Solo pagados</option><option value="n">Solo sin pagar</option><option value="m">Solo cargados a mano</option><option value="f">Solo del formulario</option>
+    </select>
+    <select id="fpr" aria-label="Prueba"><option value="">Todas las pruebas</option><option>5K</option><option>10K</option><option>5K+10K</option><option>2K</option></select>
+  </div>
+  <div class="msg" id="msg"></div>
+
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Nombre y apellido</th><th>DNI</th><th>Fecha de nac.</th><th>Género</th><th>Prueba</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Pagado</th><th>Notas</th><th></th></tr></thead>
+    <tbody id="tb"></tbody>
+  </table></div>
+  <div class="vacio" id="vacio" style="display:none">No hay personas con ese filtro.</div>
+  <p class="ft">El borde dorado a la izquierda marca a las personas cargadas a mano. Al borrar a alguien que vino del formulario, queda quitado de esta lista (la inscripción original sigue en la hoja «Summer»). El Excel descargado lleva las columnas: nombre y apellido, DNI, fecha de nacimiento, género, prueba, teléfono, email, ciudad, pagado y notas.</p>
+</div>
+
+<script src="./ow-xlsx.js"></script>
+<script>
+(function(){
+const API = 'https://script.google.com/macros/s/AKfycbxIaZeJVEvJ5pVyrxjSVmxo0oH5Be25zwl6ysPXzY9eNGm8g-TA8unT7LqdKIZWJJsKlg/exec';
+const $ = s => document.querySelector(s);
+const CK = 'owseg-cache';
+let clave = '', rows = [], dirty = {}, ver = {}, timer = null, enVuelo = false, offline = false;
+
+/* ---------- red ---------- */
+function post(o){ return fetch(API,{method:'POST',body:JSON.stringify(Object.assign({clave:clave},o))}).then(r=>r.json()); }
+function viejo(r){ return r && /desconocida/i.test(r.error||''); }
+
+/* ---------- acceso ---------- */
+function entrar(){
+  clave = $('#clave').value.trim(); if(!clave) return;
+  $('#gmsg').textContent = 'Verificando…';
+  post({accion:'verificarClave'}).then(r=>{
+    if(r && r.ok){ ok(); return; }
+    $('#gmsg').textContent = (r && r.error) ? r.error : 'Código incorrecto.';
+  }).catch(()=>{ $('#gmsg').textContent = 'No se pudo verificar (¿sin señal?). Probá de nuevo.'; });
+}
+function ok(){ try{ sessionStorage.setItem('owc-clave', clave); localStorage.setItem('ow-crono-ok', JSON.stringify({t:Date.now(), c:clave})); }catch(e){} abrir(); }
+$('#entrar').onclick = entrar; $('#clave').addEventListener('keydown',e=>{ if(e.key==='Enter') entrar(); });
+function abrir(){ $('#gate').style.display='none'; $('#app').style.display='block'; cargar(); }
+
+/* ---------- estado visual ---------- */
+function est(t, cls){ const e = $('#estado'); e.textContent = t; e.className = cls||''; }
+function pendientes(){ return Object.keys(dirty).length; }
+function marcarEstado(){
+  const n = pendientes();
+  if(offline) est('⚠ Sin conexión · '+(n?n+' cambio(s) sin guardar':'copia local'), 'warn');
+  else if(enVuelo) est('Guardando…','warn');
+  else if(n) est('Cambios sin guardar ('+n+')','warn');
+  else est('✓ Todo guardado','ok');
+}
+function cache(){ try{ localStorage.setItem(CK, JSON.stringify({rows:rows, dirty:dirty, t:Date.now()})); }catch(e){} }
+window.addEventListener('beforeunload', e=>{ if(pendientes()){ e.preventDefault(); e.returnValue=''; } });
+
+/* ---------- datos ---------- */
+const vacia = () => ({id:'m'+Date.now().toString(36)+Math.random().toString(36).slice(2,5), nombre:'', dni:'', nac:'', genero:'', prueba:'', tel:'', email:'', ciudad:'', pagado:false, notas:'', origen:'Manual'});
+function cargar(opts){
+  opts = opts||{};
+  est('Cargando…','warn');
+  post({accion:'seguroListar'}).then(r=>{
+    if(viejo(r)){ est('Script viejo','err'); $('#msg').textContent = 'El script de Google es una versión VIEJA (no tiene la lista del seguro). Pegá el .gs nuevo en Apps Script y publicá «Nueva versión»; la URL no cambia.'; return; }
+    if(!r || !r.ok){ if(r && /clave/i.test(r.error||'')){ try{ sessionStorage.removeItem('owc-clave'); localStorage.removeItem('ow-crono-ok'); }catch(e){} location.reload(); return; } throw new Error((r&&r.error)||'error'); }
+    offline = false;
+    let local = null; try{ local = JSON.parse(localStorage.getItem(CK)||'null'); }catch(e){}
+    const dsk = Object.assign({}, dirty);
+    if(!opts.refresh && local && local.dirty){ Object.keys(local.dirty).forEach(id=>{ dsk[id] = 1; }); }
+    const loc = {}; ((opts.refresh ? rows : (local&&local.rows)) || []).forEach(x=>{ loc[x.id] = x; });
+    const srv = {}; r.filas.forEach(x=>{ srv[x.id] = x; });
+    const out = r.filas.map(x => (dsk[x.id] && loc[x.id]) ? loc[x.id] : x);
+    Object.keys(dsk).forEach(id=>{ if(!srv[id] && loc[id]) out.unshift(loc[id]); });   // nuevas a mano sin guardar
+    rows = out; dirty = {};
+    Object.keys(dsk).forEach(id=>{ if(rows.some(x=>x.id===id)) dirty[id]=1; });
+    cache(); pinta(); marcarEstado();
+    $('#msg').textContent = r.nuevos ? '✓ Se sumaron '+r.nuevos+' inscripto(s) nuevo(s) del formulario.' : (opts.refresh ? 'No hay inscriptos nuevos en el formulario.' : '');
+    if(pendientes()) programar();
+  }).catch(()=>{
+    let local = null; try{ local = JSON.parse(localStorage.getItem(CK)||'null'); }catch(e){}
+    if(local && local.rows){ rows = local.rows; dirty = local.dirty||{}; offline = true; pinta(); marcarEstado(); $('#msg').textContent='No se pudo conectar con Drive. Se muestra la última copia guardada en este equipo; lo que cambies se sube cuando vuelva la conexión.'; }
+    else { est('Sin conexión','err'); $('#msg').textContent='No se pudo conectar con Drive y no hay copia local. Revisá la conexión y tocá «Traer nuevos inscriptos».'; }
+  });
+}
+
+/* ---------- guardado automático ---------- */
+function programar(){ clearTimeout(timer); timer = setTimeout(guardar, 700); marcarEstado(); }
+function guardar(){
+  const ids = Object.keys(dirty); if(!ids.length || enVuelo) return;
+  const lote = ids.map(id=>rows.find(x=>x.id===id)).filter(Boolean).filter(x=>x.nombre||x.dni||x.tel||x.email||x.notas);
+  const vistas = {}; lote.forEach(x=>{ vistas[x.id] = ver[x.id]||0; });
+  ids.forEach(id=>{ if(!lote.some(x=>x.id===id)) delete dirty[id]; });   // fila nueva todavía vacía: no se sube
+  if(!lote.length){ cache(); marcarEstado(); return; }
+  enVuelo = true; marcarEstado();
+  post({accion:'seguroGuardar', filas:lote}).then(r=>{
+    enVuelo = false;
+    if(viejo(r)){ est('Script viejo','err'); $('#msg').textContent='El script de Google es una versión VIEJA. Pegá el .gs nuevo y publicá «Nueva versión».'; return; }
+    if(!r || !r.ok) throw new Error((r&&r.error)||'error');
+    offline = false;
+    lote.forEach(x=>{ if((ver[x.id]||0) === vistas[x.id]) delete dirty[x.id]; });
+    cache(); marcarEstado();
+    if(pendientes()) programar();
+  }).catch(()=>{ enVuelo = false; offline = true; cache(); marcarEstado(); clearTimeout(timer); timer = setTimeout(guardar, 8000); });
+}
+function tocar(x){ ver[x.id] = (ver[x.id]||0)+1; dirty[x.id] = 1; cache(); programar(); stats(); }
+
+/* ---------- pantalla ---------- */
+const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const norm = s => String(s==null?'':s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const GEN = ['Mujer','Varón','Otro'], PRU = ['5K','10K','5K+10K','2K'];
+function opts(lista, v){ const l = lista.slice(); if(v && l.indexOf(v)<0) l.push(v); return '<option value=""></option>'+l.map(o=>'<option'+(o===v?' selected':'')+'>'+esc(o)+'</option>').join(''); }
+function visibles(){
+  const q = norm($('#q').value).trim(), f = $('#fil').value, p = $('#fpr').value;
+  return rows.filter(x=>{
+    if(f==='p' && !x.pagado) return false; if(f==='n' && x.pagado) return false;
+    if(f==='m' && x.origen!=='Manual') return false; if(f==='f' && x.origen==='Manual') return false;
+    if(p && x.prueba!==p) return false;
+    if(q){ const h = norm([x.nombre,x.dni,x.email,x.ciudad,x.tel,x.notas,x.prueba].join(' ')); if(!q.split(/\s+/).every(w=>h.indexOf(w)>-1)) return false; }
+    return true;
+  });
+}
+function fila(x, i){
+  return '<tr data-id="'+esc(x.id)+'" class="'+(x.pagado?'pag ':'')+(x.origen==='Manual'?'man':'')+'">'
+   + '<td class="n">'+(i+1)+'</td>'
+   + '<td class="f2" data-l="Nombre y apellido"><input type="text" data-k="nombre" value="'+esc(x.nombre)+'" autocomplete="off"></td>'
+   + '<td data-l="DNI"><input type="text" inputmode="numeric" data-k="dni" value="'+esc(x.dni)+'" autocomplete="off"></td>'
+   + '<td data-l="Fecha de nac."><input type="text" data-k="nac" value="'+esc(x.nac)+'" placeholder="dd/mm/aaaa" autocomplete="off"></td>'
+   + '<td data-l="Género"><select data-k="genero">'+opts(GEN,x.genero)+'</select></td>'
+   + '<td data-l="Prueba"><select data-k="prueba">'+opts(PRU,x.prueba)+'</select></td>'
+   + '<td data-l="Teléfono"><input type="text" inputmode="tel" data-k="tel" value="'+esc(x.tel)+'" autocomplete="off"></td>'
+   + '<td data-l="Email"><input type="text" inputmode="email" data-k="email" value="'+esc(x.email)+'" autocomplete="off"></td>'
+   + '<td data-l="Ciudad"><input type="text" data-k="ciudad" value="'+esc(x.ciudad)+'" autocomplete="off"></td>'
+   + '<td class="pg" data-l="Pagado"><input type="checkbox" data-k="pagado"'+(x.pagado?' checked':'')+' aria-label="Pagado"></td>'
+   + '<td class="f2" data-l="Notas"><input type="text" data-k="notas" value="'+esc(x.notas)+'" autocomplete="off"></td>'
+   + '<td class="x"><button class="del" data-del="1">✕ Borrar</button></td></tr>';
+}
+function pinta(){
+  const v = visibles();
+  $('#tb').innerHTML = v.map(fila).join('');
+  $('#vacio').style.display = v.length ? 'none' : 'block';
+  stats();
+}
+function stats(){
+  $('#sT').textContent = rows.length;
+  $('#sP').textContent = rows.filter(x=>x.pagado).length;
+  $('#sN').textContent = rows.filter(x=>!x.pagado).length;
+  $('#sM').textContent = rows.filter(x=>x.origen==='Manual').length;
+}
+function rowOf(el){ const tr = el.closest('tr'); return tr ? rows.find(x=>x.id===tr.dataset.id) : null; }
+$('#tb').addEventListener('input', e=>{
+  const x = rowOf(e.target), k = e.target.dataset.k; if(!x || !k || k==='pagado') return;
+  x[k] = e.target.value; tocar(x);
+});
+$('#tb').addEventListener('change', e=>{
+  const x = rowOf(e.target), k = e.target.dataset.k; if(!x || !k) return;
+  if(k==='pagado'){ x.pagado = e.target.checked; e.target.closest('tr').classList.toggle('pag', x.pagado); tocar(x); }
+  else if(k==='genero' || k==='prueba'){ x[k] = e.target.value; tocar(x); }
+});
+let sureT = null;
+$('#tb').addEventListener('click', e=>{
+  const b = e.target.closest('[data-del]'); if(!b) return;
+  const x = rowOf(b); if(!x) return;
+  if(!b.classList.contains('sure')){
+    document.querySelectorAll('.del.sure').forEach(o=>{ o.classList.remove('sure'); o.textContent='✕ Borrar'; });
+    b.classList.add('sure'); b.textContent='¿Seguro? Sí, borrar'; clearTimeout(sureT);
+    sureT = setTimeout(()=>{ b.classList.remove('sure'); b.textContent='✕ Borrar'; }, 4000); return;
+  }
+  clearTimeout(sureT);
+  rows = rows.filter(r=>r.id!==x.id); delete dirty[x.id]; cache(); pinta(); marcarEstado();
+  if(!/^m/.test(x.id) || x.origen!=='Manual' || x.nombre||x.dni){
+    post({accion:'seguroBorrar', id:x.id}).then(r=>{ if(!r||!r.ok) throw 0; $('#msg').textContent = '✓ Borrada: '+(x.nombre||x.dni||'fila vacía'); })
+      .catch(()=>{ $('#msg').textContent = '⚠ No se pudo borrar en Drive (¿sin conexión?). Tocá «Traer nuevos inscriptos» para ver cómo quedó.'; });
+  }
+});
+
+/* ---------- botones ---------- */
+$('#add').onclick = ()=>{
+  const x = vacia(); rows.unshift(x);
+  $('#q').value = ''; $('#fil').value = ''; $('#fpr').value = '';
+  pinta(); cache();
+  const inp = document.querySelector('tr[data-id="'+x.id+'"] input[data-k="nombre"]'); if(inp){ inp.scrollIntoView({block:'center'}); inp.focus(); }
+};
+$('#sync').onclick = ()=>{ if(pendientes()){ clearTimeout(timer); guardar(); setTimeout(()=>cargar({refresh:true}), 1500); } else cargar({refresh:true}); };
+['#q','#fil','#fpr'].forEach(s=>$(s).addEventListener('input', pinta));
+const COLS = [['Nombre y apellido','nombre'],['DNI','dni'],['Fecha de nacimiento','nac'],['Género','genero'],['Prueba','prueba'],['Teléfono','tel'],['Email','email'],['Ciudad','ciudad'],['Pagado','pagado'],['Notas','notas']];
+function datos(){ return rows.filter(x=>x.nombre||x.dni).map(x=>{ const o = {}; COLS.forEach(c=>{ o[c[0]] = c[1]==='pagado' ? (x.pagado?'SI':'NO') : x[c[1]]; }); return o; }); }
+$('#xlsx').onclick = ()=>{
+  const d = datos(); if(!d.length){ $('#msg').textContent='No hay nadie en la lista.'; return; }
+  const base = 'seguro-summer-2027-'+new Date().toISOString().slice(0,10);
+  if(typeof XLSX !== 'undefined'){
+    const wb = XLSX.utils.book_new(), ws = XLSX.utils.json_to_sheet(d);
+    ws['!cols'] = [{wch:32},{wch:12},{wch:14},{wch:9},{wch:9},{wch:16},{wch:28},{wch:18},{wch:8},{wch:30}];
+    XLSX.utils.book_append_sheet(wb, ws, 'Inscriptos Summer'); XLSX.writeFile(wb, base+'.xlsx');
+  } else {
+    const csv = [COLS.map(c=>c[0]).join(';')].concat(d.map(o=>COLS.map(c=>'"'+String(o[c[0]]).replace(/"/g,'""')+'"').join(';'))).join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'})); a.download = base+'.csv'; a.click();
+  }
+  $('#msg').textContent = '✓ Descargada la lista ('+d.length+' personas).';
+};
+$('#copy').onclick = ()=>{
+  const d = datos(), t = [COLS.map(c=>c[0]).join('\t')].concat(d.map(o=>COLS.map(c=>String(o[c[0]]).replace(/[\t\r\n]+/g,' ')).join('\t'))).join('\n');
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(()=>{ $('#msg').textContent='✓ Lista copiada ('+d.length+' personas): pegala en Excel o en un mail.'; })
+    .catch(()=>{ const ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); $('#msg').textContent='✓ Lista copiada ('+d.length+' personas).'; }catch(e){ $('#msg').textContent='No se pudo copiar: usá «Descargar Excel».'; } ta.remove(); });
+};
+
+/* entrada automática si viene de PRIVADO (sesión de 12 h): no vuelve a pedir el código */
+try{
+  let c = sessionStorage.getItem('owc-clave');
+  if(!c){ const o = JSON.parse(localStorage.getItem('ow-crono-ok')||'null'); if(o && o.c && Date.now()-o.t < 12*3600*1000) c = o.c; }
+  if(c){ clave = c; try{ localStorage.setItem('ow-crono-ok', JSON.stringify({t:Date.now(), c:c})); }catch(e){} abrir(); }
+}catch(e){ console.error(e); }
+})();
+</script>
+</body>
+</html>

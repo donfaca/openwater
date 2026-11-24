@@ -64,7 +64,6 @@
   footer{background:#08202f;color:#a9c6d6;padding:28px 0;margin-top:40px;font-size:.9rem;}
   .req::after{content:' *';color:#c0271a;}
 </style>
-<script src="./ow-demo-editor.js"></script>
 </head>
 <body>
 
@@ -209,7 +208,7 @@
 
   <section class="card">
     <h2><span class="snum">5</span> Declaración jurada</h2>
-    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-2027.dc.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
+    <label class="chk"><input type="checkbox" name="Acepta reglamento" data-req><span>Leí y acepto el <a href="reglamento-2027.html" target="_blank" rel="noopener">Reglamento Oficial Summer Open Water 2027</a> y el deslinde de responsabilidad, que firmaré en la acreditación.</span></label>
     <label class="chk"><input type="checkbox" name="Aptitud física" data-req><span>Declaro estar en condiciones físicas para nadar la distancia elegida en aguas abiertas y contar con apto médico vigente.</span></label>
     <label class="chk"><input type="checkbox" name="Dispositivo de seguridad" data-req><span>Entiendo que la prueba se nada sobre el Río Negro, con corriente y condiciones naturales variables, y que debo respetar las indicaciones del dispositivo de seguridad.</span></label>
     <label class="chk"><input type="checkbox" name="Uso de imagen" data-req><span>Autorizo el uso de imágenes y videos del evento en los que aparezca, con fines de difusión.</span></label>
@@ -412,6 +411,14 @@ $('#enviar').addEventListener('click', () => {
 });
 
 recalcular();
+/* ?prueba=2K (desde la home): deja tildada la opción elegida */
+try{
+  const qp = (new URLSearchParams(location.search).get('prueba')||'').toUpperCase();
+  if(qp){
+    const op = document.querySelector('#pruebas .opt[data-prueba="'+qp+'"]');
+    if(op){ op.click(); setTimeout(()=>{ try{ op.scrollIntoView({block:'center'}); }catch(e){} }, 150); }
+  }
+}catch(e){}
 </script>
 </body>
 </html>
