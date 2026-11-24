@@ -37,7 +37,7 @@ h1{font-size:clamp(1.5rem,4vw,2.3rem);letter-spacing:.05em;margin:0 0 4px;text-t
 #estado.ok{background:#0b5d2e;color:#d9ffe8}#estado.warn{background:#7a4b00;color:#ffe8b8}#estado.err{background:#7a1f1f;color:#ffd6d6}
 .msg{min-height:1.3em;color:#ffd58a;font-weight:600;margin:6px 0;line-height:1.4}
 .tw{overflow-x:auto;border:1px solid #16455f;border-radius:12px;background:#0a2438}
-table{border-collapse:collapse;width:100%;min-width:1180px}
+table{border-collapse:collapse;width:100%;min-width:1240px}
 th{background:#0d2f45;color:#cfe3f1;text-align:left;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:9px 8px;position:sticky;top:0;white-space:nowrap}
 td{padding:5px 6px;border-top:1px solid #123a52;vertical-align:middle}
 tr.pag td{background:rgba(60,180,100,.12)}
@@ -48,6 +48,9 @@ td input:focus,td select:focus{outline:2px solid #c9a24d;background:rgba(255,255
 td select option{color:#000}
 td select{min-width:92px}
 td.pg{text-align:center;width:74px}
+td.dist{white-space:nowrap;width:190px}
+.dk{display:inline-flex;align-items:center;gap:5px;margin:0 8px 0 0;font-weight:800;font-size:.95rem;cursor:pointer}
+.dk input{width:22px;height:22px;accent-color:#c9a24d;cursor:pointer}
 td.pg input{width:24px;height:24px;accent-color:#22c55e;cursor:pointer}
 td.x{width:84px;text-align:center}
 .del{border:1px solid #b23a3a;background:#3a1417;color:#ffb4b4;border-radius:8px;padding:7px 9px;font:800 .8rem 'Barlow',sans-serif;cursor:pointer;white-space:nowrap}
@@ -67,6 +70,9 @@ td.x{width:84px;text-align:center}
   td.n{display:none}
   td.f2{grid-column:1/3}
   td.pg,td.x{width:auto;text-align:left}
+  td.dist{width:auto;white-space:normal}
+  .dk{margin:0 14px 0 0;font-size:1.05rem}
+  .dk input{width:28px;height:28px}
   td.pg input{width:30px;height:30px}
 }
 </style>
@@ -107,16 +113,16 @@ td.x{width:84px;text-align:center}
     <select id="fil" aria-label="Filtrar">
       <option value="">Todos</option><option value="p">Solo pagados</option><option value="n">Solo sin pagar</option><option value="m">Solo cargados a mano</option><option value="f">Solo del formulario</option>
     </select>
-    <select id="fpr" aria-label="Prueba"><option value="">Todas las pruebas</option><option>5K</option><option>10K</option><option>5K+10K</option><option>2K</option></select>
+    <select id="fpr" aria-label="Distancia"><option value="">Todas las distancias</option><option value="5K">Con 5K</option><option value="10K">Con 10K</option><option value="2K">Con 2K</option></select>
   </div>
   <div class="msg" id="msg"></div>
 
   <div class="tw"><table>
-    <thead><tr><th>#</th><th>Nombre y apellido</th><th>DNI</th><th>Fecha de nac.</th><th>Género</th><th>Prueba</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Pagado</th><th>Notas</th><th></th></tr></thead>
+    <thead><tr><th>#</th><th>Nombre y apellido</th><th>DNI</th><th>Fecha de nac.</th><th>Género</th><th>Distancias (5K · 10K · 2K)</th><th>Teléfono</th><th>Email</th><th>Ciudad</th><th>Pagado</th><th>Notas</th><th></th></tr></thead>
     <tbody id="tb"></tbody>
   </table></div>
   <div class="vacio" id="vacio" style="display:none">No hay personas con ese filtro.</div>
-  <p class="ft">El borde dorado a la izquierda marca a las personas cargadas a mano. Al borrar a alguien que vino del formulario, queda quitado de esta lista (la inscripción original sigue en la hoja «Summer»). El Excel descargado lleva las columnas: nombre y apellido, DNI, fecha de nacimiento, género, prueba, teléfono, email, ciudad, pagado y notas.</p>
+  <p class="ft">El borde dorado a la izquierda marca a las personas cargadas a mano. Al borrar a alguien que vino del formulario, queda quitado de esta lista (la inscripción original sigue en la hoja «Summer»). Tildá las distancias que corresponden a cada persona (el Campeonato 5K+10K ya incluye el 2K). El Excel descargado lleva las columnas: nombre y apellido, DNI, fecha de nacimiento, género, 5K, 10K, 2K, teléfono, email, ciudad, pagado y notas.</p>
 </div>
 
 <script src="./ow-xlsx.js"></script>
@@ -209,14 +215,25 @@ function tocar(x){ ver[x.id] = (ver[x.id]||0)+1; dirty[x.id] = 1; cache(); progr
 /* ---------- pantalla ---------- */
 const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
 const norm = s => String(s==null?'':s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
-const GEN = ['Mujer','Varón','Otro'], PRU = ['5K','10K','5K+10K','2K'];
+const GEN = ['Mujer','Varón','Otro'];
+/* La prueba se guarda como texto («5K», «10K+2K», «5K+10K+2K»…) pero acá son tres casilleros separados.
+   El Campeonato (5K+10K) ya incluye el 2K, así que si viene del formulario aparecen las tres tildadas. */
+function dist(t){
+  const r = new Set(), s = String(t||'');
+  if(/(^|[^0-9])5\s*K/i.test(s)) r.add('5K');
+  if(/10\s*K/i.test(s)) r.add('10K');
+  if(/(^|[^0-9.,])2\s*K/i.test(s)) r.add('2K');
+  if(r.has('5K') && r.has('10K')) r.add('2K');
+  return r;
+}
+const unir = set => ['5K','10K','2K'].filter(d=>set.has(d)).join('+');
 function opts(lista, v){ const l = lista.slice(); if(v && l.indexOf(v)<0) l.push(v); return '<option value=""></option>'+l.map(o=>'<option'+(o===v?' selected':'')+'>'+esc(o)+'</option>').join(''); }
 function visibles(){
   const q = norm($('#q').value).trim(), f = $('#fil').value, p = $('#fpr').value;
   return rows.filter(x=>{
     if(f==='p' && !x.pagado) return false; if(f==='n' && x.pagado) return false;
     if(f==='m' && x.origen!=='Manual') return false; if(f==='f' && x.origen==='Manual') return false;
-    if(p && x.prueba!==p) return false;
+    if(p && !dist(x.prueba).has(p)) return false;
     if(q){ const h = norm([x.nombre,x.dni,x.email,x.ciudad,x.tel,x.notas,x.prueba].join(' ')); if(!q.split(/\s+/).every(w=>h.indexOf(w)>-1)) return false; }
     return true;
   });
@@ -228,7 +245,7 @@ function fila(x, i){
    + '<td data-l="DNI"><input type="text" inputmode="numeric" data-k="dni" value="'+esc(x.dni)+'" autocomplete="off"></td>'
    + '<td data-l="Fecha de nac."><input type="text" data-k="nac" value="'+esc(x.nac)+'" placeholder="dd/mm/aaaa" autocomplete="off"></td>'
    + '<td data-l="Género"><select data-k="genero">'+opts(GEN,x.genero)+'</select></td>'
-   + '<td data-l="Prueba"><select data-k="prueba">'+opts(PRU,x.prueba)+'</select></td>'
+   + '<td class="dist f2" data-l="Distancias"><label class="dk"><input type="checkbox" data-d="5K"'+(dist(x.prueba).has('5K')?' checked':'')+'>5K</label><label class="dk"><input type="checkbox" data-d="10K"'+(dist(x.prueba).has('10K')?' checked':'')+'>10K</label><label class="dk"><input type="checkbox" data-d="2K"'+(dist(x.prueba).has('2K')?' checked':'')+'>2K</label></td>'
    + '<td data-l="Teléfono"><input type="text" inputmode="tel" data-k="tel" value="'+esc(x.tel)+'" autocomplete="off"></td>'
    + '<td data-l="Email"><input type="text" inputmode="email" data-k="email" value="'+esc(x.email)+'" autocomplete="off"></td>'
    + '<td data-l="Ciudad"><input type="text" data-k="ciudad" value="'+esc(x.ciudad)+'" autocomplete="off"></td>'
@@ -254,9 +271,11 @@ $('#tb').addEventListener('input', e=>{
   x[k] = e.target.value; tocar(x);
 });
 $('#tb').addEventListener('change', e=>{
-  const x = rowOf(e.target), k = e.target.dataset.k; if(!x || !k) return;
+  const x = rowOf(e.target), k = e.target.dataset.k;
+  if(x && e.target.dataset.d){ const set = dist(x.prueba); if(e.target.checked) set.add(e.target.dataset.d); else set.delete(e.target.dataset.d); x.prueba = unir(set); tocar(x); return; }
+  if(!x || !k) return;
   if(k==='pagado'){ x.pagado = e.target.checked; e.target.closest('tr').classList.toggle('pag', x.pagado); tocar(x); }
-  else if(k==='genero' || k==='prueba'){ x[k] = e.target.value; tocar(x); }
+  else if(k==='genero'){ x[k] = e.target.value; tocar(x); }
 });
 let sureT = null;
 $('#tb').addEventListener('click', e=>{
@@ -284,14 +303,14 @@ $('#add').onclick = ()=>{
 };
 $('#sync').onclick = ()=>{ if(pendientes()){ clearTimeout(timer); guardar(); setTimeout(()=>cargar({refresh:true}), 1500); } else cargar({refresh:true}); };
 ['#q','#fil','#fpr'].forEach(s=>$(s).addEventListener('input', pinta));
-const COLS = [['Nombre y apellido','nombre'],['DNI','dni'],['Fecha de nacimiento','nac'],['Género','genero'],['Prueba','prueba'],['Teléfono','tel'],['Email','email'],['Ciudad','ciudad'],['Pagado','pagado'],['Notas','notas']];
-function datos(){ return rows.filter(x=>x.nombre||x.dni).map(x=>{ const o = {}; COLS.forEach(c=>{ o[c[0]] = c[1]==='pagado' ? (x.pagado?'SI':'NO') : x[c[1]]; }); return o; }); }
+const COLS = [['Nombre y apellido','nombre'],['DNI','dni'],['Fecha de nacimiento','nac'],['Género','genero'],['5K','d5'],['10K','d10'],['2K','d2'],['Teléfono','tel'],['Email','email'],['Ciudad','ciudad'],['Pagado','pagado'],['Notas','notas']];
+function datos(){ return rows.filter(x=>x.nombre||x.dni).map(x=>{ const o = {}; COLS.forEach(c=>{ const dd = dist(x.prueba); o[c[0]] = c[1]==='pagado' ? (x.pagado?'SI':'NO') : (c[1]==='d5' ? (dd.has('5K')?'SI':'') : c[1]==='d10' ? (dd.has('10K')?'SI':'') : c[1]==='d2' ? (dd.has('2K')?'SI':'') : x[c[1]]); }); return o; }); }
 $('#xlsx').onclick = ()=>{
   const d = datos(); if(!d.length){ $('#msg').textContent='No hay nadie en la lista.'; return; }
   const base = 'seguro-summer-2027-'+new Date().toISOString().slice(0,10);
   if(typeof XLSX !== 'undefined'){
     const wb = XLSX.utils.book_new(), ws = XLSX.utils.json_to_sheet(d);
-    ws['!cols'] = [{wch:32},{wch:12},{wch:14},{wch:9},{wch:9},{wch:16},{wch:28},{wch:18},{wch:8},{wch:30}];
+    ws['!cols'] = [{wch:32},{wch:12},{wch:14},{wch:9},{wch:5},{wch:5},{wch:5},{wch:16},{wch:28},{wch:18},{wch:8},{wch:30}];
     XLSX.utils.book_append_sheet(wb, ws, 'Inscriptos Summer'); XLSX.writeFile(wb, base+'.xlsx');
   } else {
     const csv = [COLS.map(c=>c[0]).join(';')].concat(d.map(o=>COLS.map(c=>'"'+String(o[c[0]]).replace(/"/g,'""')+'"').join(';'))).join('\r\n');
