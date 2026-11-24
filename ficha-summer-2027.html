@@ -165,7 +165,8 @@
       </div>
     </div>
 
-    <div style="display:flex;flex-wrap:wrap;gap:12px;margin:0 0 16px;align-items:stretch;">
+    <p class="hint" id="nota-solo2k" style="display:none;margin:0 0 16px;font-weight:700;">Travesía nocturna 2K recreativa: pago único de $60.000, sin cuotas y sin cupones de descuento.</p>
+    <div id="desc-wrap" style="display:flex;flex-wrap:wrap;gap:12px;margin:0 0 16px;align-items:stretch;">
     <div id="cupon-box" style="flex:1 1 300px;min-width:0;background:#E9FBEF;border:2px solid #4ade80;border-radius:14px;padding:12px 14px;">
       <div style="font-family:'Barlow Condensed';font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:#14532d;margin-bottom:6px;">Cupón de equipo · valor por equipo</div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
@@ -243,6 +244,16 @@ function marcarPlan(){
 }
 
 function recalcular(){
+  const solo2k = prueba === '2K';
+  if(solo2k){
+    /* 2K recreativo: pago único, sin cuotas ni descuentos → se ocultan los cupones y se descarta cualquiera aplicado */
+    cup = ''; cupClub = ''; wcup = '';
+    ['#cupon','#wcupon'].forEach(i => { $(i).value = ''; });
+    ['#cupon-msg','#wcupon-msg'].forEach(i => { $(i).textContent = ''; });
+    const sk = $('#sinkit'); if(sk) sk.checked = false;
+  }
+  $('#desc-wrap').style.display = solo2k ? 'none' : 'flex';
+  $('#nota-solo2k').style.display = solo2k ? '' : 'none';
   const wa = !!wcup, aplica = (!!cup && prueba === '5K+10K') || wa;
   const c = wa ? Math.round((contado - descuento()) * 0.9) : (aplica ? 212500 - descuento() : contado - descuento());
   if(cup) $('#cupon-msg').textContent = !wa && aplica ? '✓ Cupón aplicado: valor por equipo, pago contado.' : 'El cupón solo vale para Campeonato 5K + 10K. Elegí esa prueba para usarlo.';
