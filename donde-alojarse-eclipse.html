@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dónde alojarse · Las Grutas · OWeclipse 2027</title>
+<meta name="description" content="Hoteles, apart, cabañas y alojamientos en Las Grutas, San Antonio Oeste y Puerto San Antonio Este para quienes viajan a nadar el OWeclipse 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0507;--bg2:#160b0e;--card:#1b0f12;--org:#F4A11B;--org-soft:#FFD9A0;--cream:#FFF8F5;--mut:rgba(255,248,245,.72);--line:rgba(244,161,27,.28)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Archivo',system-ui,sans-serif;color:var(--cream);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{width:min(1160px,92vw);margin-inline:auto}
+.hero{background:radial-gradient(1200px 400px at 80% -10%,rgba(244,161,27,.28),transparent 60%),linear-gradient(180deg,#1a0c10,var(--bg));padding:1.1rem 0 2.2rem;border-bottom:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem}
+.back{display:inline-flex;align-items:center;gap:.5rem;font-family:'Archivo Narrow',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.85rem;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.28);padding:.5rem 1rem;border-radius:999px;text-decoration:none}
+.back:hover{background:rgba(255,255,255,.18)}
+.kicker{font-family:'Archivo Narrow',sans-serif;font-weight:700;letter-spacing:.26em;text-transform:uppercase;font-size:.95rem;color:var(--org)}
+h1{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(2.6rem,8vw,4.8rem);line-height:1;margin:.3rem 0 .7rem}
+h1 span{color:var(--org)}
+.lead{max-width:760px;color:rgba(255,248,245,.88);font-size:1.02rem}
+.facts{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem}
+.fact{background:rgba(244,161,27,.08);border:1px solid var(--line);border-radius:12px;padding:.55rem .9rem;font-size:.9rem}
+.fact b{display:block;font-family:'Archivo Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--org);font-size:.78rem}
+
+.tools{position:sticky;top:0;z-index:20;background:rgba(11,5,7,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:.8rem 0}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{border:1.5px solid var(--org);background:transparent;color:var(--org);font:700 .82rem 'Archivo Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.45rem .9rem;border-radius:999px;cursor:pointer}
+.chip.on{background:var(--org);color:#1a0c00}
+.chip small{opacity:.75;font-weight:600;margin-left:.2rem}
+.lbl{font:700 .72rem 'Archivo Narrow',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-right:.2rem}
+.q{flex:1 1 220px;min-width:0;font:600 .9rem 'Archivo',sans-serif;border:1.5px solid var(--line);background:var(--bg2);color:var(--cream);padding:.5rem .8rem;border-radius:10px}
+.q::placeholder{color:rgba(255,248,245,.5)}
+.count{font-size:.85rem;color:var(--mut);margin:1rem 0 .2rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem;margin:.8rem 0 2rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem}
+.card h3{font-family:'Archivo Narrow',sans-serif;font-size:1.4rem;font-weight:700;line-height:1.1;text-transform:uppercase;letter-spacing:.03em;color:var(--cream)}
+.badges{display:flex;flex-wrap:wrap;gap:.35rem}
+.b{font:700 .7rem 'Archivo Narrow',sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;border-radius:999px;background:rgba(244,161,27,.16);color:var(--org-soft)}
+.b.alq{background:var(--org);color:#1a0c00}
+.meta{font-size:.92rem;color:var(--mut)}
+.meta div{display:flex;gap:.45rem;margin-top:.2rem}
+.meta i{font-style:normal;flex:none;width:1.2rem}
+.meta a{color:var(--org-soft);font-weight:600;text-decoration:none;word-break:break-word}
+.meta a:hover{text-decoration:underline}
+.acts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.5rem}
+.act{font:700 .78rem 'Archivo Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:.5rem .8rem;border-radius:10px;border:1.5px solid var(--org);color:var(--org);background:transparent}
+.act.p{background:var(--org);color:#1a0c00}
+.act.w{background:#12a150;border-color:#12a150;color:#fff}
+.empty{padding:2rem;text-align:center;color:var(--mut);display:none}
+
+.box{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--org);border-radius:14px;padding:1.1rem 1.3rem;margin:1.2rem 0}
+.box h2{font-family:'Archivo Narrow',sans-serif;font-size:1.4rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;color:var(--org)}
+.box ul{margin:.3rem 0 0 1.1rem;color:var(--mut)}
+.box li{margin:.25rem 0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+.alquilar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;background:linear-gradient(135deg,rgba(244,161,27,.22),rgba(244,161,27,.08));border:1.5px solid var(--org);border-radius:16px;padding:1.2rem 1.4rem;margin:1.4rem 0}
+.alquilar b{font-family:'Archivo Narrow',sans-serif;font-size:1.25rem;letter-spacing:.04em;display:block}
+.alquilar p{color:var(--mut);font-size:.95rem;margin-top:.2rem}
+.alquilar a.btn{font:700 .9rem 'Archivo Narrow',sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;background:var(--org);color:#1a0c00;padding:.75rem 1.2rem;border-radius:10px;word-break:break-word}
+footer{border-top:1px solid var(--line);color:rgba(255,248,245,.7);padding:1.6rem 0;font-size:.85rem;margin-top:2rem}
+footer a{color:var(--org-soft)}
+.alquilar a.btn{text-transform:none;letter-spacing:.02em;font-size:1rem;word-break:normal;overflow-wrap:normal;white-space:nowrap}
+@media (max-width:560px){.grid{grid-template-columns:1fr}.tools{position:static}}
+@media print{.tools,.hero .back,.acts{display:none}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="oweclipse-2027.html">← Volver al OWeclipse</a>
+      <a class="back" href="index.html">Inicio</a>
+    </div>
+    <div class="kicker">OWeclipse 2027 · Las Grutas · 6 de febrero</div>
+    <h1>Dónde <span>alojarse</span></h1>
+    <p class="lead">Hoteles, apart y cabañas en <b>Las Grutas</b>, <b>San Antonio Oeste</b> y <b>Puerto San Antonio Este</b>. Buscá por nombre o calle, elegí la localidad y contactá directo con cada alojamiento.</p>
+    <div class="facts">
+      <div class="fact"><b>Temporada alta</b>Febrero: reservá con anticipación</div>
+      <div class="fact"><b>Precios y disponibilidad</b>Se consultan con cada alojamiento</div>
+    </div>
+  </div>
+</header>
+
+<div class="tools">
+  <div class="wrap">
+    <div class="row">
+      <span class="lbl">Localidad</span>
+      <div class="chips" id="chips"></div>
+      <input class="q" id="q" type="search" placeholder="Buscar por nombre o calle…" aria-label="Buscar">
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">No hay alojamientos con esos filtros. Probá con otra localidad o borrá la búsqueda.</div>
+
+  <div class="alquilar">
+    <div>
+      <b>¿Querés alquilar tu casa o depto para los competidores de OW?</b>
+      <p>Contactate con nosotros por email y te sumamos a esta lista.</p>
+    </div>
+    <a class="btn" href="mailto:openwaterrionegro@gmail.com?subject=Quiero%20alquilar%20mi%20casa%20o%20depto%20a%20competidores%20de%20OW">✉ openwaterrionegro@gmail.com</a>
+  </div>
+
+  <div class="two">
+    <div class="box">
+      <h2>Antes de reservar</h2>
+      <ul>
+        <li>La competencia es el <b>6 de febrero</b>, en plena temporada de verano en Las Grutas: conviene reservar con tiempo.</li>
+        <li>Preguntá disponibilidad, precio por noche, política de cancelación y cantidad de personas que entran.</li>
+        <li><b>Las Grutas</b> es el balneario donde se nada. <b>San Antonio Oeste</b> y <b>Puerto San Antonio Este</b> están a pocos kilómetros.</li>
+        <li>Los teléfonos son los de contacto de cada propietario o alojamiento.</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Listado de alojamientos de Las Grutas, San Antonio Oeste y Puerto San Antonio Este reunido para el OWeclipse 2027. Los datos pueden cambiar: confirmá siempre con cada alojamiento. Open Water no interviene en las reservas ni en los precios.
+  </div>
+</footer>
+
+<script>
+(function(){
+const L = ['Las Grutas','San Antonio Oeste','Puerto San Antonio Este'];
+/* l: 0 Las Grutas · 1 San Antonio Oeste · 2 Puerto San Antonio Este */
+const D = [
+{n:'Acantilado', l:0, dir:'San Antonio 1065', tel:['2934497432']},
+{n:'Agua y Piedra', l:0, dir:'Costanera 345', tel:['2920618729']},
+{n:'Antares', l:0, dir:'Villa Regina 624', tel:['2934497226']},
+{n:'Apart del Golfo', l:0, dir:'Nahuel Huapi 505', tel:['2944410201']},
+{n:'Brisas Místicas', l:0, dir:'Arroyo Los Berros y Jacobacci', tel:['2996301520','2934497542']},
+{n:'Cabaña de Campo', l:0, dir:'Península Valdez 105', tel:['2920446024']},
+{n:'Casa Blanca', l:0, dir:'Viedma 1035', tel:['2920523954']},
+{n:'Colonos', l:0, dir:'Curru Leuvu y Punta Villarino', tel:['2920416762']},
+{n:'Del Río', l:0, dir:'Bresciano y Jacobacci', tel:['2934497378']},
+{n:'Hotel 791', l:0, dir:'Jacobacci y Buyayisky', tel:['2934494167']},
+{n:'Kette', l:0, dir:'San Carlos de Bariloche 317', tel:['2934497203']},
+{n:'La Chacra', l:0, dir:'Caleta de los Loros 160', tel:['2984663227']},
+{n:'Los Aromos', l:0, dir:'La Lobería 170', tel:['2934497790','2934497791']},
+{n:'Mareas', l:0, dir:'Río Negro y El Cuy', tel:['2920205367']},
+{n:'Marina Cero', l:0, dir:'Curru Leuvu y Bahía Creek', tel:['2934497640','2934521531']},
+{n:'Melewe II', l:0, dir:'Trapalco y Sierra Pailemán', tel:['2920587790','2934498175']},
+{n:'Mil Rosas', l:0, dir:'Punta Villarino 270', tel:['2934410931','01157473774']},
+{n:'Mirador del Golfo', l:0, dir:'Golfo San Matías 50', tel:['2934497350']},
+{n:'Patagonia Norte', l:0, dir:'Sierra Pailemán 8', tel:['2944558286']},
+{n:'Pilmayquen', l:0, dir:'Pomona 264', tel:['2934497090','2934497635']},
+{n:'Portovenere', l:0, dir:'Bresciano 693', tel:['2934497126']},
+{n:'Rimini', l:0, dir:'Colectora 450', tel:['2934497256','2934411432']},
+{n:'Riviera', l:0, dir:'Costanera y Comallo', tel:['2934497357']},
+{n:'Terramar', l:0, dir:'Sierra Grande 465', tel:['2934497881']},
+{n:'Torrevado I', l:0, dir:'San Carlos de Bariloche y Colonia Catriel', tel:['2934497162']},
+{n:'Torrevado II', l:0, dir:'San Carlos de Bariloche y Colonia Catriel', tel:['2934497162']},
+{n:'Unidad Turística ACA', l:0, dir:'San Carlos de Bariloche 98', tel:['2934497300']},
+{n:'UPCN Seccional Río Negro', l:0, dir:'Colectora 150', tel:['2920425334','2920546913']},
+{n:'Valquiria', l:0, dir:'Golfo San Jorge 745', tel:['2920446441']},
+{n:'Mensajes de Mar', l:0, dir:'Río Negro 977', mail:'mensajesdemar@gmail.com', fb:'mensajesdemar', alq:1},
+
+{n:'Copa Caribe', l:1, dir:'', tel:['2934528565','1167641897']},
+{n:'El Colonial', l:1, dir:'Ruta 3 y Ruta 251', tel:['2920522056']},
+{n:'España', l:1, dir:'Sarmiento 147', tel:[]},
+{n:'Kandava', l:1, dir:'Sarmiento 220', tel:['2920579955']},
+{n:'Ozieri', l:1, dir:'Mitre y Victoria', tel:['2934421923']},
+{n:'Petit', l:1, dir:'Antártida Argentina 2480', tel:['2934422050']},
+{n:'Posta Marina', l:1, dir:'Automóvil Club Argentino 1912', tel:['2934422990']},
+
+{n:'Calafquén', l:2, dir:'Primeros Pobladores 440', tel:['2934492050','2934449333']},
+{n:'Unter', l:2, dir:'Islas Malvinas 520', tel:['2994686397']}
+];
+
+const $ = s => document.querySelector(s);
+const st = {l:'', q:''};
+const norm = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+function digits(t){ let d=String(t).replace(/\D/g,''); if(d.charAt(0)==='0') d=d.slice(1); return d; }
+function fmt(t){ const d=String(t).replace(/\D/g,''); if(d.length===11&&d.charAt(0)==='0') return '011 '+d.slice(3,7)+'-'+d.slice(7); if(d.length===10) return d.slice(0,4)+'-'+d.slice(4); return t; }
+const telHref = t => 'tel:+54' + digits(t);
+const waHref = t => { const d=digits(t); return 'https://wa.me/549' + (d.length===8?'11'+d:d); };
+function mapHref(x){
+  const loc = [L[x.l],'Río Negro'].join(', ');
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(x.n+(x.dir?', '+x.dir:'')+', '+loc);
+}
+function card(x){
+  const b = '<span class="b">'+L[x.l]+'</span>'+(x.alq?'<span class="b alq">Alquiler</span>':'');
+  const meta = [];
+  if(x.dir) meta.push('<div><i>📍</i><span>'+esc(x.dir)+'</span></div>');
+  if(x.tel && x.tel.length) meta.push('<div><i>📞</i><span>'+x.tel.map(t=>'<a href="'+telHref(t)+'">'+esc(fmt(t))+'</a>').join(' · ')+'</span></div>');
+  if(x.mail) meta.push('<div><i>✉️</i><a href="mailto:'+esc(x.mail)+'">'+esc(x.mail)+'</a></div>');
+  if(x.fb) meta.push('<div><i>🔗</i><a href="https://www.facebook.com/'+esc(x.fb)+'" target="_blank" rel="noopener">Facebook</a></div>');
+  if(!x.tel || !x.tel.length) { if(!x.mail) meta.push('<div><i>ℹ️</i><span>Sin teléfono en el listado</span></div>'); }
+  const acts = [];
+  if(x.tel && x.tel.length){ acts.push('<a class="act w" href="'+waHref(x.tel[0])+'" target="_blank" rel="noopener">WhatsApp</a>'); acts.push('<a class="act p" href="'+telHref(x.tel[0])+'">Llamar</a>'); }
+  if(x.mail) acts.push('<a class="act p" href="mailto:'+esc(x.mail)+'">Escribir</a>');
+  acts.push('<a class="act" href="'+mapHref(x)+'" target="_blank" rel="noopener">Cómo llegar</a>');
+  return '<article class="card"><div class="badges">'+b+'</div><h3>'+esc(x.n)+'</h3><div class="meta">'+meta.join('')+'</div><div class="acts">'+acts.join('')+'</div></article>';
+}
+function pasa(x, omitL){
+  if(!omitL && st.l!=='' && x.l!==+st.l) return false;
+  if(st.q){ const h = norm(x.n+' '+x.dir+' '+L[x.l]); if(!st.q.split(/\s+/).every(w=>h.indexOf(w)>-1)) return false; }
+  return true;
+}
+function chips(){
+  $('#chips').innerHTML = '<button class="chip'+(st.l===''?' on':'')+'" data-v="">Todas<small>'+D.filter(x=>pasa(x,true)).length+'</small></button>' +
+    L.map((n,i)=>'<button class="chip'+(st.l===String(i)?' on':'')+'" data-v="'+i+'">'+n+'<small>'+D.filter(x=>pasa(x,true)&&x.l===i).length+'</small></button>').join('');
+}
+function pinta(){
+  const R = D.filter(x=>pasa(x));
+  chips();
+  $('#grid').innerHTML = R.map(card).join('');
+  $('#empty').style.display = R.length ? 'none' : 'block';
+  $('#count').textContent = R.length + (R.length===1?' alojamiento':' alojamientos') + (st.l!==''||st.q ? ' con los filtros elegidos' : ' en total');
+}
+document.addEventListener('click', e=>{ const c = e.target.closest('.chip'); if(!c) return; st.l = c.dataset.v; pinta(); });
+$('#q').oninput = e=>{ st.q = norm(e.target.value).trim(); pinta(); };
+pinta();
+})();
+</script>
+</body>
+</html>

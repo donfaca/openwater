@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dónde alojarse · Viedma y El Cóndor · Open Water Río Negro</title>
+<meta name="description" content="Hoteles, residenciales, hostel, departamentos, casas de alquiler, albergues y campings en Viedma y El Cóndor para quienes viajan a nadar el Summer Open Water 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --river:#0A3D5C; --river-deep:#052436; --teal:#0E8C8C; --aqua:#3FC5C5;
+  --sand:#E8B45A; --sand-soft:#F6D9A0; --tint:#E4F3F5; --ink:#08222E; --ink-soft:#3B5B67;
+  --paper:#F7FCFD; --line:rgba(10,61,92,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{width:min(1160px,92vw);margin-inline:auto}
+.hero{background:linear-gradient(160deg,var(--river-deep),var(--river) 60%,#0d5a73);color:#fff;padding:1.1rem 0 2.2rem}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;margin-bottom:1.4rem}
+.back{display:inline-flex;align-items:center;gap:.5rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.85rem;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:.5rem 1rem;border-radius:999px;text-decoration:none}
+.back:hover{background:rgba(255,255,255,.22)}
+.kicker{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.26em;text-transform:uppercase;font-size:.95rem;color:var(--aqua)}
+h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.02em;font-size:clamp(2.4rem,7vw,4.4rem);line-height:.98;margin:.3rem 0 .7rem}
+h1 span{color:var(--sand)}
+.lead{max-width:760px;color:rgba(255,255,255,.88);font-size:1.02rem}
+.facts{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem}
+.fact{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:.55rem .9rem;font-size:.9rem}
+.fact b{display:block;font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--sand-soft);font-size:.8rem}
+
+.tools{position:sticky;top:0;z-index:20;background:rgba(247,252,253,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:.8rem 0}
+.row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{border:1.5px solid var(--river);background:#fff;color:var(--river);font:700 .82rem 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:.45rem .9rem;border-radius:999px;cursor:pointer}
+.chip.on{background:var(--river);color:#fff}
+.chip small{opacity:.7;font-weight:600;margin-left:.2rem}
+.sel,.q{font:600 .9rem 'Manrope',sans-serif;border:1.5px solid var(--line);background:#fff;color:var(--ink);padding:.5rem .8rem;border-radius:10px}
+.q{flex:1 1 200px;min-width:0}
+.lbl{font:700 .72rem 'Barlow Condensed',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-right:.2rem}
+.count{font-size:.85rem;color:var(--ink-soft);margin:1rem 0 .2rem}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem;margin:.8rem 0 2rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1rem 1.1rem 1rem;display:flex;flex-direction:column;gap:.5rem;box-shadow:0 6px 18px rgba(10,61,92,.06)}
+.card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;font-weight:700;line-height:1.1;letter-spacing:.01em}
+.badges{display:flex;flex-wrap:wrap;gap:.35rem}
+.b{font:700 .7rem 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:999px;background:var(--tint);color:var(--river)}
+.b.z{background:#fff3da;color:#7a5200}
+.b.s{background:var(--sand);color:#3a2606}
+.meta{font-size:.9rem;color:var(--ink-soft)}
+.meta div{display:flex;gap:.45rem;margin-top:.15rem}
+.meta i{font-style:normal;flex:none;width:1.2rem}
+.meta a{color:var(--river);font-weight:600;text-decoration:none;word-break:break-word}
+.meta a:hover{text-decoration:underline}
+.acts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:auto;padding-top:.4rem}
+.act{font:700 .78rem 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:.5rem .8rem;border-radius:10px;border:1.5px solid var(--river);color:var(--river);background:#fff}
+.act.p{background:var(--river);color:#fff}
+.act.w{background:#12a150;border-color:#12a150;color:#fff}
+.note{font-size:.8rem;color:#7a5200;background:#fff7e6;border-radius:8px;padding:.3rem .55rem}
+.empty{padding:2rem;text-align:center;color:var(--ink-soft);display:none}
+
+.box{background:#fff;border:1px solid var(--line);border-left:5px solid var(--sand);border-radius:14px;padding:1.1rem 1.3rem;margin:1.2rem 0}
+.box h2{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;letter-spacing:.03em;text-transform:uppercase;margin-bottom:.4rem}
+.box ul{margin:.3rem 0 0 1.1rem;color:var(--ink-soft)}
+.box li{margin:.25rem 0}
+.alquilar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;background:linear-gradient(135deg,#fff3da,#fde6b4);border:1.5px solid var(--sand);border-radius:16px;padding:1.2rem 1.4rem;margin:1.4rem 0}
+.alquilar b{font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;letter-spacing:.03em;display:block;color:var(--river-deep)}
+.alquilar p{color:var(--ink-soft);font-size:.95rem;margin-top:.2rem}
+.alquilar a.btn{font:800 .95rem 'Barlow Condensed',sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;background:var(--river);color:#fff;padding:.75rem 1.2rem;border-radius:10px;word-break:break-word}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}
+footer{background:var(--river-deep);color:rgba(255,255,255,.8);padding:1.6rem 0;font-size:.85rem;margin-top:2rem}
+footer a{color:var(--sand-soft)}
+.alquilar a.btn{text-transform:none;letter-spacing:.02em;font-size:1rem;word-break:normal;overflow-wrap:normal;white-space:nowrap}
+@media (max-width:560px){.grid{grid-template-columns:1fr}.tools{position:static}}
+@media print{.tools,.hero .back,.acts{display:none}.card{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="summer-open-water-2027.html">← Volver al Summer Open Water</a>
+      <a class="back" href="index.html">Inicio</a>
+    </div>
+    <div class="kicker">Summer Open Water 2027 · 23 y 24 de enero</div>
+    <h1>Dónde <span>alojarse</span></h1>
+    <p class="lead">Hoteles, residenciales, hostel, departamentos, casas de alquiler, albergues y campings en <b>Viedma</b> y en la costa (<b>El Cóndor</b> y <b>La Lobería</b>). Elegí por zona, tipo de alojamiento y cantidad de personas, y contactá directo con cada lugar.</p>
+    <div class="facts">
+      <div class="fact"><b>Enero = temporada alta</b>Reservá con anticipación</div>
+      <div class="fact"><b>Precios</b>Se consultan con cada alojamiento</div>
+      <div class="fact"><b>Fuente</b>Dirección de Turismo de Viedma</div>
+    </div>
+  </div>
+</header>
+
+<div class="tools">
+  <div class="wrap">
+    <div class="row" style="margin-bottom:.5rem">
+      <span class="lbl">Tipo</span>
+      <div class="chips" id="chipsTipo"></div>
+    </div>
+    <div class="row">
+      <span class="lbl">Zona</span>
+      <div class="chips" id="chipsZona"></div>
+      <span class="lbl" style="margin-left:.6rem">Personas</span>
+      <select class="sel" id="plazas" aria-label="Cantidad de personas">
+        <option value="0">Cualquiera</option><option value="2">2 o más</option><option value="3">3 o más</option>
+        <option value="4">4 o más</option><option value="5">5 o más</option><option value="6">6 o más</option>
+      </select>
+      <input class="q" id="q" type="search" placeholder="Buscar por nombre o calle…" aria-label="Buscar">
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">No hay alojamientos con esos filtros. Probá con otra zona o tipo, o consultá en Informes Turísticos.</div>
+
+  <div class="alquilar">
+    <div>
+      <b>¿Querés alquilar tu casa o depto para los competidores de OW?</b>
+      <p>Contactate con nosotros por email y te sumamos a esta lista.</p>
+    </div>
+    <a class="btn" href="mailto:openwaterrionegro@gmail.com?subject=Quiero%20alquilar%20mi%20casa%20o%20depto%20a%20competidores%20de%20OW">✉ openwaterrionegro@gmail.com</a>
+  </div>
+
+  <div class="two">
+    <div class="box">
+      <h2>Antes de reservar</h2>
+      <ul>
+        <li>La competencia es en <b>enero</b>, temporada alta en la zona: conviene reservar con tiempo.</li>
+        <li>Preguntá disponibilidad, precio por noche, política de cancelación y si aceptan mascotas o llegadas tardías.</li>
+        <li><b>Viedma</b> es la ciudad (comercios, restaurantes, servicios). <b>El Cóndor</b> es el balneario sobre el mar, a unos 30 km. <b>La Lobería</b> está más lejos, sobre el Camino de la Costa.</li>
+        <li>Si viajás en grupo o equipo, las <b>casas y departamentos</b> indican la cantidad de plazas.</li>
+        <li>Esta lista corresponde a Viedma y la costa. Para <b>Carmen de Patagones</b>, al otro lado del río, consultá en la oficina de turismo local.</li>
+      </ul>
+    </div>
+    <div class="box" style="border-left-color:var(--aqua)">
+      <h2>Informes Turísticos de Viedma</h2>
+      <div class="meta" style="font-size:.95rem">
+        <div><i>📍</i><span>Ricardo Balbín 930, Viedma</span></div>
+        <div><i>📍</i><span>Calle 69 y Costanera, El Cóndor</span></div>
+        <div><i>📞</i><a href="tel:+542920369651">2920-369651</a></div>
+        <div><i>💬</i><a href="https://wa.me/542920369651" target="_blank" rel="noopener">WhatsApp</a></div>
+        <div><i>✉️</i><a href="mailto:infoturismo@viedma.gob.ar">infoturismo@viedma.gob.ar</a></div>
+        <div><i>🕘</i><span>Temporada alta: todos los días de 9 a 21 hs (Viedma) y de 9 a 19 hs (El Cóndor).</span></div>
+      </div>
+      <p style="margin-top:.6rem;font-size:.9rem;color:var(--ink-soft)">Podés pedirles ayuda para encontrar alojamiento según tus fechas y cantidad de personas.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Información tomada de la <a href="https://destinoviedma.gob.ar/detalle/Alojamiento/98/oferta-de-alojamiento.html" target="_blank" rel="noopener">Oferta de Alojamiento</a> y de los <a href="https://destinoviedma.gob.ar/servicios.php" target="_blank" rel="noopener">Servicios</a> de la Dirección de Turismo de Viedma (destinoviedma.gob.ar), consultada en noviembre de 2026. Los datos pueden cambiar: confirmá siempre con cada alojamiento. Open Water no interviene en las reservas ni en los precios.
+  </div>
+</footer>
+
+<script>
+(function(){
+/* tipo: hotel · resid (residencial / B&B) · hostel (hostel y albergue) · depto (complejos de departamentos) · casa (casas de alquiler turístico) · camping
+   zona: viedma · condor · loberia
+   pl: plazas máximas aproximadas (para el filtro de personas) */
+const T = [
+  ['hotel','Hoteles'], ['resid','Residenciales y B&B'], ['hostel','Hostel y albergues'],
+  ['depto','Departamentos'], ['casa','Casas de alquiler'], ['camping','Campings']
+];
+const Z = [['viedma','Viedma'], ['condor','El Cóndor'], ['loberia','La Lobería']];
+const ZN = {viedma:'Viedma', condor:'El Cóndor', loberia:'La Lobería'};
+const TN = {hotel:'Hotel', resid:'Residencial · B&B', hostel:'Hostel · Albergue', depto:'Departamentos', casa:'Casa de alquiler', camping:'Camping'};
+
+const D = [
+/* ---------- VIEDMA · hoteles ---------- */
+{n:'Hotel Casino del Río', t:'hotel', z:'viedma', est:5, dir:'Francisco de Viedma 1451', tel:['2920-483632'], wa:'542920591016', mail:'v-hotel@casinosdelrio.com.ar', web:'https://www.casinosdelrio.com.ar/', ig:'delrioviedma', pl:4},
+{n:'Hotel Austral', t:'hotel', z:'viedma', est:3, dir:'Av. Villarino 292', tel:['2920-422615','2920-422619'], mail:'viedma@hotelesaustral.com', web:'http://www.hotelesaustral.com', fb:'hotelaustralviedma', ig:'hotelesaustral', pl:4},
+{n:'Hotel Nijar', t:'hotel', z:'viedma', est:3, dir:'Mitre 490', tel:['2920-422833'], wa:'542920300880', mail:'reserva@hotelnijar.com', web:'https://hotelnijar.com/', fb:'pages/Hotel-Nijar/316514211706739', ig:'nijarhotel', pl:4},
+{n:'Hotel Peumayén', t:'hotel', z:'viedma', est:1, dir:'Buenos Aires 334', tel:['2920-448260'], wa:'542920448260', mail:'reservas@hotelpeumayen.com', web:'https://hotelpeumayen.com/', ig:'hotel_peumayen', pl:4},
+/* ---------- VIEDMA · residenciales / B&B ---------- */
+{n:'Residencial Cristal', t:'resid', z:'viedma', dir:'Av. Leloir 1882', tel:['2920-472228','2920-428771'], wa:'542920472228', mail:'hotelcristal_viedma@yahoo.com.ar', fb:'HotelCristalViedmaRioNegro', ig:'hotelcristalviedma', pl:4},
+{n:'Hotel Currú Leuvú', t:'resid', z:'viedma', dir:'Zatti 616 (esquina Urquiza)', tel:['2920-539373'], wa:'542920539373', mail:'hotelcurruleuvuviedma@yahoo.com', ig:'hotelcurruleuvu', pl:4},
+{n:'Hotel Río Mar', t:'resid', z:'viedma', dir:'Rivadavia 897 (esquina Santa Rosa)', tel:['2920-424188','2920-627235'], wa:'542920627235', mail:'riomarscoli@hotmail.com', web:'https://www.hotelriomarviedma.com/', pl:4},
+{n:'Residencial Roca', t:'resid', z:'viedma', dir:'Roca 347', tel:['2920-431241'], mail:'residencial-roca@hotmail.com', fb:'292600484602574', ig:'residencialroca', pl:4},
+{n:'Hotel Tosca', t:'resid', z:'viedma', dir:'Alsina 349', tel:['2920-216818'], wa:'542920216818', mail:'hoteltosca@hotmail.com', fb:'residencial.tosca.5', ig:'residencialtosca', pl:4},
+/* ---------- VIEDMA · hostel y albergues ---------- */
+{n:'Olo Hostel', t:'hostel', z:'viedma', dir:'Rivadavia 540', wa:'5492920366277', mail:'olo.hostel@gmail.com', web:'https://olohostel.aloha.co/', ig:'olo.hostel', pl:6},
+{n:'Albergue Ruta 3', t:'hostel', z:'viedma', dir:'Del Álamo y Del Quebracho', tel:['2920-481310'], wa:'5492920481310', nota:'Albergue turístico', pl:6},
+{n:'Albergue Casa de Retiro', t:'hostel', z:'viedma', dir:'Bv. Ituzaingó 140', tel:['2920-402446'], nota:'Albergue turístico', pl:6},
+/* ---------- VIEDMA · complejos de departamentos ---------- */
+{n:'Complejo Bartolomé', t:'depto', z:'viedma', dir:'Mitre 1056', tel:['2920-207858'], mail:'bartolomealquileres@gmail.com', plz:'Deptos. de 2, 4 y 6 plazas', pl:6},
+{n:'Complejo Hostal Colón', t:'depto', z:'viedma', dir:'Colón 1415', tel:['2920-628140'], wa:'542920628140', plz:'Deptos. de 2, 4 y 6 plazas', pl:6},
+{n:'Departamentos Boulevard', t:'depto', z:'viedma', dir:'Bv. Contín 246', tel:['2920-621579'], plz:'Deptos. de 4 plazas', pl:4},
+{n:'Complejo Deptos Centro', t:'depto', z:'viedma', dir:'Tucumán 24', tel:['2920-586909'], wa:'542920586909', mail:'apartcentro11@gmail.com', plz:'Deptos. de 2, 4 y 6 plazas', pl:6},
+{n:'Complejo El Colono', t:'depto', z:'viedma', dir:'El Colono 367', tel:['2920-470337','2920-544932'], wa:'542920544932', plz:'Deptos. de 4 a 6 plazas', pl:6},
+{n:'Complejo Las Tunas', t:'depto', z:'viedma', dir:'Yrigoyen 191', tel:['2920-406835'], wa:'542920406835', plz:'Deptos. de 2 y 4 plazas', pl:4},
+{n:'Complejo Heart Viedma', t:'depto', z:'viedma', dir:'Guido 463', wa:'1150358179', ig:'heart_viedma', plz:'Deptos. de 3 y 4 plazas', pl:4, nota:'Contacto por WhatsApp o Instagram'},
+/* ---------- VIEDMA · casas de alquiler turístico ---------- */
+{n:'Barbieri Daniel · «Santa Cecilia»', t:'casa', z:'viedma', dir:'Argentinos 275', tel:['2920-582002'], plz:'Casa de 2 y 5 plazas', pl:5},
+{n:'Utrero Ana María', t:'casa', z:'viedma', dir:'Sarmiento 744', tel:['2920-602146'], plz:'Casa de 3 plazas', pl:3},
+{n:'Pazos Valeria', t:'casa', z:'viedma', dir:'Zatti 854', tel:['2920-524840'], plz:'Casa de 3 plazas', pl:3},
+{n:'Bensoni Walter', t:'casa', z:'viedma', dir:'Urquiza 1134, Dpto. A', tel:['2920-628504'], plz:'Casa de 4 plazas', pl:4},
+{n:'Barbara Laura', t:'casa', z:'viedma', dir:'Saavedra 456', tel:['2920-610564'], plz:'Casa de 4 plazas', pl:4},
+{n:'De Volder · «Grupo Costanera»', t:'casa', z:'viedma', dir:'Alem 343 · Flores del Campo 536, Dpto. 5', tel:['2920-602084'], plz:'Casas de 4 y 6 plazas', pl:6},
+{n:'Mosqueira Beatriz', t:'casa', z:'viedma', dir:'Junín 1877', tel:['2920-471258'], plz:'Casa de 4 plazas', pl:4},
+{n:'Santoro Yanina · «San Tauro»', t:'casa', z:'viedma', dir:'Colón 651', tel:['11-3294-7538'], plz:'Casa de 4 plazas', pl:4},
+{n:'Vita Alicia', t:'casa', z:'viedma', dir:'Alsina 509', tel:['2920-414028'], plz:'Casa de 5 plazas', pl:5},
+{n:'Kedak Héctor · «Los Jazmines»', t:'casa', z:'viedma', dir:'Zatti 1313', tel:['2920-411809'], plz:'Casa de 6 plazas', pl:6},
+
+/* ---------- EL CÓNDOR · hoteles y residencial ---------- */
+{n:'Apart Hotel Costa del Faro', t:'hotel', z:'condor', dir:'Av. Costanera 1465', tel:['2920-445938'], wa:'542920445938', mail:'info@costadelfaro.com.ar', web:'https://www.costadelfaro.com.ar/web/', fb:'costadelfaro', ig:'costadelfaro', plz:'Departamentos para 2, 3, 4 y 5 personas', pl:5},
+{n:'Hotel y Restaurante Carabana', t:'hotel', z:'condor', dir:'Av. Costanera 651', tel:['2920-248952'], wa:'5492920248952', fb:'carabana.pizzas', ig:'carabanahotelresto', pl:4},
+{n:'Residencial La Familia', t:'resid', z:'condor', dir:'Calle 20 bis entre 67 y 69, N.º 37', tel:['2920-520754'], nota:'Residencial y restaurante', pl:4},
+/* ---------- EL CÓNDOR · complejos ---------- */
+{n:'Complejo Balnearios Patagónicos', t:'depto', z:'condor', dir:'Calle 57 N.º 187', tel:['2920-620490','2920-340628'], wa:'542920620490', plz:'Deptos. de 4 y 6 plazas', pl:6},
+{n:'Complejo Brisas del Mar', t:'depto', z:'condor', dir:'Calle 57 N.º 471', tel:['2920-601121'], wa:'542920601121', plz:'Deptos. de 4 plazas', pl:4},
+{n:'Complejo Peumayen (Bancarios)', t:'depto', z:'condor', dir:'Calle 59 y Costanera', tel:['2920-482250'], fb:'complejopeumayen.rn', plz:'Deptos. de 4 a 6 plazas', pl:6},
+{n:'Complejo Cadejur', t:'depto', z:'condor', dir:'Mario Sabatella 759', tel:['2920-348033'], wa:'5492920348033', web:'https://www.cadejur.com/complejo.html', plz:'Deptos. de 2 plazas', pl:2},
+{n:'Complejo Los Sauces', t:'depto', z:'condor', dir:'Calle 80 N.º 310', tel:['2920-640314','2920-606909'], wa:'542920640314', plz:'Deptos. de 4 y 5 plazas', pl:5},
+{n:'Complejo Puerto Patagonia', t:'depto', z:'condor', dir:'Calle 65 N.º 239', tel:['2920-613340'], wa:'542920613340', mail:'puertopatagoniavip@gmail.com', fb:'puertopatagoniavip', ig:'puertopatagonia_elcondor', plz:'Deptos. de 5 y 6 plazas', pl:6},
+{n:'Complejo Ruka Leufú', t:'depto', z:'condor', dir:'Ruta Provincial 1, km 18 (camino a El Cóndor)', tel:['2920-355852'], wa:'542920355852', plz:'Deptos. de 6 plazas', pl:6},
+{n:'Complejo Sindical A.T.E.', t:'depto', z:'condor', dir:'Costanera 975', tel:['2920-242731'], wa:'542920242731', plz:'Deptos. de 4 a 6 plazas', pl:6, nota:'Solo para socios'},
+/* ---------- EL CÓNDOR · campings ---------- */
+{n:'Camping Inalauquen', t:'camping', z:'condor', dir:'Calle 87 y Costanera', tel:['2920-275537'], pl:6},
+{n:'Camping Los Trentinos', t:'camping', z:'condor', dir:'Costanera 721', tel:['11-3453-0949'], pl:6},
+{n:'Camping 24 de Agosto', t:'camping', z:'condor', dir:'Calle 87 y 8 bis', tel:['2920-344239'], pl:6},
+/* ---------- EL CÓNDOR · casas de alquiler turístico ---------- */
+{n:'Bozzano Alcira', t:'casa', z:'condor', dir:'Arenas 1135', tel:['2920-483579'], plz:'Casa de 3 plazas', pl:3},
+{n:'Guenumil Oscar', t:'casa', z:'condor', dir:'Calle 65 N.º 663', tel:['2920-343197'], plz:'Casa de 3 plazas', pl:3},
+{n:'Heredia Corina · «Ángeles del Mar»', t:'casa', z:'condor', dir:'Calle 87 N.º 97', tel:['2920-303682'], plz:'Casa de 4 y 5 plazas', pl:5},
+{n:'Morón Norma', t:'casa', z:'condor', dir:'Calle 6 N.º 319', tel:['2920-605851','2920-421417'], plz:'Casa de 4 plazas', pl:4},
+{n:'Olivero Sandra', t:'casa', z:'condor', dir:'Calle 40 N.º 156', tel:['2920-419694'], plz:'Casa de 4 plazas', pl:4},
+{n:'Rodríguez Néstor', t:'casa', z:'condor', dir:'Calle 57 N.º 243', tel:['2920-489758'], plz:'Casa de 4 plazas', pl:4},
+{n:'Zelasqui Daniel', t:'casa', z:'condor', dir:'Arenas 1058', tel:['2920-640548'], plz:'Casa de 4 plazas', pl:4},
+{n:'Zotta María Cristina · «La Estación»', t:'casa', z:'condor', dir:'Ruta 1, km 20,350', tel:['2920-522143'], plz:'Casa de 4 y 7 plazas', pl:7},
+{n:'Álvarez Marta', t:'casa', z:'condor', dir:'Calle 61 N.º 62', tel:['2920-601326'], plz:'Casa de 5 plazas', pl:5},
+{n:'Hecker Sergio', t:'casa', z:'condor', dir:'Calle 60 N.º 419', tel:['2920-591608'], plz:'Casa de 5 plazas', pl:5},
+{n:'Barilá Carmen', t:'casa', z:'condor', dir:'Calle 12 N.º 476', tel:['2920-639085'], plz:'Casa de 6 plazas', pl:6},
+{n:'Carrillo Miguel', t:'casa', z:'condor', dir:'Calle 80 N.º 434', tel:['2920-511535'], plz:'Casa de 6 plazas', pl:6},
+{n:'Cévoli Elda', t:'casa', z:'condor', dir:'Calle 160 y 67', tel:['2920-622910'], plz:'Casa de 6 plazas', pl:6},
+{n:'Grasa Jorge', t:'casa', z:'condor', dir:'Calle 240 N.º 936', tel:['2920-601075'], plz:'Casa de 6 plazas', pl:6},
+{n:'Guidi Fabián', t:'casa', z:'condor', dir:'Calle 80 N.º 427', tel:['2920-619522'], plz:'Casa de 6 plazas', pl:6},
+{n:'Van de Couter Héctor', t:'casa', z:'condor', dir:'Calle 87 y 2', tel:['2920-629786'], plz:'Casa de 6 plazas', pl:6},
+
+/* ---------- LA LOBERÍA ---------- */
+{n:'Acantilados del Lobo · hostel y camping', t:'camping', z:'loberia', dir:'Balneario La Lobería (Camino de la Costa)', tel:['2920-372448'], wa:'5492920372448', web:'https://acantiladosdellobo.com.ar/', ig:'acantiladosdellobo', nota:'Hostel y camping junto a la lobería de Punta Bermeja', pl:6}
+];
+
+const $ = s => document.querySelector(s);
+const st = {t:'', z:'', pl:0, q:''};
+const norm = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const telHref = t => 'tel:+54' + String(t).replace(/\D/g,'').replace(/^0+/,'');
+function mapHref(x){
+  const zona = x.z==='viedma' ? 'Viedma, Río Negro' : x.z==='condor' ? 'El Cóndor, Viedma, Río Negro' : 'La Lobería, Río Negro';
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(x.n.replace(/[«»]/g,'').split(' · ')[0] + ', ' + x.dir.split(' · ')[0] + ', ' + zona);
+}
+function card(x){
+  const b = ['<span class="b">'+TN[x.t]+'</span>','<span class="b z">'+ZN[x.z]+'</span>'];
+  if(x.est) b.push('<span class="b s">'+'★'.repeat(x.est)+' '+x.est+(x.est>1?' estrellas':' estrella')+'</span>');
+  const meta = [];
+  if(x.plz) meta.push('<div><i>🛏</i><span>'+esc(x.plz)+'</span></div>');
+  meta.push('<div><i>📍</i><span>'+esc(x.dir)+'</span></div>');
+  if(x.tel) meta.push('<div><i>📞</i><span>'+x.tel.map(t=>'<a href="'+telHref(t)+'">'+esc(t)+'</a>').join(' · ')+'</span></div>');
+  if(x.mail) meta.push('<div><i>✉️</i><a href="mailto:'+esc(x.mail)+'">'+esc(x.mail)+'</a></div>');
+  if(x.web) meta.push('<div><i>🌐</i><a href="'+esc(x.web)+'" target="_blank" rel="noopener">'+esc(x.web.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,''))+'</a></div>');
+  const soc = [];
+  if(x.ig) soc.push('<a href="https://www.instagram.com/'+esc(x.ig)+'/" target="_blank" rel="noopener">Instagram</a>');
+  if(x.fb) soc.push('<a href="https://www.facebook.com/'+esc(x.fb)+'" target="_blank" rel="noopener">Facebook</a>');
+  if(soc.length) meta.push('<div><i>🔗</i><span>'+soc.join(' · ')+'</span></div>');
+  const acts = [];
+  if(x.wa) acts.push('<a class="act w" href="https://wa.me/'+esc(x.wa)+'" target="_blank" rel="noopener">WhatsApp</a>');
+  if(x.tel) acts.push('<a class="act p" href="'+telHref(x.tel[0])+'">Llamar</a>');
+  acts.push('<a class="act" href="'+mapHref(x)+'" target="_blank" rel="noopener">Cómo llegar</a>');
+  return '<article class="card"><div class="badges">'+b.join('')+'</div><h3>'+esc(x.n)+'</h3>'+(x.nota?'<div class="note">'+esc(x.nota)+'</div>':'')+'<div class="meta">'+meta.join('')+'</div><div class="acts">'+acts.join('')+'</div></article>';
+}
+function pasa(x, omitT, omitZ){
+  if(!omitT && st.t && x.t!==st.t) return false;
+  if(!omitZ && st.z && x.z!==st.z) return false;
+  if(st.pl && x.pl < st.pl) return false;
+  if(st.q){ const h = norm(x.n+' '+x.dir+' '+(x.plz||'')+' '+TN[x.t]+' '+ZN[x.z]); if(!st.q.split(/\s+/).every(w=>h.indexOf(w)>-1)) return false; }
+  return true;
+}
+function chips(){
+  const mk = (arr, key, omitT, omitZ, all) => '<button class="chip'+(st[key]===''?' on':'')+'" data-k="'+key+'" data-v="">'+all+'<small>'+D.filter(x=>pasa(x,omitT,omitZ)).length+'</small></button>' +
+    arr.map(([v,l])=>'<button class="chip'+(st[key]===v?' on':'')+'" data-k="'+key+'" data-v="'+v+'">'+l+'<small>'+D.filter(x=>pasa(x,omitT,omitZ)&&x[key==='t'?'t':'z']===v).length+'</small></button>').join('');
+  $('#chipsTipo').innerHTML = mk(T,'t',true,false,'Todos');
+  $('#chipsZona').innerHTML = mk(Z,'z',false,true,'Todas');
+}
+function pinta(){
+  const L = D.filter(x=>pasa(x));
+  chips();
+  $('#grid').innerHTML = L.map(card).join('');
+  $('#empty').style.display = L.length ? 'none' : 'block';
+  $('#count').textContent = L.length + (L.length===1?' alojamiento':' alojamientos') + (st.t||st.z||st.pl||st.q ? ' con los filtros elegidos' : ' en total');
+}
+document.addEventListener('click', e=>{ const c = e.target.closest('.chip'); if(!c) return; st[c.dataset.k] = c.dataset.v; pinta(); });
+$('#plazas').onchange = e=>{ st.pl = +e.target.value; pinta(); };
+$('#q').oninput = e=>{ st.q = norm(e.target.value).trim(); pinta(); };
+pinta();
+})();
+</script>
+</body>
+</html>
