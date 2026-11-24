@@ -64,6 +64,7 @@
   footer{background:#08202f;color:#a9c6d6;padding:28px 0;margin-top:40px;font-size:.9rem;}
   .req::after{content:' *';color:#c0271a;}
 </style>
+<script src="./ow-demo-editor.js"></script>
 </head>
 <body>
 
@@ -101,7 +102,7 @@
 
   <section class="card" id="s-prueba">
     <h2><span class="snum">2</span> Elegí tu prueba</h2>
-    <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Si elegís solo 5K o solo 10K, podés sumar el 2K Nocturno. Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
+    <p class="hint" style="margin:-6px 0 14px;"><b>Tocá la prueba que vas a nadar.</b> Si elegís solo 5K o solo 10K, podés <b>sumar también el 2K Nocturno</b> (tocá las dos tarjetas, o tildá la casilla de abajo). Cada prueba tiene su propio valor y el QR de pago se genera por ese monto.</p>
     <div class="pay" id="pruebas">
       <div class="opt on" data-prueba="5K+10K" data-contado="250000" data-cuota="85000" data-cuotas="3" data-kit="1">
         <div class="tag">Recomendado</div>
@@ -184,7 +185,7 @@
         <button type="button" id="wcupon-ok" class="btn" style="background:#3b5bdb;">Aplicar</button>
       </div>
       <div id="wcupon-msg" style="font-size:.9rem;color:#fff;margin-top:8px;"></div>
-      <p class="hint" style="margin:6px 0 0;font-size:.78rem;line-height:1.35;color:#c7d4ff;">Descuento personal e individual: 10% sobre el valor de la prueba. Código de un solo uso que te enviamos por email. Pago contado y sin cuotas. No se acumula con el cupón de equipo.</p>
+      <p class="hint" style="margin:6px 0 0;font-size:.78rem;line-height:1.35;color:#c7d4ff;">Descuento personal e individual: 10% sobre el valor de la prueba 5K o 10K (el 2K Nocturno no lleva descuento). Código de un solo uso que te enviamos por email. Pago contado y sin cuotas. No se acumula con el cupón de equipo.</p>
     </div>
     </div>
     <div class="total">
@@ -255,7 +256,8 @@ function recalcular(){
   $('#desc-wrap').style.display = solo2k ? 'none' : 'flex';
   $('#nota-solo2k').style.display = solo2k ? '' : 'none';
   const wa = !!wcup, aplica = (!!cup && prueba === '5K+10K') || wa;
-  const c = wa ? Math.round((contado - descuento()) * 0.9) : (aplica ? 212500 - descuento() : contado - descuento());
+  const extra2k = (prueba !== '5K+10K' && /\+2K$/.test(prueba)) ? PRECIO_2K : 0;   // el 2K sumado nunca lleva descuento
+  const c = wa ? Math.round((contado - extra2k - descuento()) * 0.9) + extra2k : (aplica ? 212500 - descuento() : contado - descuento());
   if(cup) $('#cupon-msg').textContent = !wa && aplica ? '✓ Cupón aplicado: valor por equipo, pago contado.' : 'El cupón solo vale para Campeonato 5K + 10K. Elegí esa prueba para usarlo.';
   if(aplica && plan === 'cuota'){ plan = 'contado'; marcarPlan(); }
   $('#m-contado').textContent = pesos(c);
@@ -290,11 +292,26 @@ function aplicarPrueba(){
   fin = base.fin;
   conKit = base.kit;
   recalcular();
+  marcarTarjetas();
 }
+function marcarTarjetas(){
+  const combinable = base.prueba === '5K' || base.prueba === '10K';
+  document.querySelectorAll('#pruebas .opt').forEach(o => {
+    const p = o.dataset.prueba;
+    o.classList.toggle('on', p === '2K' ? (base.prueba === '2K' || (combinable && $('#mas2k').checked)) : p === base.prueba);
+  });
+}
+/* Se pueden combinar: 5K o 10K + 2K Nocturno. El Campeonato 5K+10K ya incluye el 2K. */
 document.querySelectorAll('#pruebas .opt').forEach(o => o.addEventListener('click', () => {
-  document.querySelectorAll('#pruebas .opt').forEach(x => x.classList.remove('on'));
-  o.classList.add('on');
+  const p = o.dataset.prueba, combinable = base.prueba === '5K' || base.prueba === '10K', m2 = $('#mas2k');
+  if(p === '2K'){
+    if(combinable){ m2.checked = !m2.checked; aplicarPrueba(); }   // suma o quita el 2K al 5K / 10K elegido
+    else if(base.prueba === '5K+10K'){ $('#nota-2k').style.display = ''; }   // ya incluido en el Campeonato
+    return;
+  }
+  const quiere2k = base.prueba === '2K' || (combinable && m2.checked);   // venía con 2K: lo conserva al elegir 5K o 10K
   base = {prueba:o.dataset.prueba, contado:+o.dataset.contado, cuota:+o.dataset.cuota, cuotas:+o.dataset.cuotas, fin:+o.dataset.fin || 0, kit:o.dataset.kit === '1'};
+  m2.checked = (p === '5K' || p === '10K') && quiere2k;
   aplicarPrueba();
 }));
 $('#mas2k').addEventListener('change', aplicarPrueba);
@@ -427,7 +444,7 @@ try{
   const qp = (new URLSearchParams(location.search).get('prueba')||'').toUpperCase();
   if(qp){
     const op = document.querySelector('#pruebas .opt[data-prueba="'+qp+'"]');
-    if(op){ op.click(); setTimeout(()=>{ try{ op.scrollIntoView({block:'center'}); }catch(e){} }, 150); }
+    if(op){ const o = op; base = {prueba:o.dataset.prueba, contado:+o.dataset.contado, cuota:+o.dataset.cuota, cuotas:+o.dataset.cuotas, fin:+o.dataset.fin || 0, kit:o.dataset.kit === '1'}; $('#mas2k').checked = false; aplicarPrueba(); setTimeout(()=>{ try{ op.scrollIntoView({block:'center'}); }catch(e){} }, 150); }
   }
 }catch(e){}
 </script>
