@@ -165,8 +165,17 @@
 
   function buscar(n) {
     var h = document.getElementById('ow-cuota');
-    if (h && typeof qrcode === 'function') return montar(h);
-    if (n < 80) setTimeout(function () { buscar(n + 1); }, 250);
+    /* las páginas del sitio las dibuja un motor propio (support.js): hay que esperar a que
+       termine de dibujar (el contenedor ya está "etiquetado") y recién ahí armar el box */
+    if (h && typeof qrcode === 'function' && (h.hasAttribute('data-dc-tpl') || n > 40)) return setTimeout(function () { var h2 = document.getElementById('ow-cuota'); if (h2) montar(h2); }, 900);
+    if (n < 120) setTimeout(function () { buscar(n + 1); }, 250);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { buscar(0); }); else buscar(0);
+  /* red de seguridad: durante los primeros segundos, si el box no está en pantalla se vuelve a armar */
+  var vueltas = 0, guardia = setInterval(function () {
+    vueltas++;
+    var h = document.getElementById('ow-cuota');
+    if (h && typeof qrcode === 'function' && !h.querySelector('.owc') && vueltas > 3) { h.removeAttribute('data-owc'); montar(h); }
+    if (vueltas > 40) clearInterval(guardia);
+  }, 600);
 })();
