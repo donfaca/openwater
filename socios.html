@@ -14,8 +14,6 @@
     body { margin:0; background:#0a2438; font-family:'Barlow',sans-serif; }
     a { color:#4db8e8; text-decoration:none; }
     a:hover { color:#8fd4f5; }
-    .ow-plan{transition:transform .18s ease, box-shadow .18s ease;}
-    .ow-plan:hover{transform:translateY(-6px);}
       @keyframes owact { 0%,100% { opacity:1; } 50% { opacity:.35; } }
   </style>
   <script>
@@ -30,19 +28,8 @@
 }catch(e){}})();
   </script>
   <script src="./ow-stats.js"></script>
-  <script>
-    (function(){
-      function abrir(){
-        if(location.hash!=='#donaciones')return;
-        var d=document.getElementById('donaciones');
-        if(!d){setTimeout(abrir,120);return;}
-        d.open=true;
-        window.scrollTo({top:d.getBoundingClientRect().top+window.pageYOffset-70,behavior:'smooth'});
-      }
-      window.addEventListener('load',abrir);
-      window.addEventListener('hashchange',abrir);
-    })();
-  </script>
+  <script src="./ow-qrcode.js"></script>
+  <script src="./ow-socios.js"></script>
 </helmet>
 
 <div style="background:#0a2438;color:#eaf3f8;min-height:100vh;">
@@ -65,232 +52,65 @@
   <div style="max-width:1100px;margin:0 auto;padding:18px 40px 0;"><a href="index.html" style="display:inline-flex;align-items:center;gap:8px;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3f8;background:rgba(255,255,255,.06);border:1px solid #16455f;padding:8px 16px;border-radius:999px;text-decoration:none;">← Volver al inicio</a></div>
 
   <!-- HERO -->
-  <div style="position:relative;padding:64px 40px 44px;text-align:center;overflow:hidden;">
+  <div style="position:relative;padding:64px 40px 30px;text-align:center;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(1100px 380px at 50% -60px,rgba(27,204,206,.18),transparent 70%);pointer-events:none;"></div>
     <div style="position:relative;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">PROGRAMA DE SOCIOS · 2026</div>
-      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:62px;line-height:.95;color:#fff;margin:12px 0 14px;">ASOCIATE A OPEN WATER</h1>
-      <p style="max-width:760px;margin:0 auto;font-size:17px;line-height:1.7;color:#cfe4ee;">Cuatro niveles de membresía, un mismo equipo: acompañarte en el agua, en la pileta y en cada carrera — entrenes donde entrenes, a la distancia o de forma presencial.</p>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:6px;color:#c9a24d;">PROGRAMA DE SOCIOS</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:62px;line-height:.95;color:#fff;margin:12px 0 14px;font-weight:400;">ASOCIATE A OPEN WATER</h1>
+      <p style="max-width:640px;margin:0 auto;font-size:17px;line-height:1.7;color:#cfe4ee;">Un solo plan, simple: completás tu ficha una vez, pagás la primera cuota con Mercado Pago y listo.</p>
     </div>
   </div>
 
-  <!-- DONACIONES -->
-  <div style="max-width:1240px;margin:0 auto;padding:18px 24px 0;">
-    <details id="donaciones" style="border:2px solid #f2c53d;border-radius:18px;background:#000;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35);">
-      <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;gap:20px;padding:20px 26px;flex-wrap:nowrap;">
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;line-height:1.02;color:#f2c53d;letter-spacing:.5px;">DONACIONES A OW</div>
-          <p style="margin:4px 0 0;font-size:15.5px;line-height:1.55;color:#fff;">¿Te gustan nuestros reels, aprendés, mejorás y querés ayudarnos a seguir más y más? Podés donar a OW.</p>
+  <!-- PLAN ÚNICO -->
+  <div style="max-width:860px;margin:0 auto;padding:6px 24px 0;">
+    <div style="border-radius:20px;overflow:hidden;border:1px solid rgba(27,204,206,.5);background:#0c2c44;box-shadow:0 16px 40px rgba(0,0,0,.35);">
+      <div style="padding:22px 28px 20px;background:linear-gradient(135deg,#1BCCCE,#EDC264);color:#04212e;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px;opacity:.85;">PLAN ÚNICO</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:46px;line-height:1;margin:4px 0 8px;">SOCIO OPEN WATER</div>
+        <div style="display:flex;align-items:baseline;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;">$80.000</span><span style="font-size:17px;font-weight:800;">por mes</span></div>
+      </div>
+      <div style="padding:22px 28px 26px;">
+        <p style="margin:0 0 14px;font-size:17px;line-height:1.65;color:#dceaf2;">Pensado para nuestros nadadores y para la gente de Viedma que nos conoce y se quiere sumar.</p>
+        <div style="display:flex;gap:12px;align-items:center;padding:13px 16px;border-radius:12px;background:rgba(201,162,77,.14);border:1px solid rgba(201,162,77,.55);">
+          <span style="flex:0 0 auto;font-family:'Bebas Neue',sans-serif;font-size:26px;color:#EDC264;line-height:1;">+</span>
+          <span style="font-size:16px;line-height:1.5;color:#fff;font-weight:600;">La primera cuota incluye la <b style="color:#EDC264;">remera oficial</b> de Open Water Río Negro.</span>
         </div>
-        <span style="flex:none;display:inline-flex;align-items:center;gap:8px;font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px;color:#000;background:#f2c53d;padding:11px 20px;border-radius:999px;">QUIERO DONAR ▾</span>
-      </summary>
-      <div style="border-top:1px solid rgba(242,197,61,.5);padding:24px 26px 26px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;">
-        <div style="grid-column:1/-1;font-size:15.5px;line-height:1.7;color:#fff;">Las donaciones se reciben en la cuenta bancaria de la <strong style="color:#fff;">Asociación Civil y Deportiva Open Water</strong>, entidad sin fines de lucro organizadora de las competencias del circuito y declarada de Interés Provincial por el Decreto N.° 666/26 de la Legislatura de Río Negro. Los fondos se destinan a producción de contenidos, seguridad en el agua, materiales de entrenamiento y organización de las competencias.</div>
-        <div style="background:#0a0a0a;border:1px solid #3a3a3a;border-radius:12px;padding:14px 16px;">
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#f2c53d;margin-bottom:4px;">ENTIDAD</div>
-          <div style="font-size:15px;color:#fff;font-weight:600;">Asociación Civil y Deportiva Open Water</div>
-        </div>
-        <div style="background:#0a0a0a;border:1px solid #3a3a3a;border-radius:12px;padding:14px 16px;">
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#f2c53d;margin-bottom:4px;">CUIT</div>
-          <div style="font-size:15px;color:#fff;font-weight:600;">33-71941685-9</div>
-        </div>
-        <div style="background:#0a0a0a;border:1px solid #3a3a3a;border-radius:12px;padding:14px 16px;">
-          <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#f2c53d;margin-bottom:4px;">AUTORIDADES</div>
-          <div style="font-size:14px;color:#fff;font-weight:600;line-height:1.5;">Lic. Lucas Nogues · Presidente<br>Dr. Facundo Albacete Colombo · Secretario</div>
-        </div>
-        <div style="grid-column:1/-1;background:#0a0a0a;border:1px solid #f2c53d;border-radius:12px;padding:16px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
-          <div>
-            <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#f2c53d;margin-bottom:4px;">BANCO</div>
-            <div style="font-size:15px;color:#fff;font-weight:600;">Banco Patagonia · CA $ 299-299040170-000</div>
-          </div>
-          <div>
-            <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#f2c53d;margin-bottom:4px;">CBU</div>
-            <div style="font-size:15px;color:#fff;font-weight:600;letter-spacing:.5px;">0340299508299040170004</div>
-          </div>
-          <div>
-            <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:12px;color:#f2c53d;margin-bottom:4px;">ALIAS</div>
-            <div style="font-size:15px;color:#fff;font-weight:600;">OWRIONEGRO</div>
-          </div>
-        </div>
-        <div style="grid-column:1/-1;font-size:13.5px;color:#f2c53d;line-height:1.6;">Después de donar podés escribirnos por WhatsApp o Instagram con el comprobante para que te agradezcamos como corresponde. Toda donación, del monto que sea, sostiene el proyecto.</div>
-      </div>
-    </details>
-  </div>
-
-  <!-- PLANES -->
-  <div style="max-width:1240px;margin:0 auto;padding:14px 24px 8px;display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:18px;align-items:stretch;">
-
-    <!-- BASE -->
-    <div class="ow-plan" style="position:relative;display:flex;flex-direction:column;background:#0c2c44;border:1px solid rgba(46,168,94,.5);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35);">
-      <div style="padding:16px 18px 14px;background:linear-gradient(150deg,#3fbf6f,#127a4e);color:#052c1a;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;opacity:.9;">00 · BÁSICO</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;color:#fff;margin:4px 0 2px;">SOCIO BASE</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;color:#052c1a;">PRIMER PASO EN LA COMUNIDAD OW</div>
-        <div style="margin-top:12px;display:flex;align-items:baseline;gap:6px;color:#fff;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;">$8.000</span>
-          <span style="font-size:14px;font-weight:700;opacity:.85;">/mes</span>
-        </div>
-      </div>
-      <div style="padding:13px 18px 6px;flex:1;">
-        <p style="font-size:13.5px;line-height:1.6;color:#bcd6e4;margin:0 0 14px;">Para quienes quieren empezar a nadar con el equipo, sumarse a las salidas al río y tener prioridad en las competencias Open Water.</p>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13.5px;color:#e4f5ea;">
-          <li style="display:flex;gap:10px;"><span style="color:#3fbf6f;font-weight:800;">✓</span><span>5% de descuento en la tienda OW</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#3fbf6f;font-weight:800;">✓</span><span>Salidas organizadas a nadar en el río</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#3fbf6f;font-weight:800;">✓</span><span>Asesoramiento de estiramiento y calentamiento precompetitivo</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#3fbf6f;font-weight:800;">✓</span><span>Prioridad de cupos en competencias OW</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#3fbf6f;font-weight:800;">✓</span><span>Seguro de accidentes personales incluido en las salidas</span></li>
-        </ul>
-      </div>
-      <div style="padding:8px 18px 16px;">
-        <a href="ficha-base.html" style="display:block;text-align:center;background:transparent;color:#3fbf6f;border:2px solid #3fbf6f;padding:12px;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;" style-hover="background:#3fbf6f;color:#052c1a;">Elegir Socio Base →</a>
-      </div>
-    </div>
-
-    <!-- DIGITAL -->
-    <div class="ow-plan" style="position:relative;display:flex;flex-direction:column;background:#0c2c44;border:1px solid rgba(27,204,206,.45);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35);">
-      <div style="padding:16px 18px 14px;background:linear-gradient(150deg,#1BCCCE,#0b6ba8);color:#04212e;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;opacity:.9;">01 · A DISTANCIA</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;color:#fff;margin:4px 0 2px;">SOCIO DIGITAL</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;color:#04212e;">COMUNIDAD Y BENEFICIOS ONLINE</div>
-        <div style="margin-top:14px;display:flex;align-items:baseline;gap:6px;color:#fff;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;">$15.000</span>
-          <span style="font-size:15px;font-weight:700;opacity:.85;">/mes</span>
-        </div>
-      </div>
-      <div style="padding:13px 18px 6px;flex:1;">
-        <p style="font-size:13.5px;line-height:1.6;color:#bcd6e4;margin:0 0 14px;">Para nadadores y atletas remotos que quieren formar parte de la comunidad Open Water y acceder a beneficios en cursos, tienda y carreras sin asistir de forma presencial.</p>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13.5px;color:#e7f2f8;">
-          <li style="display:flex;gap:10px;"><span style="color:#1BCCCE;font-weight:800;">✓</span><span>50% OFF en cursos y capacitaciones</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#1BCCCE;font-weight:800;">✓</span><span>10% OFF en carreras Open Water</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#1BCCCE;font-weight:800;">✓</span><span>5% OFF en tienda oficial</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#1BCCCE;font-weight:800;">✓</span><span>Comunidad virtual exclusiva</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#1BCCCE;font-weight:800;">✓</span><span>Seguro de accidentes personales incluido en las salidas</span></li>
-          <li style="display:flex;gap:10px;opacity:.55;"><span style="font-weight:800;">–</span><span>No incluye plan de entrenamiento</span></li>
-        </ul>
-      </div>
-      <div style="padding:8px 18px 16px;">
-        <a href="ficha-digital.html" style="display:block;text-align:center;background:transparent;color:#1BCCCE;border:2px solid #1BCCCE;padding:12px;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;" style-hover="background:#1BCCCE;color:#04212e;">Elegir Socio Digital →</a>
-      </div>
-    </div>
-
-    <!-- LOCAL -->
-    <div class="ow-plan" style="position:relative;display:flex;flex-direction:column;background:#12233a;border:2px solid #c9a24d;border-radius:20px;overflow:hidden;box-shadow:0 22px 56px rgba(201,162,77,.28);">
-      <div style="position:absolute;top:16px;right:16px;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:#0a2438;background:#c9a24d;padding:5px 13px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.3);">★ MÁS ELEGIDO</div>
-      <div style="padding:16px 18px 14px;background:linear-gradient(150deg,#e2be62,#c9a24d);color:#3a2c07;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;opacity:.85;padding-right:118px;">02 · PRESENCIAL</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;color:#1a1300;margin:4px 0 2px;">SOCIO LOCAL</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;color:#3a2c07;">ENTRENAMIENTO EN EQUIPO + SEGURO</div>
-        <div style="margin-top:14px;display:flex;align-items:baseline;gap:6px;color:#1a1300;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;">$40.000</span>
-          <span style="font-size:15px;font-weight:700;opacity:.8;">/mes</span>
-        </div>
-      </div>
-      <div style="padding:13px 18px 6px;flex:1;">
-        <p style="font-size:13.5px;line-height:1.6;color:#bcd6e4;margin:0 0 14px;">Para deportistas de la zona que entrenan de forma grupal y presencial, participan de las salidas al río y buscan acompañamiento cercano del equipo técnico.</p>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13.5px;color:#f2ead6;">
-          <li style="display:flex;gap:10px;"><span style="color:#e2be62;font-weight:800;">✓</span><span>Hasta 70% OFF en cursos y capacitaciones</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e2be62;font-weight:800;">✓</span><span>10% OFF en carreras Open Water</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e2be62;font-weight:800;">✓</span><span>Plan de entrenamiento grupal presencial</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e2be62;font-weight:800;">✓</span><span>Video feedback semanal + corrección biomecánica</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e2be62;font-weight:800;">✓</span><span>Seguimiento 1 a 1 y estrategia en competencias</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e2be62;font-weight:800;">✓</span><span><strong style="color:#fff;">Seguro de accidentes personales incluido en las salidas</strong></span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e2be62;font-weight:800;">✓</span><span>10% OFF en tienda oficial</span></li>
-        </ul>
-      </div>
-      <div style="padding:8px 18px 16px;">
-        <a href="ficha-local.html" style="display:block;text-align:center;background:#c9a24d;color:#1a1300;border:2px solid #c9a24d;padding:12px;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;" style-hover="background:#e2be62;">Elegir Socio Local →</a>
-      </div>
-    </div>
-
-    <!-- PRO -->
-    <div class="ow-plan" style="position:relative;display:flex;flex-direction:column;background:#0c2c44;border:1px solid rgba(208,130,49,.5);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35);">
-      <div style="padding:16px 18px 14px;background:linear-gradient(150deg,#e79a4a,#c0491a);color:#2b1200;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:3px;opacity:.9;">03 · ALTO RENDIMIENTO</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;color:#fff;margin:4px 0 2px;">SOCIO PRO</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;color:#2b1200;">ENTRENAMIENTO 100% PERSONALIZADO</div>
-        <div style="margin-top:14px;display:flex;align-items:baseline;gap:6px;color:#fff;">
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;">$60.000</span>
-          <span style="font-size:15px;font-weight:700;opacity:.85;">/mes</span>
-        </div>
-      </div>
-      <div style="padding:13px 18px 6px;flex:1;">
-        <p style="font-size:13.5px;line-height:1.6;color:#bcd6e4;margin:0 0 14px;">Para atletas enfocados en objetivos de alto rendimiento, marcas específicas, cruces o pruebas particulares que buscan la máxima personalización.</p>
-        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:13.5px;color:#f3e6db;">
-          <li style="display:flex;gap:10px;"><span style="color:#e79a4a;font-weight:800;">✓</span><span><strong style="color:#fff;">100% OFF en cursos y capacitaciones</strong></span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e79a4a;font-weight:800;">✓</span><span>Plan de entrenamiento 100% personalizado</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e79a4a;font-weight:800;">✓</span><span>Video feedback ilimitado y prioritario</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e79a4a;font-weight:800;">✓</span><span>Seguimiento 1 a 1 y estrategia de carrera avanzada</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e79a4a;font-weight:800;">✓</span><span>Seguro de accidentes personales incluido en las salidas</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e79a4a;font-weight:800;">✓</span><span>20% OFF en tienda oficial</span></li>
-          <li style="display:flex;gap:10px;"><span style="color:#e79a4a;font-weight:800;">✓</span><span>Contacto directo con el entrenador</span></li>
-        </ul>
-      </div>
-      <div style="padding:8px 18px 16px;">
-        <a href="ficha-pro.html" style="display:block;text-align:center;background:transparent;color:#e79a4a;border:2px solid #e79a4a;padding:12px;border-radius:10px;font-weight:800;font-size:14px;text-decoration:none;" style-hover="background:#e79a4a;color:#2b1200;">Elegir Socio Pro →</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div style="max-width:1180px;margin:6px auto 0;padding:0 32px;text-align:center;">
-    <p style="font-size:13.5px;color:#8fb2c6;line-height:1.6;max-width:820px;margin:0 auto;">¿Con cuál empezar? El <strong style="color:#1BCCCE;">Digital</strong> es la puerta de entrada a la comunidad; el <strong style="color:#c9a24d;">Local</strong> suma entrenamiento en equipo y seguro incluido; y el <strong style="color:#e79a4a;">Pro</strong> es para quienes preparan un objetivo puntual con seguimiento 100% personalizado.</p>
-  </div>
-
-  <!-- COMPARATIVA -->
-  <div style="max-width:1120px;margin:56px auto 0;padding:0 32px;">
-    <div style="text-align:center;margin-bottom:22px;">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:5px;color:#c9a24d;">COMPARATIVA</div>
-      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;margin:6px 0 0;">MATRIZ DE BENEFICIOS POR NIVEL</h2>
-    </div>
-    <div style="overflow-x:auto;border:1px solid #16455f;border-radius:16px;">
-      <table style="width:100%;border-collapse:collapse;min-width:760px;font-size:14px;">
-        <thead>
-          <tr style="background:#08202f;">
-            <th style="text-align:left;padding:16px 18px;color:#a9c6d6;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;">Beneficio / Cobertura</th>
-            <th style="padding:16px 12px;color:#3fbf6f;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;">BASE<br><span style="font-size:12px;font-family:'Barlow';color:#7fc9a0;font-weight:600;">$8.000/mes</span></th><th style="padding:16px 12px;color:#1BCCCE;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;">DIGITAL<br><span style="font-size:12px;font-family:'Barlow';color:#7fb4c4;font-weight:600;">$15.000/mes</span></th>
-            <th style="padding:16px 12px;color:#e2be62;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;background:rgba(201,162,77,.08);">LOCAL<br><span style="font-size:12px;font-family:'Barlow';color:#c9a24d;font-weight:600;">$40.000/mes</span></th>
-            <th style="padding:16px 12px;color:#e79a4a;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;">PRO<br><span style="font-size:12px;font-family:'Barlow';color:#d38a52;font-weight:600;">$60.000/mes</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-top:1px solid #12384f;"><td style="padding:14px 18px;color:#dceaf2;">Cursos y capacitaciones</td><td style="text-align:center;padding:14px 12px;color:#8fb2c6;">No incluye</td><td style="text-align:center;padding:14px 12px;color:#9fdfe0;">50% OFF</td><td style="text-align:center;padding:14px 12px;color:#e2be62;font-weight:700;background:rgba(201,162,77,.06);">Hasta 70% OFF</td><td style="text-align:center;padding:14px 12px;color:#f0b384;font-weight:700;">100% OFF</td></tr>
-          <tr style="border-top:1px solid #12384f;background:rgba(255,255,255,.02);"><td style="padding:14px 18px;color:#dceaf2;">Descuento en carreras Open Water</td><td style="text-align:center;padding:14px 12px;color:#7ee0a4;">Prioridad de cupos</td><td style="text-align:center;padding:14px 12px;color:#9fdfe0;">10% OFF</td><td style="text-align:center;padding:14px 12px;color:#e2be62;background:rgba(201,162,77,.06);">10% OFF</td><td style="text-align:center;padding:14px 12px;color:#f0b384;">10% OFF</td></tr>
-          <tr style="border-top:1px solid #12384f;"><td style="padding:14px 18px;color:#dceaf2;">Descuento en tienda oficial</td><td style="text-align:center;padding:14px 12px;color:#7ee0a4;">5% OFF</td><td style="text-align:center;padding:14px 12px;color:#9fdfe0;">5% OFF</td><td style="text-align:center;padding:14px 12px;color:#e2be62;background:rgba(201,162,77,.06);">10% OFF</td><td style="text-align:center;padding:14px 12px;color:#f0b384;font-weight:700;">20% OFF</td></tr>
-          <tr style="border-top:1px solid #12384f;background:rgba(255,255,255,.02);"><td style="padding:14px 18px;color:#dceaf2;">Plan de entrenamiento</td><td style="text-align:center;padding:14px 12px;color:#8fb2c6;">No incluye</td><td style="text-align:center;padding:14px 12px;color:#8fb2c6;">No incluye</td><td style="text-align:center;padding:14px 12px;color:#e2be62;background:rgba(201,162,77,.06);">Grupal presencial</td><td style="text-align:center;padding:14px 12px;color:#f0b384;">100% personalizado</td></tr>
-          <tr style="border-top:1px solid #12384f;"><td style="padding:14px 18px;color:#dceaf2;">Entrenamientos presenciales y salidas al río</td><td style="text-align:center;padding:14px 12px;color:#7ee0a4;">✓ Salidas al río</td><td style="text-align:center;padding:14px 12px;color:#5a7c8c;">✗</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;background:rgba(201,162,77,.06);">✓</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;">✓</td></tr>
-          <tr style="border-top:1px solid #12384f;background:rgba(255,255,255,.02);"><td style="padding:14px 18px;color:#dceaf2;">Seguro de accidentes personales</td><td style="text-align:center;padding:14px 12px;color:#7ee0a4;">✓ En salidas</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;">✓ En salidas</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;background:rgba(201,162,77,.06);">✓ Incluido</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;">✓ En salidas</td></tr>
-          <tr style="border-top:1px solid #12384f;"><td style="padding:14px 18px;color:#dceaf2;">Video feedback / análisis biomecánico</td><td style="text-align:center;padding:14px 12px;color:#5a7c8c;">✗</td><td style="text-align:center;padding:14px 12px;color:#5a7c8c;">✗</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;background:rgba(201,162,77,.06);">✓ 1 video / semana</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;">✓ Ilimitado</td></tr>
-          <tr style="border-top:1px solid #12384f;background:rgba(255,255,255,.02);"><td style="padding:14px 18px;color:#dceaf2;">Seguimiento 1 a 1 y estrategia de competencia</td><td style="text-align:center;padding:14px 12px;color:#5a7c8c;">✗</td><td style="text-align:center;padding:14px 12px;color:#5a7c8c;">✗</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;background:rgba(201,162,77,.06);">✓</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;">✓ Avanzado</td></tr>
-          <tr style="border-top:1px solid #12384f;"><td style="padding:14px 18px;color:#dceaf2;">Comunidad virtual y contenido exclusivo</td><td style="text-align:center;padding:14px 12px;color:#7ee0a4;">✓</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;">✓</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;background:rgba(201,162,77,.06);">✓</td><td style="text-align:center;padding:14px 12px;color:#2fbf6b;">✓</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- POR QUÉ -->
-  <div style="max-width:1000px;margin:60px auto 0;padding:0 40px;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
-      <div style="background:#0f3350;border-radius:14px;padding:18px;border:1px solid #1a5678;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#1BCCCE;margin-bottom:6px;">COMUNIDAD REAL</div>
-        <div style="font-size:14.5px;color:#cfe4ee;line-height:1.6;">Un equipo de nadadores y atletas de aguas abiertas, en el agua y fuera de ella.</div>
-      </div>
-      <div style="background:#0f3350;border-radius:14px;padding:18px;border:1px solid #1a5678;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#c9a24d;margin-bottom:6px;">RESPALDO TÉCNICO</div>
-        <div style="font-size:14.5px;color:#cfe4ee;line-height:1.6;">Entrenadores presentes en cada salida, clínica y competencia.</div>
-      </div>
-      <div style="background:#0f3350;border-radius:14px;padding:18px;border:1px solid #1a5678;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#e79a4a;margin-bottom:6px;">CRECIMIENTO A MEDIDA</div>
-        <div style="font-size:14.5px;color:#cfe4ee;line-height:1.6;">Un nivel de membresía para cada etapa del atleta.</div>
       </div>
     </div>
   </div>
 
-  <!-- CTA FINAL -->
-  <div style="max-width:760px;margin:56px auto 84px;padding:0 40px;text-align:center;">
-    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff;margin:0 0 10px;">SUMATE AL EQUIPO OPEN WATER</h2>
-    <p style="font-size:15px;color:#cfe4ee;line-height:1.7;margin:0 0 22px;">Escribinos y te contamos cómo asociarte, los medios de pago y la cuota vigente para el nivel que elijas.</p>
-    <a href="ficha-asociacion.html" style="display:inline-block;background:linear-gradient(270deg,#D08231,#1BCCCE);color:#04212e;padding:15px 40px;border-radius:999px;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;text-decoration:none;box-shadow:0 14px 34px rgba(27,204,206,.28);">QUIERO ASOCIARME →</a>
+  <!-- FICHA + PAGO -->
+  <div style="max-width:860px;margin:0 auto;padding:44px 24px 0;">
+    <div style="text-align:center;margin-bottom:18px;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:40px;font-weight:400;color:#fff;margin:0 0 4px;">FICHA DE INSCRIPCIÓN</h2>
+      <div style="font-size:15px;color:#a9c6d6;">Se completa una sola vez. Al enviarla, pasás directo a pagar la primera cuota.</div>
+    </div>
+    <div id="ow-socios"></div>
   </div>
+
+  <!-- QUÉ INCLUYE -->
+  <div style="max-width:1000px;margin:64px auto 0;padding:0 24px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:40px;font-weight:400;color:#fff;margin:0 0 16px;text-align:center;">¿QUÉ INCLUYE SER SOCIO?</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;">
+      <div style="background:#0f3350;border-radius:14px;padding:20px;border:1px solid #1a5678;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#c9a24d;">01</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:25px;line-height:1.05;color:#1BCCCE;margin:2px 0 8px;">PLANIFICACIÓN DE ENTRENAMIENTO</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;">Planificación general o personalizada, según lo que elijas al inscribirte.</div>
+      </div>
+      <div style="background:#0f3350;border-radius:14px;padding:20px;border:1px solid #1a5678;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#c9a24d;">02</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:25px;line-height:1.05;color:#1BCCCE;margin:2px 0 8px;">SEGURO DE NATACIÓN</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;">Seguro para natación en aguas abiertas en el río Negro, provisto por Mercantil Andina.</div>
+      </div>
+      <div style="background:#0f3350;border-radius:14px;padding:20px;border:1px solid #1a5678;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:3px;color:#c9a24d;">03</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:25px;line-height:1.05;color:#1BCCCE;margin:2px 0 8px;">DESCUENTOS EN COMPETENCIAS</div>
+        <div style="font-size:15px;color:#cfe4ee;line-height:1.6;">Descuentos en las competencias organizadas por Open Water.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:84px;"></div>
 
   <footer style="background:#08202f;border-top:1px solid #16455f;padding:32px 40px;">
     <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;">
