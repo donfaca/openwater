@@ -62,6 +62,7 @@
     '.owc-st{display:flex;align-items:center;gap:9px;margin-top:10px;font-weight:800;font-size:14px;color:#04212e}' +
     '.owc-dot{width:12px;height:12px;border-radius:50%;background:#04212e;animation:owcp 1.2s ease-in-out infinite}' +
     '@keyframes owcp{0%,100%{opacity:1}50%{opacity:.2}}' +
+    '.owc-hint{display:none;margin-top:10px;padding:9px 13px;border-radius:10px;background:#fff;color:#04212e;font-weight:800;font-size:14px;border:2px solid #04212e}' +
     '.owc-nota{margin:14px 0 0;font-size:12.5px;color:#06394b;line-height:1.5}' +
     '@media (max-width:620px){.owc{padding:20px 16px 22px}.owc-g{grid-template-columns:1fr}.owc h3{font-size:30px}.owc-pago{justify-content:center;text-align:center}.owc-st{justify-content:center}}';
 
@@ -83,17 +84,23 @@
       '</div></div>' +
       '<label class="owc-f">Mes pagado<select id="owc-mes">' + opcionesMes() + '</select></label>' +
       '</div>' +
-      '<button type="button" class="owc-btn" id="owc-gen" disabled>GENERAR QR DE PAGO</button>' +
+      '<button type="button" class="owc-btn" id="owc-gen">GENERAR QR DE PAGO</button>' +
+      '<div class="owc-hint" id="owc-hint"></div>' +
       '<div id="owc-out"></div>' +
       '</div>';
 
     var $ = function (s) { return host.querySelector(s); };
-    var nom = $('#owc-nom'), mes = $('#owc-mes'), gen = $('#owc-gen'), out = $('#owc-out');
+    var nom = $('#owc-nom'), mes = $('#owc-mes'), gen = $('#owc-gen'), out = $('#owc-out'), hint = $('#owc-hint');
     var timer = null, vivo = true;
 
     function socio() { var r = host.querySelector('input[name=owc-soc]:checked'); return r ? r.value : ''; }
-    function listo() { gen.disabled = !(nom.value.trim().length >= 3 && socio()); }
-    nom.addEventListener('input', listo);
+    function faltante() {
+      if (nom.value.trim().length < 3) return 'Escribí tu nombre y apellido.';
+      if (!socio()) return 'Elegí si sos socio (SÍ $75.000) o no (NO $85.000).';
+      return '';
+    }
+    function listo() { var m = faltante(); hint.textContent = m ? '👆 ' + m : ''; hint.style.display = m ? 'block' : 'none'; if (!m) hint.style.display = 'none'; }
+    ['input', 'keyup', 'change', 'blur'].forEach(function (ev) { nom.addEventListener(ev, function () { if (hint.textContent) listo(); }); });
     [].forEach.call(host.querySelectorAll('input[name=owc-soc]'), function (r) { r.addEventListener('change', listo); });
 
     function post(cuerpo) {
@@ -141,16 +148,18 @@
 
     gen.addEventListener('click', function () {
       if (gen.disabled) return;
+      var falta = faltante();
+      if (falta) { hint.textContent = '👆 ' + falta; hint.style.display = 'block'; (nom.value.trim().length < 3 ? nom : mes).focus(); return; }
       var p0 = {nombre: nom.value.trim().replace(/\s+/g, ' '), socio: socio(), mes: mes.value};
       gen.disabled = true; gen.textContent = 'GENERANDO…'; out.innerHTML = '';
       post({accion: 'crearCuota', evento: 'cuota', nombre: p0.nombre, socio: p0.socio, mes: p0.mes}).then(function (j) {
-        gen.textContent = 'GENERAR QR DE PAGO'; listo();
+        gen.disabled = false; gen.textContent = 'GENERAR QR DE PAGO';
         if (!j || !j.ok) return error((j && j.error) || 'No se pudo generar el QR. Probá de nuevo en un rato o escribinos a openwaterrionegro@gmail.com.');
         var p = {ref: j.ref, link: j.link, monto: j.monto, nombre: p0.nombre, socio: p0.socio, mes: p0.mes};
         ls(LS, JSON.stringify(p));
         pantallaPago(p);
       }).catch(function () {
-        gen.textContent = 'GENERAR QR DE PAGO'; listo();
+        gen.disabled = false; gen.textContent = 'GENERAR QR DE PAGO';
         error('No hay conexión con el servidor de pagos. Revisá tu internet y probá de nuevo.');
       });
     });
@@ -160,7 +169,7 @@
       var g = JSON.parse(ls(LS) || 'null');
       if (g && g.ref && g.link && g.nombre) { nom.value = g.nombre; var r = host.querySelector('input[name=owc-soc][value=' + g.socio + ']'); if (r) r.checked = true; for (var i = 0; i < mes.options.length; i++) if (mes.options[i].value === g.mes) mes.selectedIndex = i; listo(); pantallaPago(g); }
     } catch (e) {}
-    listo();
+    hint.style.display = 'none';
   }
 
   function buscar(n) {
