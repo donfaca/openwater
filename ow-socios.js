@@ -101,11 +101,12 @@
       '<div id="ows-out"></div>' +
       '<button type="submit" class="ows-btn" id="ows-go">ENVIAR FICHA Y PAGAR ' + plata(PRECIO) + '</button>' +
       '</form>' +
+      '<div id="ows-pan" style="display:none"></div>' +
       '</div>';
 
     var $ = function (s) { return host.querySelector(s); };
-    var form = $('#ows-form'), hint = $('#ows-hint'), out = $('#ows-out'), go = $('#ows-go'), box = $('#ows-box');
-    var timer = null, vivo = true;
+    var form = $('#ows-form'), hint = $('#ows-hint'), out = $('#ows-out'), go = $('#ows-go'), pan = $('#ows-pan');
+    var timer = null, vivo = true, tok = 0;
 
     function val(id) { return $(id).value.replace(/\s+/g, ' ').trim(); }
     function radio(n) { var r = host.querySelector('input[name=' + n + ']:checked'); return r ? r.value : ''; }
@@ -130,21 +131,31 @@
     function post(cuerpo) { return fetch(ENDPOINT, {method: 'POST', body: JSON.stringify(cuerpo)}).then(function (r) { return r.json(); }); }
     function error(msg) { out.innerHTML = '<div class="ows-err">' + esc(msg) + '</div>'; }
 
+    function final(html) { tok++; clearTimeout(timer); form.style.display = 'none'; pan.style.display = 'block'; pan.innerHTML = html; }
+
     function ya(p) {
-      box.innerHTML = '<div class="ows-ok"><div class="big">¡YA SOS SOCIO OPEN WATER!</div>' +
-        '<p>Tu cuota de <b>' + esc(p.mes) + '</b> ya está acreditada' + (p.nSocio ? ' (socio N° ' + esc(p.nSocio) + ')' : '') + '.</p></div>';
+      final('<div class="ows-ok"><div class="big">¡YA SOS SOCIO OPEN WATER!</div>' +
+        '<p>Tu cuota de <b>' + esc(p.mes) + '</b> ya está acreditada' + (p.nSocio ? ' (socio N° ' + esc(p.nSocio) + ')' : '') + '.</p></div>');
     }
 
     function acreditado(p) {
       ls(LS, null);
-      box.innerHTML = '<div class="ows-ok"><div class="big">¡YA SOS SOCIO OPEN WATER!</div>' +
+      final('<div class="ows-ok"><div class="big">¡YA SOS SOCIO OPEN WATER!</div>' +
         '<p>Recibimos tu pago de <b>' + esc(p.mes) + '</b>, ' + esc(p.nombre.split(' ')[0]) + '. ¡Gracias por sumarte!</p>' +
         (p.primera ? '<p>Tu primera cuota incluye la <b>remera oficial</b>' + (p.talle ? ' (talle <b>' + esc(p.talle) + '</b>)' : '') + ': te avisamos por WhatsApp cuándo retirarla.</p>' : '') +
-        '<p style="font-size:14px;color:#a9c6d6;">Te enviamos un mail de confirmación. Todos los meses vas a recibir el recordatorio con el link para pagar la cuota.</p></div>';
+        '<p style="font-size:14px;color:#a9c6d6;">Te enviamos un mail de confirmación. Todos los meses vas a recibir el recordatorio con el link para pagar la cuota.</p></div>');
+    }
+
+    function volver() {
+      tok++; clearTimeout(timer); ls(LS, null);
+      pan.innerHTML = ''; pan.style.display = 'none'; form.style.display = '';
+      try { form.scrollIntoView({behavior: 'smooth', block: 'start'}); } catch (e) {}
     }
 
     function pantallaPago(p) {
-      box.innerHTML =
+      var mio = ++tok;
+      form.style.display = 'none'; pan.style.display = 'block';
+      pan.innerHTML =
         '<div class="ows-pago">' +
         '<div class="ows-info">' +
         '<div class="k">' + (p.primera ? 'PRIMERA CUOTA · INCLUYE REMERA' : 'CUOTA DEL MES') + '</div>' +
@@ -154,20 +165,24 @@
         '<div class="ows-st" id="ows-st"><span class="ows-dot"></span><span>Esperando el pago… Cuando se acredite, esta pantalla se actualiza sola.</span></div>' +
         '</div>' +
         '<div class="ows-qr"><div>' + qrSvg(p.link, 168) + '</div>Si estás en la compu,<br>escaneá el QR con el celular</div>' +
-        '</div>';
-      consultar(p, 0);
+        '</div>' +
+        '<button type="button" class="ows-btn sec" id="ows-volver">← VOLVER A LA FICHA</button>' +
+        '<p style="margin:10px 0 0;font-size:13px;line-height:1.5;color:#a9c6d6;text-align:center;">¿Cambiaste de idea o querés corregir un dato? Podés volver: tu ficha queda guardada y el cobro se reutiliza cuando la reenvíes.</p>';
+      pan.querySelector('#ows-volver').addEventListener('click', volver);
+      consultar(p, 0, mio);
     }
 
-    function consultar(p, n) {
+    function consultar(p, n, mio) {
       clearTimeout(timer);
-      if (!vivo) return;
+      if (!vivo || mio !== tok) return;
       post({accion: 'estado', ref: p.ref, evento: 'socio'}).then(function (j) {
+        if (mio !== tok) return;
         if (j && j.estado === 'approved') return acreditado(p);
         var s = host.querySelector('#ows-st');
         if (j && j.estado === 'rejected') { if (s) s.innerHTML = '<span style="color:#ff9b8a">El pago fue rechazado. Probá de nuevo con otro medio desde el botón.</span>'; }
         if (n > 360) { if (s) s.innerHTML = '<span>Seguimos sin ver el pago. Si ya pagaste, quedá tranquilo/a: se anota solo y te llega un mail. Ante cualquier duda escribinos.</span>'; return; }
-        timer = setTimeout(function () { consultar(p, n + 1); }, 5000);
-      }).catch(function () { timer = setTimeout(function () { consultar(p, n + 1); }, 8000); });
+        timer = setTimeout(function () { consultar(p, n + 1, mio); }, 5000);
+      }).catch(function () { timer = setTimeout(function () { consultar(p, n + 1, mio); }, 8000); });
     }
 
     form.addEventListener('submit', function (ev) {

@@ -20,11 +20,7 @@
   }
 
   /* en el diseño (.dc.html) y en el sitio publicado (.html, y su versión móvil) el nombre de la página cambia */
-  function hrefSocios() {
-    var f = location.pathname.split('/').pop() || '';
-    if (/\.dc\.html$/.test(f)) return /-movil/.test(f) ? 'socios-movil.dc.html' : 'socios.dc.html';
-    return /-movil/.test(f) ? 'socios-movil.html' : 'socios.html';
-  }
+  function hrefSocios() { return '#asociate'; }   /* la ficha de socio está más abajo, en la misma página (Nada con OW) */
 
   function opcionesMes() {
     var hoy = new Date(), out = [];
@@ -101,7 +97,7 @@
 
     var $ = function (s) { return host.querySelector(s); };
     var nom = $('#owc-nom'), mes = $('#owc-mes'), gen = $('#owc-gen'), out = $('#owc-out'), hint = $('#owc-hint');
-    var timer = null, vivo = true;
+    var timer = null, vivo = true, tok = 0;
 
     function socio() { var r = host.querySelector('input[name=owc-soc]:checked'); return r ? r.value : ''; }
     function faltante() {
@@ -129,8 +125,11 @@
         '</div></div>' +
         '<a class="owc-btn sec" href="' + esc(p.link) + '" target="_blank" rel="noopener">ABRIR EN MERCADO PAGO (SI ESTÁS EN EL CELULAR)</a>' +
         '<button type="button" class="owc-btn" id="owc-pagado" disabled>ESPERANDO EL PAGO…</button>' +
+        '<button type="button" class="owc-btn sec" id="owc-volver">← VOLVER (CAMBIAR DATOS O CANCELAR)</button>' +
         '<p class="owc-nota">Escaneá el QR con la cámara o con la app de Mercado Pago. Cuando el pago se acredite en la cuenta de Open Water, el botón de abajo se activa solo. No cierres esta página mientras tanto.</p>';
-      consultar(p, 0);
+      var vb = $('#owc-volver');
+      if (vb) vb.addEventListener('click', function () { tok++; clearTimeout(timer); ls(LS, null); out.innerHTML = ''; gen.disabled = false; gen.textContent = 'GENERAR QR DE PAGO'; try { nom.focus(); } catch (e) {} });
+      consultar(p, 0, ++tok);
     }
 
     function acreditado(p) {
@@ -142,18 +141,19 @@
       gen.disabled = false; gen.textContent = 'PAGAR OTRO MES';
     }
 
-    function consultar(p, n) {
+    function consultar(p, n, mio) {
       clearTimeout(timer);
-      if (!vivo) return;
+      if (!vivo || mio !== tok) return;
       post({accion: 'estado', ref: p.ref, evento: 'cuota'}).then(function (j) {
+        if (mio !== tok) return;
         if (j && j.estado === 'approved') return acreditado(p);
         if (j && j.estado === 'rejected') {
           var s = $('#owc-st'); if (s) s.innerHTML = '<span style="color:#8a1c10">El pago fue rechazado. Probá de nuevo o con otro medio.</span>';
           return;
         }
         if (n > 240) { var s2 = $('#owc-st'); if (s2) s2.innerHTML = '<span>Seguimos sin ver el pago. Si ya pagaste, escribinos con tu comprobante.</span>'; return; }
-        timer = setTimeout(function () { consultar(p, n + 1); }, 5000);
-      }).catch(function () { timer = setTimeout(function () { consultar(p, n + 1); }, 8000); });
+        timer = setTimeout(function () { consultar(p, n + 1, mio); }, 5000);
+      }).catch(function () { timer = setTimeout(function () { consultar(p, n + 1, mio); }, 8000); });
     }
 
     gen.addEventListener('click', function () {
