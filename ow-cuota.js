@@ -52,6 +52,18 @@
     '.owc-op span b{font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:28px;letter-spacing:1px}' +
     '.owc-op input:checked+span{background:#04212e;color:#fff;border-color:#04212e}' +
     '.owc-op input:focus-visible+span{outline:3px solid #fff;outline-offset:2px}' +
+    '.owc-planes{display:grid;grid-template-columns:1fr 1fr;gap:10px}' +
+    '.owc-planes label{cursor:pointer;margin:0;display:block}' +
+    '.owc-planes input{position:absolute;opacity:0;pointer-events:none}' +
+    '.owc-planes span{display:flex;flex-direction:column;align-items:flex-start;height:100%;padding:11px 14px;border-radius:12px;background:rgba(255,255,255,.55);border:2px solid transparent;text-transform:none;letter-spacing:0;color:#04212e;line-height:1.2;transition:background .15s,border-color .15s}' +
+    '.owc-planes em{font-style:normal;font-family:"Bebas Neue",sans-serif;font-size:15px;letter-spacing:3px;color:#04384a}' +
+    '.owc-planes strong{font-size:15px;font-weight:800}' +
+    '.owc-planes b{font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:38px;line-height:1.05;letter-spacing:1px}' +
+    '.owc-planes small{font-size:12.5px;font-weight:600;color:#06394b}' +
+    '.owc-planes label:hover span{border-color:#04212e}' +
+    '.owc-planes input:checked+span{background:#04212e;color:#fff;border-color:#04212e}' +
+    '.owc-planes input:checked+span em,.owc-planes input:checked+span small{color:#8fd4f5}' +
+    '.owc-planes input:focus-visible+span{outline:3px solid #fff;outline-offset:2px}' +
     '.owc-precio{display:flex;align-items:center;min-height:50px;padding:6px 14px;border-radius:12px;background:rgba(255,255,255,.55);font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:30px;letter-spacing:1px;text-transform:none;color:#04212e}' +
     '.owc-precio small{font-family:system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:0;margin-left:8px}' +
     '.owc-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:18px;padding:15px 20px;border:0;border-radius:999px;background:#04212e;color:#fff;font-family:"Bebas Neue",sans-serif;font-size:26px;letter-spacing:2px;cursor:pointer;text-decoration:none;transition:transform .15s,opacity .15s}' +
@@ -73,7 +85,7 @@
     '.owc-asoc{margin:12px 0 0;text-align:center;font-size:15px;font-weight:700;color:#04212e}' +
     '.owc-asoc a{color:#04212e;text-decoration:underline;font-weight:900}' +
     '.owc-nota{margin:14px 0 0;font-size:12.5px;color:#06394b;line-height:1.5}' +
-    '@media (max-width:620px){.owc{padding:20px 16px 22px}.owc-g{grid-template-columns:1fr}.owc h3{font-size:30px}.owc-pago{justify-content:center;text-align:center}.owc-st{justify-content:center}}';
+    '@media (max-width:620px){.owc-planes b{font-size:32px}.owc-planes strong{font-size:13.5px}.owc{padding:20px 16px 22px}.owc-g{grid-template-columns:1fr}.owc h3{font-size:30px}.owc-pago{justify-content:center;text-align:center}.owc-st{justify-content:center}}';
 
   function montar(host) {
     if (host.getAttribute('data-owc')) return;
@@ -81,23 +93,18 @@
     if (!document.getElementById('owc-css')) { var st = document.createElement('style'); st.id = 'owc-css'; st.textContent = CSS; document.head.appendChild(st); }
     host.innerHTML =
       '<div class="owc">' +
-      '<div class="owc-k">YA ESTOY INSCRIPTO/A</div>' +
-      '<h3>PAGÁ TU CUOTA MENSUAL</h3>' +
-      '<p class="owc-s">Pagá la cuota con Mercado Pago: generás el QR, lo escaneás desde tu celular y el pago queda acreditado acá mismo.</p>' +
+      '<div class="owc-k">CUOTA MENSUAL</div>' +
+      '<h3>ELEGÍ TU OPCIÓN Y PAGÁ</h3>' +
+      '<p class="owc-s">Si ya estás inscripto/a, elegí tu opción y pagá la cuota del mes con Mercado Pago: generás el QR, lo escaneás desde tu celular y el pago queda acreditado acá mismo. Si es tu primera vez, completá la ficha más abajo.</p>' +
       '<div class="owc-g">' +
       '<label class="owc-f full">Nombre y apellido<input type="text" id="owc-nom" autocomplete="name" maxlength="80" placeholder="Como figurás en el equipo"></label>' +
-      '<div class="owc-f">¿Sos socio de Open Water?' +
-      '<div class="owc-op">' +
-      '<label><input type="radio" name="owc-soc" value="SI"><span>Soy socio</span></label>' +
-      '<label><input type="radio" name="owc-soc" value="NO"><span>No soy socio</span></label>' +
-      '</div></div>' +
-      '<div class="owc-f">Modalidad' +
-      '<div class="owc-op">' +
-      '<label><input type="radio" name="owc-mod" value="pileta"><span>Pileta + aguas abiertas</span></label>' +
-      '<label><input type="radio" name="owc-mod" value="rio"><span>Solo aguas abiertas</span></label>' +
+      '<div class="owc-f full">Elegí tu opción (tocá la que corresponda)<div class="owc-planes" id="owc-planes">' +
+      '<label><input type="radio" name="owc-plan" value="socio:pileta"><span><em>SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIO.SI.pileta) + '</b><small>por mes · Con remera de regalo en la 1ª cuota</small></span></label>' +
+      '<label><input type="radio" name="owc-plan" value="socio:rio"><span><em>SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIO.SI.rio) + '</b><small>por mes · Con remera de regalo en la 1ª cuota</small></span></label>' +
+      '<label><input type="radio" name="owc-plan" value="nosocio:pileta"><span><em>NO SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIO.NO.pileta) + '</b><small>por mes · Sin remera</small></span></label>' +
+      '<label><input type="radio" name="owc-plan" value="nosocio:rio"><span><em>NO SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIO.NO.rio) + '</b><small>por mes · Sin remera</small></span></label>' +
       '</div></div>' +
       '<label class="owc-f">Mes pagado<select id="owc-mes">' + opcionesMes() + '</select></label>' +
-      '<div class="owc-f">Cuota<div class="owc-precio" id="owc-precio">Elegí tu opción</div></div>' +
       '</div>' +
       '<button type="button" class="owc-btn" id="owc-gen">GENERAR QR DE PAGO</button>' +
       '<p class="owc-asoc">¿Todavía no te inscribiste? <a href="' + hrefSocios() + '">Completá la ficha →</a></p>' +
@@ -109,18 +116,18 @@
     var nom = $('#owc-nom'), mes = $('#owc-mes'), gen = $('#owc-gen'), out = $('#owc-out'), hint = $('#owc-hint');
     var timer = null, vivo = true, tok = 0;
 
-    function socio() { var r = host.querySelector('input[name=owc-soc]:checked'); return r ? r.value : ''; }
-    function modal() { var r = host.querySelector('input[name=owc-mod]:checked'); return r ? r.value : ''; }
-    function precio() { var pr = $('#owc-precio'); if (!pr) return; var s = socio(), m = modal(); pr.innerHTML = (s && m) ? plata(PRECIO[s][m]) + '<small>por mes</small>' : 'Elegí tu opción'; }
+    function planSel() { var r = host.querySelector('input[name=owc-plan]:checked'); return r ? r.value.split(':') : ['', '']; }
+    function socio() { var p = planSel()[0]; return p === 'socio' ? 'SI' : (p === 'nosocio' ? 'NO' : ''); }
+    function modal() { return planSel()[1]; }
+    function precio() {}
     function faltante() {
       if (nom.value.trim().length < 3) return 'Escribí tu nombre y apellido.';
-      if (!socio()) return 'Elegí si sos socio o no.';
-      if (!modal()) return 'Elegí la modalidad: pileta + aguas abiertas, o solo aguas abiertas.';
+      if (!socio() || !modal()) return 'Elegí tu opción de cuota (tocá una de las cuatro).';
       return '';
     }
     function listo() { var m = faltante(); hint.textContent = m ? '👆 ' + m : ''; hint.style.display = m ? 'block' : 'none'; if (!m) hint.style.display = 'none'; }
     ['input', 'keyup', 'change', 'blur'].forEach(function (ev) { nom.addEventListener(ev, function () { if (hint.textContent) listo(); }); });
-    [].forEach.call(host.querySelectorAll('input[name=owc-soc],input[name=owc-mod]'), function (r) { r.addEventListener('change', function () { precio(); listo(); }); });
+    [].forEach.call(host.querySelectorAll('input[name=owc-plan]'), function (r) { r.addEventListener('change', listo); });
 
     function post(cuerpo) {
       return fetch(ENDPOINT, {method: 'POST', body: JSON.stringify(cuerpo)}).then(function (r) { return r.json(); });
@@ -190,7 +197,7 @@
     /* si recargó la página con un pago a medias, lo retoma */
     try {
       var g = JSON.parse(ls(LS) || 'null');
-      if (g && g.ref && g.link && g.nombre) { nom.value = g.nombre; var r = host.querySelector('input[name=owc-soc][value=' + g.socio + ']'); if (r) r.checked = true; var r2 = host.querySelector('input[name=owc-mod][value=' + g.mod + ']'); if (r2) r2.checked = true; precio(); for (var i = 0; i < mes.options.length; i++) if (mes.options[i].value === g.mes) mes.selectedIndex = i; listo(); pantallaPago(g); }
+      if (g && g.ref && g.link && g.nombre) { nom.value = g.nombre; var r = host.querySelector('input[name=owc-plan][value=' + (g.socio === 'SI' ? 'socio' : 'nosocio') + ':' + g.mod + ']'); if (r) r.checked = true; for (var i = 0; i < mes.options.length; i++) if (mes.options[i].value === g.mes) mes.selectedIndex = i; listo(); pantallaPago(g); }
     } catch (e) {}
     hint.style.display = 'none';
   }

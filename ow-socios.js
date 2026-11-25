@@ -35,6 +35,18 @@
     '.ows-resumen{padding:14px 16px;border-radius:12px;background:rgba(27,204,206,.1);border:1px solid rgba(27,204,206,.45);font-size:15px;line-height:1.5;color:#dceaf2;letter-spacing:0;text-transform:none;font-weight:500}' +
     '.ows-resumen.full{grid-column:1/-1}' +
     '.ows-resumen b{color:#fff}.ows-resumen .m{font-family:"Bebas Neue",sans-serif;font-size:34px;line-height:1;color:#1BCCCE;font-weight:400}' +
+    '.ows-planes{display:grid;grid-template-columns:1fr 1fr;gap:10px}' +
+    '.ows-planes label{cursor:pointer;margin:0;display:block}' +
+    '.ows-planes input{position:absolute;opacity:0;pointer-events:none}' +
+    '.ows-planes span{display:flex;flex-direction:column;align-items:flex-start;height:100%;padding:12px 14px;border-radius:12px;background:#08202f;border:2px solid #1a5678;color:#eaf3f8;text-transform:none;letter-spacing:0;transition:background .15s,border-color .15s}' +
+    '.ows-planes em{font-style:normal;font-family:"Bebas Neue",sans-serif;font-size:15px;letter-spacing:3px;color:#c9a24d}' +
+    '.ows-planes strong{font-size:15.5px;font-weight:800;line-height:1.2}' +
+    '.ows-planes b{font-family:"Bebas Neue",sans-serif;font-weight:400;font-size:38px;line-height:1.05;color:#fff;margin-top:2px}' +
+    '.ows-planes small{font-size:12.5px;font-weight:500;color:#a9c6d6}' +
+    '.ows-planes label:hover span{border-color:#1BCCCE}' +
+    '.ows-planes input:checked+span{background:linear-gradient(135deg,#1BCCCE,#10B3BD);border-color:#1BCCCE;color:#04212e}' +
+    '.ows-planes input:checked+span em,.ows-planes input:checked+span small{color:#06394b}.ows-planes input:checked+span b{color:#04212e}' +
+    '.ows-planes input:focus-visible+span{outline:3px solid #fff;outline-offset:2px}' +
     '.ows-ch{display:flex;gap:9px;flex-wrap:wrap}' +
     '.ows-ch label{cursor:pointer;margin:0;flex:0 0 auto}' +
     '.ows-ch.dos label{flex:1 1 200px}' +
@@ -71,7 +83,7 @@
     '.ows-st{display:flex;align-items:center;gap:10px;margin-top:16px;font-weight:700;font-size:14.5px;color:#eaf3f8}' +
     '.ows-dot{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:#1BCCCE;animation:owsp 1.2s ease-in-out infinite}' +
     '@keyframes owsp{0%,100%{opacity:1}50%{opacity:.2}}' +
-    '@media (max-width:640px){.ows{padding:20px 16px 22px;border-radius:16px}.ows-g{grid-template-columns:1fr}.ows-btn{font-size:24px}.ows-info .t{font-size:46px}.ows-pago{justify-content:center}.ows-qr{display:none}#ows-talles{flex-wrap:nowrap;gap:6px}#ows-talles label{flex:1 1 0;min-width:0}#ows-talles span{min-width:0;padding:11px 2px;font-size:15px}}';
+    '@media (max-width:640px){.ows-planes b{font-size:32px}.ows-planes strong{font-size:14px}.ows{padding:20px 16px 22px;border-radius:16px}.ows-g{grid-template-columns:1fr}.ows-btn{font-size:24px}.ows-info .t{font-size:46px}.ows-pago{justify-content:center}.ows-qr{display:none}#ows-talles{flex-wrap:nowrap;gap:6px}#ows-talles label{flex:1 1 0;min-width:0}#ows-talles span{min-width:0;padding:11px 2px;font-size:15px}}';
 
   function montar(host) {
     if (host.getAttribute('data-ows')) return;
@@ -90,13 +102,11 @@
       '<label class="ows-f">Fecha de nacimiento<input type="date" id="ows-nac" min="1920-01-01" max="' + hoy() + '"><span class="ows-edad" id="ows-edad"></span></label>' +
       '<label class="ows-f">WhatsApp<input type="tel" id="ows-wa" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="Ej: 2920 123456 (sin 0 ni 15)"></label>' +
       '<label class="ows-f full">Email<input type="email" id="ows-mail" autocomplete="email" maxlength="120" placeholder="tucorreo@gmail.com"></label>' +
-      '<div class="ows-f full">¿Querés ser socio de Open Water?<div class="ows-ch dos" id="ows-conds">' +
-      '<label><input type="radio" name="ows-cond" value="socio"><span>Socio<small>Remera oficial en la 1ª cuota + descuentos en competencias</small></span></label>' +
-      '<label><input type="radio" name="ows-cond" value="nosocio"><span>No socio<small>Sin remera ni descuentos</small></span></label>' +
-      '</div></div>' +
-      '<div class="ows-f full">Modalidad de la cuota<div class="ows-ch dos" id="ows-mods">' +
-      '<label><input type="radio" name="ows-mod" value="pileta"><span>Pileta + aguas abiertas<small class="ows-pr" data-m="pileta"></small></span></label>' +
-      '<label><input type="radio" name="ows-mod" value="rio"><span>Solo aguas abiertas<small class="ows-pr" data-m="rio"></small></span></label>' +
+      '<div class="ows-f full">Elegí tu opción de cuota <span style="text-transform:none;letter-spacing:0;font-weight:500;color:#a9c6d6;">(tocá la que quieras)</span><div class="ows-planes" id="ows-planes">' +
+      '<label><input type="radio" name="ows-plan" value="socio:pileta"><span><em>SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIOS.socio.pileta) + '</b><small>por mes · Con remera de regalo en la 1ª cuota</small></span></label>' +
+      '<label><input type="radio" name="ows-plan" value="socio:rio"><span><em>SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIOS.socio.rio) + '</b><small>por mes · Con remera de regalo en la 1ª cuota</small></span></label>' +
+      '<label><input type="radio" name="ows-plan" value="nosocio:pileta"><span><em>NO SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIOS.nosocio.pileta) + '</b><small>por mes · Sin remera</small></span></label>' +
+      '<label><input type="radio" name="ows-plan" value="nosocio:rio"><span><em>NO SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIOS.nosocio.rio) + '</b><small>por mes · Sin remera</small></span></label>' +
       '</div></div>' +
       '<div class="ows-f full" id="ows-talle-box" style="display:none">Talle de remera <span style="text-transform:none;letter-spacing:0;font-weight:500;color:#a9c6d6;">(obligatorio · regalo en la primera cuota)</span><div class="ows-ch" id="ows-talles">' + talles + '</div></div>' +
       '<div class="ows-resumen full" id="ows-resumen">Elegí si querés ser socio y la modalidad para ver el valor de tu cuota.</div>' +
@@ -121,7 +131,10 @@
     var timer = null, vivo = true, tok = 0;
 
     function val(id) { return $(id).value.replace(/\s+/g, ' ').trim(); }
-    function radio(n) { var r = host.querySelector('input[name=' + n + ']:checked'); return r ? r.value : ''; }
+    function radio(n) {
+      if (n === 'ows-cond' || n === 'ows-mod') { var q = host.querySelector('input[name=ows-plan]:checked'); if (!q) return ''; var p = q.value.split(':'); return n === 'ows-cond' ? p[0] : p[1]; }
+      var r = host.querySelector('input[name=' + n + ']:checked'); return r ? r.value : '';
+    }
 
     function edadDe(iso) {
       var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); if (!m) return -1;
@@ -133,7 +146,6 @@
     function refrescar() {
       var c = radio('ows-cond'), m = radio('ows-mod'), tb = $('#ows-talle-box');
       tb.style.display = c === 'socio' ? '' : 'none';
-      [].forEach.call(host.querySelectorAll('.ows-pr'), function (el) { el.textContent = c ? plata(PRECIOS[c][el.getAttribute('data-m')]) + ' por mes' : ''; });
       var rs = $('#ows-resumen'), pr = precioSel();
       if (!pr) rs.innerHTML = 'Elegí si querés ser socio y la modalidad para ver el valor de tu cuota.';
       else rs.innerHTML = 'Tu cuota: <span class="m">' + plata(pr) + '</span> <b>por mes</b>' + (c === 'socio' ? '<br>La primera cuota incluye la <b>remera oficial</b> de regalo.' : '<br>Sin remera ni descuentos en competencias.') + '<br><span style="font-size:13.5px;color:#a9c6d6;">Incluye planificación del entrenamiento, seguro del nadador ante accidentes (Mercantil Andina) y seguimiento técnico.</span>';
@@ -150,8 +162,7 @@
       if (!/^\d{4}-\d{2}-\d{2}$/.test(n) || n > hoy() || n < '1920-01-01') return ['#ows-nac', 'Completá tu fecha de nacimiento.'];
       if (val('#ows-wa').replace(/\D/g, '').length < 8) return ['#ows-wa', 'Revisá el WhatsApp: con característica, sin 0 ni 15.'];
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('#ows-mail'))) return ['#ows-mail', 'Revisá el email.'];
-      if (!radio('ows-cond')) return ['#ows-conds', 'Elegí si querés ser socio o no.'];
-      if (!radio('ows-mod')) return ['#ows-mods', 'Elegí la modalidad: pileta + aguas abiertas, o solo aguas abiertas.'];
+      if (!radio('ows-cond') || !radio('ows-mod')) return ['#ows-planes', 'Elegí tu opción de cuota (tocá una de las cuatro).'];
       if (radio('ows-cond') === 'socio' && !radio('ows-talle')) return ['#ows-talles', 'Elegí el talle de remera.'];
       if (!$('#ows-ter').checked) return ['#ows-ter', 'Tenés que aceptar los términos.'];
       return null;
