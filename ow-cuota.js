@@ -4,7 +4,7 @@
    que crea el cobro en la cuenta de Mercado Pago y confirma cuando se acredita. */
 (function () {
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxIaZeJVEvJ5pVyrxjSVmxo0oH5Be25zwl6ysPXzY9eNGm8g-TA8unT7LqdKIZWJJsKlg/exec';
-  var PRECIO = {SI: 75000, NO: 85000};
+  var PRECIO = {SI: 80000, NO: 85000};
   var MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   var LS = 'ow-cuota-pendiente';
 
@@ -17,6 +17,13 @@
     var n = q.getModuleCount(), m = 3, tot = n + 2 * m, d = '';
     for (var r = 0; r < n; r++) for (var c = 0; c < n; c++) if (q.isDark(r, c)) d += 'M' + (c + m) + ' ' + (r + m) + 'h1v1h-1z';
     return '<svg xmlns="http://www.w3.org/2000/svg" width="' + px + '" height="' + px + '" viewBox="0 0 ' + tot + ' ' + tot + '" shape-rendering="crispEdges"><rect width="' + tot + '" height="' + tot + '" fill="#fff"/><path d="' + d + '" fill="#000"/></svg>';
+  }
+
+  /* en el diseño (.dc.html) y en el sitio publicado (.html, y su versión móvil) el nombre de la página cambia */
+  function hrefSocios() {
+    var f = location.pathname.split('/').pop() || '';
+    if (/\.dc\.html$/.test(f)) return /-movil/.test(f) ? 'socios-movil.dc.html' : 'socios.dc.html';
+    return /-movil/.test(f) ? 'socios-movil.html' : 'socios.html';
   }
 
   function opcionesMes() {
@@ -63,6 +70,8 @@
     '.owc-dot{width:12px;height:12px;border-radius:50%;background:#04212e;animation:owcp 1.2s ease-in-out infinite}' +
     '@keyframes owcp{0%,100%{opacity:1}50%{opacity:.2}}' +
     '.owc-hint{display:none;margin-top:10px;padding:9px 13px;border-radius:10px;background:#fff;color:#04212e;font-weight:800;font-size:14px;border:2px solid #04212e}' +
+    '.owc-asoc{margin:12px 0 0;text-align:center;font-size:15px;font-weight:700;color:#04212e}' +
+    '.owc-asoc a{color:#04212e;text-decoration:underline;font-weight:900}' +
     '.owc-nota{margin:14px 0 0;font-size:12.5px;color:#06394b;line-height:1.5}' +
     '@media (max-width:620px){.owc{padding:20px 16px 22px}.owc-g{grid-template-columns:1fr}.owc h3{font-size:30px}.owc-pago{justify-content:center;text-align:center}.owc-st{justify-content:center}}';
 
@@ -79,12 +88,13 @@
       '<label class="owc-f full">Nombre y apellido<input type="text" id="owc-nom" autocomplete="name" maxlength="80" placeholder="Como figurás en el equipo"></label>' +
       '<div class="owc-f">Socio de Open Water' +
       '<div class="owc-op">' +
-      '<label><input type="radio" name="owc-soc" value="SI"><span>SÍ, soy socio<b>' + plata(PRECIO.SI) + '</b></span></label>' +
-      '<label><input type="radio" name="owc-soc" value="NO"><span>NO soy socio<b>' + plata(PRECIO.NO) + '</b></span></label>' +
+      '<label><input type="radio" name="owc-soc" value="SI"><span>Soy socio (con remera)<b>' + plata(PRECIO.SI) + '</b></span></label>' +
+      '<label><input type="radio" name="owc-soc" value="NO"><span>No soy socio<b>' + plata(PRECIO.NO) + '</b></span></label>' +
       '</div></div>' +
       '<label class="owc-f">Mes pagado<select id="owc-mes">' + opcionesMes() + '</select></label>' +
       '</div>' +
       '<button type="button" class="owc-btn" id="owc-gen">GENERAR QR DE PAGO</button>' +
+      '<p class="owc-asoc">¿Todavía no sos socio? <a href="' + hrefSocios() + '">Asociate a OW →</a></p>' +
       '<div class="owc-hint" id="owc-hint"></div>' +
       '<div id="owc-out"></div>' +
       '</div>';
@@ -96,7 +106,7 @@
     function socio() { var r = host.querySelector('input[name=owc-soc]:checked'); return r ? r.value : ''; }
     function faltante() {
       if (nom.value.trim().length < 3) return 'Escribí tu nombre y apellido.';
-      if (!socio()) return 'Elegí si sos socio (SÍ $75.000) o no (NO $85.000).';
+      if (!socio()) return 'Elegí si sos socio (' + plata(PRECIO.SI) + ') o no (' + plata(PRECIO.NO) + ').';
       return '';
     }
     function listo() { var m = faltante(); hint.textContent = m ? '👆 ' + m : ''; hint.style.display = m ? 'block' : 'none'; if (!m) hint.style.display = 'none'; }
