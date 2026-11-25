@@ -4,7 +4,8 @@
    planilla de socios y devuelve el cobro de Mercado Pago ($80.000, 1ª cuota con remera). */
 (function () {
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbxIaZeJVEvJ5pVyrxjSVmxo0oH5Be25zwl6ysPXzY9eNGm8g-TA8unT7LqdKIZWJJsKlg/exec';
-  var PRECIO = 80000;
+  /* Valores de la cuota mensual (solo para mostrar: el cobro real lo fija el Apps Script) */
+  var PRECIOS = {socio: {pileta: 80000, rio: 60000}, nosocio: {pileta: 100000, rio: 70000}};
   var TALLES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   var LS = 'ow-socio-pendiente';
 
@@ -30,6 +31,10 @@
     '.ows input[type=text],.ows input[type=tel],.ows input[type=email],.ows input[type=date]{width:100%;padding:13px 14px;border-radius:10px;border:2px solid #1a5678;background:#08202f;color:#fff;font-size:16px;font-family:inherit;font-weight:600;text-transform:none;letter-spacing:0;color-scheme:dark;min-width:0}' +
     '.ows input::placeholder{color:#5f8396;font-weight:500}' +
     '.ows input[type=text]:focus,.ows input[type=tel]:focus,.ows input[type=email]:focus,.ows input[type=date]:focus{outline:none;border-color:#1BCCCE;box-shadow:0 0 0 3px rgba(27,204,206,.25)}' +
+    '.ows-edad{min-height:18px;font-size:13.5px;font-weight:700;letter-spacing:0;text-transform:none;color:#7ee0a4}' +
+    '.ows-resumen{padding:14px 16px;border-radius:12px;background:rgba(27,204,206,.1);border:1px solid rgba(27,204,206,.45);font-size:15px;line-height:1.5;color:#dceaf2;letter-spacing:0;text-transform:none;font-weight:500}' +
+    '.ows-resumen.full{grid-column:1/-1}' +
+    '.ows-resumen b{color:#fff}.ows-resumen .m{font-family:"Bebas Neue",sans-serif;font-size:34px;line-height:1;color:#1BCCCE;font-weight:400}' +
     '.ows-ch{display:flex;gap:9px;flex-wrap:wrap}' +
     '.ows-ch label{cursor:pointer;margin:0;flex:0 0 auto}' +
     '.ows-ch.dos label{flex:1 1 200px}' +
@@ -78,28 +83,35 @@
       '<div class="ows" id="ows-box">' +
       '<form id="ows-form" novalidate>' +
       '<div class="ows-g">' +
-      '<label class="ows-f full">Nombre y apellido<input type="text" id="ows-nom" autocomplete="name" maxlength="80" placeholder="Como figurás en el documento"></label>' +
+      '<label class="ows-f">Nombre<input type="text" id="ows-nom" autocomplete="given-name" maxlength="60" placeholder="Tu nombre"></label>' +
+      '<label class="ows-f">Apellido<input type="text" id="ows-ape" autocomplete="family-name" maxlength="60" placeholder="Tu apellido"></label>' +
       '<label class="ows-f">DNI<input type="text" id="ows-dni" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="Solo números"></label>' +
-      '<label class="ows-f">Fecha de nacimiento<input type="date" id="ows-nac" min="1920-01-01" max="' + hoy() + '"></label>' +
+      '<label class="ows-f">CUIL<input type="text" id="ows-cuil" inputmode="numeric" autocomplete="off" maxlength="13" placeholder="11 números (con o sin guiones)"></label>' +
+      '<label class="ows-f">Fecha de nacimiento<input type="date" id="ows-nac" min="1920-01-01" max="' + hoy() + '"><span class="ows-edad" id="ows-edad"></span></label>' +
       '<label class="ows-f">WhatsApp<input type="tel" id="ows-wa" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="Ej: 2920 123456 (sin 0 ni 15)"></label>' +
-      '<label class="ows-f">Email<input type="email" id="ows-mail" autocomplete="email" maxlength="120" placeholder="tucorreo@gmail.com"></label>' +
-      '<label class="ows-f full">Ciudad<input type="text" id="ows-ciu" autocomplete="address-level2" maxlength="60" placeholder="Ej: Viedma"></label>' +
-      '<div class="ows-f full">Talle de remera <span style="text-transform:none;letter-spacing:0;font-weight:500;color:#a9c6d6;">(obligatorio · incluida en la primera cuota)</span><div class="ows-ch" id="ows-talles">' + talles + '</div></div>' +
-      '<div class="ows-f full">Tipo de entrenamiento que preferís<div class="ows-ch dos">' +
-      '<label><input type="radio" name="ows-ent" value="general"><span>General<small>Planificación para todo el grupo</small></span></label>' +
-      '<label><input type="radio" name="ows-ent" value="personalizado"><span>Personalizado<small>Planificación a tu medida</small></span></label>' +
+      '<label class="ows-f full">Email<input type="email" id="ows-mail" autocomplete="email" maxlength="120" placeholder="tucorreo@gmail.com"></label>' +
+      '<div class="ows-f full">¿Querés ser socio de Open Water?<div class="ows-ch dos" id="ows-conds">' +
+      '<label><input type="radio" name="ows-cond" value="socio"><span>Socio<small>Remera oficial en la 1ª cuota + descuentos en competencias</small></span></label>' +
+      '<label><input type="radio" name="ows-cond" value="nosocio"><span>No socio<small>Sin remera ni descuentos</small></span></label>' +
       '</div></div>' +
+      '<div class="ows-f full">Modalidad de la cuota<div class="ows-ch dos" id="ows-mods">' +
+      '<label><input type="radio" name="ows-mod" value="pileta"><span>Pileta + aguas abiertas<small class="ows-pr" data-m="pileta"></small></span></label>' +
+      '<label><input type="radio" name="ows-mod" value="rio"><span>Solo aguas abiertas<small class="ows-pr" data-m="rio"></small></span></label>' +
+      '</div></div>' +
+      '<div class="ows-f full" id="ows-talle-box" style="display:none">Talle de remera <span style="text-transform:none;letter-spacing:0;font-weight:500;color:#a9c6d6;">(obligatorio · regalo en la primera cuota)</span><div class="ows-ch" id="ows-talles">' + talles + '</div></div>' +
+      '<div class="ows-resumen full" id="ows-resumen">Elegí si querés ser socio y la modalidad para ver el valor de tu cuota.</div>' +
       '<div class="ows-f full"><label class="ows-ter"><input type="checkbox" id="ows-ter"><span>Acepto los términos del programa de socios de Open Water Río Negro.</span></label>' +
       '<details><summary>Ver términos</summary><ul>' +
-      '<li>Plan único «Socio Open Water»: ' + plata(PRECIO) + ' por mes.</li>' +
-      '<li>La primera cuota incluye la remera oficial de Open Water Río Negro, en el talle elegido.</li>' +
+      '<li>Cuota mensual: socio, pileta + aguas abiertas ' + plata(PRECIOS.socio.pileta) + ' · socio, solo aguas abiertas ' + plata(PRECIOS.socio.rio) + ' · no socio, pileta + aguas abiertas ' + plata(PRECIOS.nosocio.pileta) + ' · no socio, solo aguas abiertas ' + plata(PRECIOS.nosocio.rio) + '.</li>' +
+      '<li>Todas las opciones incluyen planificación del entrenamiento, seguro del nadador ante accidentes (Mercantil Andina) y seguimiento técnico.</li>' +
+      '<li>Los socios reciben la remera oficial en la primera cuota y tienen descuentos en las competencias de Open Water.</li>' +
       '<li>Todos los meses vas a recibir un recordatorio por email y por WhatsApp con el link para abonar la cuota.</li>' +
       '<li>Los datos de esta ficha se usan solo para gestionar tu membresía, el seguro y la comunicación con los socios.</li>' +
       '</ul></details></div>' +
       '</div>' +
       '<div class="ows-hint" id="ows-hint"></div>' +
       '<div id="ows-out"></div>' +
-      '<button type="submit" class="ows-btn" id="ows-go">ENVIAR FICHA Y PAGAR ' + plata(PRECIO) + '</button>' +
+      '<button type="submit" class="ows-btn" id="ows-go">ENVIAR FICHA Y PAGAR</button>' +
       '</form>' +
       '<div id="ows-pan" style="display:none"></div>' +
       '</div>';
@@ -111,22 +123,43 @@
     function val(id) { return $(id).value.replace(/\s+/g, ' ').trim(); }
     function radio(n) { var r = host.querySelector('input[name=' + n + ']:checked'); return r ? r.value : ''; }
 
+    function edadDe(iso) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); if (!m) return -1;
+      var h = new Date(), e = h.getFullYear() - Number(m[1]);
+      if (h.getMonth() + 1 < Number(m[2]) || (h.getMonth() + 1 === Number(m[2]) && h.getDate() < Number(m[3]))) e--;
+      return e;
+    }
+    function precioSel() { var c = radio('ows-cond'), m = radio('ows-mod'); return (c && m) ? PRECIOS[c][m] : 0; }
+    function refrescar() {
+      var c = radio('ows-cond'), m = radio('ows-mod'), tb = $('#ows-talle-box');
+      tb.style.display = c === 'socio' ? '' : 'none';
+      [].forEach.call(host.querySelectorAll('.ows-pr'), function (el) { el.textContent = c ? plata(PRECIOS[c][el.getAttribute('data-m')]) + ' por mes' : ''; });
+      var rs = $('#ows-resumen'), pr = precioSel();
+      if (!pr) rs.innerHTML = 'Elegí si querés ser socio y la modalidad para ver el valor de tu cuota.';
+      else rs.innerHTML = 'Tu cuota: <span class="m">' + plata(pr) + '</span> <b>por mes</b>' + (c === 'socio' ? '<br>La primera cuota incluye la <b>remera oficial</b> de regalo.' : '<br>Sin remera ni descuentos en competencias.') + '<br><span style="font-size:13.5px;color:#a9c6d6;">Incluye planificación del entrenamiento, seguro del nadador ante accidentes (Mercantil Andina) y seguimiento técnico.</span>';
+      go.textContent = pr ? 'ENVIAR FICHA Y PAGAR ' + plata(pr) : 'ENVIAR FICHA Y PAGAR';
+      var e = edadDe($('#ows-nac').value);
+      $('#ows-edad').textContent = (e >= 0 && e < 110) ? 'Edad: ' + e + ' años' : '';
+    }
     function faltante() {
-      if (val('#ows-nom').length < 3) return ['#ows-nom', 'Escribí tu nombre y apellido.'];
+      if (val('#ows-nom').length < 2) return ['#ows-nom', 'Escribí tu nombre.'];
+      if (val('#ows-ape').length < 2) return ['#ows-ape', 'Escribí tu apellido.'];
       if (val('#ows-dni').replace(/\D/g, '').length < 6) return ['#ows-dni', 'Revisá el DNI (solo números).'];
+      if (val('#ows-cuil').replace(/\D/g, '').length !== 11) return ['#ows-cuil', 'Revisá el CUIL: tiene 11 números.'];
       var n = $('#ows-nac').value;
       if (!/^\d{4}-\d{2}-\d{2}$/.test(n) || n > hoy() || n < '1920-01-01') return ['#ows-nac', 'Completá tu fecha de nacimiento.'];
       if (val('#ows-wa').replace(/\D/g, '').length < 8) return ['#ows-wa', 'Revisá el WhatsApp: con característica, sin 0 ni 15.'];
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val('#ows-mail'))) return ['#ows-mail', 'Revisá el email.'];
-      if (val('#ows-ciu').length < 2) return ['#ows-ciu', 'Escribí tu ciudad.'];
-      if (!radio('ows-talle')) return ['#ows-talles', 'Elegí el talle de remera.'];
-      if (!radio('ows-ent')) return ['.ows-ch.dos', 'Elegí el tipo de entrenamiento.'];
+      if (!radio('ows-cond')) return ['#ows-conds', 'Elegí si querés ser socio o no.'];
+      if (!radio('ows-mod')) return ['#ows-mods', 'Elegí la modalidad: pileta + aguas abiertas, o solo aguas abiertas.'];
+      if (radio('ows-cond') === 'socio' && !radio('ows-talle')) return ['#ows-talles', 'Elegí el talle de remera.'];
       if (!$('#ows-ter').checked) return ['#ows-ter', 'Tenés que aceptar los términos.'];
       return null;
     }
     function mostrarHint(f) { hint.textContent = '👆 ' + f[1]; hint.style.display = 'block'; }
     function revisar() { if (hint.style.display === 'block') { var f = faltante(); if (f) mostrarHint(f); else hint.style.display = 'none'; } }
-    ['input', 'change'].forEach(function (ev) { form.addEventListener(ev, revisar); });
+    ['input', 'change'].forEach(function (ev) { form.addEventListener(ev, function () { refrescar(); revisar(); }); });
+    refrescar();
 
     function post(cuerpo) { return fetch(ENDPOINT, {method: 'POST', body: JSON.stringify(cuerpo)}).then(function (r) { return r.json(); }); }
     function error(msg) { out.innerHTML = '<div class="ows-err">' + esc(msg) + '</div>'; }
@@ -135,14 +168,14 @@
 
     function ya(p) {
       final('<div class="ows-ok"><div class="big">¡YA SOS SOCIO OPEN WATER!</div>' +
-        '<p>Tu cuota de <b>' + esc(p.mes) + '</b> ya está acreditada' + (p.nSocio ? ' (socio N° ' + esc(p.nSocio) + ')' : '') + '.</p></div>');
+        '<p>Tu cuota de <b>' + esc(p.mes) + '</b> ya está acreditada' + (p.nSocio ? ' (N° ' + esc(p.nSocio) + ')' : '') + '.</p></div>');
     }
 
     function acreditado(p) {
       ls(LS, null);
-      final('<div class="ows-ok"><div class="big">¡YA SOS SOCIO OPEN WATER!</div>' +
+      final('<div class="ows-ok"><div class="big">' + (p.remera || p.cond === 'socio' ? '¡YA SOS SOCIO OPEN WATER!' : '¡INSCRIPCIÓN CONFIRMADA!') + '</div>' +
         '<p>Recibimos tu pago de <b>' + esc(p.mes) + '</b>, ' + esc(p.nombre.split(' ')[0]) + '. ¡Gracias por sumarte!</p>' +
-        (p.primera ? '<p>Tu primera cuota incluye la <b>remera oficial</b>' + (p.talle ? ' (talle <b>' + esc(p.talle) + '</b>)' : '') + ': te avisamos por WhatsApp cuándo retirarla.</p>' : '') +
+        (p.remera ? '<p>Tu primera cuota incluye la <b>remera oficial</b>' + (p.talle ? ' (talle <b>' + esc(p.talle) + '</b>)' : '') + ': te avisamos por WhatsApp cuándo retirarla.</p>' : '') +
         '<p style="font-size:14px;color:#a9c6d6;">Te enviamos un mail de confirmación. Todos los meses vas a recibir el recordatorio con el link para pagar la cuota.</p></div>');
     }
 
@@ -158,9 +191,9 @@
       pan.innerHTML =
         '<div class="ows-pago">' +
         '<div class="ows-info">' +
-        '<div class="k">' + (p.primera ? 'PRIMERA CUOTA · INCLUYE REMERA' : 'CUOTA DEL MES') + '</div>' +
+        '<div class="k">' + (p.primera ? (p.remera ? 'PRIMERA CUOTA · INCLUYE REMERA' : 'PRIMERA CUOTA') : 'CUOTA DEL MES') + '</div>' +
         '<div class="t">' + plata(p.monto) + '</div>' +
-        '<p class="d"><b>' + esc(p.nombre) + '</b><br>Socio Open Water · cuota de <b>' + esc(p.mes) + '</b><br>' + (p.primera ? 'Tu ficha ya quedó guardada. Solo falta el pago.' : '') + '</p>' +
+        '<p class="d"><b>' + esc(p.nombre) + '</b><br>' + esc(p.cond === 'socio' ? 'Socio' : 'No socio') + ' · ' + esc(p.mod === 'rio' ? 'Solo aguas abiertas' : 'Pileta + aguas abiertas') + '<br>Cuota de <b>' + esc(p.mes) + '</b><br>' + (p.primera ? 'Tu ficha ya quedó guardada. Solo falta el pago.' : '') + '</p>' +
         '<a class="ows-btn mp" href="' + esc(p.link) + '" target="_blank" rel="noopener">PAGAR CON MERCADO PAGO</a>' +
         '<div class="ows-st" id="ows-st"><span class="ows-dot"></span><span>Esperando el pago… Cuando se acredite, esta pantalla se actualiza sola.</span></div>' +
         '</div>' +
@@ -191,18 +224,18 @@
       var f = faltante();
       if (f) { mostrarHint(f); var el = $(f[0]); if (el) { try { el.scrollIntoView({behavior: 'smooth', block: 'center'}); } catch (e) {} if (el.focus && el.tagName === 'INPUT') el.focus(); } return; }
       hint.style.display = 'none'; out.innerHTML = '';
-      var datos = {accion: 'socioAlta', evento: 'socio', nombre: val('#ows-nom'), dni: val('#ows-dni').replace(/\D/g, ''), nacimiento: $('#ows-nac').value, whatsapp: val('#ows-wa'), email: val('#ows-mail'), ciudad: val('#ows-ciu'), talle: radio('ows-talle'), entrenamiento: radio('ows-ent'), terminos: true};
+      var datos = {accion: 'socioAlta', evento: 'socio', nombre: val('#ows-nom'), apellido: val('#ows-ape'), dni: val('#ows-dni').replace(/\D/g, ''), cuil: val('#ows-cuil').replace(/\D/g, ''), nacimiento: $('#ows-nac').value, whatsapp: val('#ows-wa'), email: val('#ows-mail'), condicion: radio('ows-cond'), modalidad: radio('ows-mod'), talle: radio('ows-cond') === 'socio' ? radio('ows-talle') : '', terminos: true};
       go.disabled = true; go.textContent = 'GUARDANDO…';
       post(datos).then(function (j) {
-        go.disabled = false; go.textContent = 'ENVIAR FICHA Y PAGAR ' + plata(PRECIO);
+        go.disabled = false; refrescar();
         if (!j || !j.ok) return error((j && j.error) || 'No se pudo enviar la ficha. Probá de nuevo en un rato o escribinos a openwaterrionegro@gmail.com.');
         if (j.yaPagado) return ya(j);
-        var p = {ref: j.ref, link: j.link, monto: j.monto, nombre: datos.nombre, mes: j.mes, primera: !!j.primera, talle: datos.talle, nSocio: j.nSocio};
+        var p = {ref: j.ref, link: j.link, monto: j.monto, nombre: datos.nombre + ' ' + datos.apellido, mes: j.mes, primera: !!j.primera, remera: !!j.remera, cond: datos.condicion, mod: datos.modalidad, talle: datos.talle, nSocio: j.nSocio};
         ls(LS, JSON.stringify(p));
         pantallaPago(p);
         try { host.scrollIntoView({behavior: 'smooth', block: 'start'}); } catch (e) {}
       }).catch(function () {
-        go.disabled = false; go.textContent = 'ENVIAR FICHA Y PAGAR ' + plata(PRECIO);
+        go.disabled = false; refrescar();
         error('No hay conexión con el servidor. Revisá tu internet y probá de nuevo.');
       });
     });
