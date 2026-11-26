@@ -37,6 +37,7 @@
       <button onClick="{{ verSummerBtn }}" style="{{ stSummer }}">Clasificador · Summer Open Water 2027</button>
       <button onClick="{{ verEclipseBtn }}" style="{{ stEclipse }}">Clasificador · OWeclipse 2027</button>
       <button onClick="{{ verCuponesBtn }}" style="{{ stCupones }}">Cupones de descuento</button>
+      <button onClick="{{ verSociosBtn }}" style="{{ stSocios }}">Socios de OW</button>
       <a href="seguro-summer.html" target="_blank" rel="noopener" onClick="{{ abrirCrono }}" style="text-decoration:none;cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;background:transparent;color:#5ACBE0;border:1px solid #5ACBE0;">🛟 Seguro · lista de inscriptos Summer</a>
     </div>
 
@@ -245,6 +246,113 @@
       </div>
     </div>
     </sc-if>
+    <sc-if value="{{ verSocios }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1100px;margin:0 auto;padding:0 14px;">
+      <div style="margin-top:36px;background:#0a2438;border:1px solid #16455f;border-radius:12px;padding:18px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.05em;">SOCIOS DE OPEN WATER</div>
+        <p style="color:#a9c6d6;font-size:14px;margin:2px 0 14px;max-width:760px;">Lista que se arma sola con cada ficha de «Nada con OW» (misma información que la pestaña «Socios» de la planilla). «Pagó el mes» se cuenta sobre el mes actual: <b>{{ soMes }}</b>.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;">
+          <div style="background:#10303f;border:1px solid #16455f;border-radius:10px;padding:10px 14px;"><div style="font:800 26px 'Barlow',sans-serif;color:#fff;">{{ soTot }}</div><div style="font-size:12px;color:#a9c6d6;">inscriptos</div></div>
+          <div style="background:#10303f;border:1px solid #16455f;border-radius:10px;padding:10px 14px;"><div style="font:800 26px 'Barlow',sans-serif;color:#c9a24d;">{{ soSocios }}</div><div style="font-size:12px;color:#a9c6d6;">socios</div></div>
+          <div style="background:#10303f;border:1px solid #16455f;border-radius:10px;padding:10px 14px;"><div style="font:800 26px 'Barlow',sans-serif;color:#7dd3fc;">{{ soNoSocios }}</div><div style="font-size:12px;color:#a9c6d6;">no socios</div></div>
+          <div style="background:#10303f;border:1px solid #16455f;border-radius:10px;padding:10px 14px;"><div style="font:800 26px 'Barlow',sans-serif;color:#86efac;">{{ soAlDia }}</div><div style="font-size:12px;color:#a9c6d6;">pagaron el mes</div></div>
+          <div style="background:#10303f;border:1px solid #16455f;border-radius:10px;padding:10px 14px;"><div style="font:800 26px 'Barlow',sans-serif;color:#ffd58a;">{{ soCobrado }}</div><div style="font-size:12px;color:#a9c6d6;">cobrado en el mes</div></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;">
+          <label style="font-size:13px;color:#a9c6d6;flex:1 1 200px;">Buscar (nombre, DNI, mail)<input value="{{ soQ }}" onInput="{{ onSoQ }}" placeholder="Escribí para filtrar" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <label style="font-size:13px;color:#a9c6d6;flex:1 1 200px;">Mostrar
+            <select value="{{ soFiltro }}" onChange="{{ onSoFiltro }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="todos">Todos</option>
+              <option value="socio">Solo socios</option>
+              <option value="nosocio">Solo no socios</option>
+              <option value="alDia">Pagaron el mes</option>
+              <option value="debe">No pagaron el mes</option>
+              <option value="pendiente">Pendientes de primer pago</option>
+              <option value="remera">Socios sin remera entregada</option>
+            </select>
+          </label>
+          <button onClick="{{ soCargar }}" style="background:transparent;color:#7dd3fc;border:1px solid #38bdf8;border-radius:9px;padding:11px 16px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">↻ Actualizar</button>
+          <button onClick="{{ soExcel }}" style="background:#86efac;color:#052e16;border:0;border-radius:9px;padding:12px 16px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">⬇ Descargar Excel</button>
+          <button onClick="{{ soPlanilla }}" style="background:transparent;color:#c9a24d;border:1px solid #c9a24d;border-radius:9px;padding:11px 16px;font:800 14px 'Barlow',sans-serif;cursor:pointer;">Abrir planilla ↗</button>
+        </div>
+        <div style="color:#ffd58a;font-weight:600;margin:12px 0 4px;min-height:20px;">{{ soMsg }}</div>
+        <sc-if value="{{ soEditando }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:10px 0 14px;background:#0f3550;border:1px solid #c9a24d;border-radius:12px;padding:16px;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.05em;color:#c9a24d;">EDITAR SOCIO · DNI {{ soEdDni }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:8px;">
+          <label style="font-size:13px;color:#a9c6d6;">Nombre<input type="text" value="{{ ed_nombre }}" onInput="{{ onEd_nombre }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <label style="font-size:13px;color:#a9c6d6;">Apellido<input type="text" value="{{ ed_apellido }}" onInput="{{ onEd_apellido }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <label style="font-size:13px;color:#a9c6d6;">CUIL (11 números)<input type="text" value="{{ ed_cuil }}" onInput="{{ onEd_cuil }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <label style="font-size:13px;color:#a9c6d6;">Fecha de nacimiento<input type="date" value="{{ ed_nacimiento }}" onInput="{{ onEd_nacimiento }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <label style="font-size:13px;color:#a9c6d6;">WhatsApp<input type="text" value="{{ ed_whatsapp }}" onInput="{{ onEd_whatsapp }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <label style="font-size:13px;color:#a9c6d6;">Email<input type="email" value="{{ ed_email }}" onInput="{{ onEd_email }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          <label style="font-size:13px;color:#a9c6d6;">Condición
+            <select value="{{ ed_condicion }}" onChange="{{ onEd_condicion }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="socio">Socio</option>
+              <option value="nosocio">No socio</option>
+            </select>
+          </label>
+          <label style="font-size:13px;color:#a9c6d6;">Modalidad
+            <select value="{{ ed_modalidad }}" onChange="{{ onEd_modalidad }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="pileta">Pileta + aguas abiertas</option>
+              <option value="rio">Solo aguas abiertas</option>
+            </select>
+          </label>
+          <label style="font-size:13px;color:#a9c6d6;">Talle de remera (solo socios)
+            <select value="{{ ed_talle }}" onChange="{{ onEd_talle }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="">—</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+            </select>
+          </label>
+          <label style="font-size:13px;color:#a9c6d6;">Estado
+            <select value="{{ ed_estado }}" onChange="{{ onEd_estado }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="Activo">Activo</option>
+              <option value="Pendiente de pago">Pendiente de pago</option>
+              <option value="Baja">Baja</option>
+            </select>
+          </label>
+          <label style="font-size:13px;color:#a9c6d6;">Remera entregada
+            <select value="{{ ed_remera }}" onChange="{{ onEd_remera }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;">
+              <option value="">—</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+            </select>
+          </label>
+          <label style="font-size:13px;color:#a9c6d6;">Notas<input type="text" value="{{ ed_notas }}" onInput="{{ onEd_notas }}" style="display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border-radius:8px;border:1px solid #3b5a6b;background:#10303f;color:#fff;font:600 14px 'Barlow',sans-serif;"></label>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px;">
+            <button onClick="{{ soGuardar }}" style="background:#86efac;color:#052e16;border:0;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Guardar cambios</button>
+            <button onClick="{{ soCancelar }}" style="background:transparent;color:#a9c6d6;border:1px solid #3b5a6b;border-radius:9px;padding:12px 18px;font:800 15px 'Barlow',sans-serif;cursor:pointer;">Cancelar</button>
+            <span style="color:#ffd58a;font-weight:600;">{{ soEdMsg }}</span>
+          </div>
+          <div style="color:#a9c6d6;font-size:12px;margin-top:8px;">El DNI no se cambia desde acá (es lo que une la ficha con sus pagos). «Baja» deja de enviarle recordatorios mensuales. El cambio de condición o modalidad vale para las cuotas que se generen desde ahora.</div>
+        </div>
+        </sc-if>
+        <sc-for list="{{ soTablas }}" as="g" hint-placeholder-count="0">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid #16455f;border-radius:10px;">
+          <table style="width:100%;border-collapse:collapse;font-size:13px;min-width:980px;">
+            <thead><tr style="background:#0f3550;text-align:left;color:#a9c6d6;text-transform:uppercase;font-size:11px;letter-spacing:.04em;">
+              <sc-for list="{{ g.heads }}" as="h" hint-placeholder-count="0"><th style="padding:9px 12px;">{{ h }}</th></sc-for>
+            </tr></thead>
+            <tbody>
+              <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="0">
+                <tr style="border-top:1px solid #16455f;">
+                  <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="0"><td style="padding:8px 12px;{{ c.st }}">{{ c.v }}</td></sc-for>
+                  <td style="padding:8px 12px;"><button onClick="{{ r.edit }}" style="background:#c9a24d;color:#1b1405;border:0;border-radius:7px;padding:6px 12px;font:800 12px 'Barlow',sans-serif;cursor:pointer;">✎ Editar</button></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
   </sc-if>
 </div>
 </x-dc>
@@ -253,7 +361,7 @@ class Component extends DCLogic {
   static T5_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHgr5X2OhmL9Vc2B1WRXMK2iMLp2DV0PJObVQVLEX4r0VTRCA-2iMElq_nyChlInVVWMWfiTD717vz/pub?output=csv';
   static ET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSM0m6la5kw-CtnL6Xe5Yy2GMFJyrTAq2GQzCR24maohzwDsNwfXllU_Q1wOX2941TIi8Qr36jjolXp/pub?output=csv';
   static T10_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQsvrGuJociaZAOtCQ9KvpIlmHTJ4vqH2YKbAIyuE6czWurUH1NDnBhXmNTtwAYoL0hwTJEmapelsrm/pub?output=csv';
-  state = { sPublicado: null, ePublicado: null, seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
+  state = { soEd: null, soEdMsg: '', soPlanilla: '', soList: [], soMsg: '', soMes: '', soCobrado: 0, soQ: '', soFiltro: 'todos', sPublicado: null, ePublicado: null, seccion: 'summer', sInsc: [], sT5: [], sT10: [], sLarg5: '', sLarg10: '', sUrl5: Component.T5_URL, sUrl10: Component.T10_URL, sInscInfo: '', sInfo5: '', sInfo10: '', sMsg: '', sGroups: [], cTipo: 'summer', cNombre: '', cEmail: '', cUsos: '', cMsg: '', cCodigo: '', cLista: [], largada: '10:45:00', insc: [], tiem: [], manual: false, inscInfo: '', tiemInfo: '', unlocked: false, pin: '', pinErr: '', ev: 'OWeclipse 2027 · 2.5K', modo: 'eclipse', text: '', msg: '', groups: [] };
   componentDidMount() { try { sessionStorage.removeItem('ow-privado'); } catch (e) {} }
   norm(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim(); }
   tsec(v) {
@@ -399,6 +507,50 @@ class Component extends DCLogic {
       if (!r.ok) { this.setState({ cMsg: this.cErr(r) }); return; }
       this.setState({ cCodigo: r.codigo, cNombre: '', cEmail: '', cUsos: '', cMsg: w ? (s.cEmail.trim() ? (r.enviado ? 'Cup\u00f3n generado y enviado por mail.' : 'Cup\u00f3n generado; no se pudo enviar el mail.') : 'Cup\u00f3n generado (sin email: envialo vos).') : 'Cup\u00f3n generado.' }); this.listarCup();
     }).catch(() => this.setState({ cMsg: 'No se pudo generar.' }));
+  };
+  soCargar = () => {
+    this.setState({ soMsg: 'Leyendo la lista de socios…' });
+    this.post({ accion: 'sociosListar' }).then(r => {
+      if (!r.ok) throw new Error(r.error || 'error');
+      this.setState({ soList: r.socios, soPlanilla: r.planilla, soMes: r.mes, soCobrado: r.cobradoMes, soMsg: r.socios.length ? '' : 'Todavía no hay socios inscriptos.' });
+    }).catch(err => this.setState({ soMsg: 'No se pudo leer la lista: ' + (err && err.message ? err.message : err) + '. ¿Pegaste la nueva versión del Apps Script y la implementaste como «Nueva versión»?' }));
+  };
+  soAbrir = x => {
+    const m = String(x.nacimiento || '').match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    this.setState({ soEdMsg: '', soEd: { dni: x.dni, nombre: x.nombre, apellido: x.apellido, cuil: x.cuil, nacimiento: m ? m[3] + '-' + m[2] + '-' + m[1] : '', whatsapp: x.whatsapp, email: x.email, condicion: x.cond === 'Socio' ? 'socio' : 'nosocio', modalidad: /^Solo/.test(x.mod) ? 'rio' : 'pileta', talle: x.talle || '', estado: x.estado || 'Pendiente de pago', remera: x.remera || '', notas: x.notas || '' } });
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+  };
+  soGuardar = () => {
+    const e = this.state.soEd; if (!e) return;
+    this.setState({ soEdMsg: 'Guardando…' });
+    this.post(Object.assign({ accion: 'socioEditar' }, e)).then(r => {
+      if (!r.ok) { this.setState({ soEdMsg: r.error || 'No se pudo guardar.' }); return; }
+      this.setState({ soEd: null, soEdMsg: '', soMsg: 'Cambios guardados.' }); this.soCargar();
+    }).catch(() => this.setState({ soEdMsg: 'No se pudo guardar. ¿Pegaste la nueva versión del Apps Script y la implementaste como «Nueva versión»?' }));
+  };
+  soFiltrados() {
+    const s = this.state, q = this.norm(s.soQ), f = s.soFiltro;
+    return (s.soList || []).filter(x => {
+      if (q && !this.norm([x.nombre, x.apellido, x.dni, x.email, x.whatsapp].join(' ')).includes(q)) return false;
+      if (f === 'socio') return x.cond === 'Socio';
+      if (f === 'nosocio') return x.cond !== 'Socio';
+      if (f === 'alDia') return x.alDia;
+      if (f === 'debe') return !x.alDia;
+      if (f === 'pendiente') return /pendiente/i.test(x.estado);
+      if (f === 'remera') return x.cond === 'Socio' && !/^s/i.test(x.remera) && !/pendiente/i.test(x.estado);
+      return true;
+    });
+  }
+  soExcel = () => {
+    const rows = this.soFiltrados(); if (!rows.length) { this.setState({ soMsg: 'No hay filas para descargar.' }); return; }
+    const data = rows.map(x => ({ 'N°': x.n, 'Fecha de alta': x.alta, 'Nombre': x.nombre, 'Apellido': x.apellido, 'DNI': x.dni, 'CUIL': x.cuil, 'Fecha de nacimiento': x.nacimiento, 'Edad': x.edad, 'WhatsApp': x.whatsapp, 'Email': x.email, 'Condición': x.cond, 'Modalidad': x.mod, 'Talle': x.talle, 'Estado': x.estado, 'Último mes pagado': x.ultimo, 'Pagó el mes actual': x.alDia ? 'Sí' : 'No', 'Remera entregada': x.remera, 'Notas': x.notas }));
+    try {
+      const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(data), 'Socios'); XLSX.writeFile(wb, 'socios-open-water.xlsx');
+    } catch (e) {
+      const k = Object.keys(data[0]), q = v => '"' + String(v).replace(/"/g, '""') + '"';
+      const csv = '\ufeff' + [k.map(q).join(';')].concat(data.map(r => k.map(c => q(r[c])).join(';'))).join('\r\n');
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'socios-open-water.csv'; a.click();
+    }
   };
   listarCup = () => {
     this.post({ accion: 'listarCupones', evento: this.state.cTipo }).then(r => this.setState(r.ok ? { cLista: r.cupones.map(c => ({ codigo: c.codigo, grupo: String(c.grupo), usados: c.usados, usos: c.usos })) } : { cMsg: this.cErr(r) })).catch(() => this.setState({ cMsg: 'No se pudo cargar.' }));
@@ -599,6 +751,12 @@ class Component extends DCLogic {
       locked: !s.unlocked, unlocked: s.unlocked, pin: s.pin, pinErr: s.pinErr, ev: s.ev, modo: s.modo, text: s.text, msg: s.msg, groups: s.groups,
       onPin: e => this.setState({ pin: e.target.value }), onPinKey: e => { if (e.key === 'Enter') this.unlock(); },
       onEv: e => this.setState({ ev: e.target.value }), onModo: e => this.setState({ modo: e.target.value }), onText: e => this.setState({ text: e.target.value, manual: true }), inscInfo: s.inscInfo, tiemInfo: s.tiemInfo, cTipo: s.cTipo, onCTipo: e => this.setState({ cTipo: e.target.value, cLista: [], cCodigo: '', cMsg: '' }), cNombre: s.cNombre, onCNombre: e => this.setState({ cNombre: e.target.value }), cEmail: s.cEmail, onCEmail: e => this.setState({ cEmail: e.target.value }), cUsos: s.cUsos, onCUsos: e => this.setState({ cUsos: e.target.value }), cMsg: s.cMsg, cCodigo: s.cCodigo, cLista: s.cLista, cEsWinter: s.cTipo === 'winter', cEsEquipo: s.cTipo !== 'winter', cUsosLbl: 'Cantidad de nadadores (usos permitidos del c\u00f3digo)', cNombreLbl: s.cTipo === 'winter' ? 'Nombre del nadador' : 'Equipo (igual a \u00abClub o equipo\u00bb de la ficha)', generarCup: this.generarCup, listarCup: this.listarCup, onTiempos: this.onTiempos, largada: s.largada, onLargada: e => this.setState({ largada: e.target.value }), plantilla: this.plantilla,
+      verSocios: s.seccion === 'socios', verSociosBtn: () => { this.setState({ seccion: 'socios' }); this.soCargar(); }, stSocios: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'socios' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
+      soEditando: !!s.soEd, soEdDni: s.soEd ? s.soEd.dni : '', soEdMsg: s.soEdMsg, soGuardar: this.soGuardar, soCancelar: () => this.setState({ soEd: null, soEdMsg: '' }), soPlanilla: () => { if (s.soPlanilla) window.open(s.soPlanilla, '_blank'); else this.setState({ soMsg: 'Apretá primero «Actualizar» para obtener el enlace de la planilla.' }); },
+      ...Object.fromEntries(['nombre', 'apellido', 'cuil', 'nacimiento', 'whatsapp', 'email', 'condicion', 'modalidad', 'talle', 'estado', 'remera', 'notas'].flatMap(k => [['ed_' + k, s.soEd ? s.soEd[k] : ''], ['onEd_' + k, e => this.setState({ soEd: Object.assign({}, this.state.soEd, { [k]: e.target.value }) })]])),
+      soMsg: s.soMsg, soMes: s.soMes || '…', soQ: s.soQ, onSoQ: e => this.setState({ soQ: e.target.value }), soFiltro: s.soFiltro, onSoFiltro: e => this.setState({ soFiltro: e.target.value }), soCargar: this.soCargar, soExcel: this.soExcel, soPad: '14px',
+      soTot: (s.soList || []).length, soSocios: (s.soList || []).filter(x => x.cond === 'Socio').length, soNoSocios: (s.soList || []).filter(x => x.cond !== 'Socio').length, soAlDia: (s.soList || []).filter(x => x.alDia).length, soCobrado: '$' + Number(s.soCobrado || 0).toLocaleString('es-AR'),
+      soTablas: [{ heads: ['N°', 'Nombre y apellido', 'DNI', 'Condición', 'Modalidad', 'Talle', 'Estado', 'Último mes pagado', 'Mes actual', 'Remera', 'WhatsApp', 'Email', ''], rows: this.soFiltrados().map(x => ({ cells: [{ v: x.n }, { v: (x.nombre + ' ' + x.apellido).trim(), st: 'font-weight:700;' }, { v: x.dni }, { v: x.cond, st: x.cond === 'Socio' ? 'color:#c9a24d;font-weight:700;' : 'color:#7dd3fc;' }, { v: x.mod }, { v: x.talle || '—' }, { v: x.estado, st: /pendiente/i.test(x.estado) ? 'color:#ffd58a;' : 'color:#86efac;' }, { v: x.ultimo || '—' }, { v: x.alDia ? '✔ Pagó' : '✖ No pagó', st: x.alDia ? 'color:#86efac;font-weight:700;' : 'color:#ff9a90;' }, { v: x.cond === 'Socio' ? (x.remera || '—') : 'no corresponde', st: 'color:#a9c6d6;' }, { v: x.whatsapp }, { v: x.email, st: 'color:#a9c6d6;' }], edit: () => this.soAbrir(x) })) }],
       verSummer: s.seccion === 'summer', verEclipse: s.seccion === 'eclipse', verCupones: s.seccion === 'cupones', verCuponesBtn: () => this.setState({ seccion: 'cupones' }), stCupones: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'cupones' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
       verSummerBtn: () => this.setState({ seccion: 'summer' }), verEclipseBtn: () => this.setState({ seccion: 'eclipse' }),
       stSummer: 'cursor:pointer;border-radius:999px;padding:10px 18px;font:800 14px Barlow,sans-serif;border:1px solid #c9a24d;' + (s.seccion === 'summer' ? 'background:#c9a24d;color:#1b1405;' : 'background:transparent;color:#c9a24d;'),
