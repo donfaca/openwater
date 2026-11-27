@@ -68,6 +68,16 @@
     '.ows-planes input:checked+span{background:linear-gradient(135deg,#1BCCCE,#10B3BD);border-color:#1BCCCE;color:#04212e}' +
     '.ows-planes input:checked+span em,.ows-planes input:checked+span small{color:#06394b}.ows-planes input:checked+span b{color:#04212e}' +
     '.ows-planes input:focus-visible+span{outline:3px solid #fff;outline-offset:2px}' +
+    '.ows-planes label.ows-s span{background:#d8f3dc;border-color:#74c69d;color:#0b3d20}' +
+    '.ows-planes label.ows-s em{color:#1b7a43}.ows-planes label.ows-s b{color:#0b3d20}.ows-planes label.ows-s small{color:#2d5a3f}' +
+    '.ows-planes label.ows-s:hover span{border-color:#2d9d5f}' +
+    '.ows-planes label.ows-s input:checked+span{background:#b7e4c7;border-color:#14633a;box-shadow:0 0 0 3px #14633a;color:#0b3d20}' +
+    '.ows-planes label.ows-s input:checked+span em{color:#14633a}.ows-planes label.ows-s input:checked+span b{color:#0b3d20}.ows-planes label.ows-s input:checked+span small{color:#1f4a31}' +
+    '.ows-planes label.ows-n span{background:#a94a0e;border-color:#d9742c;color:#fff}' +
+    '.ows-planes label.ows-n em{color:#ffd9b8}.ows-planes label.ows-n b{color:#fff}.ows-planes label.ows-n small{color:#fff0e0}' +
+    '.ows-planes label.ows-n:hover span{border-color:#ffb27a}' +
+    '.ows-planes label.ows-n input:checked+span{background:#8c3a08;border-color:#fff;box-shadow:0 0 0 3px #d9742c;color:#fff}' +
+    '.ows-planes label.ows-n input:checked+span em{color:#ffd9b8}.ows-planes label.ows-n input:checked+span b{color:#fff}.ows-planes label.ows-n input:checked+span small{color:#fff0e0}' +
     '.ows-ch{display:flex;gap:9px;flex-wrap:wrap}' +
     '.ows-ch label{cursor:pointer;margin:0;flex:0 0 auto}' +
     '.ows-ch.dos label{flex:1 1 200px}' +
@@ -118,14 +128,14 @@
       '<div class="ows-k">NADA CON OW</div><h3 class="ows-h">INSCRIPCIÓN Y PAGO DE LA CUOTA</h3>' +
       '<p class="ows-sub">Elegí tu opción, completá tu ficha y pagá con Mercado Pago. Si ya sos socio, completá tus datos igual: te reconocemos por el DNI y pagás el mes que elijas.</p>' +
       '<div class="ows-i0"><p>Pensado para nuestros nadadores y para la gente de Viedma que nos conoce y se quiere sumar.</p>' +
-      '<div class="ows-i1"><span class="ic">🌊</span><span>Asociarte es lo que te permite nadar con nosotros en las salidas al río. Sin ser socio no se participa de las salidas.</span></div>' +
+      '<div class="ows-i1"><span class="ic">🌊</span><span>Llená la ficha (obligatorio) para nadar asegurado por OW en las salidas al río.</span></div>' +
       '<div class="ows-i2"><span class="ic p">+</span><span>La primera cuota incluye la <b>remera oficial</b> de Open Water Río Negro (solo socios). Además, los socios tienen descuentos en las competencias de Open Water.</span></div></div>' +
       '<div class="ows-g">' +
       '<div class="ows-f full">Elegí tu opción de cuota <span style="text-transform:none;letter-spacing:0;font-weight:500;color:#a9c6d6;">(tocá la que quieras)</span><div class="ows-planes" id="ows-planes">' +
-      '<label><input type="radio" name="ows-plan" value="socio:pileta"><span><em>SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIOS.socio.pileta) + '</b><small>por mes · Con remera de regalo en la 1ª cuota</small></span></label>' +
-      '<label><input type="radio" name="ows-plan" value="socio:rio"><span><em>SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIOS.socio.rio) + '</b><small>por mes · Con remera de regalo en la 1ª cuota</small></span></label>' +
-      '<label><input type="radio" name="ows-plan" value="nosocio:pileta"><span><em>NO SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIOS.nosocio.pileta) + '</b><small>por mes · Sin remera</small></span></label>' +
-      '<label><input type="radio" name="ows-plan" value="nosocio:rio"><span><em>NO SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIOS.nosocio.rio) + '</b><small>por mes · Sin remera</small></span></label>' +
+      '<label class="ows-s"><input type="radio" name="ows-plan" value="socio:pileta"><span><em>SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIOS.socio.pileta) + '</b><small>por mes · Con remera de regalo al asociarte</small></span></label>' +
+      '<label class="ows-s"><input type="radio" name="ows-plan" value="socio:rio"><span><em>SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIOS.socio.rio) + '</b><small>por mes · Con remera de regalo al asociarte</small></span></label>' +
+      '<label class="ows-n"><input type="radio" name="ows-plan" value="nosocio:pileta"><span><em>NO SOCIO</em><strong>Pileta + aguas abiertas</strong><b>' + plata(PRECIOS.nosocio.pileta) + '</b><small>por mes · Sin remera</small></span></label>' +
+      '<label class="ows-n"><input type="radio" name="ows-plan" value="nosocio:rio"><span><em>NO SOCIO</em><strong>Solo aguas abiertas</strong><b>' + plata(PRECIOS.nosocio.rio) + '</b><small>por mes · Sin remera</small></span></label>' +
       '</div></div>' +
       '<label class="ows-f full">Mes que vas a pagar<select id="ows-mes">' + opcionesMes() + '</select></label>' +
       '<label class="ows-f">Nombre<input type="text" id="ows-nom" autocomplete="given-name" maxlength="60" placeholder="Tu nombre"></label>' +
